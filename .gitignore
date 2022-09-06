@@ -1,0 +1,5 @@
+*.pyc
+x509up
+data
+correctionlib*
+docs/build
