@@ -1,4 +1,5 @@
 *.pyc
+*/*.pyc
 x509up
 data
 correctionlib*
