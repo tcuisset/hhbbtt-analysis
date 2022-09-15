@@ -5,9 +5,9 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from config.base_config import Config as base_config
-from cmt.config.ul_2018 import Config_ul_2018
+from cmt.config.ul_2018 import Config_ul_2018 as cmt_ul_2018
 
-class Config_ul_2018(base_config, Config_ul_2018):
+class Config_ul_2018(base_config, cmt_ul_2018):
     def __init__(self, *args, **kwargs):
         super(Config_ul_2018, self).__init__(*args, **kwargs)
 
