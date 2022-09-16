@@ -1,5 +1,6 @@
 drop HLT.
 drop L1.
+keep L1PreFiringWeight.
 drop HTXS.
 drop Flag.
 drop TrigObj.

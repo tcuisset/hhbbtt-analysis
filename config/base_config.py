@@ -93,23 +93,23 @@ class Config(cmt_config):
             not_mm=[df(1, "<", "medium"), df(2, "<", "medium")],
         )
 
-        _excl_vbf_loose_nob = ["[VBFjj_mass] > 500", "abs([VBFjj_deltaEta]) > 3",
+        _excl_vbf_loose_nob = ["{VBFjj_mass} > 500", "abs({VBFjj_deltaEta}) > 3",
             "isVBFtrigger == 0"]
         _excl_vbf_loose = _excl_vbf_loose_nob + sel.btag.m_any
         _excl_non_vbf_loose = ["!" + jrs(_excl_vbf_loose, op="and")]
-        
-        _excl_vbf_tight_nob = ["[VBFjet1_pt] > 140", "[VBFjet2_pt] > 60", "[VBFjj_mass] > 800",
-            "abs([VBFjj_deltaEta]) > 3", "isVBFtrigger == 1"]
+
+        _excl_vbf_tight_nob = ["{VBFjet1_pt} > 140", "{VBFjet2_pt} > 60", "{VBFjj_mass} > 800",
+            "abs({VBFjj_deltaEta}) > 3", "isVBFtrigger == 1"]
         _excl_vbf_tight = _excl_vbf_tight_nob + sel.btag.m_any
         _excl_non_vbf_tight = ["!" + jrs(_excl_vbf_tight, op="and")]
 
         _excl_non_vbf = ["!" + jrs(jrs(_excl_vbf_loose, op="and"), jrs(_excl_vbf_tight, op="and"),
             op="or")]
 
-        mass_ellipse_sel = ["(([Htt_svfit_mass] - 129.) * ([Htt_svfit_mass] - 129.)/ (53. * 53.)"
-            " + ([Hbb_mass] - 169.) * ([Hbb_mass] - 169.) / (145. * 145.)) < 1"]
+        mass_ellipse_sel = ["(({Htt_svfit_mass} - 129.) * ({Htt_svfit_mass} - 129.)/ (53. * 53.)"
+            " + ({Hbb_mass} - 169.) * ({Hbb_mass} - 169.) / (145. * 145.)) < 1"]
         mass_boost_sel = ["(([Htt_svfit_mass] - 128.) * ([Htt_svfit_mass] - 128.) / (60. * 60.)"
-            " + ([Hbb_mass] - 159.) * ([Hbb_mass] - 159.) / (94. * 94.)) < 1"]
+            " + ({Hbb_mass} - 159.) * ({Hbb_mass} - 159.) / (94. * 94.)) < 1"]
         sel["resolved_1b"] = DotDict({
             ch: (sel.btag.m + mass_ellipse_sel + ["isBoosted != 1"]
                 + _excl_non_vbf_loose)
@@ -286,6 +286,10 @@ class Config(cmt_config):
 
     def add_features(self):
         features = [
+            Feature("jet_pt", "Jet_pt", binning=(10, 50, 150),
+                x_title=Label("jet p_{t}"),
+                units="GeV"),
+
             # bjet features
             Feature("bjet1_pt", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
                 x_title=Label("b_{1} p_{t}"),
@@ -322,6 +326,7 @@ class Config(cmt_config):
                 x_title=Label("#tau_{1} p_{t}")),
             Feature("lep1_eta", "dau1_eta", binning=(20, -5., 5.),
                 x_title=Label("#tau_{1} #eta")),
+
             Feature("lep1_phi", "dau1_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("#tau_{1} #phi")),
             Feature("lep1_mass", "dau1_mass", binning=(10, 50, 150),
@@ -468,30 +473,48 @@ class Config(cmt_config):
             Feature("VBFjj_deltaPhi", "VBFjj_deltaPhi", binning=(40, -6.4, 6.4),
                 x_title=Label("#Delta#phi(VBFjj)"),
                 central="jet_smearing"),
+
+            # Weights
+            Feature("genWeight", "genWeight", binning=(20, 0, 2),
+                x_title=Label("genWeight")),
+            Feature("puWeight", "puWeight", binning=(20, 0, 2),
+                x_title=Label("puWeight")),
+            Feature("prescaleWeight", "prescaleWeight", binning=(20, 0, 2),
+                x_title=Label("prescaleWeight")),
+            Feature("trigSF", "trigSF", binning=(20, 0, 2),
+                x_title=Label("trigSF")),
+            Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(20, 0, 2),
+                x_title=Label("L1PreFiringWeight"),
+                central="prefiring",
+                systematics=["prefiring_syst"]),
+            Feature("PUjetID_SF", "PUjetID_SF", binning=(20, 0, 2),
+                x_title=Label("PUjetID_SF")),
+
         ]
         return ObjectCollection(features)
 
     def add_weights(self):
         weights = DotDict()
         weights.default = "1"
+
         # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
         weights.total_events_weights = ["genWeight", "puWeight"]
-        weights.channels = {
-            "mutau": ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-                "L1PreFiringWeight_Nom", "PUjetID_SF"
-            ],
-            # "DYscale_MTT"],
-        }
-        weights.channels["etau"] = weights.channels["mutau"]
-        weights.channels["tautau"] = weights.channels["mutau"]
 
-        weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
-            for channel in weights.channels}
+        weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
+            "L1PreFiringWeight", "PUjetID_SF"]
+
+        weights.etau = weights.mutau
+        weights.tautau = weights.mutau
+
+        # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
+            # for channel in weights.channels}
         return weights
 
     def add_systematics(self):
         systematics = [
             Systematic("jet_smearing", "_nom"),
+            Systematic("prefiring", "_Nom"),
+            Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
             Systematic("empty", "", up="", down="")
         ]
         return ObjectCollection(systematics)
