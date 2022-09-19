@@ -64,97 +64,146 @@ met_smearing:
         isMC: self.dataset.process.isMC
 
 
-# hhjets:
-    # name: HHJetsRDF
-    # path: Tools.Tools.HHJets
+jec:
+    name: jecProviderRDF
+    path: Base.Modules.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
+            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+
+hhjets:
+    name: HHJetsRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        met_smear_tag: smeared
+        filter: True
+
+# bjet1var:
+    # name: VarFromVectorRDF
+    # path: Base.Modules.baseModules
+    # parameters:
+        # variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
+        # index: bjet1_JetIdx
+        # input_prefix: Jet
+        # output_prefix: bjet1
+
+# bjet2var:
+    # name: VarFromVectorRDF
+    # path: Base.Modules.baseModules
+    # parameters:
+        # variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
+        # index: bjet2_JetIdx
+        # input_prefix: Jet
+        # output_prefix: bjet2
+
+# jecb1:
+    # name: jecProviderRDF
+    # path: Base.Modules.jec
     # parameters:
         # year: self.config.year
         # isMC: self.dataset.process.isMC
         # isUL: self.dataset.has_tag('ul')
-        # met_smear_tag: smeared
-        # filter: True
+        # pt: bjet1_pt_nom
+        # eta: bjet1_eta
+        # mass: bjet1_mass_nom
 
-
-# dyscaling:
-    # name: DYscalingRDF
-    # path: Tools.Tools.dyreweighting
-    # parameters:
-        # year: self.config.year
-        # isDY: self.dataset.process.get_aux('isDY', False)
-
-
-# svfit:
-    # name: SVFitRDF
-    # path: Tools.Tools.svfit
-    # parameters:
-        # isMC: self.dataset.process.isMC
-        # met_smear_tag: smeared
-
-
-# hh:
-    # name: HHKinFitRDF
-    # path: Tools.Tools.hh
-    # parameters:
-        # isMC: self.dataset.process.isMC
-        # met_smear_tag: smeared
-
-
-# hhvar:
-    # name: HHVarRDF
-    # path: Tools.Tools.hh
-    # parameters:
-        # isMC: self.dataset.process.isMC
-        # met_smear_tag: smeared
-
-
-# trigSF:
-    # name: Htt_trigSFRDF
-    # path: Tools.Tools.Htt_trigSF
+# jecb2:
+    # name: jecProviderRDF
+    # path: Base.Modules.jec
     # parameters:
         # year: self.config.year
         # isMC: self.dataset.process.isMC
         # isUL: self.dataset.has_tag('ul')
+        # pt: bjet2_pt_nom
+        # eta: bjet2_eta
+        # mass: bjet2_mass_nom
+
+dyscaling:
+    name: DYscalingRDF
+    path: Tools.Tools.dyreweighting
+    parameters:
+        year: self.config.year
+        isDY: self.dataset.process.get_aux('isDY', False)
 
 
-# PUjetID_SF:
-    # name: PUjetID_SFRDF
-    # path: Corrections.JME.PUjetID_SF
-    # parameters:
-        # year: self.config.year
-        # isMC: self.dataset.process.isMC
-        # isUL: self.dataset.has_tag('ul')
-
-# 3_w2:
-    # name: prescaleWeightRDF
-    # path: Tools.Tools.weight
-    # parameters:
-        # isMC: self.dataset.process.isMC
-        # year: self.config.year
+svfit:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
 
 
-# 4_w2:
-    # name: prefiringWeightRDF
-    # path: Base.Modules.prefiringWeight
-    # parameters:
-        # isMC: self.dataset.process.isMC
-        # isUL: self.dataset.has_tag('ul')
+hh:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
 
 
-# tauSF:
-    # name: tauSFRDF
-    # path: Corrections.TAU.tauCorrections
-    # parameters:
-        # isMC: self.dataset.process.isMC
-        # year: self.config.year
-        # isUL: self.dataset.has_tag('ul')
+hhvar:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
 
-# muSF:
-    # name: muSFRDF
-    # path: Corrections.MUO.muCorrections
-    # parameters:
-        # isMC: self.dataset.process.isMC
-        # year: self.config.year
-        # isUL: self.dataset.has_tag('ul')
+
+trigSF:
+    name: Htt_trigSFRDF
+    path: Tools.Tools.Htt_trigSF
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+
+
+PUjetID_SF:
+    name: PUjetID_SFRDF
+    path: Corrections.JME.PUjetID_SF
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+
+3_w2:
+    name: prescaleWeightRDF
+    path: Tools.Tools.weight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+
+4_w2:
+    name: prefiringWeightRDF
+    path: Base.Modules.prefiringWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+
+
+tauSF:
+    name: tauSFRDF
+    path: Corrections.TAU.tauCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+muSF:
+    name: muSFRDF
+    path: Corrections.MUO.muCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
 
 eleSD:
     name: eleSFRDF
@@ -165,11 +214,11 @@ eleSD:
         isUL: self.dataset.has_tag('ul')
 
 
-# idAndIsoSF:
-    # name: dauIdIsoSFRDF
-    # path: Tools.Tools.dauIdIso
-    # parameters:
-        # isMC: self.dataset.process.isMC
+idAndIsoSF:
+    name: dauIdIsoSFRDF
+    path: Tools.Tools.dauIdIso
+    parameters:
+        isMC: self.dataset.process.isMC
 
 
 btag:
