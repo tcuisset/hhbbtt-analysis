@@ -6,6 +6,7 @@ from collections import OrderedDict
 
 from cmt.config.base_config import Config as cmt_config
 
+
 class Config(cmt_config):
     def __init__(self, *args, **kwargs):
         # https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
@@ -108,7 +109,7 @@ class Config(cmt_config):
 
         mass_ellipse_sel = ["(({Htt_svfit_mass} - 129.) * ({Htt_svfit_mass} - 129.)/ (53. * 53.)"
             " + ({Hbb_mass} - 169.) * ({Hbb_mass} - 169.) / (145. * 145.)) < 1"]
-        mass_boost_sel = ["(([Htt_svfit_mass] - 128.) * ([Htt_svfit_mass] - 128.) / (60. * 60.)"
+        mass_boost_sel = ["(({Htt_svfit_mass} - 128.) * ({Htt_svfit_mass} - 128.) / (60. * 60.)"
             " + ({Hbb_mass} - 159.) * ({Hbb_mass} - 159.) / (94. * 94.)) < 1"]
         sel["resolved_1b"] = DotDict({
             ch: (sel.btag.m + mass_ellipse_sel + ["isBoosted != 1"]
