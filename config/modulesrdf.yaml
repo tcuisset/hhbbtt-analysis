@@ -42,7 +42,7 @@ hhleptonVar:
 
 jet_smearing:
     name: jetSmearerRDF
-    path: Base.Modules.smearing
+    path: Corrections.JME.smearing
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
@@ -52,21 +52,21 @@ jet_smearing:
 
 jet_smear_val:
     name: jetVarRDF
-    path: Base.Modules.smearing
+    path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
 
 
 met_smearing:
     name: metSmearerRDF
-    path: Base.Modules.smearing
+    path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
 
 
 jec:
     name: jecProviderRDF
-    path: Base.Modules.jec
+    path: Corrections.JME.jec
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
@@ -104,7 +104,7 @@ hhjets:
 
 # jecb1:
     # name: jecProviderRDF
-    # path: Base.Modules.jec
+    # path: Corrections.JME.jec
     # parameters:
         # year: self.config.year
         # isMC: self.dataset.process.isMC
@@ -115,7 +115,7 @@ hhjets:
 
 # jecb2:
     # name: jecProviderRDF
-    # path: Base.Modules.jec
+    # path: Corrections.JME.jec
     # parameters:
         # year: self.config.year
         # isMC: self.dataset.process.isMC
