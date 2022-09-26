@@ -1,3 +1,10 @@
+lumifilter:
+    name: lumiFilterRDF
+    path: Base.Modules.lumiFilter
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
 puweight:
     name: puWeightRDF
     path: Corrections.LUM.puWeight
@@ -23,6 +30,15 @@ puweight:
         year: self.config.year
 
 
+tauSF:
+    name: tauSFRDF
+    path: Corrections.TAU.tauCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+
 hhlepton:
     name: HHLeptonRDF
     path: Tools.Tools.HHLepton
@@ -32,12 +48,27 @@ hhlepton:
         runPeriod: self.dataset.runPeriod
         filter: True
 
-
 hhleptonVar:
     name: HHLeptonVarRDF
     path: Tools.Tools.HHLepton
     parameters:
         isMC: self.dataset.process.isMC
+
+
+hhleptonVarTESup:
+    name: HHLeptonVarRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+        tau_syst: corr_up
+
+
+hhleptonVarTESdown:
+    name: HHLeptonVarRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+        tau_syst: corr_down
 
 
 jet_smearing:
@@ -188,14 +219,6 @@ PUjetID_SF:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
 
-
-tauSF:
-    name: tauSFRDF
-    path: Corrections.TAU.tauCorrections
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-        isUL: self.dataset.has_tag('ul')
 
 muSF:
     name: muSFRDF
