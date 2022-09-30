@@ -11,6 +11,13 @@ class Config(cmt_config):
     def __init__(self, *args, **kwargs):
         # https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
         self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
+        self.deeptau=DotDict(
+            vsjet=DotDict(VVVLoose=1, VVLoose=3, VLoose=7, Loose=15, Medium=31,
+                Tight=63, VTight=127, VVTight=255),
+            vse=DotDict(VVVLoose=1, VVLoose=3, VLoose=7, Loose=15, Medium=31,
+                Tight=63, VTight=127, VVTight=255),
+            vsmu=DotDict(VLoose=1, Loose=3, Medium=7, Tight=15),
+        )
 
         self.channels = self.add_channels()
         self.regions = self.add_regions()

@@ -38,7 +38,6 @@ tauSF:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
 
-
 hhlepton:
     name: HHLeptonRDF
     path: Tools.Tools.HHLepton
@@ -46,6 +45,11 @@ hhlepton:
         isMC: self.dataset.process.isMC
         year: self.config.year
         runPeriod: self.dataset.runPeriod
+        vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
+        vl_vse: self.config.deeptau.vse.VLoose
+        vvl_vse: self.config.deeptau.vse.VVLoose
+        t_vsmu: self.config.deeptau.vsmu.Tight
+        vl_vsmu: self.config.deeptau.vsmu.VLoose
         filter: True
 
 hhleptonVar:
@@ -93,7 +97,6 @@ met_smearing:
     path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
-
 
 jec:
     name: jecProviderRDF
@@ -185,6 +188,14 @@ hhvar:
     parameters:
         isMC: self.dataset.process.isMC
         met_smear_tag: smeared
+
+
+hhdnn:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
 
 
 trigSF:
