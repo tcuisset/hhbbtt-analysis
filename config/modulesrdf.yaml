@@ -268,3 +268,8 @@ btag:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
         uncertainties: ["central", "down_hfstats2"]
+        lep_pt: "{dau1_pt, dau2_pt}"
+        lep_eta: "{dau1_eta, dau2_eta}"
+        lep_phi: "{dau1_phi, dau2_phi}"
+        lep_mass: "{dau1_mass, dau2_mass}"
+
