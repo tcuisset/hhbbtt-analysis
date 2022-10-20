@@ -1,0 +1,76 @@
+lumifilter:
+    name: lumiFilterRDF
+    path: Base.Modules.lumiFilter
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+puweight:
+    name: puWeightRDF
+    path: Corrections.LUM.puWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+tauSF:
+    name: tauSFRDF
+    path: Corrections.TAU.tauCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+hhlepton:
+    name: HHLeptonRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+        isV10: self.dataset.has_tag("nanoV10")
+        year: self.config.year
+        runPeriod: self.dataset.runPeriod
+        vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
+        vl_vse: self.config.deeptau.vse.VLoose
+        vvl_vse: self.config.deeptau.vse.VVLoose
+        t_vsmu: self.config.deeptau.vsmu.Tight
+        vl_vsmu: self.config.deeptau.vsmu.VLoose
+        filter: False
+
+hhleptonVar:
+    name: HHLeptonVarRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+
+jet_smearing:
+    name: jetSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        jerTag: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+
+jet_smear_val:
+    name: jetVarRDF
+    path: Corrections.JME.smearing
+    parameters:
+        isMC: self.dataset.process.isMC
+
+
+met_smearing:
+    name: metSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        isMC: self.dataset.process.isMC
+
+hhjets:
+    name: HHJetsRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        met_smear_tag: smeared
+        filter: False

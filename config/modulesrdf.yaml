@@ -43,6 +43,7 @@ hhlepton:
     path: Tools.Tools.HHLepton
     parameters:
         isMC: self.dataset.process.isMC
+        isV10: self.dataset.has_tag("nanoV10")
         year: self.config.year
         runPeriod: self.dataset.runPeriod
         vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
@@ -214,6 +215,10 @@ PUjetID_SF:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
+        lep_pt: "{dau1_pt, dau2_pt}"
+        lep_eta: "{dau1_eta, dau2_eta}"
+        lep_phi: "{dau1_phi, dau2_phi}"
+        lep_mass: "{dau1_mass, dau2_mass}"
 
 3_w2:
     name: prescaleWeightRDF

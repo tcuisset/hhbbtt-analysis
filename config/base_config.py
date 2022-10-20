@@ -38,32 +38,42 @@ class Config(cmt_config):
         selection = OrderedDict()
         region_names = ["Signal region", "OS inv. iso", "SS iso", "SS inv. iso"]
         selection["os_iso"] = {
-            "mutau": ["isOS == 1", "dau2_idDeepTau2017v2p1VSjet >= 31"],
-            "etau": ["isOS == 1", "dau2_idDeepTau2017v2p1VSjet >= 31"],
-            "tautau": ["isOS == 1", "dau1_idDeepTau2017v2p1VSjet >= 31",
-                "dau2_idDeepTau2017v2p1VSjet >= 31"],
+            "mutau": ["isOS == 1",
+                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+            "etau": ["isOS == 1",
+                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+            "tautau": ["isOS == 1",
+                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
+                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
         }
         selection["os_inviso"] = {
             "mutau": ["isOS == 1", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < 31"],
+                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
             "etau": ["isOS == 1", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < 31"],
-            "tautau": ["isOS == 1", "dau1_idDeepTau2017v2p1VSjet >= 31",
-                "dau2_idDeepTau2017v2p1VSjet >= 1", "dau2_idDeepTau2017v2p1VSjet < 31"],
+                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+            "tautau": ["isOS == 1",
+                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
+                "dau2_idDeepTau2017v2p1VSjet >= 1",
+                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
         }
         selection["ss_iso"] = {
-            "mutau": ["isOS == 0", "dau2_idDeepTau2017v2p1VSjet >= 31"],
-            "etau": ["isOS == 0",  "dau2_idDeepTau2017v2p1VSjet >= 31"],
-            "tautau": ["isOS == 0", "dau1_idDeepTau2017v2p1VSjet >= 31",
-                "dau2_idDeepTau2017v2p1VSjet >= 31"],
+            "mutau": ["isOS == 0",
+                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+            "etau": ["isOS == 0",
+                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+            "tautau": ["isOS == 0",
+                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
+                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
         }
         selection["ss_inviso"] = {
             "mutau": ["isOS == 0", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < 31"],
+                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
             "etau": ["isOS == 0", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < 31"],
-            "tautau": ["isOS == 0", "dau1_idDeepTau2017v2p1VSjet >= 31",
-                "dau2_idDeepTau2017v2p1VSjet >= 1", "dau2_idDeepTau2017v2p1VSjet < 31"],
+                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+            "tautau": ["isOS == 0",
+                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
+                "dau2_idDeepTau2017v2p1VSjet >= 1",
+                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
         }
         regions = []
         for ikey, key in enumerate(selection):
@@ -166,7 +176,7 @@ class Config(cmt_config):
             # Category("dum", "dummy category", selection="event == 220524669"),
             Category("dum", "dummy category", selection="event == 74472670"),
             Category("mutau", "#mu#tau channel", selection="pairType == 0"),
-            Category("etau", "e#tau channel", selection="pairType >= 1"),
+            Category("etau", "e#tau channel", selection="pairType == 1"),
             # Category("etau", "e#tau channel", selection="pairType >= -999"),
             # Category("etau", "e#tau channel", selection="1."),
             Category("tautau", "#tau#tau channel", selection="pairType == 2"),
