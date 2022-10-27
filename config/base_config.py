@@ -363,11 +363,13 @@ class Config(cmt_config):
                 systematics=["tes"]),
 
             # MET
-            Feature("met_pt", "MET_smeared_pt", binning=(10, 50, 150),
+            Feature("met_pt", "MET_pt", binning=(10, 50, 150),
                 x_title=Label("MET p_t"),
-                units="GeV"),
-            Feature("met_phi", "MET_smeared_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("MET #phi")),
+                units="GeV",
+                central="met_smearing"),
+            Feature("met_phi", "MET_phi", binning=(20, -3.2, 3.2),
+                x_title=Label("MET #phi"),
+                central="met_smearing"),
 
             # Hbb
             Feature("Hbb_pt", "Hbb_pt", binning=(10, 50, 150),
@@ -528,6 +530,7 @@ class Config(cmt_config):
     def add_systematics(self):
         systematics = [
             Systematic("jet_smearing", "_nom"),
+            Systematic("met_smearing", ("MET", "MET_smeared")),
             Systematic("prefiring", "_Nom"),
             Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
             Systematic("tes", "_corr"),

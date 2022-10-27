@@ -7,6 +7,7 @@ from collections import OrderedDict
 from config.base_config import Config as base_config
 from cmt.config.ul_2018 import Config_ul_2018 as cmt_ul_2018
 
+
 class Config_ul_2018(base_config, cmt_ul_2018):
     def __init__(self, *args, **kwargs):
         super(Config_ul_2018, self).__init__(*args, **kwargs)
@@ -18,7 +19,7 @@ class Config_ul_2018(base_config, cmt_ul_2018):
         weights.total_events_weights = ["genWeight", "puWeight"]
 
         weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-            "idAndIsoAndFakeSF_deep_pt", "L1PreFiringWeight", "PUjetID_SF",
+            "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
             "bTagweightReshape"]
 
         weights.etau = weights.mutau
