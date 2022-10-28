@@ -24,7 +24,7 @@ class Config_ul_2018(base_config):
         v9_datasets = super(Config_ul_2018, self).add_datasets()
         datasets = [
             Dataset("ggf_sm",
-                folder="/eos/user/g/goylopez/Jaime/nanoaod/260922/GluGluToHHTo2B2Tau_node_SM/",
+                folder=p + "GluGluToHHTo2B2Tau_node_SM",
                 process=self.processes.get("ggf_sm"),
                 xs=0.03105,
                 tags=["ul", "nanoV10"], 
@@ -46,7 +46,7 @@ class Config_ul_2018(base_config):
                     "etau": 10,
                     "mutau": 10,
                 },
-                secondary_dataset="dy_aux",
+                secondary_dataset="dy_nlo_aux",
                 tags=["ul", "nanoV10"]),
 
             # TT
@@ -84,6 +84,31 @@ class Config_ul_2018(base_config):
                 secondary_dataset="tt_fh_aux",
                 tags=["ul", "nanoV10"]),
 
+            # ttH
+            Dataset("tth_bb",
+                folder=p + "tth_bb",
+                process=self.processes.get("tth_bb"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.2953,
+                secondary_dataset="tth_bb_aux",
+                tags=["ul", "nanoV10"]),
+
+            Dataset("tth_tautau",
+                folder=p + "tth_tautau",
+                process=self.processes.get("tth_tautau"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.031805,
+                secondary_dataset="tth_tautau_aux",
+                tags=["ul", "nanoV10"]),
+
+            Dataset("tth_nonbb",
+                folder=p + "tth_nonbb",
+                process=self.processes.get("tth_nonbb"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.17996,
+                secondary_dataset="tth_nonbb_aux",
+                tags=["ul", "nanoV10"]),
+
             # Wjets
             Dataset("wjets",
                 folder=p + "WJetsToLNu",
@@ -96,6 +121,34 @@ class Config_ul_2018(base_config):
                 },
                 splitting=200000,
                 secondary_dataset="wjets_aux",
+                tags=["ul", "nanoV10"]),
+
+            # tW
+            Dataset("st_tw_antitop",
+                folder=p + "ST_tW_antitop_5f_inclusiveDecays",
+                process=self.processes.get("tw"),
+                xs=35.85,
+                secondary_dataset="st_tw_antitop_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("st_tw_top",
+                folder=p + "ST_tW_top_5f_inclusiveDecays",
+                process=self.processes.get("tw"),
+                xs=35.85,
+                secondary_dataset="st_tw_top_aux",
+                tags=["ul", "nanoV10"]),
+
+            # single top
+            Dataset("st_antitop",
+                folder=p + "ST_t-channel_antitop_4f_InclusiveDecays",
+                process=self.processes.get("singlet"),
+                xs=80.95,
+                secondary_dataset="st_antitop_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("st_top",
+                folder=p + "ST_t-channel_top_4f_InclusiveDecays",
+                process=self.processes.get("singlet"),
+                xs=136.02,
+                secondary_dataset="st_top_aux",
                 tags=["ul", "nanoV10"]),
 
             # DATA
@@ -250,11 +303,12 @@ class Config_ul_2018(base_config):
         ]
         datasets = ObjectCollection(datasets)
 
-        datasets.add(Dataset(v9_datasets.get("tt_dl"), dataset_name="tt_dl_aux", tags=["ul", "secondary"]))
-        datasets.add(Dataset(v9_datasets.get("tt_sl"), dataset_name="tt_sl_aux", tags=["ul", "secondary"]))
-        datasets.add(Dataset(v9_datasets.get("tt_fh"), dataset_name="tt_fh_aux", tags=["ul", "secondary"]))
-        datasets.add(Dataset(v9_datasets.get("dy_nlo"), dataset_name="dy_aux", tags=["ul", "secondary"]))
-        datasets.add(Dataset(v9_datasets.get("wjets"), dataset_name="wjets_aux", tags=["ul", "secondary"]))
+        for name in ["tt_dl", "tt_sl", "tt_fh", "tth_bb", "tth_tautau", "tth_nonbb",
+                "dy_nlo", "wjets", "st_tw_antitop", "st_tw_top", "st_antitop", "st_top"]:
+            datasets.add(
+                Dataset(
+                    v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
+            )
 
         return datasets
 

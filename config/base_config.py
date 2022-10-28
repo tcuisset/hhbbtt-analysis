@@ -236,10 +236,10 @@ class Config(cmt_config):
             Process("singlet", Label("Single t"), color=(134, 136, 138), parent_process="others",
                 llr_name="singleT"),
 
-            Process("data", Label("DATA"), color=(0, 0, 0), isData=True),
-            Process("data_tau", Label("DATA\_TAU"), color=(0, 0, 0), parent_process="data", isData=True),
-            Process("data_etau", Label("DATA\_E"), color=(0, 0, 0), parent_process="data", isData=True),
-            Process("data_mutau", Label("DATA\_MU"), color=(0, 0, 0), parent_process="data", isData=True)
+            Process("data", Label("Data"), color=(0, 0, 0), isData=True),
+            Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
+            Process("data_etau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
+            Process("data_mutau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True)
         ]
 
         process_group_names = {
