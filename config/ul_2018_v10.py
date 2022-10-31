@@ -86,7 +86,7 @@ class Config_ul_2018(base_config):
 
             # ttH
             Dataset("tth_bb",
-                folder=p + "tth_bb",
+                folder=p + "ttHTobb",
                 process=self.processes.get("tth_bb"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.2953,
@@ -94,7 +94,7 @@ class Config_ul_2018(base_config):
                 tags=["ul", "nanoV10"]),
 
             Dataset("tth_tautau",
-                folder=p + "tth_tautau",
+                folder=p + "ttHToTauTau",
                 process=self.processes.get("tth_tautau"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.031805,
@@ -102,7 +102,7 @@ class Config_ul_2018(base_config):
                 tags=["ul", "nanoV10"]),
 
             Dataset("tth_nonbb",
-                folder=p + "tth_nonbb",
+                folder=p + "ttHToNonbb",
                 process=self.processes.get("tth_nonbb"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.17996,
