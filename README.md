@@ -3,7 +3,7 @@ This is a user code for the configuration of a hhbbtt analysis used with the [ma
 
 Make a fork of this repository, so you can use it as an example for your own analysis.
 
-# User guide:
+## User guide:
 
 Information about the code, how to install it, setting a configuration to use it and more useful information about this framework cand be found [here](https://nanoaod-base-analysis.readthedocs.io).
 
