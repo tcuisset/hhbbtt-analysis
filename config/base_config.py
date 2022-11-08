@@ -111,23 +111,23 @@ class Config(cmt_config):
             not_mm=[df(1, "<", "medium"), df(2, "<", "medium")],
         )
 
-        _excl_vbf_loose_nob = ["{VBFjj_mass} > 500", "abs({VBFjj_deltaEta}) > 3",
+        _excl_vbf_loose_nob = ["{{VBFjj_mass}} > 500", "abs({{VBFjj_deltaEta}}) > 3",
             "isVBFtrigger == 0"]
         _excl_vbf_loose = _excl_vbf_loose_nob + sel.btag.m_any
         _excl_non_vbf_loose = ["!" + jrs(_excl_vbf_loose, op="and")]
 
-        _excl_vbf_tight_nob = ["{VBFjet1_pt} > 140", "{VBFjet2_pt} > 60", "{VBFjj_mass} > 800",
-            "abs({VBFjj_deltaEta}) > 3", "isVBFtrigger == 1"]
+        _excl_vbf_tight_nob = ["{{VBFjet1_pt}} > 140", "{{VBFjet2_pt}} > 60", "{{VBFjj_mass}} > 800",
+            "abs({{VBFjj_deltaEta}}) > 3", "isVBFtrigger == 1"]
         _excl_vbf_tight = _excl_vbf_tight_nob + sel.btag.m_any
         _excl_non_vbf_tight = ["!" + jrs(_excl_vbf_tight, op="and")]
 
         _excl_non_vbf = ["!" + jrs(jrs(_excl_vbf_loose, op="and"), jrs(_excl_vbf_tight, op="and"),
             op="or")]
 
-        mass_ellipse_sel = ["(({Htt_svfit_mass} - 129.) * ({Htt_svfit_mass} - 129.)/ (53. * 53.)"
-            " + ({Hbb_mass} - 169.) * ({Hbb_mass} - 169.) / (145. * 145.)) < 1"]
-        mass_boost_sel = ["(({Htt_svfit_mass} - 128.) * ({Htt_svfit_mass} - 128.) / (60. * 60.)"
-            " + ({Hbb_mass} - 159.) * ({Hbb_mass} - 159.) / (94. * 94.)) < 1"]
+        mass_ellipse_sel = ["(({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.)/ (53. * 53.)"
+            " + ({{Hbb_mass}} - 169.) * ({{Hbb_mass}} - 169.) / (145. * 145.)) < 1"]
+        mass_boost_sel = ["(({{Htt_svfit_mass}} - 128.) * ({{Htt_svfit_mass}} - 128.) / (60. * 60.)"
+            " + ({{Hbb_mass}} - 159.) * ({{Hbb_mass}} - 159.) / (94. * 94.)) < 1"]
         sel["resolved_1b"] = DotDict({
             ch: (sel.btag.m + mass_ellipse_sel + ["isBoosted != 1"]
                 + _excl_non_vbf_loose)
@@ -223,12 +223,14 @@ class Config(cmt_config):
             Process("tt_sl", Label("t#bar{t} SL"), color=(255, 153, 0), parent_process="tt"),
             Process("tt_fh", Label("t#bar{t} FH"), color=(131, 38, 10), parent_process="tt"),
 
-            Process("tth", Label("t#bar{t}H"), color=(255, 153, 0), llr_name="TTH"),
+            Process("others", Label("Others"), color=(134, 136, 138)),
+
+            Process("tth", Label("t#bar{t}H"), color=(255, 153, 0), parent_process="others",
+                llr_name="ttH"),
             Process("tth_bb", Label("t#bar{t}H"), color=(255, 153, 0), parent_process="tth"),
             Process("tth_tautau", Label("t#bar{t}H"), color=(255, 153, 0), parent_process="tth"),
             Process("tth_nonbb", Label("t#bar{t}H"), color=(255, 153, 0), parent_process="tth"),
 
-            Process("others", Label("Others"), color=(134, 136, 138)),
             Process("wjets", Label("W + jets"), color=(134, 136, 138), parent_process="others",
                 llr_name="WJets"),
             Process("tw", Label("t + W"), color=(134, 136, 138), parent_process="others",
@@ -264,22 +266,25 @@ class Config(cmt_config):
             "etau": [
                 "tt_dl",
                 "tt_sl",
+                "tt_fh",
                 "dy",
-                "wjets",
+                "others",
                 "data_etau",
             ],
             "mutau": [
                 "tt_dl",
                 "tt_sl",
+                "tt_fh",
                 "dy",
-                "wjets",
+                "others",
                 "data_mutau",
             ],
             "tautau": [
                 "tt_dl",
                 "tt_sl",
+                "tt_fh",
                 "dy",
-                "wjets",
+                "others",
                 "data_tau",
             ],
             "vbf": [
@@ -333,6 +338,39 @@ class Config(cmt_config):
                 x_title=Label("b_{2} m"),
                 units="GeV",
                 central="jet_smearing"),
+
+            Feature("ctjet1_pt", "Jet_pt.at(ctjet_indexes.at(0))", binning=(10, 50, 150),
+                x_title=Label("add. central jet 1 p_{t}"),
+                units="GeV",
+                central="jet_smearing",
+                selection="ctjet_indexes.size() > 0"),
+            Feature("ctjet1_eta", "Jet_eta.at(ctjet_indexes.at(0))", binning=(20, -5., 5.),
+                x_title=Label("add. central jet 1} #eta"),
+                selection="ctjet_indexes.size() > 0"),
+            Feature("ctjet1_phi", "Jet_phi.at(ctjet_indexes.at(0))", binning=(20, -3.2, 3.2),
+                x_title=Label("add. central jet 1 #phi"),
+                selection="ctjet_indexes.size() > 0"),
+            Feature("ctjet1_mass", "Jet_mass.at(ctjet_indexes.at(0))", binning=(10, 50, 150),
+                x_title=Label("add. central jet 1 m"),
+                units="GeV",
+                central="jet_smearing",
+                selection="ctjet_indexes.size() > 0"),
+            Feature("fwjet1_pt", "Jet_pt.at(fwjet_indexes.at(0))", binning=(10, 50, 150),
+                x_title=Label("add. forward jet 1 p_t"),
+                units="GeV",
+                central="jet_smearing",
+                selection="fwjet_indexes.size() > 0"),
+            Feature("fwjet1_eta", "Jet_eta.at(fwjet_indexes.at(0))", binning=(20, -5., 5.),
+                x_title=Label("add. forward jet 1 #eta"),
+                selection="fwjet_indexes.size() > 0"),
+            Feature("fwjet1_phi", "Jet_phi.at(fwjet_indexes.at(0))", binning=(20, -3.2, 3.2),
+                x_title=Label("add. forward jet 1  #phi"),
+                selection="fwjet_indexes.size() > 0"),
+            Feature("fwjet1_mass", "Jet_mass.at(fwjet_indexes.at(0))", binning=(10, 50, 150),
+                x_title=Label("add. forward jet 1  m"),
+                units="GeV",
+                central="jet_smearing",
+                selection="fwjet_indexes.size() > 0"),
 
             Feature("bjet_difpt", "abs([bjet1_pt] - [bjet2_pt])", binning=(10, 50, 150),
                 x_title=Label("bb #Delta p_t"),

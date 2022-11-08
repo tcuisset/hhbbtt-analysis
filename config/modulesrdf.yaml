@@ -198,6 +198,13 @@ hhdnn:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
+hhmulticlass:
+    name: HHMulticlassRDF
+    path: Tools.Tools.HHMulticlass
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        model_specs: ((v5, kl1_c2v1_c31_vbf))
 
 trigSF:
     name: Htt_trigSFRDF
