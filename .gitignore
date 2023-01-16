@@ -4,4 +4,4 @@ x509up
 data
 correctionlib*
 docs/build
-config/__pycache__/*
+__pycache__/
