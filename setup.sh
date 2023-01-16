@@ -92,6 +92,7 @@ action() {
 
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"
+    mkdir -p "$TMPDIR"
 
 
     #
