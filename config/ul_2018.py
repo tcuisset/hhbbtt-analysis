@@ -25,9 +25,10 @@ class Config_ul_2018(base_config, cmt_ul_2018):
         weights.etau = weights.mutau
         weights.tautau = weights.mutau
         weights.base_selection = weights.mutau
+        weights.base = weights.mutau
 
         # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
             # for channel in weights.channels}
         return weights
 
-config = Config_ul_2018("ul_2018", year=2018, ecm=13, lumi_pb=59741)
+config = Config_ul_2018("ul_2018", year=2018, ecm=13, lumi_pb=59741, isUL=True)
