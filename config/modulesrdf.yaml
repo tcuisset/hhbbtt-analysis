@@ -13,14 +13,14 @@ puweight:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
 
-# UL only
-# puweightCor:
-    # name: puWeightRDF
-    # path: Corrections.LUM.puWeightCor
-    # parameters:
-        # isMC: self.dataset.process.isMC
-        # year: self.config.year
-        # isUL: self.dataset.has_tag('ul')
+# # UL only
+# # puweightCor:
+    # # name: puWeightRDF
+    # # path: Corrections.LUM.puWeightCor
+    # # parameters:
+        # # isMC: self.dataset.process.isMC
+        # # year: self.config.year
+        # # isUL: self.dataset.has_tag('ul')
 
 2:
     name: MetFilterRDF
@@ -119,45 +119,47 @@ hhjets:
         met_smear_tag: smeared
         filter: True
 
-# bjet1var:
-    # name: VarFromVectorRDF
-    # path: Base.Modules.baseModules
-    # parameters:
-        # variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
-        # index: bjet1_JetIdx
-        # input_prefix: Jet
-        # output_prefix: bjet1
+bjet1var:
+    name: VarFromVectorRDF
+    path: Base.Modules.baseModules
+    parameters:
+        variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
+        index: bjet1_JetIdx
+        input_prefix: Jet
+        output_prefix: bjet1
+        condition: self.dataset.process.isMC
 
-# bjet2var:
-    # name: VarFromVectorRDF
-    # path: Base.Modules.baseModules
-    # parameters:
-        # variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
-        # index: bjet2_JetIdx
-        # input_prefix: Jet
-        # output_prefix: bjet2
+bjet2var:
+    name: VarFromVectorRDF
+    path: Base.Modules.baseModules
+    parameters:
+        variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
+        index: bjet2_JetIdx
+        input_prefix: Jet
+        output_prefix: bjet2
+        condition: self.dataset.process.isMC
 
-# jecb1:
-    # name: jecProviderRDF
-    # path: Corrections.JME.jec
-    # parameters:
-        # year: self.config.year
-        # isMC: self.dataset.process.isMC
-        # isUL: self.dataset.has_tag('ul')
-        # pt: bjet1_pt_nom
-        # eta: bjet1_eta
-        # mass: bjet1_mass_nom
+jecb1:
+    name: jecProviderRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        pt: bjet1_pt_nom
+        eta: bjet1_eta
+        mass: bjet1_mass_nom
 
-# jecb2:
-    # name: jecProviderRDF
-    # path: Corrections.JME.jec
-    # parameters:
-        # year: self.config.year
-        # isMC: self.dataset.process.isMC
-        # isUL: self.dataset.has_tag('ul')
-        # pt: bjet2_pt_nom
-        # eta: bjet2_eta
-        # mass: bjet2_mass_nom
+jecb2:
+    name: jecProviderRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        pt: bjet2_pt_nom
+        eta: bjet2_eta
+        mass: bjet2_mass_nom
 
 dyscaling:
     name: DYscalingRDF
