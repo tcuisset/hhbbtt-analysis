@@ -116,7 +116,7 @@ class Config(cmt_config):
         _excl_vbf_loose = _excl_vbf_loose_nob + sel.btag.m_any
         _excl_non_vbf_loose = ["!" + jrs(_excl_vbf_loose, op="and")]
 
-        _excl_vbf_tight_nob = ["{{VBFjet1_pt}} > 140", "{{VBFjet2_pt}} > 60", "{{VBFjj_mass}} > 800",
+        _excl_vbf_tight_nob = ["{{vbfjet1_pt}} > 140", "{{vbfjet2_pt}} > 60", "{{VBFjj_mass}} > 800",
             "abs({{VBFjj_deltaEta}}) > 3", "isVBFtrigger == 1"]
         _excl_vbf_tight = _excl_vbf_tight_nob + sel.btag.m_any
         _excl_non_vbf_tight = ["!" + jrs(_excl_vbf_tight, op="and")]
@@ -251,6 +251,12 @@ class Config(cmt_config):
                 "dy_high",
                 "tt_dl",
             ],
+            "test": [
+                "ggf_sm",
+                "dy",
+                "tt_dl",
+                "tt_sl",
+            ],
             "data_tau": [
                 "data_tau",
             ],
@@ -345,7 +351,7 @@ class Config(cmt_config):
                 central="jet_smearing",
                 selection="ctjet_indexes.size() > 0"),
             Feature("ctjet1_eta", "Jet_eta.at(ctjet_indexes.at(0))", binning=(20, -5., 5.),
-                x_title=Label("add. central jet 1} #eta"),
+                x_title=Label("add. central jet 1 #eta"),
                 selection="ctjet_indexes.size() > 0"),
             Feature("ctjet1_phi", "Jet_phi.at(ctjet_indexes.at(0))", binning=(20, -3.2, 3.2),
                 x_title=Label("add. central jet 1 #phi"),
@@ -372,7 +378,7 @@ class Config(cmt_config):
                 central="jet_smearing",
                 selection="fwjet_indexes.size() > 0"),
 
-            Feature("bjet_difpt", "abs([bjet1_pt] - [bjet2_pt])", binning=(10, 50, 150),
+            Feature("bjet_difpt", "abs({{bjet1_pt}} - {{bjet2_pt}})", binning=(10, 50, 150),
                 x_title=Label("bb #Delta p_t"),
                 units="GeV",
                 central="jet_smearing"),
@@ -380,17 +386,20 @@ class Config(cmt_config):
             # lepton features
             Feature("lep1_pt", "dau1_pt", binning=(10, 50, 150),
                 x_title=Label("#tau_{1} p_{t}"),
+                units="GeV",
                 systematics=["tes"]),
             Feature("lep1_eta", "dau1_eta", binning=(20, -5., 5.),
                 x_title=Label("#tau_{1} #eta")),
-
             Feature("lep1_phi", "dau1_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("#tau_{1} #phi")),
             Feature("lep1_mass", "dau1_mass", binning=(10, 50, 150),
                 x_title=Label("#tau_{1} m"),
+                units="GeV",
                 systematics=["tes"]),
+
             Feature("lep2_pt", "dau2_pt", binning=(10, 50, 150),
                 x_title=Label("#tau_{2} p_{t}"),
+                units="GeV",
                 systematics=["tes"]),
             Feature("lep2_eta", "dau2_eta", binning=(20, -5., 5.),
                 x_title=Label("#tau_{2} #eta")),
@@ -398,6 +407,7 @@ class Config(cmt_config):
                 x_title=Label("#tau_{2} #phi")),
             Feature("lep2_mass", "dau2_mass", binning=(10, 50, 150),
                 x_title=Label("#tau_{2} m"),
+                units="GeV",
                 systematics=["tes"]),
 
             # MET
@@ -434,24 +444,8 @@ class Config(cmt_config):
                 systematics=["tes"]),
             Feature("Htt_mass", "Htt_mass", binning=(30, 0, 300),
                 x_title=Label("H(#tau^{+} #tau^{-}) m"),
-                units="GeV",),
-                # systematics=["tes"]),
-
-            # Htt + MET
-            Feature("Htt_met_pt", "Htt_met_pt", binning=(10, 50, 150),
-                x_title=Label("H(#tau^{+} #tau^{-}) + MET p_t"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("Htt_met_eta", "Htt_met_eta", binning=(20, -5., 5.),
-                x_title=Label("H(#tau^{+} #tau^{-}) + MET #eta"),
-                systematics=["tes"]),
-            Feature("Htt_met_phi", "Htt_met_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("H(#tau^{+} #tau^{-}) + MET #phi"),
-                systematics=["tes"]),
-            Feature("Htt_met_mass", "Htt_met_mass", binning=(30, 0, 300),
-                x_title=Label("H(#tau^{+} #tau^{-}) + MET m"),
-                units="GeV",),
-                # systematics=["tes"]),
+                units="GeV"),
+                #systematics=["tes"]),
 
             # Htt (SVFit)
             Feature("Htt_svfit_pt", "Htt_svfit_pt", binning=(10, 50, 150),
@@ -466,8 +460,8 @@ class Config(cmt_config):
                 systematics=["tes"]),
             Feature("Htt_svfit_mass", "Htt_svfit_mass", binning=(30, 0, 300),
                 x_title=Label("H(#tau^{+} #tau^{-}) m (SVFit)"),
-                units="GeV",),
-                # systematics=["tes"]),
+                units="GeV"),
+                #systematics=["tes"]),
 
             # HH
             Feature("HH_pt", "HH_pt", binning=(10, 50, 150),
@@ -482,8 +476,8 @@ class Config(cmt_config):
                 systematics=["tes"]),
             Feature("HH_mass", "HH_mass", binning=(50, 0, 1000),
                 x_title=Label("HH m"),
-                units="GeV",),
-                # systematics=["tes"]),
+                units="GeV",
+                systematics=["tes"]),
 
             # HH (SVFit)
             Feature("HH_svfit_pt", "HH_svfit_pt", binning=(10, 50, 150),
@@ -491,15 +485,15 @@ class Config(cmt_config):
                 units="GeV",
                 systematics=["tes"]),
             Feature("HH_svfit_eta", "HH_svfit_eta", binning=(20, -5., 5.),
-                x_title=Label("HH #eta (SVFit)"),
-                systematics=["tes"]),
+                x_title=Label("HH #eta (SVFit)")),
+                #systematics=["tes"]),
             Feature("HH_svfit_phi", "HH_svfit_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("HH #phi (SVFit)"),
-                systematics=["tes"]),
+                x_title=Label("HH #phi (SVFit)")),
+                #systematics=["tes"]),
             Feature("HH_svfit_mass", "HH_svfit_mass", binning=(50, 0, 1000),
                 x_title=Label("HH m (SVFit)"),
-                units="GeV",),
-                # systematics=["tes"]),
+                units="GeV"),
+                #systematics=["tes"]),
 
             # HH KinFit
             Feature("HHKinFit_mass", "HHKinFit_mass", binning=(50, 0, 1000),
