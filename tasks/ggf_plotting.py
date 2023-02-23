@@ -12,34 +12,26 @@ from cmt.base_tasks.plotting import FeaturePlot, PrePlot
 
 from plotting_tools import Label
 
-class VBFFeaturePlot(FeaturePlot):
+class ggFFeaturePlot(FeaturePlot):
 
-    target_kvs = law.CSVParameter(default=("1",), description="kvs to be used "
-        "in the HH model, default=1")
-    target_k2vs = law.CSVParameter(default=("1",), description="k2vs to be used "
-        "in the HH model, default=1")
     target_kls = law.CSVParameter(default=("1",), description="kls to be used "
         "in the HH model, default=1")
+    target_kts = law.CSVParameter(default=("1",), description="kts to be used "
+        "in the HH model, default=1")
 
-    # dataset_names = ['vbf_sm', 'vbf_1_1_0', 'vbf_1_1_2', 'vbf_1_0_1',
-        # 'vbf_1_2_1', 'vbf_0p5_1_1', 'vbf_1p5_1_1']
+    dataset_names = ['ggf_sm', 'ggf_2p45_1', 'ggf_5_1']
 
-    dataset_names = ['vbf_sm', 'vbf_1_1_0', 'vbf_1_1_2', 'vbf_1_0_1',
-        'vbf_1_2_1', 'vbf_0p5_1_1']
-
-    # parameters = [(1, 1, 1), (1, 1, 0), (1, 1, 2), (1, 0, 1), (1, 2, 1), (0.5, 1, 1), (1.5, 1, 1)]
-    parameters = [(1, 1, 1), (1, 1, 0), (1, 1, 2), (1, 0, 1), (1, 2, 1), (0.5, 1, 1)]
+    parameters = [(1, 1), (2.45, 1), (5, 1)]
 
     do_qcd = False
     blinded = False
 
-    process_group_name = "vbf"
+    process_group_name = "ggf"
 
     def __init__(self, *args, **kwargs):
-        super(VBFFeaturePlot, self).__init__(*args, **kwargs)
-        self.target_kvs = [float(value) for value in self.target_kvs]
-        self.target_k2vs = [float(value) for value in self.target_k2vs]
+        super(ggFFeaturePlot, self).__init__(*args, **kwargs)
         self.target_kls = [float(value) for value in self.target_kls]
+        self.target_kts = [float(value) for value in self.target_kts]
 
     def requires(self):
         reqs = {}
@@ -56,7 +48,7 @@ class VBFFeaturePlot(FeaturePlot):
         return reqs
 
     def run(self):
-        from tasks.VBFReweightModules import InputSample, VBFReweight
+        from tasks.ggFReweightModules import InputSample, ggFReweight
 
         ROOT.gStyle.SetOptStat(0)
 
@@ -69,11 +61,11 @@ class VBFFeaturePlot(FeaturePlot):
         self.signal_names = []
         self.background_names = []
 
-        samples = [InputSample(kv, k2v, kl, dataset.xs)
-            for ((kv, k2v, kl), dataset) in zip(self.parameters, self.datasets)]
+        samples = [InputSample(kl, kt, dataset.xs)
+            for ((kl, kt), dataset) in zip(self.parameters, self.datasets)]
 
-        vbf_reweight = VBFReweight(samples)
-        
+        ggf_reweight = ggFReweight(samples)
+
         for feature in self.features:
             self.histos = {}
             feature_name = feature.name
@@ -106,21 +98,18 @@ class VBFFeaturePlot(FeaturePlot):
 
                 dataset_histos.append(dataset_histo)
 
-            for i, (t_kv, t_k2v, t_kl) in enumerate(
-                    itertools.product(self.target_kvs, self.target_k2vs, self.target_kls)):
-                _, signal_histo = vbf_reweight.modelSignal(t_kv, t_k2v, t_kl, dataset_histos)
+            for i, (t_kl, t_kt) in enumerate(
+                    itertools.product(self.target_kls, self.target_kts)):
+                _, signal_histo = ggf_reweight.modelSignal(t_kl, t_kt, dataset_histos)
 
-                self.setup_signal_hist(signal_histo, 2 + i)
-
-                if int(t_kv) - t_kv == 0:
-                    t_kv = int(t_kv)
-                if int(t_k2v) - t_k2v == 0:
-                    t_k2v = int(t_k2v)
                 if int(t_kl) - t_kl == 0:
                     t_kl = int(t_kl)
+                if int(t_kt) - t_kt == 0:
+                    t_kt = int(t_kt)
 
-                signal_histo.process_label = str(Label("$HH_{VBF}^{(%s,%s,%s)}$" % (t_kv, t_k2v, t_kl)))
-                signal_histo.cmt_process_name = "vbf_%s_%s_%s" % (t_kv, t_k2v, t_kl)
+                self.setup_signal_hist(signal_histo, 2 + i)
+                signal_histo.process_label = str(Label("$HH_{ggF}^{(%s,%s)}$" % (t_kl, t_kt)))
+                signal_histo.cmt_process_name = "ggf_%s_%s" % (t_kl, t_kt)
                 self.histos["signal"].append(signal_histo)
                 self.histos["all"].append(signal_histo)
 

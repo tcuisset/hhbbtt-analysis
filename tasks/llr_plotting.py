@@ -1,5 +1,7 @@
 from cmt.base_tasks.plotting import FeaturePlot
 from tasks.llr_counting import MergeCounterLLR
+from tasks.vbf_plotting import VBFFeaturePlot
+from tasks.ggf_plotting import ggFFeaturePlot
 from collections import OrderedDict
 import json
 
@@ -65,3 +67,37 @@ class FeaturePlotLLR(FeaturePlot):
                         nevents[dataset.name] = stats["evt_den"]
         return nevents
 
+
+class VBFFeaturePlotLLR(VBFFeaturePlot):
+    def __init__(self, *args, **kwargs):
+        super(VBFFeaturePlotLLR, self).__init__(self, *args, **kwargs)
+        self.tree_name = "HTauTauTree"
+
+    def get_nevents(self):
+        return FeaturePlotLLR.get_nevents(self)
+
+    def requires(self):
+        reqs = VBFFeaturePlot.requires(self)
+        reqs["stats"] = OrderedDict(
+            (dataset.name, MergeCounterLLR.vreq(self, dataset_name=dataset.name))
+            for dataset in self.datasets_to_run if not dataset.process.isData
+        )
+        return reqs
+
+
+class ggFFeaturePlotLLR(ggFFeaturePlot):
+    def __init__(self, *args, **kwargs):
+        super(ggFFeaturePlotLLR, self).__init__(self, *args, **kwargs)
+        self.tree_name = "HTauTauTree"
+
+    def get_nevents(self):
+        return FeaturePlotLLR.get_nevents(self)
+
+    def requires(self):
+        reqs = ggFFeaturePlot.requires(self)
+        print(self.dataset_names)
+        reqs["stats"] = OrderedDict(
+            (dataset.name, MergeCounterLLR.vreq(self, dataset_name=dataset.name))
+            for dataset in self.datasets_to_run if not dataset.process.isData
+        )
+        return reqs

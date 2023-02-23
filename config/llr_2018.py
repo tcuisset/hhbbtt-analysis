@@ -19,6 +19,7 @@ class Config(cmt_config):
             vsmu=DotDict(VLoose=1, Loose=2, Medium=3, Tight=4),
         )
         self.regions = self.add_regions()
+        self.categories = self.add_categories(btag = "bjet{}_bID_deepFlavor")
 
     def add_regions(self):
         selection = OrderedDict()
@@ -71,107 +72,6 @@ class Config(cmt_config):
                     selection=jrs(channel.selection,
                         jrs(selection[key][channel.name], op="and"), op="and")))
         return ObjectCollection(regions)
-
-    def add_categories(self):
-        reject_sel = ["pairType == -31415"]
-
-        sel = DotDict()
-        df = lambda i, op, wp: "bjet{}_bID_deepFlavor {} {}".format(i, op, self.btag[wp])
-        sel["btag"] = DotDict(
-            m_first=[df(1, ">", "medium")],
-            m_second=[df(2, ">", "medium")],
-            m_any=[jrs(df(1, ">", "medium"), df(2, ">", "medium"), op="or")],
-            l=[df(1, ">", "loose"), df(2, "<", "loose")],
-            ll=[df(1, ">", "loose"), df(2, ">", "loose")],
-            m=[jrs(jrs(df(1, ">", "medium"), df(2, "<", "medium"), op="and"),
-                jrs(df(1, "<", "medium"), df(2, ">", "medium"), op="and"), op="or")],
-            mm=[df(1, ">", "medium"), df(2, ">", "medium")],
-            not_mm=[df(1, "<", "medium"), df(2, "<", "medium")],
-        )
-
-        _excl_vbf_loose_nob = ["{{VBFjj_mass}} > 500", "abs({{VBFjj_deltaEta}}) > 3",
-            "isVBFtrigger == 0"]
-        _excl_vbf_loose = _excl_vbf_loose_nob + sel.btag.m_any
-        _excl_non_vbf_loose = ["!" + jrs(_excl_vbf_loose, op="and")]
-
-        _excl_vbf_tight_nob = ["{{vbfjet1_pt}} > 140", "{{vbfjet2_pt}} > 60", "{{VBFjj_mass}} > 800",
-            "abs({{VBFjj_deltaEta}}) > 3", "isVBFtrigger == 1"]
-        _excl_vbf_tight = _excl_vbf_tight_nob + sel.btag.m_any
-        _excl_non_vbf_tight = ["!" + jrs(_excl_vbf_tight, op="and")]
-
-        _excl_non_vbf = ["!" + jrs(jrs(_excl_vbf_loose, op="and"), jrs(_excl_vbf_tight, op="and"),
-            op="or")]
-
-        mass_ellipse_sel = ["(({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.)/ (53. * 53.)"
-            " + ({{Hbb_mass}} - 169.) * ({{Hbb_mass}} - 169.) / (145. * 145.)) < 1"]
-        mass_boost_sel = ["(({{Htt_svfit_mass}} - 128.) * ({{Htt_svfit_mass}} - 128.) / (60. * 60.)"
-            " + ({{Hbb_mass}} - 159.) * ({{Hbb_mass}} - 159.) / (94. * 94.)) < 1"]
-        sel["resolved_1b"] = DotDict({
-            ch: (sel.btag.m + mass_ellipse_sel + ["isBoosted != 1"]
-                + _excl_non_vbf_loose)
-            for ch in self.channels.names()
-        })
-        sel["resolved_1b_combined"] = self.join_selection_channels(sel["resolved_1b"])
-        sel["resolved_2b"] = DotDict({
-            ch: (sel.btag.mm + mass_ellipse_sel + ["isBoosted != 1"]
-                + _excl_non_vbf)
-            for ch in self.channels.names()
-        })
-        sel["resolved_2b_combined"] = self.join_selection_channels(sel["resolved_2b"])
-        sel["boosted"] = DotDict({
-            ch: (sel.btag.ll + mass_boost_sel + ["isBoosted == 1"]
-                + _excl_non_vbf)
-            for ch in self.channels.names()
-        })
-        sel["boosted_combined"] = self.join_selection_channels(sel["boosted"])
-        sel["vbf_loose"] = DotDict({
-            ch: _excl_vbf_loose
-            for ch in self.channels.names()
-        })
-        sel["vbf_loose_combined"] = self.join_selection_channels(sel.vbf_loose)
-        sel["vbf_tight"] = DotDict(
-            mutau=reject_sel,  # category not used, should always reject
-            etau=reject_sel,  # category not used, should always reject
-            tautau=_excl_vbf_tight + sel.btag.m_any,
-        )
-        sel["vbf_tight_combined"] = self.join_selection_channels(sel.vbf_tight)
-        sel["vbf"] = self.combine_selections_per_channel(sel.vbf_tight, sel.vbf_loose)
-        sel["vbf_combined"] = self.join_selection_channels(sel.vbf)
-
-        categories = [
-            Category("base", "base category"),
-            Category("base_selection", "base category",
-                nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
-                    " && ((Sum$(Muon_pt->fElements > 17) > 0"
-                    " || Sum$(Electron_pt->fElements > 17) > 0)"
-                    " || Sum$(Tau_pt->fElements > 17) > 1)"
-                    " && Sum$(Jet_pt->fElements > 17) > 1)",
-                selection="Tau_pt[Tau_pt > 17].size() > 0 "
-                    "&& ((Muon_pt[Muon_pt > 17].size() > 0"
-                    "|| Electron_pt[Electron_pt > 17].size() > 0)"
-                    "|| Tau_pt[Tau_pt > 17].size() > 1)"
-                    "&& Jet_pt[Jet_pt > 17].size() > 0"),
-            # Category("dum", "dummy category", selection="event == 220524669"),
-            Category("dum", "dummy category", selection="event == 74472670"),
-            Category("mutau", "#mu#tau channel", selection="pairType == 0"),
-            Category("etau", "e#tau channel", selection="pairType == 1"),
-            # Category("etau", "e#tau channel", selection="pairType >= -999"),
-            # Category("etau", "e#tau channel", selection="1."),
-            Category("tautau", "#tau#tau channel", selection="pairType == 2"),
-            Category("resolved_1b", label="Resolved 1b category",
-                selection=sel["resolved_1b_combined"]),
-            Category("resolved_2b", label="Resolved 2b category",
-                selection=sel["resolved_2b_combined"]),
-            Category("boosted", label="Boosted category",
-                selection=sel["boosted_combined"]),
-            Category("vbf_loose", label="VBF (loose) category",
-                selection=sel["vbf_loose_combined"]),
-            Category("vbf_tight", label="VBF (tight) category",
-                selection=sel["vbf_tight_combined"]),
-            Category("vbf", label="VBF category",
-                selection=sel["vbf_combined"]),
-        ]
-        return ObjectCollection(categories)
 
     def add_features(self):
         features = [
@@ -322,7 +222,7 @@ class Config(cmt_config):
                 units="GeV"),
 
             # HH KinFit
-            Feature("HHKinFit_mass", "HHKin_mass_raw", binning=(50, 0, 1000),
+            Feature("HHKinFit_mass", "HHKin_mass_raw", binning=(50, 0, 2000),
                 x_title=Label("HH m (Kin. Fit)"),
                 units="GeV"),
             Feature("HHKinFit_chi2", "HHKin_mass_raw_chi2", binning=(30, 0, 10),
@@ -407,6 +307,29 @@ class Config(cmt_config):
                 file_pattern="output_.*root",
                 xs=1.),  # already normalised to xs
 
+            Dataset("ggf_sm",
+                folder=os.path.join(skim_directory, "SKIM_GGHH_NLO_cHHH1_xs"),
+                process=self.processes.get("ggf_sm"),
+                file_pattern="output_.*root",
+                xs=1.),  # already normalised to xs
+
+            Dataset("ggf_0_1",
+                folder=os.path.join(skim_directory, "SKIM_GGHH_NLO_cHHH0_xs"),
+                process=self.processes.get("ggf_0_1"),
+                file_pattern="output_.*root",
+                xs=1.),  # already normalised to xs
+
+            Dataset("ggf_2p45_1",
+                folder=os.path.join(skim_directory, "SKIM_GGHH_NLO_cHHH2p45_xs"),
+                process=self.processes.get("ggf_2p45_1"),
+                file_pattern="output_.*root",
+                xs=1.),  # already normalised to xs
+
+            Dataset("ggf_5_1",
+                folder=os.path.join(skim_directory, "SKIM_GGHH_NLO_cHHH5_xs"),
+                process=self.processes.get("ggf_5_1"),
+                file_pattern="output_.*root",
+                xs=1.),  # already normalised to xs
         ]
         return ObjectCollection(datasets)
 
@@ -414,11 +337,19 @@ class Config(cmt_config):
         weights = DotDict()
         weights.default = "1"
 
+        # The last number is the needed scaling to correct the bTagweightReshape weights
+        # each channel has its own, and this should be propagated correctly to each category.
+        # when considering the three channels at once, for now we take the etau number, but 
+        # this should be fixed
+
         weights.mutau = ["MC_weight", "PUReweight", "PUjetID_SF", "L1pref_weight", "prescaleWeight",
             "trigSF", "IdAndIsoAndFakeSF_deep_pt", "DYscale_MTT", "bTagweightReshape", "0.9890"]
         weights.etau = ["MC_weight", "PUReweight", "PUjetID_SF", "L1pref_weight", "prescaleWeight",
             "trigSF", "IdAndIsoAndFakeSF_deep_pt", "DYscale_MTT", "bTagweightReshape", "0.9831"]
         weights.tautau = ["MC_weight", "PUReweight", "PUjetID_SF", "L1pref_weight",
+            "prescaleWeight", "trigSF", "IdAndIsoAndFakeSF_deep_pt", "DYscale_MTT", "customTauIdSF",
+            "bTagweightReshape", "1.0038"]
+        weights.baseline = ["MC_weight", "PUReweight", "PUjetID_SF", "L1pref_weight",
             "prescaleWeight", "trigSF", "IdAndIsoAndFakeSF_deep_pt", "DYscale_MTT", "customTauIdSF",
             "bTagweightReshape", "0.9831"]
 

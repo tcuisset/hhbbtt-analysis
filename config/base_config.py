@@ -94,11 +94,12 @@ class Config(cmt_config):
         ]
         return ObjectCollection(channels)
 
-    def add_categories(self):
+    def add_categories(self, **kwargs):
         reject_sel = ["pairType == -31415"]
 
         sel = DotDict()
-        df = lambda i, op, wp: "Jet_btagDeepFlavB.at(bjet{}_JetIdx) {} {}".format(i, op, self.btag[wp])
+        btag = kwargs.pop("btag", "Jet_btagDeepFlavB.at(bjet{}_JetIdx)")
+        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag[wp])
         sel["btag"] = DotDict(
             m_first=[df(1, ">", "medium")],
             m_second=[df(2, ">", "medium")],
@@ -162,6 +163,7 @@ class Config(cmt_config):
 
         categories = [
             Category("base", "base category"),
+            Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
             Category("base_selection", "base category",
                 nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
                     " && ((Sum$(Muon_pt->fElements > 17) > 0"
@@ -197,22 +199,29 @@ class Config(cmt_config):
 
     def add_processes(self):
         processes = [
-            Process("ggf", Label("$HH_{ggF}$"), color=(0, 0, 0), isSignal=True, llr_name="ggH"),
-            Process("ggf_sm", Label("$HH_{ggF}$"), color=(0, 0, 0), isSignal=True, parent_process="ggf"),
+            Process("ggf", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True, llr_name="ggH"),
+            Process("ggf_sm", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True,
+                parent_process="ggf"),
+            Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=True,
+                parent_process="ggf"),
+            Process("ggf_2p45_1", Label("HH_{ggF}^{(2.45, 1)}"), color=(0, 0, 0), isSignal=True,
+                parent_process="ggf"),
+            Process("ggf_5_1", Label("HH_{ggF}^{(5, 1)}"), color=(0, 0, 0), isSignal=True,
+                parent_process="ggf"),
 
-            Process("vbf", Label("$HH_{VBF}$"), color=(0, 0, 0), isSignal=True, llr_name="qqH"),
-            Process("vbf_sm", Label("$HH_{VBF}$"), color=(0, 0, 0), isSignal=True, parent_process="vbf"),
-            Process("vbf_0p5_1_1", Label("$HH_{VBF}^{(0.5,1,1)}$"), color=(0, 0, 0),
+            Process("vbf", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=True, llr_name="qqH"),
+            Process("vbf_sm", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=True, parent_process="vbf"),
+            Process("vbf_0p5_1_1", Label("HH_{VBF}^{(0.5,1,1)}"), color=(0, 0, 0),
                 isSignal=True, parent_process="vbf"),
-            Process("vbf_1p5_1_1", Label("$HH_{VBF}^{(1.5,1,1)}$"), color=(0, 0, 0),
+            Process("vbf_1p5_1_1", Label("HH_{VBF}^{(1.5,1,1)}"), color=(0, 0, 0),
                 isSignal=True, parent_process="vbf"),
-            Process("vbf_1_0_1", Label("$HH_{VBF}^{(1,0,1)}$"), color=(0, 0, 0),
+            Process("vbf_1_0_1", Label("HH_{VBF}^{(1,0,1)}"), color=(0, 0, 0),
                 isSignal=True, parent_process="vbf"),
-            Process("vbf_1_1_0", Label("$HH_{VBF}^{(1,1,0)}$"), color=(0, 0, 0),
+            Process("vbf_1_1_0", Label("HH_{VBF}^{(1,1,0)}"), color=(0, 0, 0),
                 isSignal=True, parent_process="vbf"),
-            Process("vbf_1_1_2", Label("$HH_{VBF}^{(1,1,2)}$"),
+            Process("vbf_1_1_2", Label("HH_{VBF}^{(1,1,2)}"),
                 color=(0, 0, 0), isSignal=True, parent_process="vbf"),
-            Process("vbf_1_2_1", Label("$HH_{VBF}^{(1,2,1)}$"),
+            Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
                 color=(0, 0, 0), isSignal=True, parent_process="vbf"),
 
             Process("dy", Label("DY"), color=(255, 102, 102), isDY=True, llr_name="DY"),
@@ -301,6 +310,12 @@ class Config(cmt_config):
                 "vbf_1_1_0",
                 "vbf_1_1_2",
                 "vbf_1_2_1"
+            ],
+            "ggf": [
+                "ggf_sm",
+                "ggf_0_1",
+                "ggf_2p45_1",
+                "ggf_5_1",
             ]
         }
 
