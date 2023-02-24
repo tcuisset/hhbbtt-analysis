@@ -109,7 +109,8 @@ class ggFFeaturePlot(FeaturePlot):
 
                 self.setup_signal_hist(signal_histo, 2 + i)
                 signal_histo.process_label = str(Label("$HH_{ggF}^{(%s,%s)}$" % (t_kl, t_kt)))
-                signal_histo.cmt_process_name = "ggf_%s_%s" % (t_kl, t_kt)
+                cmt_process_name = "ggf_%s_%s" % (t_kl, t_kt)
+                signal_histo.cmt_process_name = cmt_process_name.replace(".", "p")
                 self.histos["signal"].append(signal_histo)
                 self.histos["all"].append(signal_histo)
 

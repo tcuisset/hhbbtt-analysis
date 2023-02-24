@@ -21,14 +21,10 @@ class VBFFeaturePlot(FeaturePlot):
     target_kls = law.CSVParameter(default=("1",), description="kls to be used "
         "in the HH model, default=1")
 
-    # dataset_names = ['vbf_sm', 'vbf_1_1_0', 'vbf_1_1_2', 'vbf_1_0_1',
-        # 'vbf_1_2_1', 'vbf_0p5_1_1', 'vbf_1p5_1_1']
-
     dataset_names = ['vbf_sm', 'vbf_1_1_0', 'vbf_1_1_2', 'vbf_1_0_1',
-        'vbf_1_2_1', 'vbf_0p5_1_1']
+        'vbf_1_2_1', 'vbf_1p5_1_1']
 
-    # parameters = [(1, 1, 1), (1, 1, 0), (1, 1, 2), (1, 0, 1), (1, 2, 1), (0.5, 1, 1), (1.5, 1, 1)]
-    parameters = [(1, 1, 1), (1, 1, 0), (1, 1, 2), (1, 0, 1), (1, 2, 1), (0.5, 1, 1)]
+    parameters = [(1, 1, 1), (1, 1, 0), (1, 1, 2), (1, 0, 1), (1, 2, 1), (1.5, 1, 1)]
 
     do_qcd = False
     blinded = False
@@ -120,7 +116,8 @@ class VBFFeaturePlot(FeaturePlot):
                     t_kl = int(t_kl)
 
                 signal_histo.process_label = str(Label("$HH_{VBF}^{(%s,%s,%s)}$" % (t_kv, t_k2v, t_kl)))
-                signal_histo.cmt_process_name = "vbf_%s_%s_%s" % (t_kv, t_k2v, t_kl)
+                cmt_process_name = "vbf_%s_%s_%s" % (t_kv, t_k2v, t_kl)
+                signal_histo.cmt_process_name = cmt_process_name.replace(".", "p")
                 self.histos["signal"].append(signal_histo)
                 self.histos["all"].append(signal_histo)
 
