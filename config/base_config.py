@@ -31,7 +31,8 @@ class Config(cmt_config):
     def combine_selections_per_channel(self, selection1, selection2):
         selection = DotDict()
         for channel in selection1:
-            selection[channel] = jrs(selection1[channel], selection2[channel], op="or")
+            selection[channel] = jrs(jrs(selection1[channel], op="and"),
+                jrs(selection2[channel], op="and"), op="or")
         return selection
 
     def add_regions(self):

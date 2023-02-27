@@ -258,6 +258,25 @@ class Config(cmt_config):
                 x_title=Label("#Delta#eta(VBFjj)")),
             Feature("VBFjj_deltaPhi", "VBFjj_deltaPhi", binning=(40, -6.4, 6.4),
                 x_title=Label("#Delta#phi(VBFjj)")),
+
+            # weights
+            Feature("PUjetID_SF", "PUjetID_SF", binning=(100, 0, 2),
+                x_title=Label("PUjetID_SF"), tags=["weight"]),
+            Feature("PUReweight", "PUReweight", binning=(100, 0, 2),
+                x_title=Label("PUReweight"), tags=["weight"]),
+            Feature("bTagweightReshape", "bTagweightReshape", binning=(100, 0, 2),
+                x_title=Label("bTagweightReshape"), tags=["weight"]),
+            Feature("trigSF", "trigSF", binning=(100, 0, 2),
+                x_title=Label("trigSF"), tags=["weight"]),
+            Feature("IdAndIsoSF_deep_pt", "IdAndIsoSF_deep_pt", binning=(100, 0, 2),
+                x_title=Label("IdAndIsoSF_deep_pt"), tags=["weight"]),
+            Feature("smearing_factor", "{bjet1_smearFactor, bjet1_smearFactor2}", binning=(100, 0, 2),
+                x_title=Label("smearing_factor"), tags=["weight"]),
+            Feature("L1pref_weight", "L1pref_weight", binning=(100, 0, 2),
+                x_title=Label("L1pref_weight"), tags=["weight"]),
+            Feature("prescaleWeight", "prescaleWeight", binning=(100, 0, 2),
+                x_title=Label("prescaleWeight"), tags=["weight"]),
+
         ]
         return ObjectCollection(features)
         
@@ -328,6 +347,25 @@ class Config(cmt_config):
             Dataset("ggf_5_1",
                 folder=os.path.join(skim_directory, "SKIM_GGHH_NLO_cHHH5_xs"),
                 process=self.processes.get("ggf_5_1"),
+                file_pattern="output_.*root",
+                xs=1.),  # already normalised to xs
+
+            # Backgrounds
+            Dataset("tt_dl",
+                folder=os.path.join(skim_directory, "SKIM_TT_fullyLep"),
+                process=self.processes.get("tt_dl"),
+                file_pattern="output_.*root",
+                xs=1.),  # already normalised to xs
+
+            Dataset("tt_sl",
+                folder=os.path.join(skim_directory, "SKIM_TT_semiLep"),
+                process=self.processes.get("tt_sl"),
+                file_pattern="output_.*root",
+                xs=1.),  # already normalised to xs
+
+            Dataset("dy",
+                folder=os.path.join(skim_directory, "SKIM_DY"),
+                process=self.processes.get("dy_high"),
                 file_pattern="output_.*root",
                 xs=1.),  # already normalised to xs
         ]
