@@ -163,7 +163,7 @@ class Config(cmt_config):
         sel["vbf_combined"] = self.join_selection_channels(sel.vbf)
 
         categories = [
-            Category("base", "base category"),
+            Category("base", "base category", selection="event >= 0"),
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
             Category("base_selection", "base category",
                 nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
@@ -216,14 +216,14 @@ class Config(cmt_config):
                 isSignal=True, parent_process="vbf"),
             Process("vbf_1p5_1_1", Label("HH_{VBF}^{(1.5,1,1)}"), color=(0, 0, 0),
                 isSignal=True, parent_process="vbf"),
-            Process("vbf_1_0_1", Label("HH_{VBF}^{(1,0,1)}"), color=(0, 0, 0),
+            Process("vbf_1_0_1", Label("HH_{VBF}^{(1,0,1)}"), color=(255, 153, 0),
                 isSignal=True, parent_process="vbf"),
             Process("vbf_1_1_0", Label("HH_{VBF}^{(1,1,0)}"), color=(0, 0, 0),
                 isSignal=True, parent_process="vbf"),
             Process("vbf_1_1_2", Label("HH_{VBF}^{(1,1,2)}"),
                 color=(0, 0, 0), isSignal=True, parent_process="vbf"),
             Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
-                color=(0, 0, 0), isSignal=True, parent_process="vbf"),
+                color=(255, 102, 102), isSignal=True, parent_process="vbf"),
 
             Process("dy", Label("DY"), color=(255, 102, 102), isDY=True, llr_name="DY"),
             Process("dy_high", Label("DY"), color=(255, 102, 102), isDY=True, parent_process="dy"),
@@ -571,6 +571,10 @@ class Config(cmt_config):
             Feature("PUjetID_SF", "PUjetID_SF", binning=(20, 0, 2),
                 x_title=Label("PUjetID_SF")),
 
+            Feature("genHH_mass", "genHH_mass", binning=(100, 0, 2500),
+                x_title=Label("generator HH mass"),
+                units="GeV"),
+
         ]
         return ObjectCollection(features)
 
@@ -586,6 +590,7 @@ class Config(cmt_config):
 
         weights.etau = weights.mutau
         weights.tautau = weights.mutau
+        weights.base = weights.mutau
 
         # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
             # for channel in weights.channels}

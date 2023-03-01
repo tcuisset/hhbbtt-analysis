@@ -84,6 +84,7 @@ jet_smearing:
         isMC: self.dataset.process.isMC
         jerTag: self.config.year
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 
 jet_smear_val:
@@ -106,6 +107,7 @@ jec:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
         # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
             # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
 
@@ -224,6 +226,7 @@ PUjetID_SF:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
         lep_pt: "{dau1_pt, dau2_pt}"
         lep_eta: "{dau1_eta, dau2_eta}"
         lep_phi: "{dau1_phi, dau2_phi}"

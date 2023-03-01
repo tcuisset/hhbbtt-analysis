@@ -20,6 +20,7 @@ class Config(cmt_config):
         )
         self.regions = self.add_regions()
         self.categories = self.add_categories(btag = "bjet{}_bID_deepFlavor")
+        self.tree_name = "HTauTauTree"
 
     def add_regions(self):
         selection = OrderedDict()
@@ -355,18 +356,33 @@ class Config(cmt_config):
                 folder=os.path.join(skim_directory, "SKIM_TT_fullyLep"),
                 process=self.processes.get("tt_dl"),
                 file_pattern="output_.*root",
+                merging={
+                    "resolved_1b": 5,
+                    "resolved_2b": 5,
+                    "vbf": 5,
+                },
                 xs=1.),  # already normalised to xs
 
             Dataset("tt_sl",
                 folder=os.path.join(skim_directory, "SKIM_TT_semiLep"),
                 process=self.processes.get("tt_sl"),
                 file_pattern="output_.*root",
+                merging={
+                    "resolved_1b": 5,
+                    "resolved_2b": 5,
+                    "vbf": 5,
+                },
                 xs=1.),  # already normalised to xs
 
             Dataset("dy",
                 folder=os.path.join(skim_directory, "SKIM_DY"),
                 process=self.processes.get("dy_high"),
                 file_pattern="output_.*root",
+                merging={
+                    "resolved_1b": 2,
+                    "resolved_2b": 2,
+                    "vbf": 2,
+                },
                 xs=1.),  # already normalised to xs
         ]
         return ObjectCollection(datasets)
