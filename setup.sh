@@ -86,8 +86,11 @@ action() {
     [ -z "$CMT_STORE_EOS_SHARDS" ] && export CMT_STORE_EOS_SHARDS="$CMT_STORE_EOS"
     [ -z "$CMT_STORE_EOS_EVALUATION" ] && export CMT_STORE_EOS_EVALUATION="$CMT_STORE_EOS"
     if [ -n "$CMT_CIEMAT_USER" ]; then
-      export TMPDIR="/nfs/scratch_cms/$CMT_CIEMAT_USER/cmt/tmp"
-      mkdir -p "$TMPDIR"
+       if [ -n "$CMT_TMPDIR" ]; then
+         export TMPDIR="$CMT_TMPDIR"
+      else
+         export TMPDIR="/nfs/scratch_cms/$CMT_CIEMAT_USER/cmt/tmp"
+      fi
     fi
 
     # create some dirs already
