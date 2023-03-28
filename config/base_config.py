@@ -177,7 +177,7 @@ class Config(cmt_config):
                     "|| Tau_pt[Tau_pt > 17].size() > 1)"
                     "&& Jet_pt[Jet_pt > 17].size() > 0"),
             # Category("dum", "dummy category", selection="event == 220524669"),
-            Category("dum", "dummy category", selection="event == 74472670"),
+            Category("dum", "dummy category", selection="event == 2"),
             Category("mutau", "#mu#tau channel", selection="pairType == 0"),
             Category("etau", "e#tau channel", selection="pairType == 1"),
             # Category("etau", "e#tau channel", selection="pairType >= -999"),
@@ -200,8 +200,8 @@ class Config(cmt_config):
 
     def add_processes(self):
         processes = [
-            Process("ggf", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True, llr_name="ggH"),
-            Process("ggf_sm", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True,
+            Process("ggf", Label("HH_{ggF}"), color=(255, 0, 0), isSignal=True, llr_name="ggH"),
+            Process("ggf_sm", Label("HH_{ggF}"), color=(255, 0, 0), isSignal=True,
                 parent_process="ggf"),
             Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=True,
                 parent_process="ggf"),
@@ -216,13 +216,17 @@ class Config(cmt_config):
                 isSignal=True, parent_process="vbf"),
             Process("vbf_1p5_1_1", Label("HH_{VBF}^{(1.5,1,1)}"), color=(0, 0, 0),
                 isSignal=True, parent_process="vbf"),
-            Process("vbf_1_0_1", Label("HH_{VBF}^{(1,0,1)}"), color=(255, 153, 0),
+            # Process("vbf_1_0_1", Label("HH_{VBF}^{(1,0,1)}"), color=(255, 153, 0),
+                # isSignal=True, parent_process="vbf"),
+            Process("vbf_1_0_1", Label("HH_{VBF}^{#kappa_{2V} = 0}"), color=(255, 153, 0),
                 isSignal=True, parent_process="vbf"),
             Process("vbf_1_1_0", Label("HH_{VBF}^{(1,1,0)}"), color=(0, 0, 0),
                 isSignal=True, parent_process="vbf"),
             Process("vbf_1_1_2", Label("HH_{VBF}^{(1,1,2)}"),
                 color=(0, 0, 0), isSignal=True, parent_process="vbf"),
-            Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
+            # Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
+                # color=(255, 102, 102), isSignal=True, parent_process="vbf"),
+            Process("vbf_1_2_1", Label("HH_{VBF}^{#kappa_{2V} = 2}"),
                 color=(255, 102, 102), isSignal=True, parent_process="vbf"),
 
             Process("dy", Label("DY"), color=(255, 102, 102), isDY=True, llr_name="DY"),
@@ -278,6 +282,7 @@ class Config(cmt_config):
             ],
             "signal": [
                 "ggf_sm",
+                "vbf_sm",
             ],
             "etau": [
                 "tt_dl",
@@ -574,7 +579,17 @@ class Config(cmt_config):
             Feature("genHH_mass", "genHH_mass", binning=(100, 0, 2500),
                 x_title=Label("generator HH mass"),
                 units="GeV"),
+            Feature("genHH_deltaEta", "fabs(genHH_deltaEta)", binning=(100, 0, 10),
+                x_title=Label("generator #Delta#eta(H(#tau#tau), H(bb))")),
 
+            Feature("max_genjj_mass", "max_genjj_mass", binning=(100, 0, 1000),
+                x_title=Label("max. inv. mass (gen. jet, gen. jet)"),
+                units="GeV"),
+            Feature("max_genjj_delta_eta", "max_genjj_delta_eta", binning=(100, 0, 10),
+                x_title=Label("max #Delta#eta(gen. jet, gen. jet)")),
+
+            Feature("genjet_eta", "GenJet_eta", binning=(30, -7.5, 7.5),
+                x_title=Label("Generated jet #eta")),
         ]
         return ObjectCollection(features)
 
