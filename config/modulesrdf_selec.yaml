@@ -56,6 +56,14 @@ hhlepton:
         tau_syst: ""
 
 
+ditaujet:
+    name: HHDiTauJetRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+        jet_syst: ""
+        tau_syst: ""
+
 # jet_smearing:
     # name: jetSmearerRDF
     # path: Corrections.JME.smearing
