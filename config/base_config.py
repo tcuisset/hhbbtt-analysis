@@ -211,7 +211,7 @@ class Config(cmt_config):
         processes = [
             Process("ggf", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True, llr_name="ggH"),
             Process("ggf_sm", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True,
-                parent_process="ggf"),
+                parent_process="ggf", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
             Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=True,
                 parent_process="ggf"),
             Process("ggf_2p45_1", Label("HH_{ggF}^{(2.45, 1)}"), color=(0, 0, 0), isSignal=True,
@@ -325,6 +325,14 @@ class Config(cmt_config):
                 "tt_fh",
                 "dy",
                 "others",
+                "data_mutau",
+            ],
+            "mutau_wjets": [
+                "tt_dl",
+                "tt_sl",
+                "tt_fh",
+                "dy",
+                "wjets",
                 "data_mutau",
             ],
             "tautau": [
