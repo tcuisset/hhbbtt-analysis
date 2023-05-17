@@ -113,6 +113,7 @@ class Config(cmt_config):
             not_mm=[df(1, "<", "medium"), df(2, "<", "medium")],
         )
 
+        # If we use {{}} the name of the feature is replaced by the expression we define in the feature object (including syst in case)
         _excl_vbf_loose_nob = ["{{VBFjj_mass}} > 500", "abs({{VBFjj_deltaEta}}) > 3",
             "isVBFtrigger == 0"]
         _excl_vbf_loose = _excl_vbf_loose_nob + sel.btag.m_any
@@ -202,7 +203,7 @@ class Config(cmt_config):
         processes = [
             Process("ggf", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True, llr_name="ggH"),
             Process("ggf_sm", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True,
-                parent_process="ggf"),
+                parent_process="ggf", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
             Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=True,
                 parent_process="ggf"),
             Process("ggf_2p45_1", Label("HH_{ggF}^{(2.45, 1)}"), color=(0, 0, 0), isSignal=True,
@@ -247,6 +248,15 @@ class Config(cmt_config):
                 llr_name="TW"),
             Process("singlet", Label("Single t"), color=(134, 136, 138), parent_process="others",
                 llr_name="singleT"),
+
+            Process("zz", Label("ZZ"), color=(0, 0, 0)),
+            Process("zz_dl", Label("ZZ DL"), color=(0, 0, 0), parent_process="zz"),
+            Process("zz_fh", Label("ZZ FH"), color=(0, 0, 0), parent_process="zz"),
+            Process("zz_lnu", Label("ZZ 2L2Nu"), color=(0, 0, 0), parent_process="zz"),
+            Process("zz_qnu", Label("ZZ 2Q2Nu"), color=(0, 0, 0), parent_process="zz"),
+            Process("zzz", Label("ZZZ"), color=(0, 0, 0), parent_process="zz"),
+
+            Process("zz_sl", Label("ZZ SL (SIG)"), color=(0, 0, 0)),
 
             Process("data", Label("Data"), color=(0, 0, 0), isData=True),
             Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
@@ -295,6 +305,14 @@ class Config(cmt_config):
                 "others",
                 "data_mutau",
             ],
+            "mutau_tmp": [
+                "tt_dl",
+                "tt_sl",
+                "tt_fh",
+                "dy",
+                "wjets",
+                "data_mutau",
+            ],
             "tautau": [
                 "tt_dl",
                 "tt_sl",
@@ -339,7 +357,8 @@ class Config(cmt_config):
             Feature("bjet1_pt", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
                 x_title=Label("b_{1} p_{t}"),
                 units="GeV",
-                central="jet_smearing"),
+                central="jet_smearing",
+                selection="abs({{bjet1_eta}}) < 2.1"),
             Feature("bjet1_eta", "Jet_eta.at(bjet1_JetIdx)", binning=(20, -5., 5.),
                 x_title=Label("b_{1} #eta")),
             Feature("bjet1_phi", "Jet_phi.at(bjet1_JetIdx)", binning=(20, -3.2, 3.2),
@@ -476,8 +495,8 @@ class Config(cmt_config):
                 systematics=["tes"]),
             Feature("Htt_svfit_mass", "Htt_svfit_mass", binning=(30, 0, 300),
                 x_title=Label("H(#tau^{+} #tau^{-}) m (SVFit)"),
-                units="GeV"),
-                #systematics=["tes"]),
+                units="GeV",
+                systematics=["tes"]),
 
             # HH
             Feature("HH_pt", "HH_pt", binning=(10, 50, 150),
@@ -491,9 +510,9 @@ class Config(cmt_config):
                 x_title=Label("HH #phi"),
                 systematics=["tes"]),
             Feature("HH_mass", "HH_mass", binning=(50, 0, 1000),
-                x_title=Label("HH m"),
-                units="GeV",
-                systematics=["tes"]),
+                x_title=Label("m_{bb#tau#tau}"),
+                units="GeV"),
+                # systematics=["tes"]),
 
             # HH (SVFit)
             Feature("HH_svfit_pt", "HH_svfit_pt", binning=(10, 50, 150),
@@ -509,7 +528,7 @@ class Config(cmt_config):
             Feature("HH_svfit_mass", "HH_svfit_mass", binning=(50, 0, 1000),
                 x_title=Label("HH m (SVFit)"),
                 units="GeV"),
-                #systematics=["tes"]),
+                # systematics=["tes"]),
 
             # HH KinFit
             Feature("HHKinFit_mass", "HHKinFit_mass", binning=(50, 0, 1000),
@@ -559,7 +578,8 @@ class Config(cmt_config):
             Feature("genWeight", "genWeight", binning=(20, 0, 2),
                 x_title=Label("genWeight")),
             Feature("puWeight", "puWeight", binning=(20, 0, 2),
-                x_title=Label("puWeight")),
+                x_title=Label("puWeight"),
+                systematics=["pu"]),
             Feature("prescaleWeight", "prescaleWeight", binning=(20, 0, 2),
                 x_title=Label("prescaleWeight")),
             Feature("trigSF", "trigSF", binning=(20, 0, 2),
@@ -574,7 +594,6 @@ class Config(cmt_config):
             Feature("genHH_mass", "genHH_mass", binning=(100, 0, 2500),
                 x_title=Label("generator HH mass"),
                 units="GeV"),
-
         ]
         return ObjectCollection(features)
 
@@ -602,6 +621,7 @@ class Config(cmt_config):
             Systematic("met_smearing", ("MET", "MET_smeared")),
             Systematic("prefiring", "_Nom"),
             Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
+            Systematic("pu", "", up="Up", down="Down"),
             Systematic("tes", "_corr"),
             Systematic("empty", "", up="", down="")
         ]

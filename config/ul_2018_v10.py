@@ -151,6 +151,46 @@ class Config_ul_2018(base_config):
                 secondary_dataset="st_top_aux",
                 tags=["ul", "nanoV10"]),
 
+            # di-boson background
+            Dataset("zz_dl",
+                folder=p + "ZZTo4L",
+                process=self.processes.get("zz_dl"),
+                xs=1.26,
+                secondary_dataset="zz_dl_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("zz_fh",
+                folder=p + "ZZTo4Q",
+                process=self.processes.get("zz_fh"),
+                xs=3.262,
+                secondary_dataset="zz_fh_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("zz_lnu",
+                folder=p + "ZZTo2L2Nu",
+                process=self.processes.get("zz_lnu"),
+                xs=0.564,
+                secondary_dataset="zz_lnu_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("zz_qnu",
+                folder=p + "ZZTo2Q2Nu",
+                process=self.processes.get("zz_qnu"),
+                xs=4.07,
+                secondary_dataset="zz_qnu_aux",
+                tags=["ul", "nanoV10"]),
+            # tri-boson
+            Dataset("zzz",
+                folder=p + "ZZZ",
+                process=self.processes.get("zzz"),
+                xs=0.0147,
+                secondary_dataset="zzz_aux",
+                tags=["ul", "nanoV10"]),
+            # di-boson containing signal ZZ (I have to take only events where gen is bb tautau)
+            Dataset("zz_sl",
+                folder=p + "ZZTo2Q2L",
+                process=self.processes.get("zz_sl"),
+                xs=5.52,
+                secondary_dataset="zz_sl_aux",
+                tags=["ul", "nanoV10"]),
+
             # DATA
             # Tau 2018
             Dataset("data_tau_a",
@@ -304,12 +344,20 @@ class Config_ul_2018(base_config):
         datasets = ObjectCollection(datasets)
 
         for name in ["tt_dl", "tt_sl", "tt_fh", "tth_bb", "tth_tautau", "tth_nonbb",
-                "dy_nlo", "wjets", "st_tw_antitop", "st_tw_top", "st_antitop", "st_top"]:
+                "dy_nlo", "wjets", "st_tw_antitop", "st_tw_top", "st_antitop", "st_top", "zz_dl",
+                "zz_sl", "zz_lnu", "zz_qnu", "zzz"]:
             datasets.add(
                 Dataset(
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
             )
 
         return datasets
+
+    # if I don't want to specify the version every time
+    # def add_version(self):
+    #     versions = {
+    #         "MergeCategorizationStats": "prod_503"
+    #     }
+    #     return versions
 
 config = Config_ul_2018("ul_2018_v10", year=2018, ecm=13, lumi_pb=59741)
