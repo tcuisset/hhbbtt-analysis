@@ -201,30 +201,30 @@ class Config(cmt_config):
 
     def add_processes(self):
         processes = [
-            Process("ggf", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True, llr_name="ggH"),
-            Process("ggf_sm", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=True,
+            Process("ggf", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=False, llr_name="ggH"),
+            Process("ggf_sm", Label("HH_{ggF}"), color=(0, 0, 0), isSignal=False,
                 parent_process="ggf", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
-            Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=True,
+            Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=False,
                 parent_process="ggf"),
-            Process("ggf_2p45_1", Label("HH_{ggF}^{(2.45, 1)}"), color=(0, 0, 0), isSignal=True,
+            Process("ggf_2p45_1", Label("HH_{ggF}^{(2.45, 1)}"), color=(0, 0, 0), isSignal=False,
                 parent_process="ggf"),
-            Process("ggf_5_1", Label("HH_{ggF}^{(5, 1)}"), color=(0, 0, 0), isSignal=True,
+            Process("ggf_5_1", Label("HH_{ggF}^{(5, 1)}"), color=(0, 0, 0), isSignal=False,
                 parent_process="ggf"),
 
-            Process("vbf", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=True, llr_name="qqH"),
-            Process("vbf_sm", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=True, parent_process="vbf"),
+            Process("vbf", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, llr_name="qqH"),
+            Process("vbf_sm", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, parent_process="vbf"),
             Process("vbf_0p5_1_1", Label("HH_{VBF}^{(0.5,1,1)}"), color=(0, 0, 0),
-                isSignal=True, parent_process="vbf"),
+                isSignal=False, parent_process="vbf"),
             Process("vbf_1p5_1_1", Label("HH_{VBF}^{(1.5,1,1)}"), color=(0, 0, 0),
-                isSignal=True, parent_process="vbf"),
+                isSignal=False, parent_process="vbf"),
             Process("vbf_1_0_1", Label("HH_{VBF}^{(1,0,1)}"), color=(255, 153, 0),
-                isSignal=True, parent_process="vbf"),
+                isSignal=False, parent_process="vbf"),
             Process("vbf_1_1_0", Label("HH_{VBF}^{(1,1,0)}"), color=(0, 0, 0),
-                isSignal=True, parent_process="vbf"),
+                isSignal=False, parent_process="vbf"),
             Process("vbf_1_1_2", Label("HH_{VBF}^{(1,1,2)}"),
-                color=(0, 0, 0), isSignal=True, parent_process="vbf"),
+                color=(0, 0, 0), isSignal=False, parent_process="vbf"),
             Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
-                color=(255, 102, 102), isSignal=True, parent_process="vbf"),
+                color=(255, 102, 102), isSignal=False, parent_process="vbf"),
 
             Process("dy", Label("DY"), color=(255, 102, 102), isDY=True, llr_name="DY"),
             Process("dy_high", Label("DY"), color=(255, 102, 102), isDY=True, parent_process="dy"),
@@ -254,9 +254,12 @@ class Config(cmt_config):
             Process("zz_fh", Label("ZZ FH"), color=(0, 0, 0), parent_process="zz"),
             Process("zz_lnu", Label("ZZ 2L2Nu"), color=(0, 0, 0), parent_process="zz"),
             Process("zz_qnu", Label("ZZ 2Q2Nu"), color=(0, 0, 0), parent_process="zz"),
-            Process("zzz", Label("ZZZ"), color=(0, 0, 0), parent_process="zz"),
+            Process("zzz", Label("ZZZ"), color=(0, 0, 0)),
 
-            Process("zz_sl", Label("ZZ SL (SIG)"), color=(0, 0, 0)),
+            # Process("zz_sl", Label("ZZ SL (SIG)"), color=(0, 0, 0)), # we need to distinguish the real signal from the background
+
+            Process("zz_sl_signal", Label("ZZ->bbtt"), color=(0, 0, 0), isZZsignal=True, isSignal=True),
+            Process("zz_sl_background", Label("ZZ->2Q2L"), color=(0, 0, 0), isZZbackground=True, parent_process="zz"),
 
             Process("data", Label("Data"), color=(0, 0, 0), isData=True),
             Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
@@ -605,7 +608,7 @@ class Config(cmt_config):
         weights.total_events_weights = ["genWeight", "puWeight"]
 
         weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-            "L1PreFiringWeight", "PUjetID_SF"]
+            "L1PreFiringWeight", "PUjetID_SF", "zz_sl_sig_bkg"]
 
         weights.etau = weights.mutau
         weights.tautau = weights.mutau

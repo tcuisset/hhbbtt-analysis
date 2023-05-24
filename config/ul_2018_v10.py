@@ -184,11 +184,17 @@ class Config_ul_2018(base_config):
                 secondary_dataset="zzz_aux",
                 tags=["ul", "nanoV10"]),
             # di-boson containing signal ZZ (I have to take only events where gen is bb tautau)
-            Dataset("zz_sl",
+            Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
-                process=self.processes.get("zz_sl"),
+                process=self.processes.get("zz_sl_background"),
                 xs=5.52,
-                secondary_dataset="zz_sl_aux",
+                secondary_dataset="zz_sl_background_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("zz_sl_signal",
+                folder=p + "ZZTo2Q2L",
+                process=self.processes.get("zz_sl_signal"),
+                xs=5.52,
+                secondary_dataset="zz_sl_signal_aux",
                 tags=["ul", "nanoV10"]),
 
             # DATA
@@ -345,7 +351,7 @@ class Config_ul_2018(base_config):
 
         for name in ["tt_dl", "tt_sl", "tt_fh", "tth_bb", "tth_tautau", "tth_nonbb",
                 "dy_nlo", "wjets", "st_tw_antitop", "st_tw_top", "st_antitop", "st_top", "zz_dl",
-                "zz_sl", "zz_lnu", "zz_qnu", "zzz"]:
+                "zz_sl_background", "zz_fh", "zz_lnu", "zz_qnu", "zzz", "zz_sl_signal"]:
             datasets.add(
                 Dataset(
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])

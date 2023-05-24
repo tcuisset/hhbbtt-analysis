@@ -22,3 +22,10 @@ dystitching:
         year: self.config.year
         isDY: self.dataset.process.get_aux('isDY', False)
         isUL: self.dataset.has_tag('ul')
+
+zz_sl_sig_bkg:
+    name: ZZBBTauTauFilterRDF
+    path: Tools.Tools.ZZAnalysis
+    parameters:
+        isZZsig: self.dataset.process.get_aux('isZZsignal', False)
+        isZZbkg: self.dataset.process.get_aux('isZZbackground', False)

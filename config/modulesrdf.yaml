@@ -13,6 +13,13 @@ puweight:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
 
+zz_sl_sig_bkg:
+    name: ZZBBTauTauFilterRDF
+    path: Tools.Tools.ZZAnalysis
+    parameters:
+        isZZsig: self.dataset.process.get_aux('isZZsignal', False)
+        isZZbkg: self.dataset.process.get_aux('isZZbackground', False)
+
 # # UL only
 # # puweightCor:
     # # name: puWeightRDF
