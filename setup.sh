@@ -86,13 +86,16 @@ action() {
     [ -z "$CMT_STORE_EOS_SHARDS" ] && export CMT_STORE_EOS_SHARDS="$CMT_STORE_EOS"
     [ -z "$CMT_STORE_EOS_EVALUATION" ] && export CMT_STORE_EOS_EVALUATION="$CMT_STORE_EOS"
     if [ -n "$CMT_CIEMAT_USER" ]; then
-      export TMPDIR="/nfs/scratch_cms/$CMT_CIEMAT_USER/cmt/tmp"
-      mkdir -p "$TMPDIR"
+       if [ -n "$CMT_TMPDIR" ]; then
+         export TMPDIR="$CMT_TMPDIR"
+       else
+         export TMPDIR="/nfs/scratch_cms/$CMT_CIEMAT_USER/cmt/tmp"
+       fi
+       mkdir -p "$TMPDIR"
     fi
 
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"
-    mkdir -p "$TMPDIR"
 
 
     #
@@ -307,7 +310,7 @@ action() {
             cmt_pip_install --no-deps git+https://github.com/riga/law
             cmt_pip_install --no-deps git+https://github.com/riga/plotlib
             cmt_pip_install --no-deps gast==0.2.2  # https://github.com/tensorflow/autograph/issues/1
-            cmt_pip_install sphinx
+            cmt_pip_install sphinx==5.2.2
             cmt_pip_install sphinx_rtd_theme
             cmt_pip_install sphinx_design
         fi
