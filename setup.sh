@@ -88,7 +88,7 @@ action() {
     elif [ -n "$CMT_CERN_USER" ]; then
       [ -z "$CMT_STORE_EOS" ] && export CMT_STORE_EOS="/eos/user/${CMT_CERN_USER:0:1}/$CMT_CERN_USER/cmt"
     elif [ -n "$CMT_LLR_USER" ]; then
-      [ -z "$CMT_STORE_EOS" ] && export CMT_STORE_EOS="/data_CMS/cms/$CMT_LLR_USER/cmt"
+      [ -z "$CMT_STORE_EOS" ] && export CMT_STORE_EOS="/data_CMS/cms/${CMT_LLR_USER:1}/cmt"
     fi
     [ -z "$CMT_STORE" ] && export CMT_STORE="$CMT_STORE_EOS"
     [ -z "$CMT_JOB_DIR" ] && export CMT_JOB_DIR="$CMT_DATA/jobs"
