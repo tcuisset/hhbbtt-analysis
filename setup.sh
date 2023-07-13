@@ -38,6 +38,7 @@ action() {
         export CMT_ON_LLR="1"
     else
         export CMT_ON_LLR="0"
+        export EXTRA_CLING_ARGS=" -O2"
     fi
     
     # default cern name
