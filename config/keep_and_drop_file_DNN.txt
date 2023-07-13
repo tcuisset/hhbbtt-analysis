@@ -19,6 +19,8 @@ keep pairType
 keep isBoosted
 keep VBFjet1_JetIdx
 keep VBFjet2_JetIdx
+keep trigSF.*
+keep PUjetID_SF.*
 drop .*up
 drop .*down
 drop .*Up
