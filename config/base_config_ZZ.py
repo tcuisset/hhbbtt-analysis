@@ -774,7 +774,7 @@ class Config(cmt_config):
         weights.total_events_weights = ["genWeight", "puWeight"]
 
         weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-            "L1PreFiringWeight", "PUjetID_SF", "zz_sl_sig_bkg"]
+            "L1PreFiringWeight", "PUjetID_SF"]
 
         weights.etau = weights.mutau
         weights.tautau = weights.mutau
