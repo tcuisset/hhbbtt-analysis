@@ -177,10 +177,10 @@ class Config(cmt_config):
                     " || Sum$(Electron_pt->fElements > 17) > 0)"
                     " || Sum$(Tau_pt->fElements > 17) > 1)"
                     " && Sum$(Jet_pt->fElements > 17) > 1)",
-                selection="Tau_pt[Tau_pt > 17].size() > 0 "
+                selection="Tau_pt[Tau_pt > 10].size() > 0 "
                     "&& ((Muon_pt[Muon_pt > 17].size() > 0"
                     "|| Electron_pt[Electron_pt > 17].size() > 0)"
-                    "|| Tau_pt[Tau_pt > 17].size() > 1)"
+                    "|| Tau_pt[Tau_pt > 10].size() > 1)"
                     "&& Jet_pt[Jet_pt > 17].size() > 0"),
             # Category("dum", "dummy category", selection="event == 220524669"),
             Category("dum", "dummy category", selection="event == 74472670"),
@@ -674,7 +674,9 @@ class Config(cmt_config):
             Systematic("prefiring", "_Nom"),
             Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
             Systematic("pu", "", up="Up", down="Down"),
-            Systematic("tes", "_corr"),
+            Systematic("tes", "_corr",
+                affected_categories=self.categories.names(),
+                module_syst_type="tau_syst"),
             Systematic("empty", "", up="", down="")
         ]
         return ObjectCollection(systematics)
