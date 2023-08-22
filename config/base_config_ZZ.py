@@ -177,12 +177,37 @@ class Config(cmt_config):
                     "|| Electron_pt[Electron_pt > 17].size() > 0)"
                     "|| Tau_pt[Tau_pt > 17].size() > 1)"
                     "&& Jet_pt[Jet_pt > 17].size() > 0"),
-            Category("ZZ_elliptical_cut_80", "ZZ Elliptical cut E=80#%",
+            Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
                 selection="(({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1"),
-            Category("ZZ_elliptical_cut_90", "Elliptical cut E=90#%",
+            Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
                 selection="(({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
                 " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1"),
+            Category("baseline_sr", "baseline Signal region",
+                selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 2) && (isOS == 1) && "
+                    "(dau2_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0})) "
+                    .format(self.deeptau.vsjet.Medium)),
+            Category("ZZ_elliptical_cut_80_sr", "ZZ mass cut E=80% && Signal region",
+                selection="((({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
+                    " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1) && " + \
+                    "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 2) && (isOS == 1) && "
+                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
+                    .format(self.deeptau.vsjet.Medium)),
+            Category("ZZ_elliptical_cut_80_sr_debug", "ZZ mass cut E=80% && Signal region debug",
+                selection="(event == 31332435) || (event == 31336032)"),
+            Category("ZZ_elliptical_cut_80_mutau", "ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 0)"),
+            Category("ZZ_elliptical_cut_80_etau", "ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 1)"),
+            Category("ZZ_elliptical_cut_80_tautau", "ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 2)"),
             # Category("dum", "dummy category", selection="event == 220524669"),
             Category("dum", "dummy category", selection="event == 74472670"),
             Category("debug", "debug category", selection="(event >= 31122668) && (event <= 31185105)"),
@@ -208,22 +233,22 @@ class Config(cmt_config):
 
     def add_processes(self):
         processes = [
-            Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(100, 225, 252), 
-                    isZZsignal=True, isSignal=True, llr_name="ZZ_sig"),
+            Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(153, 247, 171), 
+                    isZZsignal=True, isSignal=True, llr_name="ZZ"),
 
-            Process("zz_sl_background", Label("ZZ 2Q2L"), color=(249, 0, 157), 
+            Process("zz_sl_background", Label("ZZ 2Q2L"), color=(20, 60, 255), 
                     isZZbackground=True, parent_process="zz"),
-            Process("zz_lnu", Label("ZZ 2L2Nu"), color=(249, 0, 157), parent_process="zz_sl"),
-            Process("zz_qnu", Label("ZZ 2Q2Nu"), color=(249, 0, 157), parent_process="zz_sl"),
-            Process("zz_sl", Label("ZZ SL"), color=(249, 0, 157), parent_process="zz"),
-            Process("zz_dl", Label("ZZ DL"), color=(249, 0, 157), parent_process="zz"),
-            Process("zz_fh", Label("ZZ FH"), color=(249, 0, 157), parent_process="zz"),
-            Process("zzz", Label("ZZZ"), color=(249, 0, 157), parent_process="zz"),
-            Process("zz", Label("ZZ"), color=(249, 0, 157), llr_name="ZZ",
+            Process("zz_lnu", Label("ZZ 2L2Nu"), color=(20, 60, 255), parent_process="zz_sl"),
+            Process("zz_qnu", Label("ZZ 2Q2Nu"), color=(20, 60, 255), parent_process="zz_sl"),
+            Process("zz_sl", Label("ZZ SL"), color=(20, 60, 255), parent_process="zz"),
+            Process("zz_dl", Label("ZZ DL"), color=(20, 60, 255), parent_process="zz"),
+            Process("zz_fh", Label("ZZ FH"), color=(20, 60, 255), parent_process="zz"),
+            Process("zzz", Label("ZZZ"), color=(20, 60, 255), parent_process="zz"),
+            Process("zz", Label("ZZ"), color=(20, 60, 255), llr_name="ZZ",
                     parent_process="zz_background"),
             
             Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH",
-                    parent_process="zz_background"),
+                parent_process="zz_background"),
             Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False,
                 parent_process="ggf", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
             Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=False,
@@ -249,33 +274,48 @@ class Config(cmt_config):
                 color=(255, 102, 102), isSignal=False, parent_process="vbf"),
 
             Process("dy", Label("DY"), color=(255, 149, 5), isDY=True, llr_name="DY",
-                    parent_process="zz_background"),
+                parent_process="zz_background"),
             Process("dy_high", Label("DY"), color=(255, 149, 5), isDY=True, parent_process="dy"),
 
             Process("tt", Label("t#bar{t}"), color=(40, 194, 255), llr_name="TT",
-                    parent_process="zz_background"),
-            Process("tt_dl", Label("t#bar{t} DL"), color=(40, 164, 255), parent_process="tt"),
-            Process("tt_sl", Label("t#bar{t} SL"), color=(40, 134, 255), parent_process="tt"),
-            Process("tt_fh", Label("t#bar{t} FH"), color=(40, 104, 255), parent_process="tt"),
+                parent_process="zz_background"),
+            Process("tt_dl", Label("t#bar{t} DL"), color=(40, 164, 255), 
+                parent_process="tt"),
+            Process("tt_sl", Label("t#bar{t} SL"), color=(40, 134, 255), 
+                parent_process="tt"),
+            Process("tt_fh", Label("t#bar{t} FH"), color=(40, 104, 255), 
+                parent_process="tt"),
 
-            Process("tth", Label("t#bar{t}H"), color=(4, 240, 106), parent_process="others",
-                llr_name="ttH"),
-            Process("tth_bb", Label("t#bar{t}H bb"), color=(4, 240, 136), parent_process="tth"),
-            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(4, 240, 166), parent_process="tth"),
-            Process("tth_nonbb", Label("t#bar{t}H "), color=(4, 240, 196), parent_process="tth"),
+            Process("tth", Label("t#bar{t}H"), color=(4, 240, 106), 
+                parent_process="zz_background", llr_name="ttH"),
+            Process("tth_bb", Label("t#bar{t}H bb"), color=(4, 240, 136), 
+                parent_process="tth"),
+            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(4, 240, 166), 
+                parent_process="tth"),
+            Process("tth_nonbb", Label("t#bar{t}H "), color=(4, 240, 196), 
+                parent_process="tth"),
 
-            Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="others",
-                llr_name="WJets"),
+            Process("wjets", Label("Wjets"), color=(244, 44, 4), 
+                parent_process="zz_background", llr_name="WJets"),
             
-            Process("tw", Label("t + W"), color=(255, 87, 187), parent_process="others",
-                llr_name="TW"),
-            Process("singlet", Label("Single t"), color=(255, 87, 187), parent_process="others",
-                llr_name="singleT"),
+            Process("st_antitop", Label("#bar{t}"), color=(255, 230, 0), 
+                parent_process="singlet", llr_name="singleT"),
+            Process("st_top", Label("t"), color=(255, 230, 0), 
+                parent_process="singlet", llr_name="singleT"),
+            Process("singlet", Label("t+W"), color=(255, 230, 0), 
+                parent_process="others", llr_name="singleT"),
 
-            Process("others", Label("Others"), color=(255, 87, 187),
-                    parent_process="zz_background"),
+            Process("st_tw_antitop", Label("#bar{t}+W"), color=(255, 230, 0), 
+                parent_process="tw", llr_name="TW"),
+            Process("st_tw_top", Label("t+W"), color=(255, 230, 0), 
+                parent_process="tw", llr_name="TW"),
+            Process("tw", Label("t+W"), color=(255, 230, 0), 
+                parent_process="others", llr_name="TW"),
 
-            Process("zz_background", Label("Background"), color=(0, 0, 0)),
+            Process("others", Label("Others"), color=(255, 230, 0),
+                parent_process="zz_background"),
+
+            Process("zz_background", Label("Background"), color=(0, 0, 255)),
 
             Process("data", Label("Data"), color=(0, 0, 0), isData=True),
             Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
@@ -300,26 +340,27 @@ class Config(cmt_config):
                 "tth_tautau",
                 "tth_nonbb",
                 "singlet",
+                "tw",
             ],
             "zz_total": [
                 "zz_sl_signal",
-                "ggf_sm",
-                "zz",
-                "wjets",
                 "dy",
                 "tt",
+                "wjets",
                 "tth",
-                "singlet",
+                "ggf_sm",
+                "zz",
+                "others",
             ],
             "zz_total_data": [
                 "zz_sl_signal",
-                "ggf_sm",
-                "zz",
-                "wjets",
                 "dy",
                 "tt",
+                "wjets",
                 "tth",
-                "singlet",
+                "ggf_sm",
+                "zz",
+                "others",
                 "data",
             ],
             "zz_background": [
@@ -327,6 +368,10 @@ class Config(cmt_config):
             ],
             "zz_signal": [
                 "zz_sl_signal",
+            ],
+            "zz_sig_vs_bkg": [
+                "zz_background",
+                "zz_sl_signal"
             ],
             "default": [
                 "ggf_sm",
@@ -484,8 +529,8 @@ class Config(cmt_config):
             # lepton features
             Feature("lep1_pt", "dau1_pt", binning=(10, 50, 150),
                 x_title=Label("#tau_{1} p_{t}"),
-                units="GeV",
-                systematics=["tes"]),
+                units="GeV"),
+                # systematics=["tes"]),
             Feature("lep1_eta", "dau1_eta", binning=(20, -5., 5.),
                 x_title=Label("#tau_{1} #eta")),
             Feature("lep1_phi", "dau1_phi", binning=(20, -3.2, 3.2),
@@ -497,8 +542,8 @@ class Config(cmt_config):
 
             Feature("lep2_pt", "dau2_pt", binning=(10, 50, 150),
                 x_title=Label("#tau_{2} p_{t}"),
-                units="GeV",
-                systematics=["tes"]),
+                units="GeV"),
+                # systematics=["tes"]),
             Feature("lep2_eta", "dau2_eta", binning=(20, -5., 5.),
                 x_title=Label("#tau_{2} #eta")),
             Feature("lep2_phi", "dau2_phi", binning=(20, -3.2, 3.2),
@@ -690,7 +735,7 @@ class Config(cmt_config):
                 x_title=Label("ZZ #phi (SVFit)")),
                 #systematics=["tes"]),
             Feature("ZZ_svfit_mass", "ZZ_svfit_mass", binning=(50, 0, 1000),
-                x_title=Label("ZZ m (SVFit)"),
+                x_title=Label("ZZ_{bb#tau#tau}^{SVFit}"),
                 units="GeV"),
                 # systematics=["tes"]),
 
@@ -699,9 +744,28 @@ class Config(cmt_config):
                 x_title=Label("ZZ m (Kin. Fit)"),
                 units="GeV"),
                 # systematics=["tes"]),
-            Feature("ZZKinFit_chi2", "ZZKinFit_chi2", binning=(30, 0, 10),
+            Feature("ZZKinFit_chi2", "ZZKinFit_chi2", binning=(30, 0, 50),
                 x_title=Label("ZZ #chi^2 (Kin. Fit)"),),
                 # systematics=["tes"]),
+
+            # dnn features
+            Feature("CvsB_b1", "dnn_CvsB_b1", binning=(50, 0, 1), x_title=Label("CvsB (bJet_{1})")),
+            Feature("CvsL_b1", "dnn_CvsL_b1", binning=(50, 0, 1), x_title=Label("CvsL (bJet_{1})")),
+            Feature("dR_l1_l2_x_sv_pT", "dnn_dR_l1_l2_x_sv_pT", binning=(50, 0, 800), 
+                x_title=Label("#DeltaR (l_{1}, l_{2}) #times p_{T} (Z_{#tau#tau}^{SVFit})")),
+            Feature("dau1_mt", "dnn_dau1_mt", binning=(50, 0, 200), x_title=Label("m_{T} (l_{1})"), units="GeV"),
+            Feature("dR_l1_l2", "dnn_dR_l1_l2", binning=(50, 0, 5), x_title=Label("#DeltaR (l_{1}, l_{2})")),
+            Feature("dphi_sv_met", "dnn_dphi_sv_met", binning=(50, 0, 3.14), 
+                x_title=Label("#Delta#phi (Z_{#tau#tau}^{SVFit}, MET)")),
+            Feature("HHbtag_b2", "dnn_HHbtag_b2", binning=(50, 0, 1), x_title=Label("ZZbtag bJet_{2}")),
+            Feature("dphi_Zbb_sv", "dnn_dphi_Zbb_sv", binning=(50, 0, 3.14), 
+                x_title=Label("#Delta#phi (Z_{bb}, Z_{#tau#tau}^{SVFit})")),
+            Feature("dR_l1_l2_boosted_Ztt_met", "dnn_dR_l1_l2_boosted_Ztt_met", binning=(50, 0, 5), 
+                x_title=Label("#DeltaR (l_{1}, l_{2}) Boost(Z_{#tau#tau}+MET)")),
+            Feature("Phi", "dnn_Phi", binning=(50, 0, 3.14), x_title=Label("#Phi")),
+            Feature("dnn_bjet1_pt", "dnn_bjet1_pt", binning=(50, 0, 200), x_title=Label("p_{T} (bJet_{1})")),
+            Feature("costheta_l2_Zttmet", "dnn_costheta_l2_Zttmet", binning=(50, 0, 1), x_title=Label("cos#Theta")),
+            
 
             # VBFjet features
             Feature("vbfjet1_pt", "Jet_pt.at(VBFjet1_JetIdx)", binning=(10, 50, 150),
@@ -757,6 +821,8 @@ class Config(cmt_config):
 
             Feature("dnn_zzbbtt_kl_1", "dnn_zzbbtt_kl_1", binning=(10, 0, 1),
                 x_title=Label("DNN ZZ")),
+            Feature("dnn_new_zzbbtt_kl_1", "dnn_new_zzbbtt_kl_1", binning=(10, 0, 1),
+                x_title=Label("DNN New ZZ")),
             Feature("dnn_hhbbtt_kl_1", "dnn_hhbbtt_kl_1", binning=(10, 0, 1),
                 x_title=Label("DNN HH")),
 
@@ -788,9 +854,9 @@ class Config(cmt_config):
         systematics = [
             Systematic("jet_smearing", "_nom"),
             Systematic("met_smearing", ("MET", "MET_smeared")),
-            Systematic("prefiring", "_Nom"),
-            Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
-            Systematic("pu", "", up="Up", down="Down"),
+            # Systematic("prefiring", "_Nom"),
+            # Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
+            # Systematic("pu", "", up="Up", down="Down"),
             Systematic("tes", "_corr"),
             Systematic("empty", "", up="", down="")
         ]
