@@ -5,7 +5,8 @@ lumifilter:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
-puweight:
+# UL only
+puweightCor:
     name: puWeightRDF
     path: Corrections.LUM.puWeight
     parameters:
@@ -20,22 +21,12 @@ zz_sl_sig_bkg:
         isZZsig: self.dataset.process.get_aux('isZZsignal', False)
         isZZbkg: self.dataset.process.get_aux('isZZbackground', False)
 
-# # UL only
-# # puweightCor:
-    # # name: puWeightRDF
-    # # path: Corrections.LUM.puWeightCor
-    # # parameters:
-        # # isMC: self.dataset.process.isMC
-        # # year: self.config.year
-        # # isUL: self.dataset.has_tag('ul')
-
-2:
+metfilter:
     name: MetFilterRDF
     path: Base.Modules.METfilters
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
-
 
 tauSF:
     name: tauSFRDF
@@ -66,7 +57,6 @@ hhleptonVar:
     parameters:
         isMC: self.dataset.process.isMC
 
-
 hhleptonVarTESup:
     name: HHLeptonVarRDF
     path: Tools.Tools.HHLepton
@@ -74,14 +64,12 @@ hhleptonVarTESup:
         isMC: self.dataset.process.isMC
         tau_syst: corr_up
 
-
 hhleptonVarTESdown:
     name: HHLeptonVarRDF
     path: Tools.Tools.HHLepton
     parameters:
         isMC: self.dataset.process.isMC
         tau_syst: corr_down
-
 
 jet_smearing:
     name: jetSmearerRDF
@@ -93,13 +81,11 @@ jet_smearing:
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
 
-
 jet_smear_val:
     name: jetVarRDF
     path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
-
 
 met_smearing:
     name: metSmearerRDF
@@ -179,40 +165,43 @@ dyscaling:
 
 svfit_ZZ:
     name: SVFitRDF
-    path: Tools.Tools.svfit_ZZ
+    path: Tools.Tools.svfit
     parameters:
         isMC: self.dataset.process.isMC
         met_smear_tag: smeared
+        isZZAnalysis: True
 
 zz:
-    name: ZZKinFitRDF
-    path: Tools.Tools.zz
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
     parameters:
         isMC: self.dataset.process.isMC
         met_smear_tag: smeared
+        isZZAnalysis: True
 
 zzvar:
-    name: ZZVarRDF
-    path: Tools.Tools.zz
+    name: HHVarRDF
+    path: Tools.Tools.hh
     parameters:
         isMC: self.dataset.process.isMC
         met_smear_tag: smeared
+        isZZAnalysis: True
 
-# deprecated
 zzdnn_input:
-    name: ZZDNNInputRDF
-    path: Tools.Tools.ZZDNN
+    name: HHDNNInputRDF
+    path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
+        isZZAnalysis: True
 
-# old DNN model by Giles
 zzdnn:
-    name: ZZDNNRDF
-    path: Tools.Tools.ZZDNN
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
+        isZZAnalysis: True
 
 # hhmulticlass:
 #     name: HHMulticlassRDF
@@ -222,77 +211,73 @@ zzdnn:
 #         year: self.config.year
 #         model_specs: ((v5, kl1_c2v1_c31_vbf))
 
-trigSF:
-    name: Htt_trigSFRDF
-    path: Tools.Tools.Htt_trigSF
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
+# trigSF:
+#     name: Htt_trigSFRDF
+#     path: Tools.Tools.Htt_trigSF
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         isUL: self.dataset.has_tag('ul')
 
-PUjetID_SF:
-    name: PUjetID_SFRDF
-    path: Corrections.JME.PUjetID_SF
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
-        ispreVFP: self.config.get_aux('ispreVFP', False)
-        lep_pt: "{dau1_pt, dau2_pt}"
-        lep_eta: "{dau1_eta, dau2_eta}"
-        lep_phi: "{dau1_phi, dau2_phi}"
-        lep_mass: "{dau1_mass, dau2_mass}"
+# PUjetID_SF:
+#     name: PUjetID_SFRDF
+#     path: Corrections.JME.PUjetID_SF
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         isUL: self.dataset.has_tag('ul')
+#         ispreVFP: self.config.get_aux('ispreVFP', False)
+#         lep_pt: "{dau1_pt, dau2_pt}"
+#         lep_eta: "{dau1_eta, dau2_eta}"
+#         lep_phi: "{dau1_phi, dau2_phi}"
+#         lep_mass: "{dau1_mass, dau2_mass}"
 
-3_w2:
-    name: prescaleWeightRDF
-    path: Tools.Tools.weight
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
+# 3_w2:
+#     name: prescaleWeightRDF
+#     path: Tools.Tools.weight
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
 
+# 4_w2:
+#     name: prefiringWeightRDF
+#     path: Base.Modules.prefiringWeight
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         isUL: self.dataset.has_tag('ul')
 
-4_w2:
-    name: prefiringWeightRDF
-    path: Base.Modules.prefiringWeight
-    parameters:
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
+# muSF:
+#     name: muSFRDF
+#     path: Corrections.MUO.muCorrections
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         isUL: self.dataset.has_tag('ul')
 
+# eleSD:
+#     name: eleSFRDF
+#     path: Corrections.EGM.eleCorrections
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         isUL: self.dataset.has_tag('ul')
 
-muSF:
-    name: muSFRDF
-    path: Corrections.MUO.muCorrections
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-        isUL: self.dataset.has_tag('ul')
+# idAndIsoSF:
+#     name: dauIdIsoSFRDF
+#     path: Tools.Tools.dauIdIso
+#     parameters:
+#         isMC: self.dataset.process.isMC
 
-eleSD:
-    name: eleSFRDF
-    path: Corrections.EGM.eleCorrections
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-        isUL: self.dataset.has_tag('ul')
-
-
-idAndIsoSF:
-    name: dauIdIsoSFRDF
-    path: Tools.Tools.dauIdIso
-    parameters:
-        isMC: self.dataset.process.isMC
-
-
-btag:
-    name: btag_SFRDF
-    path: Corrections.BTV.btag_SF
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-        isUL: self.dataset.has_tag('ul')
-        uncertainties: ["central", "down_hfstats2"]
-        lep_pt: "{dau1_pt, dau2_pt}"
-        lep_eta: "{dau1_eta, dau2_eta}"
-        lep_phi: "{dau1_phi, dau2_phi}"
-        lep_mass: "{dau1_mass, dau2_mass}"
+# btag:
+#     name: btag_SFRDF
+#     path: Corrections.BTV.btag_SF
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         isUL: self.dataset.has_tag('ul')
+#         uncertainties: ["central", "down_hfstats2"]
+#         lep_pt: "{dau1_pt, dau2_pt}"
+#         lep_eta: "{dau1_eta, dau2_eta}"
+#         lep_phi: "{dau1_phi, dau2_phi}"
+#         lep_mass: "{dau1_mass, dau2_mass}"
 
