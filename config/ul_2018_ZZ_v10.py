@@ -18,9 +18,11 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             vsmu=DotDict(VLoose=1, Loose=1, Medium=3, Tight=4),
         )
         self.regions = self.add_regions()
+        self.categories = self.add_categories()
 
     def add_datasets(self):
-        p = "/eos/home-k/kandroso/cms-hh-bbtautau/nanoAOD/Run2_2018/"
+        # p = "/eos/home-k/kandroso/cms-hh-bbtautau/nanoAOD/Run2_2018/"
+        p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
         v9_datasets = super(Config_ul_2018_v10, self).add_datasets()
         datasets = [
             Dataset("ggf_sm",
@@ -35,6 +37,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 process=self.processes.get("ggf_sm"),
                 xs=0.03105,
                 tags=["ul", "secondary"]),
+
             Dataset("dy",
                 folder=p + "DYJetsToLL_M-50",
                 process=self.processes.get("dy_high"),
