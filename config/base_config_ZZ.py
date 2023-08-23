@@ -736,8 +736,8 @@ class Config(cmt_config):
                 #systematics=["tes"]),
             Feature("ZZ_svfit_mass", "ZZ_svfit_mass", binning=(50, 0, 1000),
                 x_title=Label("ZZ_{bb#tau#tau}^{SVFit}"),
-                units="GeV"),
-                # systematics=["tes"]),
+                units="GeV",
+                systematics=["tes", "jer"]),
 
             # ZZ KinFit
             Feature("ZZKinFit_mass", "ZZKinFit_mass", binning=(50, 0, 1000),
@@ -822,7 +822,8 @@ class Config(cmt_config):
             Feature("dnn_zzbbtt_kl_1", "dnn_zzbbtt_kl_1", binning=(10, 0, 1),
                 x_title=Label("DNN ZZ")),
             Feature("dnn_new_zzbbtt_kl_1", "dnn_new_zzbbtt_kl_1", binning=(10, 0, 1),
-                x_title=Label("DNN New ZZ")),
+                x_title=Label("DNN New ZZ"),
+                systematics=["tes"]),
             Feature("dnn_hhbbtt_kl_1", "dnn_hhbbtt_kl_1", binning=(10, 0, 1),
                 x_title=Label("DNN HH")),
 
@@ -853,10 +854,13 @@ class Config(cmt_config):
     def add_systematics(self):
         systematics = [
             Systematic("jet_smearing", "_nom"),
+            Systematic("jet_smearing_syst", "_smeared"),
             Systematic("met_smearing", ("MET", "MET_smeared")),
+            Systematic("jer", "_smeared", up="up_up", down='down_down'),
+            Systematic("jec", "_Total"),
             # Systematic("prefiring", "_Nom"),
             # Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
-            # Systematic("pu", "", up="Up", down="Down"),
+            Systematic("pu", "", up="Up", down="Down"),
             Systematic("tes", "_corr"),
             Systematic("empty", "", up="", down="")
         ]
