@@ -1,0 +1,6 @@
+zzdnninputs:
+    name: ZZDNNInputRDF
+    path: Tools.Tools.ZZDNNFullFeatSet
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
