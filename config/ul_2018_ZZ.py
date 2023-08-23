@@ -17,14 +17,21 @@ class Config_ul_2018_ZZ(base_config_ZZ):
         # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
         weights.total_events_weights = ["genWeight", "puWeight"]
 
-        weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-            "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
-            "bTagweightReshape"]
+        # weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
+        #     "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
+        #     "bTagweightReshape"]
 
+        weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
+            "L1PreFiringWeight_Nom", "PUjetID_SF"]
+        
         weights.etau = weights.mutau
         weights.tautau = weights.mutau
         weights.base_selection = weights.mutau
         weights.base = weights.mutau
+        weights.ZZ_elliptical_cut_80_sr = weights.mutau
+        weights.ZZ_elliptical_cut_80_etau = weights.mutau
+        weights.ZZ_elliptical_cut_80_mutau = weights.mutau
+        weights.ZZ_elliptical_cut_80_tautau = weights.mutau
 
         # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
             # for channel in weights.channels}
