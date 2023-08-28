@@ -236,17 +236,77 @@ class Config(cmt_config):
             Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(153, 247, 171), 
                     isZZsignal=True, isSignal=True, llr_name="ZZ"),
 
-            Process("zz_sl_background", Label("ZZ 2Q2L"), color=(20, 60, 255), 
-                    isZZbackground=True, parent_process="zz"),
-            Process("zz_lnu", Label("ZZ 2L2Nu"), color=(20, 60, 255), parent_process="zz_sl"),
-            Process("zz_qnu", Label("ZZ 2Q2Nu"), color=(20, 60, 255), parent_process="zz_sl"),
-            Process("zz_sl", Label("ZZ SL"), color=(20, 60, 255), parent_process="zz"),
-            Process("zz_dl", Label("ZZ DL"), color=(20, 60, 255), parent_process="zz"),
-            Process("zz_fh", Label("ZZ FH"), color=(20, 60, 255), parent_process="zz"),
-            Process("zzz", Label("ZZZ"), color=(20, 60, 255), parent_process="zz"),
-            Process("zz", Label("ZZ"), color=(20, 60, 255), llr_name="ZZ",
-                    parent_process="zz_background"),
-            
+            # W
+            Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="zz_background", llr_name="WJets"),
+            # DY
+            Process("dy", Label("DY"), color=(255, 149, 5), parent_process="zz_background", llr_name="DY", isDY=True),
+            Process("dy_high", Label("DY"), color=(255, 149, 5), llr_name="DY", isDY=True),
+            # EWK
+            Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk"),
+            Process("ewk_wplus",  Label("EWK W^{+}"), color=(255, 230, 0), parent_process="ewk"),
+            Process("ewk_wminus", Label("EWK W^{-}"), color=(255, 230, 0), parent_process="ewk"),
+            Process("ewk", Label("EWK"), color=(255, 230, 0), parent_process="zz_background", llr_name="EWK"),
+
+            # TT
+            Process("tt_dl", Label("t#bar{t} DL"), color=(40, 194, 255), parent_process="tt"),
+            Process("tt_sl", Label("t#bar{t} SL"), color=(40, 194, 255), parent_process="tt"),
+            Process("tt_fh", Label("t#bar{t} FH"), color=(40, 194, 255), parent_process="tt"),
+            Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="zz_background", llr_name="TT"),
+            # TW
+            Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="zz_background", llr_name="TW"),
+            # singleT
+            Process("singlet", Label("st"), color=(255, 230, 0), parent_process="zz_background", llr_name="singleT"),
+
+            # VV
+            Process("zz", Label("ZZ"), color=(20, 60, 255), parent_process="vv"),
+            Process("wz", Label("WZ"), color=(20, 60, 255), parent_process="vv"),
+            Process("ww", Label("WW"), color=(20, 60, 255), parent_process="vv"),
+            Process("vv", Label("VV"), color=(20, 60, 255), parent_process="zz_background", llr_name="VV"),
+            # VVV
+            Process("zzz", Label("ZZZ"), color=(20, 60, 255), parent_process="vvv"),
+            Process("wzz", Label("WZZ"), color=(20, 60, 255), parent_process="vvv"),
+            Process("www", Label("WWW"), color=(20, 60, 255), parent_process="vvv"),
+            Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"),
+            Process("vvv", Label("VVV"), color=(20, 60, 255), parent_process="zz_background", llr_name="VVV"),
+
+            # TTX
+            Process("ttw", Label("TTW"), color=(4, 240, 106), parent_process="ttx"),
+            Process("ttz", Label("TTZ"), color=(4, 240, 106), parent_process="ttx"),
+            Process("ttww", Label("TTWW"), color=(4, 240, 106), parent_process="ttx"),
+            Process("ttwz", Label("TTWZ"), color=(4, 240, 106), parent_process="ttx"),
+            Process("ttwh", Label("TTWH"), color=(4, 240, 106), parent_process="ttx"),
+            Process("ttzh", Label("TTZH"), color=(4, 240, 106), parent_process="ttx"),
+            Process("ttzz", Label("TTZZ"), color=(4, 240, 106), parent_process="ttx"),
+            Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="zz_background", llr_name="TTX"),
+
+            # ZH_hbb
+            Process("zh_hbb", Label("zh_hbb"), color=(4, 240, 106), parent_process="higgs", llr_name="ZH_hbb"),
+            # ttH_hbb
+            Process("tth_bb", Label("t#bar{t}H bb"), color=(4, 240, 136), parent_process="higgs", llr_name="ttH_hbb"),
+
+            Process("tth", Label("t#bar{t}H"), color=(4, 240, 106), 
+                parent_process="zz_background", llr_name="ttH"),
+            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(4, 240, 166), 
+                parent_process="tth"),
+            Process("tth_nonbb", Label("t#bar{t}H "), color=(4, 240, 196), 
+                parent_process="tth"),
+
+            Process("others", Label("Others"), color=(255, 230, 0),
+                parent_process="zz_background"),
+
+            Process("zz_background", Label("Background"), color=(0, 0, 255)),
+
+            # Data
+            Process("data", Label("Data"), color=(0, 0, 0), isData=True),
+            Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
+            Process("data_etau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
+            Process("data_mutau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
+
+
+
+
+
+
             Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH",
                 parent_process="zz_background"),
             Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False,
@@ -273,54 +333,6 @@ class Config(cmt_config):
             Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
                 color=(255, 102, 102), isSignal=False, parent_process="vbf"),
 
-            Process("dy", Label("DY"), color=(255, 149, 5), isDY=True, llr_name="DY",
-                parent_process="zz_background"),
-            Process("dy_high", Label("DY"), color=(255, 149, 5), isDY=True, parent_process="dy"),
-
-            Process("tt", Label("t#bar{t}"), color=(40, 194, 255), llr_name="TT",
-                parent_process="zz_background"),
-            Process("tt_dl", Label("t#bar{t} DL"), color=(40, 164, 255), 
-                parent_process="tt"),
-            Process("tt_sl", Label("t#bar{t} SL"), color=(40, 134, 255), 
-                parent_process="tt"),
-            Process("tt_fh", Label("t#bar{t} FH"), color=(40, 104, 255), 
-                parent_process="tt"),
-
-            Process("tth", Label("t#bar{t}H"), color=(4, 240, 106), 
-                parent_process="zz_background", llr_name="ttH"),
-            Process("tth_bb", Label("t#bar{t}H bb"), color=(4, 240, 136), 
-                parent_process="tth"),
-            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(4, 240, 166), 
-                parent_process="tth"),
-            Process("tth_nonbb", Label("t#bar{t}H "), color=(4, 240, 196), 
-                parent_process="tth"),
-
-            Process("wjets", Label("Wjets"), color=(244, 44, 4), 
-                parent_process="zz_background", llr_name="WJets"),
-            
-            Process("st_antitop", Label("#bar{t}"), color=(255, 230, 0), 
-                parent_process="singlet", llr_name="singleT"),
-            Process("st_top", Label("t"), color=(255, 230, 0), 
-                parent_process="singlet", llr_name="singleT"),
-            Process("singlet", Label("t+W"), color=(255, 230, 0), 
-                parent_process="others", llr_name="singleT"),
-
-            Process("st_tw_antitop", Label("#bar{t}+W"), color=(255, 230, 0), 
-                parent_process="tw", llr_name="TW"),
-            Process("st_tw_top", Label("t+W"), color=(255, 230, 0), 
-                parent_process="tw", llr_name="TW"),
-            Process("tw", Label("t+W"), color=(255, 230, 0), 
-                parent_process="others", llr_name="TW"),
-
-            Process("others", Label("Others"), color=(255, 230, 0),
-                parent_process="zz_background"),
-
-            Process("zz_background", Label("Background"), color=(0, 0, 255)),
-
-            Process("data", Label("Data"), color=(0, 0, 0), isData=True),
-            Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
-            Process("data_etau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
-            Process("data_mutau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True)
         ]
 
         process_group_names = {
@@ -376,7 +388,6 @@ class Config(cmt_config):
             "default": [
                 "ggf_sm",
                 "data_tau",
-                "dy_high",
                 "tt_dl",
             ],
             "test": [

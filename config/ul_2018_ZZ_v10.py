@@ -25,24 +25,27 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
         p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
         v9_datasets = super(Config_ul_2018_v10, self).add_datasets()
         datasets = [
-            Dataset("ggf_sm",
-                folder=p + "GluGluToHHTo2B2Tau_node_SM",
-                process=self.processes.get("ggf_sm"),
-                xs=0.03105,
-                tags=["ul", "nanoV10"], 
-                secondary_dataset="ggf_sm_aux"),
-            Dataset("ggf_sm_aux",
-                dataset="/GluGluToHHTo2B2Tau_TuneCP5_PSWeights_node_SM_13TeV-madgraph-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-                process=self.processes.get("ggf_sm"),
-                xs=0.03105,
-                tags=["ul", "secondary"]),
+            
+            ######################################## Single boson #########################################
+            ###############################################################################################
 
+            # W
+            Dataset("wjets",
+                folder=p + "WJetsToLNu",
+                process=self.processes.get("wjets"),
+                xs=61526.7,
+                merging={
+                    "tautau": 2,
+                    "etau": 2,
+                },
+                splitting=200000,
+                secondary_dataset="wjets_aux",
+                tags=["ul", "nanoV10"]),
+
+            # DY
             Dataset("dy",
                 folder=p + "DYJetsToLL_M-50",
-                process=self.processes.get("dy_high"),
-                # prefix="xrootd-cms.infn.it//",
-                # prefix="cms-xrd-global.cern.ch//",
+                process=self.processes.get("dy"),
                 xs=6077.22,
                 merging={
                     "tautau": 10,
@@ -51,6 +54,29 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 },
                 secondary_dataset="dy_nlo_aux",
                 tags=["ul", "nanoV10"]),
+
+            # EWK
+            Dataset("ewk_z",
+                folder=p + "EWKZ2Jets_ZToLL_M-50",
+                process=self.processes.get("ewk_z"),
+                xs=3.987,
+                splitting=200000,
+                tags=["ul"]),
+            Dataset("ewk_wplus",
+                folder=p + "EWKWPlus2Jets_WToLNu_M-50",
+                process=self.processes.get("ewk_wplus"),
+                xs=25.62,
+                splitting=200000,
+                tags=["ul"]),
+            Dataset("ewk_wminus",
+                folder=p + "EWKWMinus2Jets_WToLNu_M-50",
+                process=self.processes.get("ewk_wminus"),
+                xs=20.25,
+                splitting=200000,
+                tags=["ul"]),
+
+            ######################################## Top ##################################################
+            ###############################################################################################
 
             # TT
             Dataset("tt_dl",
@@ -68,7 +94,6 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             Dataset("tt_sl",
                 folder=p + "TTToSemiLeptonic",
                 process=self.processes.get("tt_sl"),
-                # prefix="xrootd-cms.infn.it//",
                 xs=365.34,
                 merging={
                     "tautau": 20,
@@ -81,52 +106,12 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             Dataset("tt_fh",
                 folder=p + "TTToHadronic",
                 process=self.processes.get("tt_fh"),
-                # prefix="xrootd-cms.infn.it//",
                 xs=377.96,
                 scaling=(0.96639, 0.00863),
                 secondary_dataset="tt_fh_aux",
                 tags=["ul", "nanoV10"]),
 
-            # ttH
-            Dataset("tth_bb",
-                folder=p + "ttHTobb",
-                process=self.processes.get("tth_bb"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=0.2953,
-                secondary_dataset="tth_bb_aux",
-                tags=["ul", "nanoV10"]),
-
-            Dataset("tth_tautau",
-                folder=p + "ttHToTauTau",
-                process=self.processes.get("tth_tautau"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=0.031805,
-                secondary_dataset="tth_tautau_aux",
-                tags=["ul", "nanoV10"]),
-
-            Dataset("tth_nonbb",
-                folder=p + "ttHToNonbb",
-                process=self.processes.get("tth_nonbb"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=0.17996,
-                secondary_dataset="tth_nonbb_aux",
-                tags=["ul", "nanoV10"]),
-
-            # Wjets
-            Dataset("wjets",
-                folder=p + "WJetsToLNu",
-                process=self.processes.get("wjets"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=61526.7,
-                merging={
-                    "tautau": 2,
-                    "etau": 2,
-                },
-                splitting=200000,
-                secondary_dataset="wjets_aux",
-                tags=["ul", "nanoV10"]),
-
-            # tW
+            # TW
             Dataset("st_tw_antitop",
                 folder=p + "ST_tW_antitop_5f_inclusiveDecays",
                 process=self.processes.get("tw"),
@@ -140,7 +125,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 secondary_dataset="st_tw_top_aux",
                 tags=["ul", "nanoV10"]),
 
-            # single top
+            # singleT
             Dataset("st_antitop",
                 folder=p + "ST_t-channel_antitop_4f_InclusiveDecays",
                 process=self.processes.get("singlet"),
@@ -154,45 +139,203 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 secondary_dataset="st_top_aux",
                 tags=["ul", "nanoV10"]),
 
-            # di-boson background
+            ######################################## Di- and Tri-boson ####################################
+            ###############################################################################################
+
+            # VV
             Dataset("zz_dl",
                 folder=p + "ZZTo4L",
-                process=self.processes.get("zz_dl"),
+                process=self.processes.get("zz"),
                 xs=1.26,
                 secondary_dataset="zz_dl_aux",
                 tags=["ul", "nanoV10"]),
+            Dataset("zz_sl_background",
+                folder=p + "ZZTo2Q2L",
+                process=self.processes.get("zz"),
+                xs=5.52,
+                secondary_dataset="zz_sl_background_aux",
+                tags=["ul", "nanoV10"]),
             Dataset("zz_fh",
                 folder=p + "ZZTo4Q",
-                process=self.processes.get("zz_fh"),
+                process=self.processes.get("zz"),
                 xs=3.262,
                 secondary_dataset="zz_fh_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("zz_lnu",
                 folder=p + "ZZTo2L2Nu",
-                process=self.processes.get("zz_lnu"),
+                process=self.processes.get("zz"),
                 xs=0.564,
                 secondary_dataset="zz_lnu_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("zz_qnu",
                 folder=p + "ZZTo2Q2Nu",
-                process=self.processes.get("zz_qnu"),
+                process=self.processes.get("zz"),
                 xs=4.07,
                 secondary_dataset="zz_qnu_aux",
                 tags=["ul", "nanoV10"]),
-            # tri-boson
+            Dataset("wz_lllnu",
+                folder=p + "WZTo3LNu",
+                process=self.processes.get("wz"),
+                xs=4.43,
+                secondary_dataset="wz_lllnu_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("wz_lnuqq",
+                folder=p + "WZTo1L1Nu2Q",
+                process=self.processes.get("wz"),
+                xs=10.71,
+                secondary_dataset="wz_lnuqq_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("wz_llqq",
+                folder=p + "WZTo2Q2L",
+                process=self.processes.get("wz"),
+                xs=5.595,
+                secondary_dataset="wz_llqq_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ww_llnunu",
+                folder=p + "WWTo2L2Nu",
+                process=self.processes.get("ww"),
+                xs=12.178,
+                secondary_dataset="ww_llnunu_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ww_lnuqq",
+                folder=p + "WWTo1L1Nu2Q",
+                process=self.processes.get("ww"),
+                xs=49.997,
+                secondary_dataset="ww_lnuqq_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ww_qqqq",
+                folder=p + "WWTo4Q",
+                process=self.processes.get("ww"),
+                xs=51.723,
+                secondary_dataset="ww_qqqq_aux",
+                tags=["ul", "nanoV10"]),
+
+            # VVV
             Dataset("zzz",
                 folder=p + "ZZZ",
                 process=self.processes.get("zzz"),
                 xs=0.0147,
                 secondary_dataset="zzz_aux",
                 tags=["ul", "nanoV10"]),
-            # di-boson containing signal ZZ (I have to take only events where gen is bb tautau)
-            Dataset("zz_sl_background",
-                folder=p + "ZZTo2Q2L",
-                process=self.processes.get("zz_sl_background"),
-                xs=5.52,
-                secondary_dataset="zz_sl_background_aux",
+            Dataset("wzz",
+                folder=p + "WZZ",
+                process=self.processes.get("wzz"),
+                xs=0.057,
+                secondary_dataset="wzz_aux",
                 tags=["ul", "nanoV10"]),
+            Dataset("www",
+                folder=p + "WWW",
+                process=self.processes.get("www"),
+                xs=0.209,
+                secondary_dataset="www_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("wwz",
+                folder=p + "WWZ",
+                process=self.processes.get("wwz"),
+                xs=0.168,
+                secondary_dataset="wwz_aux",
+                tags=["ul", "nanoV10"]),
+
+            ######################################## Others ###############################################
+            ###############################################################################################
+
+            # TTX
+            Dataset("ttw_lnu",
+                folder=p + "TTWJetsToLNu",
+                process=self.processes.get("ttw"),
+                xs=0.2043,
+                secondary_dataset="ttw_lnu_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ttw_qq",
+                folder=p + "TTWJetsToQQ",
+                process=self.processes.get("ttw"),
+                xs=0.4062,
+                secondary_dataset="ttw_qq_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ttww",
+                folder=p + "TTWW",
+                process=self.processes.get("ttww"),
+                xs=0.00698,
+                secondary_dataset="ttww_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ttwz",
+                folder=p + "TTWZ",
+                process=self.processes.get("ttwz"),
+                xs=0.002441,
+                secondary_dataset="ttwz_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ttwh",
+                folder=p + "TTWH",
+                process=self.processes.get("ttwh"),
+                xs=0.00158,
+                secondary_dataset="ttwh_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ttzh",
+                folder=p + "TTZH",
+                process=self.processes.get("ttzh"),
+                xs=0.00154,
+                secondary_dataset="ttzh_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ttz_llnunu",
+                folder=p + "TTZToLLNuNu_M-10",
+                process=self.processes.get("ttz"),
+                xs=0.2529,
+                secondary_dataset="ttz_llnunu_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ttz_qq",
+                folder=p + "TTZToQQ",
+                process=self.processes.get("ttz"),
+                xs=0.5297,
+                secondary_dataset="ttz_qq_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("ttzz",
+                folder=p + "TTZZ",
+                process=self.processes.get("ttzz"),
+                xs=0.001386,
+                secondary_dataset="ttzz_aux",
+                tags=["ul", "nanoV10"]),
+
+            ######################################## Higgs ###############################################
+            ###############################################################################################
+
+            # ttH_hbb
+            Dataset("tth_bb",
+                folder=p + "ttHTobb",
+                process=self.processes.get("tth_bb"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.2953,
+                secondary_dataset="tth_bb_aux",
+                tags=["ul", "nanoV10"]),
+            # Dataset("tth_tautau",
+            #     folder=p + "ttHToTauTau",
+            #     process=self.processes.get("tth_tautau"),
+            #     # prefix="xrootd-cms.infn.it//",
+            #     xs=0.031805,
+            #     secondary_dataset="tth_tautau_aux",
+            #     tags=["ul", "nanoV10"]),
+            # Dataset("tth_nonbb",
+            #     folder=p + "ttHToNonbb",
+            #     process=self.processes.get("tth_nonbb"),
+            #     # prefix="xrootd-cms.infn.it//",
+            #     xs=0.17996,
+            #     secondary_dataset="tth_nonbb_aux",
+            #     tags=["ul", "nanoV10"]),
+
+            ######################################## HH bbtautau ##########################################
+            ###############################################################################################
+
+            Dataset("ggf_sm",
+                folder=p + "GluGluToHHTo2B2Tau_node_SM",
+                process=self.processes.get("ggf_sm"),
+                xs=0.03105,
+                tags=["ul", "nanoV10"], 
+                secondary_dataset="ggf_sm_aux"),
+
+
+            ###################################### ZZ Signal ##############################################
+            ###############################################################################################
+
+            # ZZ Signal
             Dataset("zz_sl_signal",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
@@ -200,18 +343,18 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 secondary_dataset="zz_sl_signal_aux",
                 tags=["ul", "nanoV10"]),
 
-            # DATA
+            ######################################## Data #################################################
+            ###############################################################################################
+
             # Tau 2018
             Dataset("data_tau_a",
                 folder=p + "Tau_2018A",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
                 runPeriod="A",
-                # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
                     "tautau": 2,
-                    "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_tau_b",
@@ -219,12 +362,9 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
                 runPeriod="B",
-                # prefix="xrootd-cms.infn.it//",
-                # locate="se-xrd01.jinr-t1.ru:1095/",
                 splitting=-1,
                 merging={
                     "tautau": 2,
-                    "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_tau_c",
@@ -232,12 +372,9 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
                 runPeriod="C",
-                # prefix="xrootd-cms.infn.it//",
-                # locate="cms03.lcg.cscs.ch:1094/",
                 splitting=-1,
                 merging={
                     "tautau": 2,
-                    "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_tau_d",
@@ -245,11 +382,9 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
                 runPeriod="D",
-                # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
                     "tautau": 2,
-                    "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
 
@@ -259,10 +394,8 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
                 runPeriod="A",
-                # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
-                    "tautau": 2,
                     "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
@@ -270,11 +403,8 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 folder=p + "EGamma_2018B",
                 process=self.processes.get("data_etau"),
                 runPeriod="B",
-                # prefix="xrootd-cms.infn.it//",
-                # locate="se-xrd01.jinr-t1.ru:1095/",
                 splitting=-1,
                 merging={
-                    "tautau": 2,
                     "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
@@ -283,11 +413,8 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
                 runPeriod="C",
-                # prefix="xrootd-cms.infn.it//",
-                # locate="cms03.lcg.cscs.ch:1094/",
                 splitting=-1,
                 merging={
-                    "tautau": 2,
                     "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
@@ -296,10 +423,8 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
                 runPeriod="D",
-                # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
-                    "tautau": 2,
                     "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
@@ -310,7 +435,6 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 selection="pairType == 0",
                 process=self.processes.get("data_mutau"),
                 runPeriod="A",
-                # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
                     "mutau": 2,
@@ -321,7 +445,6 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
                 runPeriod="B",
-                # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
                     "mutau": 2,
@@ -332,7 +455,6 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
                 runPeriod="C",
-                # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
                     "mutau": 2,
@@ -343,18 +465,22 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
                 runPeriod="D",
-                # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
                     "mutau": 2,
                 },
                 tags=["ul", "nanoV10"]),
+                
         ]
         datasets = ObjectCollection(datasets)
 
-        for name in ["tt_dl", "tt_sl", "tt_fh", "tth_bb", "tth_tautau", "tth_nonbb",
-                "dy_nlo", "wjets", "st_tw_antitop", "st_tw_top", "st_antitop", "st_top", "zz_dl",
-                "zz_sl_background", "zz_fh", "zz_lnu", "zz_qnu", "zzz", "zz_sl_signal"]:
+        for name in [
+                "wjets", "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
+                "st_tw_antitop", "st_tw_top", "st_antitop", "st_top",
+                "zz_dl", "zz_sl_background", "zz_lnu", "zz_qnu", "wz_lllnu", "wz_lnuqq", "wz_llqq", "ww_lnuqq", "ww_qqqq",
+                "zzz", "wzz", "www", "wwz", 
+                "ttw_lnu", "ttw_qq", "ttww", "ttwz", "ttwh", "ttzh", "ttz_llnunu", "ttz_qq", "ttzz", 
+                "zh_hbb_zll", "zh_hbb_zqq", "tth_bb", "ggf_sm", "zz_sl_signal"]:
             datasets.add(
                 Dataset(
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
