@@ -31,7 +31,13 @@ keep jet_2_quality
 keep year
 keep genWeight
 keep puWeight
+keep puWeightUp
+keep puWeightDown
 keep prescaleWeight
 keep trigSF
 keep L1PreFiringWeight_Nom
 keep PUjetID_SF
+keep pairType
+keep dau1_idDeepTau2017v2p1VSjet
+keep dau2_idDeepTau2017v2p1VSjet
+keep isOS

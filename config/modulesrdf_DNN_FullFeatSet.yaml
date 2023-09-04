@@ -1,6 +1,7 @@
 zzdnninputs:
-    name: ZZDNNInputRDF
-    path: Tools.Tools.ZZDNNFullFeatSet
+    name: HHDNNInputRDF
+    path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
+        isZZAnalysis: True
