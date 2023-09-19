@@ -50,6 +50,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 dataset="/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("wjets"),
+                selection="event != 198018547", # to remove high weight event
                 # prefix="xrootd-cms.infn.it//",
                 xs=61526.7,
                 merging={
