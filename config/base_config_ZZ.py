@@ -281,15 +281,16 @@ class Config(cmt_config):
 
             # ZH_hbb
             Process("zh_hbb", Label("zh_hbb"), color=(4, 240, 106), parent_process="higgs", llr_name="ZH_hbb"),
+            # WH_htt
+            Process("wh_htt", Label("wh_htt"), color=(4, 240, 106), parent_process="higgs", llr_name="WH_htt"),
             # ttH_hbb
             Process("tth_bb", Label("t#bar{t}H bb"), color=(4, 240, 136), parent_process="higgs", llr_name="ttH_hbb"),
 
-            Process("tth", Label("t#bar{t}H"), color=(4, 240, 106), 
-                parent_process="zz_background", llr_name="ttH"),
-            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(4, 240, 166), 
-                parent_process="tth"),
-            Process("tth_nonbb", Label("t#bar{t}H "), color=(4, 240, 196), 
-                parent_process="tth"),
+            Process("zh_htt", Label("zh_htt"), color=(4, 240, 106), parent_process="higgs", llr_name="ZH_htt"),
+            Process("vbf_htt", Label("vbf_htt"), color=(4, 240, 106), parent_process="higgs", llr_name="VBF_H"),
+            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(4, 240, 166), parent_process="higgs", llr_name="ttH_htt"),
+            Process("tth_nonbb", Label("t#bar{t}H "), color=(4, 240, 196), parent_process="higgs", llr_name="ttH_hnonbb"),
+            Process("higgs", Label("SingleH"), color=(4, 240, 106), parent_process="zz_background", llr_name="Higgs"),
 
             Process("others", Label("Others"), color=(255, 230, 0),
                 parent_process="zz_background"),

@@ -298,6 +298,30 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             ######################################## Higgs ###############################################
             ###############################################################################################
 
+            # ZH_hbb
+            # missing
+
+            # ZH_htt
+            Dataset("zh_htt",
+                folder=p + "ZHToTauTau",
+                process=self.processes.get("zh_htt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.0554,
+                secondary_dataset="zh_htt_aux",
+                tags=["ul", "nanoV10"]),            
+
+            # WH_htt
+            # missing
+
+            # vbf_htt (not in the datacard)
+            Dataset("vbf_htt",
+                folder=p + "VBFHToTauTau",
+                process=self.processes.get("vbf_htt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.237,
+                secondary_dataset="vbf_htt_aux",
+                tags=["ul", "nanoV10"]),
+
             # ttH_hbb
             Dataset("tth_bb",
                 folder=p + "ttHTobb",
@@ -306,20 +330,22 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 xs=0.2953,
                 secondary_dataset="tth_bb_aux",
                 tags=["ul", "nanoV10"]),
-            # Dataset("tth_tautau",
-            #     folder=p + "ttHToTauTau",
-            #     process=self.processes.get("tth_tautau"),
-            #     # prefix="xrootd-cms.infn.it//",
-            #     xs=0.031805,
-            #     secondary_dataset="tth_tautau_aux",
-            #     tags=["ul", "nanoV10"]),
-            # Dataset("tth_nonbb",
-            #     folder=p + "ttHToNonbb",
-            #     process=self.processes.get("tth_nonbb"),
-            #     # prefix="xrootd-cms.infn.it//",
-            #     xs=0.17996,
-            #     secondary_dataset="tth_nonbb_aux",
-            #     tags=["ul", "nanoV10"]),
+            # ttH_htt (not in the datacard)
+            Dataset("tth_tautau",
+                folder=p + "ttHToTauTau",
+                process=self.processes.get("tth_tautau"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.031805,
+                secondary_dataset="tth_tautau_aux",
+                tags=["ul", "nanoV10"]),
+            # ttH_hnonbb (not in the datacard) 
+            Dataset("tth_nonbb",
+                folder=p + "ttHToNonbb",
+                process=self.processes.get("tth_nonbb"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.17996,
+                secondary_dataset="tth_nonbb_aux",
+                tags=["ul", "nanoV10"]),
 
             ######################################## HH bbtautau ##########################################
             ###############################################################################################

@@ -380,7 +380,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 tags=["ul"]),
 
             ######################################## Higgs ###############################################
-            ###############################################################################################
+            ###############################################################################################      
 
             # ZH_hbb
             Dataset("zh_hbb_zll",
@@ -400,13 +400,31 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
 
+            # ZH_htt
+            Dataset("zh_htt",
+                folder="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+                process=self.processes.get("zh_htt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.0554,
+                splitting=200000,
+                tags=["ul"]),   
+
             # WH_htt
-            # /WplusHToTauTau M125 13TeV powheg pythia8
-            # /WminusHToTauTau M125 13TeV powheg pythia8
+            # missing
 
-            # qqH_htt /VBFHToTauTau_M125_13TeV_powheg_pythia8 ?
+            # vbf_htt (not in the datacard)
+            Dataset("vbf_htt",
+                folder="/VBFHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                process=self.processes.get("vbf_htt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.237,
+                splitting=200000,
+                tags=["ul"]),
 
-            # ggH_htt /GluGluHToTauTau_M125_13TeV_powheg_pythia8
+            # ggH_htt
+            # missing
 
             # ttH_hbb
             Dataset("tth_bb",
@@ -417,22 +435,22 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 xs=0.2953,
                 splitting=200000,
                 tags=["ul"]),
-            # Dataset("tth_tautau",
-            #     dataset="/ttHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
-            #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-            #     process=self.processes.get("tth_tautau"),
-            #     # prefix="xrootd-cms.infn.it//",
-            #     xs=0.031805,
-            #     splitting=200000,
-            #     tags=["ul"]),
-            # Dataset("tth_nonbb",
-            #     dataset="/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/"
-            #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
-            #     process=self.processes.get("tth_nonbb"),
-            #     # prefix="xrootd-cms.infn.it//",
-            #     xs=0.17996,
-            #     splitting=200000,
-            #     tags=["ul"]),
+            Dataset("tth_tautau",
+                dataset="/ttHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                process=self.processes.get("tth_tautau"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.031805,
+                splitting=200000,
+                tags=["ul"]),
+            Dataset("tth_nonbb",
+                dataset="/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+                process=self.processes.get("tth_nonbb"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.17996,
+                splitting=200000,
+                tags=["ul"]),
 
             ######################################## HH bbtautau ##########################################
             ###############################################################################################
