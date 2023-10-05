@@ -33,6 +33,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             Dataset("wjets",
                 folder=p + "WJetsToLNu",
                 process=self.processes.get("wjets"),
+                selection="event != 198018547",
                 xs=61526.7,
                 merging={
                     "tautau": 2,
