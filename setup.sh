@@ -112,7 +112,15 @@ action() {
          export TMPDIR="/nfs/scratch_cms/$CMT_CIEMAT_USER/cmt/tmp"
        fi
        mkdir -p "$TMPDIR"
-    fi
+    fi 
+    if [ -n "$CMT_LLR_USER" ]; then
+       if [ -n "$CMT_TMPDIR" ]; then
+         export TMPDIR="$CMT_TMPDIR"
+       else
+         export TMPDIR="/scratch/$CMT_LLR_USER/tmp"
+       fi
+       mkdir -p "$TMPDIR"
+    fi 
 
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"
