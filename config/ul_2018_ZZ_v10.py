@@ -367,7 +367,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
                 xs=5.52,
-                secondary_dataset="zz_sl_signal_aux",
+                # secondary_dataset="zz_sl_signal_aux",
                 tags=["ul", "nanoV10"]),
 
             ######################################## Data #################################################
