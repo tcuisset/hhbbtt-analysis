@@ -137,6 +137,26 @@ zzvar_JER_down:
         jet_syst: smeared_down
         met_syst: down
 
+zzdnn_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: smeared_up
+        met_syst: up
+
+zzdnn_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: smeared_down
+        met_syst: down
+
 ######################################################################
 # Jet Energy Scale (JES) : HHKinFitRDF + HHVarRDF + ZZDNNRDF
 ######################################################################
@@ -148,6 +168,7 @@ svfit_FlavorQCD_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: FlavorQCD_up
+        met_syst: FlavorQCD_up
 svfit_FlavorQCD_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -155,6 +176,7 @@ svfit_FlavorQCD_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: FlavorQCD_down
+        met_syst: FlavorQCD_down
 
 zz_FlavorQCD_up:
     name: HHKinFitRDF
@@ -164,7 +186,8 @@ zz_FlavorQCD_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: FlavorQCD_up
-zz_FlavorQCD_up:
+        met_syst: FlavorQCD_up
+zz_FlavorQCD_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -172,6 +195,253 @@ zz_FlavorQCD_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: FlavorQCD_down
+        met_syst: FlavorQCD_down
+
+zzvar_FlavorQCD_up:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+
+svfit_JER_up:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        jet_syst: smeared_up
+        met_syst: up
+
+svfit_JER_down:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        jet_syst: smeared_down
+        met_syst: down
+
+zz_JER_up:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: smeared_up
+        met_syst: up
+
+zz_JER_down:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: smeared_down
+        met_syst: down
+
+zzvar_JER_up:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: smeared_up
+        met_syst: up
+
+zzvar_JER_down:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: smeared_down
+        met_syst: down
+
+zzdnn_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: smeared_up
+        met_syst: up
+
+zzdnn_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: smeared_down
+        met_syst: down
+
+######################################################################
+# Jet Energy Scale (JES) : HHKinFitRDF + HHVarRDF + ZZDNNRDF
+######################################################################
+
+svfit_FlavorQCD_up:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        jet_syst: FlavorQCD_up
+        met_syst: FlavorQCD_up
+svfit_FlavorQCD_down:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        jet_syst: FlavorQCD_down
+        met_syst: FlavorQCD_down
+
+zz_FlavorQCD_up:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: FlavorQCD_up
+        met_syst: FlavorQCD_up
+zz_FlavorQCD_down:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: FlavorQCD_down
+        met_syst: FlavorQCD_down
+
+zzvar_FlavorQCD_up:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+
+svfit_JER_up:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        jet_syst: smeared_up
+        met_syst: up
+
+svfit_JER_down:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        jet_syst: smeared_down
+        met_syst: down
+
+zz_JER_up:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: smeared_up
+        met_syst: up
+
+zz_JER_down:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: smeared_down
+        met_syst: down
+
+zzvar_JER_up:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: smeared_up
+        met_syst: up
+
+zzvar_JER_down:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: smeared_down
+        met_syst: down
+
+zzdnn_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: smeared_up
+        met_syst: up
+
+zzdnn_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: smeared_down
+        met_syst: down
+
+######################################################################
+# Jet Energy Scale (JES) : HHKinFitRDF + HHVarRDF + ZZDNNRDF
+######################################################################
+
+svfit_FlavorQCD_up:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        jet_syst: FlavorQCD_up
+        met_syst: FlavorQCD_up
+svfit_FlavorQCD_down:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        jet_syst: FlavorQCD_down
+        met_syst: FlavorQCD_down
+
+zz_FlavorQCD_up:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: FlavorQCD_up
+        met_syst: FlavorQCD_up
+zz_FlavorQCD_down:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        isZZAnalysis: True
+        met_smear_tag: smeared
+        jet_syst: FlavorQCD_down
+        met_syst: FlavorQCD_down
 
 zzvar_FlavorQCD_up:
     name: HHVarRDF
@@ -181,6 +451,7 @@ zzvar_FlavorQCD_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: FlavorQCD_up
+        met_syst: FlavorQCD_up
 zzvar_FlavorQCD_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -189,6 +460,26 @@ zzvar_FlavorQCD_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: FlavorQCD_down
+        met_syst: FlavorQCD_down
+
+zzdnn_FlavorQCD_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: FlavorQCD_up
+        met_syst: FlavorQCD_up
+zzdnn_FlavorQCD_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: FlavorQCD_down
+        met_syst: FlavorQCD_down
 
 svfit_RelativeBal_up:
     name: SVFitRDF
@@ -197,6 +488,7 @@ svfit_RelativeBal_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: RelativeBal_up
+        met_syst: RelativeBal_up
 svfit_RelativeBal_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -204,6 +496,7 @@ svfit_RelativeBal_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: RelativeBal_down
+        met_syst: RelativeBal_down
 
 zz_RelativeBal_up:
     name: HHKinFitRDF
@@ -213,7 +506,8 @@ zz_RelativeBal_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: RelativeBal_up
-zz_RelativeBal_up:
+        met_syst: RelativeBal_up
+zz_RelativeBal_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -221,6 +515,7 @@ zz_RelativeBal_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: RelativeBal_down
+        met_syst: RelativeBal_down
 
 zzvar_RelativeBal_up:
     name: HHVarRDF
@@ -230,6 +525,7 @@ zzvar_RelativeBal_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: RelativeBal_up
+        met_syst: RelativeBal_up
 zzvar_RelativeBal_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -238,6 +534,26 @@ zzvar_RelativeBal_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: RelativeBal_down
+        met_syst: RelativeBal_down
+
+zzdnn_RelativeBal_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: RelativeBal_up
+        met_syst: RelativeBal_up
+zzdnn_RelativeBal_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: RelativeBal_down
+        met_syst: RelativeBal_down
 
 svfit_HF_up:
     name: SVFitRDF
@@ -246,6 +562,7 @@ svfit_HF_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: HF_up
+        met_syst: HF_up
 svfit_HF_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -253,6 +570,7 @@ svfit_HF_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: HF_down
+        met_syst: HF_down
 
 zz_HF_up:
     name: HHKinFitRDF
@@ -262,7 +580,8 @@ zz_HF_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: HF_up
-zz_HF_up:
+        met_syst: HF_up
+zz_HF_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -270,6 +589,7 @@ zz_HF_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: HF_down
+        met_syst: HF_down
 
 zzvar_HF_up:
     name: HHVarRDF
@@ -279,6 +599,7 @@ zzvar_HF_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: HF_up
+        met_syst: HF_up
 zzvar_HF_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -287,6 +608,26 @@ zzvar_HF_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: HF_down
+        met_syst: HF_down
+
+zzdnn_HF_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: HF_up
+        met_syst: HF_up
+zzdnn_HF_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: HF_down
+        met_syst: HF_down
 
 svfit_BBEC1_up:
     name: SVFitRDF
@@ -295,6 +636,7 @@ svfit_BBEC1_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: BBEC1_up
+        met_syst: BBEC1_up
 svfit_BBEC1_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -302,6 +644,7 @@ svfit_BBEC1_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: BBEC1_down
+        met_syst: BBEC1_down
 
 zz_BBEC1_up:
     name: HHKinFitRDF
@@ -311,7 +654,8 @@ zz_BBEC1_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: BBEC1_up
-zz_BBEC1_up:
+        met_syst: BBEC1_up
+zz_BBEC1_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -319,6 +663,7 @@ zz_BBEC1_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: BBEC1_down
+        met_syst: BBEC1_down
 
 zzvar_BBEC1_up:
     name: HHVarRDF
@@ -328,6 +673,7 @@ zzvar_BBEC1_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: BBEC1_up
+        met_syst: BBEC1_up
 zzvar_BBEC1_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -336,6 +682,26 @@ zzvar_BBEC1_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: BBEC1_down
+        met_syst: BBEC1_down
+
+zzdnn_BBEC1_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: BBEC1_up
+        met_syst: BBEC1_up
+zzdnn_BBEC1_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: BBEC1_down
+        met_syst: BBEC1_down
 
 svfit_EC2_up:
     name: SVFitRDF
@@ -344,6 +710,7 @@ svfit_EC2_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: EC2_up
+        met_syst: EC2_up
 svfit_EC2_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -351,6 +718,7 @@ svfit_EC2_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: EC2_down
+        met_syst: EC2_down
 
 zz_EC2_up:
     name: HHKinFitRDF
@@ -360,7 +728,8 @@ zz_EC2_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: EC2_up
-zz_EC2_up:
+        met_syst: EC2_up
+zz_EC2_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -368,6 +737,7 @@ zz_EC2_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: EC2_down
+        met_syst: EC2_down
 
 zzvar_EC2_up:
     name: HHVarRDF
@@ -377,6 +747,7 @@ zzvar_EC2_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: EC2_up
+        met_syst: EC2_up
 zzvar_EC2_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -385,6 +756,26 @@ zzvar_EC2_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: EC2_down
+        met_syst: EC2_down
+
+zzdnn_EC2_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: EC2_up
+        met_syst: EC2_up
+zzdnn_EC2_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: EC2_down
+        met_syst: EC2_down
 
 svfit_Absolute_up:
     name: SVFitRDF
@@ -393,6 +784,7 @@ svfit_Absolute_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: Absolute_up
+        met_syst: Absolute_up
 svfit_Absolute_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -400,6 +792,7 @@ svfit_Absolute_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: Absolute_down
+        met_syst: Absolute_down
 
 zz_Absolute_up:
     name: HHKinFitRDF
@@ -409,7 +802,8 @@ zz_Absolute_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: Absolute_up
-zz_Absolute_up:
+        met_syst: Absolute_up
+zz_Absolute_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -417,6 +811,7 @@ zz_Absolute_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: Absolute_down
+        met_syst: Absolute_down
 
 zzvar_Absolute_up:
     name: HHVarRDF
@@ -426,6 +821,7 @@ zzvar_Absolute_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: Absolute_up
+        met_syst: Absolute_up
 zzvar_Absolute_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -434,6 +830,26 @@ zzvar_Absolute_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: Absolute_down
+        met_syst: Absolute_down
+
+zzdnn_Absolute_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: Absolute_up
+        met_syst: Absolute_up
+zzdnn_Absolute_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: Absolute_down
+        met_syst: Absolute_down
 
 svfit_BBEC1_2018_up:
     name: SVFitRDF
@@ -442,6 +858,7 @@ svfit_BBEC1_2018_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: BBEC1_2018_up
+        met_syst: BBEC1_2018_up
 svfit_BBEC1_2018_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -449,6 +866,7 @@ svfit_BBEC1_2018_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: BBEC1_2018_down
+        met_syst: BBEC1_2018_down
 
 zz_BBEC1_2018_up:
     name: HHKinFitRDF
@@ -458,7 +876,8 @@ zz_BBEC1_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: BBEC1_2018_up
-zz_BBEC1_2018_up:
+        met_syst: BBEC1_2018_up
+zz_BBEC1_2018_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -466,6 +885,7 @@ zz_BBEC1_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: BBEC1_2018_down
+        met_syst: BBEC1_2018_down
 
 zzvar_BBEC1_2018_up:
     name: HHVarRDF
@@ -475,6 +895,7 @@ zzvar_BBEC1_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: BBEC1_2018_up
+        met_syst: BBEC1_2018_up
 zzvar_BBEC1_2018_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -483,6 +904,26 @@ zzvar_BBEC1_2018_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: BBEC1_2018_down
+        met_syst: BBEC1_2018_down
+
+zzdnn_BBEC1_2018_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: BBEC1_2018_up
+        met_syst: BBEC1_2018_up
+zzdnn_BBEC1_2018_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: BBEC1_2018_down
+        met_syst: BBEC1_2018_down
 
 svfit_EC2_2018_up:
     name: SVFitRDF
@@ -491,6 +932,7 @@ svfit_EC2_2018_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: EC2_2018_up
+        met_syst: EC2_2018_up
 svfit_EC2_2018_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -498,6 +940,7 @@ svfit_EC2_2018_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: EC2_2018_down
+        met_syst: EC2_2018_down
 
 zz_EC2_2018_up:
     name: HHKinFitRDF
@@ -507,7 +950,8 @@ zz_EC2_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: EC2_2018_up
-zz_EC2_2018_up:
+        met_syst: EC2_2018_up
+zz_EC2_2018_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -515,6 +959,7 @@ zz_EC2_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: EC2_2018_down
+        met_syst: EC2_2018_down
 
 zzvar_EC2_2018_up:
     name: HHVarRDF
@@ -524,6 +969,7 @@ zzvar_EC2_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: EC2_2018_up
+        met_syst: EC2_2018_up
 zzvar_EC2_2018_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -532,6 +978,26 @@ zzvar_EC2_2018_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: EC2_2018_down
+        met_syst: EC2_2018_down
+
+zzdnn_EC2_2018_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: EC2_2018_up
+        met_syst: EC2_2018_up
+zzdnn_EC2_2018_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: EC2_2018_down
+        met_syst: EC2_2018_down
 
 svfit_Absolute_2018_up:
     name: SVFitRDF
@@ -540,6 +1006,7 @@ svfit_Absolute_2018_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: Absolute_2018_up
+        met_syst: Absolute_2018_up
 svfit_Absolute_2018_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -547,6 +1014,7 @@ svfit_Absolute_2018_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: Absolute_2018_down
+        met_syst: Absolute_2018_down
 
 zz_Absolute_2018_up:
     name: HHKinFitRDF
@@ -556,7 +1024,8 @@ zz_Absolute_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: Absolute_2018_up
-zz_Absolute_2018_up:
+        met_syst: Absolute_2018_up
+zz_Absolute_2018_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -564,6 +1033,7 @@ zz_Absolute_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: Absolute_2018_down
+        met_syst: Absolute_2018_down
 
 zzvar_Absolute_2018_up:
     name: HHVarRDF
@@ -573,6 +1043,7 @@ zzvar_Absolute_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: Absolute_2018_up
+        met_syst: Absolute_2018_up
 zzvar_Absolute_2018_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -581,6 +1052,26 @@ zzvar_Absolute_2018_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: Absolute_2018_down
+        met_syst: Absolute_2018_down
+
+zzdnn_Absolute_2018_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: Absolute_2018_up
+        met_syst: Absolute_2018_up
+zzdnn_Absolute_2018_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: Absolute_2018_down
+        met_syst: Absolute_2018_down
 
 svfit_HF_2018_up:
     name: SVFitRDF
@@ -589,6 +1080,7 @@ svfit_HF_2018_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: HF_2018_up
+        met_syst: HF_2018_up
 svfit_HF_2018_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -596,6 +1088,7 @@ svfit_HF_2018_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: HF_2018_down
+        met_syst: HF_2018_down
 
 zz_HF_2018_up:
     name: HHKinFitRDF
@@ -605,7 +1098,8 @@ zz_HF_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: HF_2018_up
-zz_HF_2018_up:
+        met_syst: HF_2018_up
+zz_HF_2018_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -613,6 +1107,7 @@ zz_HF_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: HF_2018_down
+        met_syst: HF_2018_down
 
 zzvar_HF_2018_up:
     name: HHVarRDF
@@ -622,6 +1117,7 @@ zzvar_HF_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: HF_2018_up
+        met_syst: HF_2018_up
 zzvar_HF_2018_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -630,6 +1126,26 @@ zzvar_HF_2018_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: HF_2018_down
+        met_syst: HF_2018_down
+
+zzdnn_HF_2018_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: HF_2018_up
+        met_syst: HF_2018_up
+zzdnn_HF_2018_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: HF_2018_down
+        met_syst: HF_2018_down
 
 svfit_RelativeSample_2018_up:
     name: SVFitRDF
@@ -638,6 +1154,7 @@ svfit_RelativeSample_2018_up:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: RelativeSample_2018_up
+        met_syst: RelativeSample_2018_up
 svfit_RelativeSample_2018_down:
     name: SVFitRDF
     path: Tools.Tools.svfit
@@ -645,6 +1162,7 @@ svfit_RelativeSample_2018_down:
         isMC: self.dataset.process.isMC
         isZZAnalysis: True
         jet_syst: RelativeSample_2018_down
+        met_syst: RelativeSample_2018_down
 
 zz_RelativeSample_2018_up:
     name: HHKinFitRDF
@@ -654,7 +1172,8 @@ zz_RelativeSample_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: RelativeSample_2018_up
-zz_RelativeSample_2018_up:
+        met_syst: RelativeSample_2018_up
+zz_RelativeSample_2018_down:
     name: HHKinFitRDF
     path: Tools.Tools.hh
     parameters:
@@ -662,6 +1181,7 @@ zz_RelativeSample_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: RelativeSample_2018_down
+        met_syst: RelativeSample_2018_down
 
 zzvar_RelativeSample_2018_up:
     name: HHVarRDF
@@ -671,6 +1191,7 @@ zzvar_RelativeSample_2018_up:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: RelativeSample_2018_up
+        met_syst: RelativeSample_2018_up
 zzvar_RelativeSample_2018_down:
     name: HHVarRDF
     path: Tools.Tools.hh
@@ -679,6 +1200,26 @@ zzvar_RelativeSample_2018_down:
         isZZAnalysis: True
         met_smear_tag: smeared
         jet_syst: RelativeSample_2018_down
+        met_syst: RelativeSample_2018_down
+
+zzdnn_RelativeSample_2018_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: RelativeSample_2018_up
+        met_syst: RelativeSample_2018_up
+zzdnn_RelativeSample_2018_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isZZAnalysis: True
+        jet_syst: RelativeSample_2018_down
+        met_syst: RelativeSample_2018_down
 
 # '''
 # svfit_Total_up:
@@ -688,6 +1229,7 @@ zzvar_RelativeSample_2018_down:
 #         isMC: self.dataset.process.isMC
 #         isZZAnalysis: True
 #         jet_syst: Total_up
+#         met_syst: Total_up
 # svfit_Total_down:
 #     name: SVFitRDF
 #     path: Tools.Tools.svfit
@@ -695,6 +1237,7 @@ zzvar_RelativeSample_2018_down:
 #         isMC: self.dataset.process.isMC
 #         isZZAnalysis: True
 #         jet_syst: Total_down
+#         met_syst: Total_down
 
 # zz_Total_up:
 #     name: HHKinFitRDF
@@ -704,7 +1247,8 @@ zzvar_RelativeSample_2018_down:
 #         isZZAnalysis: True
 #         met_smear_tag: smeared
 #         jet_syst: Total_up
-# zz_Total_up:
+#         met_syst: Total_up
+# zz_Total_down:
 #     name: HHKinFitRDF
 #     path: Tools.Tools.hh
 #     parameters:
@@ -712,6 +1256,7 @@ zzvar_RelativeSample_2018_down:
 #         isZZAnalysis: True
 #         met_smear_tag: smeared
 #         jet_syst: Total_down
+#         met_syst: Total_down
 
 # zzvar_Total_up:
 #     name: HHVarRDF
@@ -721,6 +1266,7 @@ zzvar_RelativeSample_2018_down:
 #         isZZAnalysis: True
 #         met_smear_tag: smeared
 #         jet_syst: Total_up
+#         met_syst: Total_up
 # zzvar_Total_down:
 #     name: HHVarRDF
 #     path: Tools.Tools.hh
@@ -729,4 +1275,25 @@ zzvar_RelativeSample_2018_down:
 #         isZZAnalysis: True
 #         met_smear_tag: smeared
 #         jet_syst: Total_down
+#         met_syst: Total_down
+# 
+# zzdnn_Total_up:
+#     name: HHDNNRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         isZZAnalysis: True
+#         jet_syst: Total_up
+#         met_syst: Total_up
+# zzdnn_Total_down:
+#     name: HHDNNRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         isZZAnalysis: True
+#         jet_syst: Total_down
+#         met_syst: Total_down
+
 # '''
