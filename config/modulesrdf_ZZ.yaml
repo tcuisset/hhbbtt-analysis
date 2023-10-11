@@ -28,6 +28,7 @@ metfilter:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
+# also comutes TES
 tauSF:
     name: tauSFRDF
     path: Corrections.TAU.tauCorrections
@@ -71,7 +72,7 @@ hhleptonVarTESdown:
         isMC: self.dataset.process.isMC
         tau_syst: corr_down
 
-smearing_var:
+smearing_SFs:
     name: jetSmearerRDF
     path: Corrections.JME.smearing
     parameters:
@@ -81,25 +82,20 @@ smearing_var:
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
 
-# jet_smear_val:
-#     name: jetVarRDF
-#     path: Corrections.JME.smearing
-#     parameters:
-#         isMC: self.dataset.process.isMC
-
-# met_smearing:
-#     name: metSmearerRDF
-#     path: Corrections.JME.smearing
-#     parameters:
-#         isMC: self.dataset.process.isMC
-
-jet_met_smearing:
-    name: JetMetSmearerRDF
+jer_jet:
+    name: jetVarRDF
     path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
 
-jec:
+# also computes up and down variations
+jet_tes_smeared_met:
+    name: metJetTauSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        isMC: self.dataset.process.isMC
+
+jec_SFs:
     name: jecProviderRDF
     path: Corrections.JME.jec
     parameters:
@@ -107,6 +103,24 @@ jec:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
+        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
+            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+
+jec_jet:
+    name: jecVarRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
+            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+
+jec_met:
+    name: jecMETRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
         # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
             # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
 
@@ -120,6 +134,7 @@ hhjets:
         met_smear_tag: smeared
         filter: True
 
+# probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
 bjet1var:
     name: VarFromVectorRDF
     path: Base.Modules.baseModules
@@ -140,6 +155,7 @@ bjet2var:
         output_prefix: bjet2
         condition: self.dataset.process.isMC
 
+# probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
 jecb1:
     name: jecProviderRDF
     path: Corrections.JME.jec
