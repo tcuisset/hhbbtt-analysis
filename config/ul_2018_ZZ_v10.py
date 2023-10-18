@@ -60,20 +60,23 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             Dataset("ewk_z",
                 folder=p + "EWKZ2Jets_ZToLL_M-50",
                 process=self.processes.get("ewk_z"),
-                xs=3.987,
+                xs=6.215,
                 splitting=200000,
+                secondary_dataset="ewk_z_aux",
                 tags=["ul"]),
             Dataset("ewk_wplus",
                 folder=p + "EWKWPlus2Jets_WToLNu_M-50",
                 process=self.processes.get("ewk_wplus"),
-                xs=25.62,
+                xs=39.05,
                 splitting=200000,
+                secondary_dataset="ewk_wplus_aux",
                 tags=["ul"]),
             Dataset("ewk_wminus",
                 folder=p + "EWKWMinus2Jets_WToLNu_M-50",
                 process=self.processes.get("ewk_wminus"),
-                xs=20.25,
+                xs=32.05,
                 splitting=200000,
+                secondary_dataset="ewk_wminus_aux",
                 tags=["ul"]),
 
             ######################################## Top ##################################################
@@ -186,6 +189,12 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 xs=10.71,
                 secondary_dataset="wz_lnuqq_aux",
                 tags=["ul", "nanoV10"]),
+            # Dataset("wz_lnununu",
+            #     folder=p + "WZTo1L3Nu",
+            #     process=self.processes.get("wz"),
+            #     xs=3.414,
+            #     secondary_dataset="wz_lnununu_aux",
+            #     tags=["ul", "nanoV10"]),
             Dataset("wz_llqq",
                 folder=p + "WZTo2Q2L",
                 process=self.processes.get("wz"),
@@ -300,7 +309,18 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             ###############################################################################################
 
             # ZH_hbb
-            # missing
+            # Dataset("zh_hbb_zll",
+            #     folder=p + "ZH_Hbb_Zll",
+            #     process=self.processes.get("zh_hbb"),
+            #     xs=0.052,
+            #     secondary_dataset="zh_hbb_zll_aux",
+            #     tags=["ul", "nanoV10"]),
+            # Dataset("zh_hbb_zqq",
+            #     folder=p + "ZH_Hbb_Zqq",
+            #     process=self.processes.get("zh_hbb"),
+            #     xs=0.36,
+            #     secondary_dataset="zh_hbb_zqq_aux",
+            #     tags=["ul", "nanoV10"]),
 
             # ZH_htt
             Dataset("zh_htt",
@@ -354,7 +374,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             Dataset("ggf_sm",
                 folder=p + "GluGluToHHTo2B2Tau_node_SM",
                 process=self.processes.get("ggf_sm"),
-                xs=0.03105,
+                xs=0.002268,
                 tags=["ul", "nanoV10"], 
                 secondary_dataset="ggf_sm_aux"),
 
@@ -367,7 +387,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
                 xs=5.52,
-                # secondary_dataset="zz_sl_signal_aux",
+                secondary_dataset="zz_sl_signal_aux",
                 tags=["ul", "nanoV10"]),
 
             ######################################## Data #################################################
@@ -504,10 +524,10 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
         for name in [
                 "wjets", "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
                 "st_tw_antitop", "st_tw_top", "st_antitop", "st_top",
-                "zz_dl", "zz_sl_background", "zz_lnu", "zz_qnu", "wz_lllnu", "wz_lnuqq", "wz_llqq", "ww_lnuqq", "ww_qqqq",
+                "zz_dl", "zz_sl_background", "zz_lnu", "zz_qnu", "wz_lllnu", "wz_lnuqq", "wz_llqq", "ww_llnunu", "ww_lnuqq", "ww_qqqq",
                 "zzz", "wzz", "www", "wwz", 
                 "ttw_lnu", "ttw_qq", "ttww", "ttwz", "ttwh", "ttzh", "ttz_llnunu", "ttz_qq", "ttzz", 
-                "zh_hbb_zll", "zh_hbb_zqq", "tth_bb", "ggf_sm", "zz_sl_signal"]:
+                "tth_bb", "tth_nonbb", "tth_tautau", "ggf_sm", "zz_sl_signal"]:
             datasets.add(
                 Dataset(
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])

@@ -52,7 +52,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 process=self.processes.get("wjets"),
                 selection="event != 198018547", # to remove high weight event
                 # prefix="xrootd-cms.infn.it//",
-                xs=61526.7,
+                xs=61526.7, # 3 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=l%CE%BD%2C%20l%3D%CE%BC-,20508.9,-%2B165.7%20%2D88.2%20(%C2%B1%20770.9
                 merging={
                     "tautau": 5,
                     "etau": 10,
@@ -67,7 +67,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 process=self.processes.get("dy"),
                 # prefix="xrootd-cms.infn.it//",
                 # prefix="cms-xrd-global.cern.ch//",
-                xs=6077.22,
+                xs=6077.22, # https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=Z%20%E2%86%92%20%E2%84%93%E2%84%93-,6077.22,-Z/a*%20(60
                 merging={
                     "tautau": 20,
                     "etau": 20,
@@ -77,27 +77,27 @@ class Config_ul_2018_ZZ(base_config_ZZ):
 
             # EWK
             Dataset("ewk_z",
-                dataset="/EWKZ2Jets_ZToLL_M-50_TuneCP5_PSweights_13TeV-madgraph-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                dataset="/EWKZ2Jets_ZToLL_M-50_TuneCP5_withDipoleRecoil_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("ewk_z"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=3.987,
+                xs=6.215, # XSDB
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ewk_wplus",
-                dataset="/EWKWPlus2Jets_WToLNu_M-50_TuneCP5_13TeV-madgraph-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                dataset="/EWKWPlus2Jets_WToLNu_M-50_TuneCP5_withDipoleRecoil_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("ewk_wplus"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=25.62,
+                xs=39.05, # XSDB
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ewk_wminus",
-                dataset="/EWKWMinus2Jets_WToLNu_M-50_TuneCP5_13TeV-madgraph-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                dataset="/EWKWMinus2Jets_WToLNu_M-50_TuneCP5_withDipoleRecoil_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("ewk_wminus"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=20.25,
+                xs=32.05, # XSDB
                 splitting=200000,
                 tags=["ul"]),
 
@@ -110,7 +110,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("tt_dl"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=88.29, 
+                xs=88.29, # XSDB NNLO
                 merging={
                     "tautau": 20,
                     "mutau": 20,
@@ -123,7 +123,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("tt_sl"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=365.34,
+                xs=365.34, # XSDB NNLO
                 merging={
                     "tautau": 20,
                     "mutau": 60,
@@ -136,7 +136,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("tt_fh"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=377.96,
+                xs=377.96, # XSDB NNLO
                 scaling=(0.96639, 0.00863),
                 tags=["ul"]),
 
@@ -146,7 +146,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("tw"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=35.85,
+                xs=35.85, # 0.5 * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopRefXsec#:~:text=a2-,71.7,-%2B1.326
                 splitting=200000,
                 tags=["ul"]),
             Dataset("st_tw_top",
@@ -154,7 +154,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("tw"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=35.85,
+                xs=35.85, # 0.5 * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopRefXsec#:~:text=a2-,71.7,-%2B1.326
                 splitting=200000,
                 tags=["ul"]),
 
@@ -164,7 +164,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("singlet"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=80.95,
+                xs=80.95, # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopRefXsec#:~:text=anti%2Dtop-,80.95,-%2B2.53%20%2D1.71
                 splitting=200000,
                 tags=["ul"]),
             Dataset("st_top",
@@ -172,7 +172,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("singlet"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=136.02,
+                xs=136.02, # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopRefXsec#:~:text=top-,136.02,-%2B4.09%20%2D2.92
                 splitting=200000,
                 tags=["ul"]),
 
@@ -185,7 +185,11 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("zz"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=1.26,
+                xs=1.26, # AN
+                # xs=1.325, # XSDB NLO
+                # xs=1.212, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#W_jets:~:text=SMP%2DRunIISpring15DR74%2D00026-,1.212,-NLO%2C%20up%20to
+                # xs=1.204, # https://xsdb-temp.app.cern.ch/xsdb/?columns=67108863&currentPage=0&pageSize=10&searchQuery=DAS%3DZZTo4L_TuneCP5_13TeV_powheg_pythia8#:~:text=approved-,1.204,-0.00357
+                # xs=0.3141, # 9 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=%CE%BC%CE%BC%20Z%20%E2%86%92%20ee-,0.0349,-%C2%B1%200.0011%20(%C2%B1%200.0016)
                 splitting=200000,
                 tags=["ul"]),
             Dataset("zz_sl_background",
@@ -221,23 +225,31 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("wz_lllnu",
-                dataset="/WZTo3LNu_TuneCP5_13TeV-powheg-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                dataset="/WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("wz"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=4.43,
                 splitting=200000,
                 tags=["ul"]),
             Dataset("wz_lnuqq",
-                dataset="/WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8/"
+                dataset="/WZTo1L1Nu2Q_4f_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("wz"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=10.71,
                 splitting=200000,
                 tags=["ul"]),
+            Dataset("wz_lnununu",
+                dataset="/WZTo1L3Nu_4f_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                    "RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v3/MINIAODSIM",
+                process=self.processes.get("wz"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=3.414,
+                splitting=200000,
+                tags=["ul"]),
             Dataset("wz_llqq",
-                dataset="/WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/"
+                dataset="/WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("wz"),
                 # prefix="xrootd-cms.infn.it//",
@@ -245,15 +257,15 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ww_llnunu",
-                dataset="/WWTo2L2Nu_NNPDF31_TuneCP5_13TeV-powheg-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                dataset="/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("ww"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=12.178,
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ww_lnuqq",
-                dataset="/WWToLNuQQ_NNPDF31_TuneCP5_13TeV-powheg-pythia8/"
+                dataset="/WWTo1L1Nu2Q_4f_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("ww"),
                 # prefix="xrootd-cms.infn.it//",
@@ -261,8 +273,8 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ww_qqqq",
-                dataset="/WWTo4Q_NNPDF31_TuneCP5_13TeV-powheg-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                dataset="/WWTo4Q_4f_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("ww"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=51.723,
@@ -295,7 +307,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("wwz",
-                dataset="/WWZ_TuneCP5_13TeV-amcatnlo-pythia8/"
+                dataset="/WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("wwz"),
                 # prefix="xrootd-cms.infn.it//",
@@ -324,7 +336,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ttww",
-                dataset="/TTWW_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/"
+                dataset="/TTWW_TuneCP5_13TeV-madgraph-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("ttww"),
                 # prefix="xrootd-cms.infn.it//",
@@ -332,7 +344,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ttwz",
-                dataset="/TTWZ_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/"
+                dataset="/TTWZ_TuneCP5_13TeV-madgraph-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("ttwz"),
                 # prefix="xrootd-cms.infn.it//",
@@ -340,16 +352,16 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ttwh",
-                dataset="/TTWH_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                dataset="/TTWH_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("ttwh"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.00158,
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ttzh",
-                dataset="/TTZH_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                dataset="/TTZH_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("ttzh"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.00154,
@@ -372,7 +384,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("ttzz",
-                dataset="/TTZZ_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/"
+                dataset="/TTZZ_TuneCP5_13TeV-madgraph-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("ttzz"),
                 # prefix="xrootd-cms.infn.it//",
@@ -385,16 +397,16 @@ class Config_ul_2018_ZZ(base_config_ZZ):
 
             # ZH_hbb
             Dataset("zh_hbb_zll",
-                dataset="/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+                dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("zh_hbb"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.052,
                 splitting=200000,
                 tags=["ul"]),
             Dataset("zh_hbb_zqq",
-                dataset="/ZH_HToBB_ZToQQ_M125_13TeV_powheg_pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+                dataset="/ZH_HToBB_ZToQQ_M-125_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("zh_hbb"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.36,
