@@ -53,7 +53,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                     "etau": 10,
                     "mutau": 10,
                 },
-                secondary_dataset="dy_nlo_aux",
+                secondary_dataset="dy_aux",
                 tags=["ul", "nanoV10"]),
 
             # EWK
@@ -332,7 +332,20 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 tags=["ul", "nanoV10"]),            
 
             # WH_htt
-            # missing
+            Dataset("wminush_htt",
+                folder=p + "WminusHToTauTau",
+                process=self.processes.get("wh_htt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.0334,
+                secondary_dataset="wminush_htt_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("wplush_htt",
+                folder=p + "WplusHToTauTau",
+                process=self.processes.get("wh_htt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.05268,
+                secondary_dataset="wminush_htt_aux",
+                tags=["ul", "nanoV10"]),    
 
             # vbf_htt (not in the datacard)
             Dataset("vbf_htt",
@@ -375,8 +388,8 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 folder=p + "GluGluToHHTo2B2Tau_node_SM",
                 process=self.processes.get("ggf_sm"),
                 xs=0.002268,
-                tags=["ul", "nanoV10"], 
-                secondary_dataset="ggf_sm_aux"),
+                secondary_dataset="ggf_sm_aux",
+                tags=["ul", "nanoV10"]),
 
 
             ###################################### ZZ Signal ##############################################
@@ -522,7 +535,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
         datasets = ObjectCollection(datasets)
 
         for name in [
-                "wjets", "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
+                "wjets", "dy", "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
                 "st_tw_antitop", "st_tw_top", "st_antitop", "st_top",
                 "zz_dl", "zz_sl_background", "zz_lnu", "zz_qnu", "wz_lllnu", "wz_lnuqq", "wz_llqq", "ww_llnunu", "ww_lnuqq", "ww_qqqq",
                 "zzz", "wzz", "www", "wwz", 

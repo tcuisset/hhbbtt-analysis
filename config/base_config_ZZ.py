@@ -245,7 +245,7 @@ class Config(cmt_config):
             Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk"),
             Process("ewk_wplus",  Label("EWK W^{+}"), color=(255, 230, 0), parent_process="ewk"),
             Process("ewk_wminus", Label("EWK W^{-}"), color=(255, 230, 0), parent_process="ewk"),
-            Process("ewk", Label("EWK"), color=(255, 230, 0), parent_process="zz_background", llr_name="EWK"),
+            Process("ewk", Label("EWK"), color=(255, 230, 0), parent_process="others", llr_name="EWK"),
 
             # TT
             Process("tt_dl", Label("t#bar{t} DL"), color=(40, 194, 255), parent_process="tt"),
@@ -253,21 +253,22 @@ class Config(cmt_config):
             Process("tt_fh", Label("t#bar{t} FH"), color=(40, 194, 255), parent_process="tt"),
             Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="zz_background", llr_name="TT"),
             # TW
-            Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="zz_background", llr_name="TW"),
+            Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="others", llr_name="TW"),
             # singleT
-            Process("singlet", Label("st"), color=(255, 230, 0), parent_process="zz_background", llr_name="singleT"),
+            Process("singlet", Label("st"), color=(255, 230, 0), parent_process="others", llr_name="singleT"),
 
             # VV
             Process("zz", Label("ZZ"), color=(20, 60, 255), parent_process="vv"),
             Process("wz", Label("WZ"), color=(20, 60, 255), parent_process="vv"),
             Process("ww", Label("WW"), color=(20, 60, 255), parent_process="vv"),
-            Process("vv", Label("VV"), color=(20, 60, 255), parent_process="zz_background", llr_name="VV"),
+            Process("vv", Label("VV"), color=(20, 60, 255), parent_process="vv_v", llr_name="VV"),
             # VVV
             Process("zzz", Label("ZZZ"), color=(20, 60, 255), parent_process="vvv"),
             Process("wzz", Label("WZZ"), color=(20, 60, 255), parent_process="vvv"),
             Process("www", Label("WWW"), color=(20, 60, 255), parent_process="vvv"),
             Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"),
-            Process("vvv", Label("VVV"), color=(20, 60, 255), parent_process="zz_background", llr_name="VVV"),
+            Process("vvv", Label("VVV"), color=(20, 60, 255), parent_process="vv_v", llr_name="VVV"),
+            Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="zz_background", llr_name="VVV"),
 
             # TTX
             Process("ttw", Label("TTW"), color=(4, 240, 106), parent_process="ttx"),
@@ -280,17 +281,17 @@ class Config(cmt_config):
             Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="zz_background", llr_name="TTX"),
 
             # ZH_hbb
-            Process("zh_hbb", Label("zh_hbb"), color=(4, 240, 106), parent_process="higgs", llr_name="ZH_hbb"),
+            Process("zh_hbb", Label("zh_hbb"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH_hbb"),
             # WH_htt
-            Process("wh_htt", Label("wh_htt"), color=(4, 240, 106), parent_process="higgs", llr_name="WH_htt"),
+            Process("wh_htt", Label("wh_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="WH_htt"),
             # ttH_hbb
-            Process("tth_bb", Label("t#bar{t}H bb"), color=(4, 240, 136), parent_process="higgs", llr_name="ttH_hbb"),
-
-            Process("zh_htt", Label("zh_htt"), color=(4, 240, 106), parent_process="higgs", llr_name="ZH_htt"),
-            Process("vbf_htt", Label("vbf_htt"), color=(4, 240, 106), parent_process="higgs", llr_name="VBF_H"),
-            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(4, 240, 166), parent_process="higgs", llr_name="ttH_htt"),
-            Process("tth_nonbb", Label("t#bar{t}H "), color=(4, 240, 196), parent_process="higgs", llr_name="ttH_hnonbb"),
-            Process("higgs", Label("SingleH"), color=(4, 240, 106), parent_process="zz_background", llr_name="Higgs"),
+            Process("tth_bb", Label("t#bar{t}H bb"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH_hbb"),
+            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH_htt"),
+            Process("tth_nonbb", Label("t#bar{t}H "), color=(130, 39, 197), parent_process="higgs", llr_name="ttH_hnonbb"),
+            Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, parent_process="higgs", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
+            Process("zh_htt", Label("zh_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH_htt"),
+            Process("vbf_htt", Label("vbf_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="VBF_H"),
+            Process("higgs", Label("Higgs"), color=(130, 39, 197), parent_process="zz_background", llr_name="Higgs"),
 
             Process("others", Label("Others"), color=(255, 230, 0),
                 parent_process="zz_background"),
@@ -303,15 +304,8 @@ class Config(cmt_config):
             Process("data_etau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
             Process("data_mutau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
 
-
-
-
-
-
             Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH",
                 parent_process="zz_background"),
-            Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False,
-                parent_process="ggf", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
             Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=False,
                 parent_process="ggf"),
             Process("ggf_2p45_1", Label("HH_{ggF}^{(2.45, 1)}"), color=(0, 0, 0), isSignal=False,
@@ -337,23 +331,16 @@ class Config(cmt_config):
         ]
 
         process_group_names = {
-            "zz_total_split": [
+            "zz": [
                 "zz_sl_signal",
-                "ggf_sm",
-                "zz_sl",
-                "zz_dl",
-                "zz_fh",
-                "zzz",
+                "higgs",
+                "vv_v",
                 "wjets",
                 "dy",
-                "tt_dl",
-                "tt_sl",
-                "tt_fh",
-                "tth_bb",
-                "tth_tautau",
-                "tth_nonbb",
-                "singlet",
-                "tw",
+                "others",
+                "tt",
+                "ttx",
+                "data",
             ],
             "zz_total": [
                 "zz_sl_signal",
@@ -474,7 +461,14 @@ class Config(cmt_config):
                 units="GeV"),
 
             # bjet features
-            Feature("bjet1_pt", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
+            Feature("bjet1_pt_1", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
+                x_title=Label("b_{1} p_{T}"),
+                units="GeV",
+                central="jet_smearing",
+                selection="abs({{bjet1_eta}}) < 2.1", #[FIXME]?
+                systematics=["jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("bjet1_pt_2", "Jet_pt.at(bjet1_JetIdx)", binning=(20, 0, 200),
                 x_title=Label("b_{1} p_{T}"),
                 units="GeV",
                 central="jet_smearing",
@@ -741,6 +735,22 @@ class Config(cmt_config):
                 units="GeV",
                 systematics=["tes"]),
 
+            # Ztt + met
+            Feature("Ztt_met_pt", "Ztt_met_pt", binning=(10, 50, 150),
+                x_title=Label("Z(#tau^{+}#tau^{-}+MET) p_{T}"),
+                units="GeV",
+                systematics=["tes"]),
+            Feature("Ztt_met_eta", "Ztt_met_eta", binning=(20, -5., 5.),
+                x_title=Label("Z(#tau^{+}#tau^{-}+MET) #eta"),
+                systematics=["tes"]),
+            Feature("Ztt_met_phi", "Ztt_met_phi", binning=(20, -3.2, 3.2),
+                x_title=Label("Z(#tau^{+}#tau^{-}+MET) #phi"),
+                systematics=["tes"]),
+            Feature("Ztt_met_mass", "Ztt_met_mass", binning=(30, 0, 150),
+                x_title=Label("Z(#tau^{+}#tau^{-}+MET) mass"),
+                units="GeV",
+                systematics=["tes"]),
+
             # Ztt (SVFit)
             Feature("Ztt_svfit_pt", "Ztt_svfit_pt", binning=(10, 50, 150),
                 x_title=Label("Z(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
@@ -810,41 +820,50 @@ class Config(cmt_config):
 
             # DNN features FullFeatSet
             Feature("zz_kinfit_chi2", "hh_kinfit_chi2", binning=(30, 0, 50),
-                x_title=Label("ZZ #chi^{2} (Kin. Fit)"),
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # x_title=Label("ZZ #chi^{2} (Kin. Fit)"),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("zz_kinfit_m", "hh_kinfit_m", binning=(50, 0, 1000),
                 x_title=Label("ZZ mass (Kin. Fit)"), units="GeV",
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("sv_mass", "sv_mass", binning=(20, 30, 230),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), units="GeV",
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("dR_l1_l2_x_sv_pT", "dR_l1_l2_x_sv_pT", binning=(30, 0, 400), 
                 x_title=Label("#DeltaR (l_{1}, l_{2}) #times p_{T} (Z_{#tau#tau}^{SVFit})"),
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("l1_mt", "l_1_mt", binning=(25, 0, 200), 
                 x_title=Label("m_{T} (l_{1})"), units="GeV",
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("l_2_pT", "l_2_pT", binning=(25, 50, 150),
                 x_title=Label("#tau_{2} p_{t}"), units="GeV",
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("dR_l1_l2", "dR_l1_l2", binning=(50, 0, 5), 
                 x_title=Label("#DeltaR (l_{1}, l_{2})"),
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("dphi_sv_met", "dphi_sv_met", binning=(30, 0, 3.14), 
                 x_title=Label("#Delta#phi (Z_{#tau#tau}^{SVFit}, MET)"),
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("z_bb_mass", "h_bb_mass", binning=(35, 0, 350),
                 x_title=Label("Z(b#bar{b}) mass"), units="GeV",
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                # systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                #              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+                ),
             Feature("b_2_hhbtag", "b_2_hhbtag", binning=(50, 0, 1), 
                 x_title=Label("ZZbtag bJet_{2}"),
                 systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
@@ -993,8 +1012,9 @@ class Config(cmt_config):
         weights.total_events_weights = ["genWeight", "puWeight"]
 
         weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-            "L1PreFiringWeight", "PUjetID_SF"]
-
+            "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
+            "bTagweightReshape"]
+            
         weights.etau = weights.mutau
         weights.tautau = weights.mutau
         weights.base = weights.mutau
