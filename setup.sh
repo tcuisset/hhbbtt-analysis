@@ -114,7 +114,7 @@ action() {
        mkdir -p "$TMPDIR"
     fi 
     if [ -n "$CMT_LLR_USER" ]; then
-       if [ -n "$CMT_TMPDIR" ]; then
+       if [ -n "$CMT_TMPDIR" ] || [ -n "$CMT_ON_HTCONDOR" ]; then
          export TMPDIR="$CMT_TMPDIR"
        else
          export TMPDIR="/scratch/$CMT_LLR_USER/tmp"
