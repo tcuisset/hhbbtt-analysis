@@ -189,12 +189,12 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 xs=10.71,
                 secondary_dataset="wz_lnuqq_aux",
                 tags=["ul", "nanoV10"]),
-            # Dataset("wz_lnununu",
-            #     folder=p + "WZTo1L3Nu",
-            #     process=self.processes.get("wz"),
-            #     xs=3.414,
-            #     secondary_dataset="wz_lnununu_aux",
-            #     tags=["ul", "nanoV10"]),
+            Dataset("wz_lnununu",
+                folder=p + "WZTo1L3Nu",
+                process=self.processes.get("wz"),
+                xs=3.414,
+                secondary_dataset="wz_lnununu_aux",
+                tags=["ul", "nanoV10"]),
             Dataset("wz_llqq",
                 folder=p + "WZTo2Q2L",
                 process=self.processes.get("wz"),
@@ -309,18 +309,18 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             ###############################################################################################
 
             # ZH_hbb
-            # Dataset("zh_hbb_zll",
-            #     folder=p + "ZH_Hbb_Zll",
-            #     process=self.processes.get("zh_hbb"),
-            #     xs=0.052,
-            #     secondary_dataset="zh_hbb_zll_aux",
-            #     tags=["ul", "nanoV10"]),
-            # Dataset("zh_hbb_zqq",
-            #     folder=p + "ZH_Hbb_Zqq",
-            #     process=self.processes.get("zh_hbb"),
-            #     xs=0.36,
-            #     secondary_dataset="zh_hbb_zqq_aux",
-            #     tags=["ul", "nanoV10"]),
+            Dataset("zh_hbb_zll",
+                folder=p + "ZH_Hbb_Zll",
+                process=self.processes.get("zh_hbb"),
+                xs=0.052,
+                secondary_dataset="zh_hbb_zll_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("zh_hbb_zqq",
+                folder=p + "ZH_Hbb_Zqq",
+                process=self.processes.get("zh_hbb"),
+                xs=0.36,
+                secondary_dataset="zh_hbb_zqq_aux",
+                tags=["ul", "nanoV10"]),
 
             # ZH_htt
             Dataset("zh_htt",
@@ -381,16 +381,33 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 secondary_dataset="tth_nonbb_aux",
                 tags=["ul", "nanoV10"]),
 
+            # ggH_ZZ
+            Dataset("ggH_ZZ",
+                folder=p + "ggHToZZTo2L2Q",
+                process=self.processes.get("ggH_ZZ"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=28.87, # XSDB NLO
+                secondary_dataset="ggH_ZZ_aux",
+                tags=["ul", "nanoV10"]),
+
             ######################################## HH bbtautau ##########################################
             ###############################################################################################
 
+            # ggf
             Dataset("ggf_sm",
                 folder=p + "GluGluToHHTo2B2Tau_node_SM",
                 process=self.processes.get("ggf_sm"),
                 xs=0.002268,
                 secondary_dataset="ggf_sm_aux",
                 tags=["ul", "nanoV10"]),
-
+            # # vbf
+            # Dataset("vbf_sm",
+            #     dataset="",
+            #     process=self.processes.get("vbf_sm"),
+            #     # prefix="xrootd-cms.infn.it//",
+            #     xs=0.001726,
+            #     secondary_dataset="vbf_sm_aux",
+            #     tags=["ul", "nanoV10"]),
 
             ###################################### ZZ Signal ##############################################
             ###############################################################################################
@@ -537,15 +554,18 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
         for name in [
                 "wjets", "dy", "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
                 "st_tw_antitop", "st_tw_top", "st_antitop", "st_top",
-                "zz_dl", "zz_sl_background", "zz_lnu", "zz_qnu", "wz_lllnu", "wz_lnuqq", "wz_llqq", "ww_llnunu", "ww_lnuqq", "ww_qqqq",
+                "zz_dl", "zz_sl_background", "zz_fh", "zz_lnu", "zz_qnu",
+                "wz_lllnu", "wz_lnuqq", "wz_lnununu", "wz_llqq", "ww_llnunu", "ww_lnuqq", "ww_qqqq",
                 "zzz", "wzz", "www", "wwz", 
                 "ttw_lnu", "ttw_qq", "ttww", "ttwz", "ttwh", "ttzh", "ttz_llnunu", "ttz_qq", "ttzz", 
-                "tth_bb", "tth_nonbb", "tth_tautau", "ggf_sm", "zz_sl_signal"]:
+                "zh_hbb_zll", "zh_htt", "wminush_htt", "wplush_htt", "vbf_htt", 
+                "tth_bb", "tth_nonbb", "tth_tautau", "ggH_ZZ", "ggf_sm", "zz_sl_signal"]:
             datasets.add(
                 Dataset(
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
             )
 
+        print(" ### DEBUG, ", datasets)
         return datasets
 
     # if I don't want to specify the version every time
@@ -555,4 +575,4 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
     #     }
     #     return versions
 
-config = Config_ul_2018_v10("ul_2018_v10", year=2018, ecm=13, lumi_pb=59741)
+config = Config_ul_2018_v10("ul_2018_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True)

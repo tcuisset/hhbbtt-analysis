@@ -22,7 +22,11 @@ class Config_ul_2018_ZZ(base_config_ZZ):
         #     "bTagweightReshape"]
 
         weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-            "L1PreFiringWeight_Nom", "PUjetID_SF"]
+            "idAndIsoAndFakeSF", "PUjetID_SF",
+            "bTagweightReshape"] # removed L1PreFiringWeight for 2018
+
+        # weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
+        #     "L1PreFiringWeight_Nom", "PUjetID_SF"]
         
         weights.etau = weights.mutau
         weights.tautau = weights.mutau
@@ -429,15 +433,15 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 # xs=0.07977, # XSDB NLO
                 splitting=200000,
                 tags=["ul"]),
-            Dataset("zh_hbb_zqq",
-                dataset="/ZH_HToBB_ZToQQ_M-125_TuneCP5_13TeV-powheg-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-                process=self.processes.get("zh_hbb"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=0.36, # AN
-                # xs=0.5612, # XSDB NLO
-                splitting=200000,
-                tags=["ul"]),
+            # Dataset("zh_hbb_zqq",
+            #     dataset="/ZH_HToBB_ZToQQ_M-125_TuneCP5_13TeV-powheg-pythia8/"
+            #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            #     process=self.processes.get("zh_hbb"),
+            #     # prefix="xrootd-cms.infn.it//",
+            #     xs=0.36, # AN
+            #     # xs=0.5612, # XSDB NLO
+            #     splitting=200000,
+            #     tags=["ul"]),
 
             # ZH_htt
             Dataset("zh_htt",
@@ -482,9 +486,6 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
 
-            # ggH_htt
-            # missing
-
             # ttH_hbb
             Dataset("tth_bb",
                 dataset="/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/"
@@ -516,6 +517,16 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
 
+            # ggH_ZZ 
+            Dataset("ggH_ZZ",
+                folder="/GluGluHToZZTo2L2Q_M125_TuneCP5_13TeV_powheg2_JHUGenV7011_pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                process=self.processes.get("ggH_ZZ"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=28.87, # XSDB NLO
+                splitting=200000,
+                tags=["ul"]),
+
             ######################################## HH bbtautau ##########################################
             ###############################################################################################
 
@@ -534,7 +545,8 @@ class Config_ul_2018_ZZ(base_config_ZZ):
             #     "RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM",
             #     process=self.processes.get("vbf_sm"),
             #     # prefix="xrootd-cms.infn.it//",
-            #     xs=0.001726),
+            #     xs=0.001726,
+            #     tags=["ul"]),
 
 
             ###################################### ZZ Signal ##############################################

@@ -234,13 +234,13 @@ class Config(cmt_config):
     def add_processes(self):
         processes = [
             Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(153, 247, 171), 
-                    isZZsignal=True, isSignal=True, llr_name="ZZ"),
+                    isZZsignal=True, isSignal=True, llr_name="ZZbbtt"),
 
             # W
             Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="zz_background", llr_name="WJets"),
             # DY
-            Process("dy", Label("DY"), color=(255, 149, 5), parent_process="zz_background", llr_name="DY", isDY=True),
-            Process("dy_high", Label("DY"), color=(255, 149, 5), llr_name="DY", isDY=True),
+            Process("dy", Label("DY"), color=(255, 149, 5), parent_process="zz_background", llr_name="DYmerged", isDY=True),
+            Process("dy_high", Label("DY"), color=(255, 149, 5), llr_name="DYmerged", isDY=True),
             # EWK
             Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk"),
             Process("ewk_wplus",  Label("EWK W^{+}"), color=(255, 230, 0), parent_process="ewk"),
@@ -268,7 +268,7 @@ class Config(cmt_config):
             Process("www", Label("WWW"), color=(20, 60, 255), parent_process="vvv"),
             Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"),
             Process("vvv", Label("VVV"), color=(20, 60, 255), parent_process="vv_v", llr_name="VVV"),
-            Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="zz_background", llr_name="VVV"),
+            Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="zz_background"),
 
             # TTX
             Process("ttw", Label("TTW"), color=(4, 240, 106), parent_process="ttx"),
@@ -281,16 +281,23 @@ class Config(cmt_config):
             Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="zz_background", llr_name="TTX"),
 
             # ZH_hbb
-            Process("zh_hbb", Label("zh_hbb"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH_hbb"),
+            Process("zh_hbb", Label("zh_hbb"), color=(130, 39, 197), parent_process="zh"),
+            Process("zh_htt", Label("zh_htt"), color=(130, 39, 197), parent_process="zh"),
+            Process("zh", Label("ZH"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH"),
             # WH_htt
-            Process("wh_htt", Label("wh_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="WH_htt"),
+            Process("wh_htt", Label("wh_htt"), color=(130, 39, 197), parent_process="wh"),
+            Process("wh", Label("WH"), color=(130, 39, 197), parent_process="higgs", llr_name="WH"),
+            # VBF_htt
+            Process("vbf_htt", Label("vbf_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="qqH"),
+            # ggHZZ
+            Process("ggH_ZZ", Label("ggH_ZZ"), color=(130, 39, 197), parent_process="higgs", llr_name="ggH"),
             # ttH_hbb
-            Process("tth_bb", Label("t#bar{t}H bb"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH_hbb"),
-            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH_htt"),
-            Process("tth_nonbb", Label("t#bar{t}H "), color=(130, 39, 197), parent_process="higgs", llr_name="ttH_hnonbb"),
+            Process("tth_bb", Label("t#bar{t}H bb"), color=(130, 39, 197), parent_process="ttH"),
+            Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(130, 39, 197), parent_process="ttH"),
+            Process("tth_nonbb", Label("t#bar{t}H nonbb"), color=(130, 39, 197), parent_process="ttH"),
+            Process("ttH", Label("t#bar{t}H"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH"),
+            # ggHH
             Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, parent_process="higgs", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
-            Process("zh_htt", Label("zh_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH_htt"),
-            Process("vbf_htt", Label("vbf_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="VBF_H"),
             Process("higgs", Label("Higgs"), color=(130, 39, 197), parent_process="zz_background", llr_name="Higgs"),
 
             Process("others", Label("Others"), color=(255, 230, 0),
@@ -340,6 +347,25 @@ class Config(cmt_config):
                 "others",
                 "tt",
                 "ttx",
+                "data",
+            ],
+            "datacard_zz": [
+                "zz_sl_signal",
+                "ttH",
+                "dy",
+                "vvv",
+                "vbf_htt",
+                "ggH_ZZ",
+                "ttx",
+                "vv",
+                "wh",
+                "zh",
+                "tw",
+                "singlet",
+                "ewk",
+                "wjets",
+                "tt",
+                "ggf_sm",
                 "data",
             ],
             "zz_total": [
@@ -461,14 +487,7 @@ class Config(cmt_config):
                 units="GeV"),
 
             # bjet features
-            Feature("bjet1_pt_1", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{1} p_{T}"),
-                units="GeV",
-                central="jet_smearing",
-                selection="abs({{bjet1_eta}}) < 2.1", #[FIXME]?
-                systematics=["jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("bjet1_pt_2", "Jet_pt.at(bjet1_JetIdx)", binning=(20, 0, 200),
+            Feature("bjet1_pt", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
                 x_title=Label("b_{1} p_{T}"),
                 units="GeV",
                 central="jet_smearing",
@@ -1075,7 +1094,7 @@ class Config(cmt_config):
         return ""
 
     def get_qcd_regions(self, region, category, wp="", shape_region="os_inviso",
-            signal_region_wp="os_iso", sym=False):
+            signal_region_wp="os_iso", sym=True):
         # the region must be set and tagged os_iso
         if not region:
             raise Exception("region must not be empty")
