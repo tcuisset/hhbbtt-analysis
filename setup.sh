@@ -7,7 +7,14 @@ action() {
     #
 
     # determine the directory of this file
-    cd nanoaod_base_analysis
+    if [ "$CMT_ON_HTCONDOR" = "1" ]; then
+        # echo "We are on condor"
+        cd $CMT_BASE
+    else
+        # echo "We are in local"
+        cd nanoaod_base_analysis
+    fi
+
     #local this_file="$( [ ! -z "$ZSH_VERSION" ] && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
     #local this_dir="$( cd "$( dirname "$this_file" )" && pwd )"
     export CMT_BASE="$PWD"
@@ -114,8 +121,8 @@ action() {
        mkdir -p "$TMPDIR"
     fi 
     if [ -n "$CMT_LLR_USER" ]; then
-       if [ -n "$CMT_TMPDIR" ] || [ -n "$CMT_ON_HTCONDOR" ]; then
-         export TMPDIR="$CMT_TMPDIR"
+       if [ -n "$CMT_REMOTE_JOB" ]; then
+         export TMPDIR=$CMT_TMP_DIR
        else
          export TMPDIR="/scratch/$CMT_LLR_USER/tmp"
        fi
