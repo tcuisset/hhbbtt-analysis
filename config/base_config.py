@@ -769,7 +769,7 @@ class Config(cmt_config):
                 original_process = process
                 while True:
                     process_name = (process.get_aux("llr_name")
-                        if process.get_aux("llr_name", None) else p.name)
+                        if process.get_aux("llr_name", None) else process.name)
                     if process_name in syst.SystProcesses[isy]:
                         iproc = syst.SystProcesses[isy].index(process_name)
                         systVal = syst.SystValues[isy][iproc]
