@@ -253,6 +253,8 @@ class Config(cmt_config):
                     isZZsignal=True, isSignal=True, llr_name="ggXZZbbtt_M900"),
             Process("ggXZZbbtt_M1000", Label("ggX 1 TeV"), color=(54, 125, 135), 
                     isZZsignal=True, isSignal=True, llr_name="ggXZZbbtt_M1000"),
+            Process("zz_bbtt", Label("ZZ_{bb#tau#tau}"), color=(126, 238, 124), 
+                    isZZsignal=True, llr_name="ZZbbtt"), # background for resonant analysis 
 
             # W
             Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="zz_background", llr_name="WJets"),
@@ -368,7 +370,7 @@ class Config(cmt_config):
                 "data",
             ],
             "zz_res": [
-                "zz_sl_signal",
+                "zz_bbtt",
                 "ggXZZbbtt_M200",
                 "ggXZZbbtt_M300",
                 "ggXZZbbtt_M400",
@@ -407,7 +409,7 @@ class Config(cmt_config):
                 "data",
             ],
             "datacard_zz_res": [
-                "zz_sl_signal",
+                "zz_bbtt",
                 "ggXZZbbtt_M200",
                 "ggXZZbbtt_M300",
                 "ggXZZbbtt_M400",

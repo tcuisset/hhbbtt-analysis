@@ -563,6 +563,16 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
                 splitting=200000,
                 tags=["ul"]),
+            Dataset("zz_bbtt",
+                dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                process=self.processes.get("zz_bbtt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=5.52, # AN
+                # xs=3.676, # XSDB unknown
+                # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
+                splitting=200000,
+                tags=["ul"]),
 
             ######################################## Data #################################################
             ###############################################################################################

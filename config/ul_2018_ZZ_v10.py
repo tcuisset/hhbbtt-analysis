@@ -419,6 +419,12 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 xs=5.52,
                 secondary_dataset="zz_sl_signal_aux",
                 tags=["ul", "nanoV10"]),
+            Dataset("zz_bbtt",
+                folder=p + "ZZTo2Q2L",
+                process=self.processes.get("zz_bbtt"),
+                xs=5.52,
+                secondary_dataset="zz_bbtt_aux",
+                tags=["ul", "nanoV10"]),
 
             ###################################### X ZZ 2L2Q ##############################################
             ###############################################################################################
@@ -618,7 +624,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 "zzz", "wzz", "www", "wwz", 
                 "ttw_lnu", "ttw_qq", "ttww", "ttwz", "ttwh", "ttzh", "ttz_llnunu", "ttz_qq", "ttzz", 
                 "zh_hbb_zll", "zh_htt", "wminush_htt", "wplush_htt", "vbf_htt", 
-                "tth_bb", "tth_nonbb", "tth_tautau", "ggH_ZZ", "ggf_sm", "zz_sl_signal"]:
+                "tth_bb", "tth_nonbb", "tth_tautau", "ggH_ZZ", "ggf_sm", "zz_sl_signal", "zz_bbtt"]:
             datasets.add(
                 Dataset(
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
