@@ -254,7 +254,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 tags=["ul"]),
             Dataset("wz_lnununu",
                 dataset="/WZTo1L3Nu_4f_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                    "RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v3/MINIAODSIM",
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("wz"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=3.414, # XSDB unknown
@@ -445,7 +445,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
 
             # ZH_htt
             Dataset("zh_htt",
-                folder="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
+                dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("zh_htt"),
                 # prefix="xrootd-cms.infn.it//",
@@ -456,7 +456,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
 
             # WH_htt
             Dataset("wminush_htt",
-                folder="/WminusHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
+                dataset="/WminusHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("wh_htt"),
                 # prefix="xrootd-cms.infn.it//",
@@ -465,7 +465,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
                 splitting=200000,
                 tags=["ul"]),
             Dataset("wplush_htt",
-                folder="/WplusHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
+                dataset="/WplusHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("wh_htt"),
                 # prefix="xrootd-cms.infn.it//",
@@ -476,7 +476,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
 
             # vbf_htt (not in the datacard)
             Dataset("vbf_htt",
-                folder="/VBFHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
+                dataset="/VBFHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("vbf_htt"),
                 # prefix="xrootd-cms.infn.it//",
@@ -519,7 +519,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
 
             # ggH_ZZ 
             Dataset("ggH_ZZ",
-                folder="/GluGluHToZZTo2L2Q_M125_TuneCP5_13TeV_powheg2_JHUGenV7011_pythia8/"
+                dataset="/GluGluHToZZTo2L2Q_M125_TuneCP5_13TeV_powheg2_JHUGenV7011_pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("ggH_ZZ"),
                 # prefix="xrootd-cms.infn.it//",
