@@ -420,6 +420,65 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 secondary_dataset="zz_sl_signal_aux",
                 tags=["ul", "nanoV10"]),
 
+            ###################################### X ZZ 2L2Q ##############################################
+            ###############################################################################################
+
+            # ZZ Resonance high mass
+            Dataset("ggXZZbbtt_M200",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M200/Step_4",
+                process=self.processes.get("ggXZZbbtt_M200"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            Dataset("ggXZZbbtt_M300",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M300/Step_4",
+                process=self.processes.get("ggXZZbbtt_M300"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            Dataset("ggXZZbbtt_M400",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M400/Step_4",
+                process=self.processes.get("ggXZZbbtt_M400"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            Dataset("ggXZZbbtt_M500",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M500/Step_4",
+                process=self.processes.get("ggXZZbbtt_M500"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            Dataset("ggXZZbbtt_M600",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M600/Step_4",
+                process=self.processes.get("ggXZZbbtt_M600"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            Dataset("ggXZZbbtt_M700",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M700/Step_4",
+                process=self.processes.get("ggXZZbbtt_M700"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            Dataset("ggXZZbbtt_M800",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M800/Step_4",
+                process=self.processes.get("ggXZZbbtt_M800"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            Dataset("ggXZZbbtt_M900",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M900/Step_4",
+                process=self.processes.get("ggXZZbbtt_M900"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            Dataset("ggXZZbbtt_M1000",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/OutputSamples/"
+                    "gg_X_ZZbbtautau_M1000/Step_4",
+                process=self.processes.get("ggXZZbbtt_M1000"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+
             ######################################## Data #################################################
             ###############################################################################################
 
@@ -565,7 +624,6 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
             )
 
-        print(" ### DEBUG, ", datasets)
         return datasets
 
     # if I don't want to specify the version every time
