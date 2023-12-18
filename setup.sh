@@ -96,8 +96,16 @@ action() {
     elif [ -n "$CMT_CERN_USER" ]; then
       [ -z "$CMT_STORE_EOS" ] && export CMT_STORE_EOS="/eos/user/${CMT_CERN_USER:0:1}/$CMT_CERN_USER/cmt"
     elif [ -n "$CMT_LLR_USER" ]; then
-      [ -z "$CMT_STORE_EOS" ] && export CMT_STORE_EOS="/data_CMS/cms/${CMT_LLR_USER:1}/cmt"
+      if [ -z "$CMT_STORE_EOS" ]; then
+        if [ "$CMT_LLR_USER" = "evernazza" ]; then
+            # At LLR, Elena Vernazza's username is evernazza but her folder on data_CMS is named vernazza for some reason. So drop the first letter
+            export CMT_STORE_EOS="/data_CMS/cms/${CMT_LLR_USER:1}/cmt"
+        else
+            export CMT_STORE_EOS="/data_CMS/cms/${CMT_LLR_USER}/cmt"
+        fi
+      fi
     fi
+    
     [ -z "$CMT_STORE" ] && export CMT_STORE="$CMT_STORE_EOS"
     [ -z "$CMT_JOB_DIR" ] && export CMT_JOB_DIR="$CMT_DATA/jobs"
     [ -z "$CMT_TMP_DIR" ] && export CMT_TMP_DIR="$CMT_DATA/tmp"
