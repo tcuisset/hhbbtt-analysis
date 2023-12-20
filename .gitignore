@@ -10,3 +10,6 @@ config/HHBBTT/
 config/SMP_VV/
 config/old_files/
 tasks/__pycache__/
+ToRun/env_changes.md
+ToRun/env_crash.txt
+ToRun/env_works.txt
