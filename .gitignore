@@ -5,3 +5,8 @@ data
 correctionlib*
 docs/build
 __pycache__/
+config/BackupAnalysis/
+config/HHBBTT/
+config/SMP_VV/
+config/old_files/
+tasks/__pycache__/
