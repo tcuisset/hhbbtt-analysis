@@ -1,5 +1,6 @@
 from types import MethodType
 import copy
+import itertools
 
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from analysis_tools.utils import DotDict
@@ -12,8 +13,6 @@ from config.base_config_ZH import Config as Base_config_ZH
 
 class Config_ul_2018_ZH_v10(Base_config_ZH):
     def __init__(self, *args, **kwargs):
-        self.add_weights = MethodType(Config_ul_2018_v10.add_weights, self)
-
         super().__init__(*args, **kwargs)
 
         # this has to be done after __init__ as Base_config_ZH writes to it
@@ -22,6 +21,16 @@ class Config_ul_2018_ZH_v10(Base_config_ZH):
 
         self.regions = self.add_regions()
         self.categories = self.add_categories()
+
+    def add_weights(self):
+        weights = DotDict({key:val for key, val in config_ul_2018_ZZ_v10.weights.items()}) # copy the dict from ZZ config
+        # copy mutau weights to all ZH_ellitpical_cuts
+        
+        for baseEllipticalCut in ["ZH_elliptical_cut_zbb_htt_v1", "ZH_elliptical_cut_ztt_hbb_v1"]:
+            weights[baseEllipticalCut] = weights.mutau
+            for channelName, pairType in {"mutau":0, "etau": 1, "tautau":2}.items():
+                weights[baseEllipticalCut + "_" + channelName] = weights.mutau
+        return weights
 
     #@override
     def add_datasets(self):

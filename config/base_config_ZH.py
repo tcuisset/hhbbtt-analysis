@@ -19,7 +19,7 @@ class Config(cmt_config):
         self.combine_selections_per_channel = MethodType(Config_zz.combine_selections_per_channel, self)
         self.add_regions = MethodType(Config_zz.add_regions, self)
         self.add_channels = MethodType(Config_zz.add_channels, self)
-        self.add_categories = MethodType(Config_zz.add_categories, self)
+        
         # self.add_processes = config_zz.add_processes # overriden here
         self.add_features = MethodType(Config_zz.add_features, self)
         # self.add_weights = config_zz.add_weights # needs to be removed as overriden in ul_2018_ZH_v10
@@ -36,7 +36,30 @@ class Config(cmt_config):
         super().__init__(*args, **kwargs)
 
 
+    def add_categories(self, **kwargs):
+        categories_zz = config_zz.categories
+        categories = [cat for cat in categories_zz if not cat.name.startswith("ZZ_elliptical_cut")]
+
+        cats_zh_elliptical = [
+            Category("ZH_elliptical_cut_zbb_htt_v1", "ZH elliptical mass cut targeting Z->bb,H->tautau (non-optimized)",
+                selection="(({{Ztt_svfit_mass}} - 120.) * ({{Ztt_svfit_mass}} - 120.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 90.) * ({{Zbb_mass}} - 90.) / (113. * 113.)) < 1"
+            ),
+            Category("ZH_elliptical_cut_ztt_hbb_v1", "ZH elliptical mass cut targeting Z->bb,H->tautau (non-optimized)",
+                selection="(({{Ztt_svfit_mass}} - 90.) * ({{Ztt_svfit_mass}} - 90.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 120.) * ({{Zbb_mass}} - 120.) / (113. * 113.)) < 1"
+            ),
+        ]
+        categories += cats_zh_elliptical
+        # add the same ellipitical cuts but in mutau, etau, tautau versions
+        for channelName, pairType in {"mutau":0, "etau": 1, "tautau":2}.items():
+            for baseEllipticalCut in cats_zh_elliptical:
+                categories.append(Category(name=baseEllipticalCut.name + "_" + channelName,
+                    label=baseEllipticalCut.label + f" ({channelName})",
+                    selection=f"({baseEllipticalCut.selection}) && (pairType == {pairType})"))
         
+        return ObjectCollection(categories)
+
     
     #@override
     def add_processes(self):
@@ -65,9 +88,11 @@ class Config(cmt_config):
                     isZHsignal=["zbb_htt", "ztt_hbb"], isSignal=True), # TODO llr_name ?
             # two subsignals for non-resonant ZH->bbtt
             Process("zh_zbb_htt_sl_signal", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"),
-                    isZHsignal="zbb_htt", isSignal=True, parent_process="zh_sl_signal"),
+                    isZHsignal="zbb_htt", isSignal=True, parent_process="zh_sl_signal",
+                    color=(126, 238, 124)),
             Process("zh_ztt_hbb_sl_signal", Label("ZH (H#rightarrow#tau#tau, Z#rightarrow bb)"),
-                    isZHsignal="ztt_hbb", isSignal=True, parent_process="zh_sl_signal"),
+                    isZHsignal="ztt_hbb", isSignal=True, parent_process="zh_sl_signal",
+                    color=(32, 196, 201)),
             
             # ZH background (ZH_HToBB_ZToLL + ZHToTauTau not decaying in bbtautau or tautaubb)
             Process("zh_sl_background", Label("ZH semileptonic (not bb#tau#tau)"),
@@ -93,17 +118,18 @@ class Config(cmt_config):
         #process_group_names["zz"] = []
         
         process_group_names["datacard_zh"] = [
-            "zh_sl_signal",
+            "zh_zbb_htt_sl_signal",
+            "zh_ztt_hbb_sl_signal",
+            "zh_sl_background"
             "ttH",
             "dy",
             "vvv",
             "vbf_htt",
             "ggH_ZZ",
             "ttx",
-            "vv",
+            "vv", # this includes zz
             "wh",
             "zh", # this is actually zh_background 
-            "zz", # added zz as it is now completely a background
             "tw",
             "singlet",
             "ewk",
