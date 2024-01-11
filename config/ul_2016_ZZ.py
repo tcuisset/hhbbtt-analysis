@@ -567,7 +567,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/Tau/Run2016F-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="A",
+                runPeriod="F",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
@@ -578,7 +578,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/Tau/Run2016G-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="B",
+                runPeriod="G",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
@@ -589,7 +589,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/Tau/Run2016H-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="C",
+                runPeriod="H",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
@@ -602,7 +602,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/SingleElectron/Run2016F-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
-                runPeriod="A",
+                runPeriod="F",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
@@ -613,7 +613,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/SingleElectron/Run2016G-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
-                runPeriod="B",
+                runPeriod="G",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
@@ -624,7 +624,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/SingleElectron/Run2016H-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
-                runPeriod="C",
+                runPeriod="H",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
@@ -637,7 +637,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/SingleMuon/Run2016F-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 selection="pairType == 0",
                 process=self.processes.get("data_mutau"),
-                runPeriod="A",
+                runPeriod="F",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
@@ -648,7 +648,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/SingleMuon/Run2016G-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
-                runPeriod="B",
+                runPeriod="G",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={
@@ -659,7 +659,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
                 dataset="/SingleMuon/Run2016H-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
-                runPeriod="C",
+                runPeriod="H",
                 # prefix="xrootd-cms.infn.it//",
                 splitting=-1,
                 merging={

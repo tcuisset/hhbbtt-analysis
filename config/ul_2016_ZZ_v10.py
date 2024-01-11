@@ -63,21 +63,21 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 xs=6.215,
                 splitting=200000,
                 secondary_dataset="ewk_z_aux",
-                tags=["ul"]),
+                tags=["ul", "nanoV10"]),
             Dataset("ewk_wplus",
                 folder=p + "EWK_WplusToLNu",
                 process=self.processes.get("ewk_wplus"),
                 xs=39.05,
                 splitting=200000,
                 secondary_dataset="ewk_wplus_aux",
-                tags=["ul"]),
+                tags=["ul", "nanoV10"]),
             Dataset("ewk_wminus",
                 folder=p + "EWK_WminusToLNu",
                 process=self.processes.get("ewk_wminus"),
                 xs=32.05,
                 splitting=200000,
                 secondary_dataset="ewk_wminus_aux",
-                tags=["ul"]),
+                tags=["ul", "nanoV10"]),
 
             ######################################## Top ##################################################
             ###############################################################################################
@@ -426,7 +426,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 folder=p + "Tau_Run2016F",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="A",
+                runPeriod="F",
                 splitting=-1,
                 merging={
                     "tautau": 2,
@@ -436,7 +436,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 folder=p + "Tau_Run2016G",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="B",
+                runPeriod="G",
                 splitting=-1,
                 merging={
                     "tautau": 2,
@@ -446,7 +446,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 folder=p + "Tau_Run2016H",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="C",
+                runPeriod="H",
                 splitting=-1,
                 merging={
                     "tautau": 2,
@@ -458,7 +458,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 folder=p + "SingleElectron_Run2016F",
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
-                runPeriod="A",
+                runPeriod="F",
                 splitting=-1,
                 merging={
                     "etau": 2,
@@ -467,7 +467,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
             Dataset("data_etau_b",
                 folder=p + "SingleElectron_Run2016G",
                 process=self.processes.get("data_etau"),
-                runPeriod="B",
+                runPeriod="G",
                 splitting=-1,
                 merging={
                     "etau": 2,
@@ -477,7 +477,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 folder=p + "SingleElectron_Run2016H",
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
-                runPeriod="C",
+                runPeriod="H",
                 splitting=-1,
                 merging={
                     "etau": 2,
@@ -489,7 +489,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 folder=p + "SingleMuon_Run2016F",
                 selection="pairType == 0",
                 process=self.processes.get("data_mutau"),
-                runPeriod="A",
+                runPeriod="F",
                 splitting=-1,
                 merging={
                     "mutau": 2,
@@ -499,7 +499,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 folder=p + "SingleMuon_Run2016G",
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
-                runPeriod="B",
+                runPeriod="G",
                 splitting=-1,
                 merging={
                     "mutau": 2,
@@ -509,7 +509,7 @@ class Config_ul_2016_v10(Config_ul_2016_ZZ_v9):
                 folder=p + "SingleMuon_Run2016H",
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
-                runPeriod="C",
+                runPeriod="H",
                 splitting=-1,
                 merging={
                     "mutau": 2,
