@@ -10,6 +10,7 @@ from config.ul_2018 import Config_ul_2018 as base_config
 class Config_ul_2018(base_config):
     def __init__(self, *args, **kwargs):
         super(Config_ul_2018, self).__init__(*args, **kwargs)
+        self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
         self.deeptau=DotDict(
             vsjet=DotDict(VVVLoose=1, VVLoose=2, VLoose=3, Loose=4, Medium=5,
                 Tight=6, VTight=7, VVTight=8),

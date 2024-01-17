@@ -10,6 +10,7 @@ from config.ul_2018_ZZ import Config_ul_2018_ZZ as Config_ul_2018_ZZ_v9
 class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
     def __init__(self, *args, **kwargs):
         super(Config_ul_2018_v10, self).__init__(*args, **kwargs)
+        self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
         self.deeptau=DotDict(
             vsjet=DotDict(VVVLoose=1, VVLoose=2, VLoose=3, Loose=4, Medium=5,
                 Tight=6, VTight=7, VVTight=8),
@@ -63,21 +64,21 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 xs=6.215,
                 splitting=200000,
                 secondary_dataset="ewk_z_aux",
-                tags=["ul"]),
+                tags=["ul", "nanoV10"]),
             Dataset("ewk_wplus",
                 folder=p + "EWKWPlus2Jets_WToLNu_M-50",
                 process=self.processes.get("ewk_wplus"),
                 xs=39.05,
                 splitting=200000,
                 secondary_dataset="ewk_wplus_aux",
-                tags=["ul"]),
+                tags=["ul", "nanoV10"]),
             Dataset("ewk_wminus",
                 folder=p + "EWKWMinus2Jets_WToLNu_M-50",
                 process=self.processes.get("ewk_wminus"),
                 xs=32.05,
                 splitting=200000,
                 secondary_dataset="ewk_wminus_aux",
-                tags=["ul"]),
+                tags=["ul", "nanoV10"]),
 
             ######################################## Top ##################################################
             ###############################################################################################
@@ -155,7 +156,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
-                process=self.processes.get("zz"),
+                process=self.processes.get("zz_sl_background"),
                 xs=5.52,
                 secondary_dataset="zz_sl_background_aux",
                 tags=["ul", "nanoV10"]),
@@ -424,6 +425,13 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 process=self.processes.get("zz_bbtt"),
                 xs=5.52,
                 secondary_dataset="zz_bbtt_aux",
+                tags=["ul", "nanoV10"]),
+
+            Dataset("zz_sl_signal_test",
+                folder="/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2018/ZZTo2Q2L",
+                process=self.processes.get("zz_sl_signal"),
+                xs=5.52,
+                secondary_dataset="zz_sl_signal_aux",
                 tags=["ul", "nanoV10"]),
 
             ###################################### X ZZ 2L2Q ##############################################
