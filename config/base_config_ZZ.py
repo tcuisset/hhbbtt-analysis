@@ -292,6 +292,7 @@ class Config(cmt_config):
             Process("singlet", Label("st"), color=(255, 230, 0), parent_process="others", llr_name="singleT"),
 
             # VV
+            Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", isZZbackground=True),
             Process("zz", Label("ZZ"), color=(20, 60, 255), parent_process="vv"),
             Process("wz", Label("WZ"), color=(20, 60, 255), parent_process="vv"),
             Process("ww", Label("WW"), color=(20, 60, 255), parent_process="vv"),
@@ -1276,6 +1277,61 @@ class Config(cmt_config):
                 qcd_regions["shape"] = self.regions.get(
                     prefix + "ss_" + signal_region_wp[len("os_"):])
         return DotDict(qcd_regions)
+
+    # [FIXME] check if this works fine
+    def get_norm_systematics(self, processes_datasets, region):
+        """
+        Method to extract all normalization systematics from the KLUB files.
+        It considers the processes given by the process_group_name and their parents.
+        """
+        # systematics
+        systematics = {}
+        all_signal_names = []
+        all_background_names = []
+        for p in self.processes:
+            if p.isSignal:
+                all_signal_names.append(p.get_aux("llr_name")
+                    if p.get_aux("llr_name", None) else p.name)
+            elif not p.isData:
+                all_background_names.append(p.get_aux("llr_name")
+                    if p.get_aux("llr_name", None) else p.name)
+
+        from cmt.analysis.systReader import systReader
+        syst_folder = "files/systematics/"
+        syst = systReader(Task.retrieve_file(self, syst_folder + "systematics_{}.cfg".format(
+            self.year)), all_signal_names, all_background_names, None)
+        syst.writeOutput(False)
+        syst.verbose(False)
+
+        channel = self.get_channel_from_region(region)
+        if(channel == "mutau"):
+            syst.addSystFile(Task.retrieve_file(self, syst_folder
+                + "systematics_mutau_%s.cfg" % self.year))
+        elif(channel == "etau"):
+            syst.addSystFile(Task.retrieve_file(self, syst_folder
+                + "systematics_etau_%s.cfg" % self.year))
+        syst.addSystFile(Task.retrieve_file(self, syst_folder + "syst_th.cfg"))
+        syst.writeSystematics()
+        for isy, syst_name in enumerate(syst.SystNames):
+            if "CMS_scale_t" in syst.SystNames[isy] or "CMS_scale_j" in syst.SystNames[isy]:
+                continue
+            for process in processes_datasets:
+                original_process = process
+                while True:
+                    process_name = (process.get_aux("llr_name")
+                        if process.get_aux("llr_name", None) else process.name)
+                    if process_name in syst.SystProcesses[isy]:
+                        iproc = syst.SystProcesses[isy].index(process_name)
+                        systVal = syst.SystValues[isy][iproc]
+                        if syst_name not in systematics:
+                            systematics[syst_name] = {}
+                        systematics[syst_name][original_process.name] = eval(systVal)
+                        break
+                    elif process.parent_process:
+                        process=self.processes.get(process.parent_process)
+                    else:
+                        break
+        return systematics
 
 
 config = Config("base", year=2018, ecm=13, lumi_pb=59741)

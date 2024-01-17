@@ -4,13 +4,11 @@ from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 from collections import OrderedDict
 
-from config.ul_2018_ZZ import Config_ul_2018_ZZ as Config_ul_2018_ZZ_v9
+from config.ul_2017_ZZ import Config_ul_2017_ZZ as Config_ul_2017_ZZ_v9
 
-
-class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
+class Config_ul_2017_v10(Config_ul_2017_ZZ_v9):
     def __init__(self, *args, **kwargs):
-        super(Config_ul_2018_v10, self).__init__(*args, **kwargs)
-        self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
+        super(Config_ul_2017_v10, self).__init__(*args, **kwargs)
         self.deeptau=DotDict(
             vsjet=DotDict(VVVLoose=1, VVLoose=2, VLoose=3, Loose=4, Medium=5,
                 Tight=6, VTight=7, VVTight=8),
@@ -23,8 +21,9 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
 
     def add_datasets(self):
         # p = "/eos/home-k/kandroso/cms-hh-bbtautau/nanoAOD/Run2_2018/"
-        p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
-        v9_datasets = super(Config_ul_2018_v10, self).add_datasets()
+        # p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
+        p = "/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2017/"
+        v9_datasets = super(Config_ul_2017_v10, self).add_datasets()
         datasets = [
             
             ######################################## Single boson #########################################
@@ -34,7 +33,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
             Dataset("wjets",
                 folder=p + "WJetsToLNu",
                 process=self.processes.get("wjets"),
-                selection="event != 198018547",
+                # selection="event != 198018547",
                 xs=61526.7,
                 merging={
                     "tautau": 2,
@@ -46,7 +45,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
 
             # DY
             Dataset("dy",
-                folder=p + "DYJetsToLL_M-50",
+                folder=p + "DYJetsToLL_M-50-amcatnloFXFX",
                 process=self.processes.get("dy"),
                 xs=6077.22,
                 merging={
@@ -59,21 +58,21 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
 
             # EWK
             Dataset("ewk_z",
-                folder=p + "EWKZ2Jets_ZToLL_M-50",
+                folder=p + "EWK_ZTo2L",
                 process=self.processes.get("ewk_z"),
                 xs=6.215,
                 splitting=200000,
                 secondary_dataset="ewk_z_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("ewk_wplus",
-                folder=p + "EWKWPlus2Jets_WToLNu_M-50",
+                folder=p + "EWK_WplusToLNu",
                 process=self.processes.get("ewk_wplus"),
                 xs=39.05,
                 splitting=200000,
                 secondary_dataset="ewk_wplus_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("ewk_wminus",
-                folder=p + "EWKWMinus2Jets_WToLNu_M-50",
+                folder=p + "EWK_WminusToLNu",
                 process=self.processes.get("ewk_wminus"),
                 xs=32.05,
                 splitting=200000,
@@ -118,13 +117,13 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
 
             # TW
             Dataset("st_tw_antitop",
-                folder=p + "ST_tW_antitop_5f_inclusiveDecays",
+                folder=p + "ST_tW_antitop_5f_InclusiveDecays",
                 process=self.processes.get("tw"),
                 xs=35.85,
                 secondary_dataset="st_tw_antitop_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("st_tw_top",
-                folder=p + "ST_tW_top_5f_inclusiveDecays",
+                folder=p + "ST_tW_top_5f_InclusiveDecays",
                 process=self.processes.get("tw"),
                 xs=35.85,
                 secondary_dataset="st_tw_top_aux",
@@ -156,7 +155,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
-                process=self.processes.get("zz_sl_background"),
+                process=self.processes.get("zz"),
                 xs=5.52,
                 secondary_dataset="zz_sl_background_aux",
                 tags=["ul", "nanoV10"]),
@@ -235,13 +234,13 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 secondary_dataset="wzz_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("www",
-                folder=p + "WWW",
+                folder=p + "WWW_4F",
                 process=self.processes.get("www"),
                 xs=0.209,
                 secondary_dataset="www_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("wwz",
-                folder=p + "WWZ",
+                folder=p + "WWZ_4F",
                 process=self.processes.get("wwz"),
                 xs=0.168,
                 secondary_dataset="wwz_aux",
@@ -325,7 +324,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
 
             # ZH_htt
             Dataset("zh_htt",
-                folder=p + "ZHToTauTau",
+                folder=p + "ZHToTauTau_M125_ext1",
                 process=self.processes.get("zh_htt"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.0554,
@@ -334,14 +333,14 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
 
             # WH_htt
             Dataset("wminush_htt",
-                folder=p + "WminusHToTauTau",
+                folder=p + "WminusHToTauTau_M125",
                 process=self.processes.get("wh_htt"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.0334,
                 secondary_dataset="wminush_htt_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("wplush_htt",
-                folder=p + "WplusHToTauTau",
+                folder=p + "WplusHToTauTau_M125",
                 process=self.processes.get("wh_htt"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.05268,
@@ -350,7 +349,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
 
             # vbf_htt (not in the datacard)
             Dataset("vbf_htt",
-                folder=p + "VBFHToTauTau",
+                folder=p + "VBFHToTauTau_M125",
                 process=self.processes.get("vbf_htt"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.237,
@@ -359,7 +358,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
 
             # ttH_hbb
             Dataset("tth_bb",
-                folder=p + "ttHTobb",
+                folder=p + "ttHTobb_M125",
                 process=self.processes.get("tth_bb"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.2953,
@@ -367,7 +366,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 tags=["ul", "nanoV10"]),
             # ttH_htt (not in the datacard)
             Dataset("tth_tautau",
-                folder=p + "ttHToTauTau",
+                folder=p + "ttHToTauTau_M125",
                 process=self.processes.get("tth_tautau"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.031805,
@@ -375,7 +374,7 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 tags=["ul", "nanoV10"]),
             # ttH_hnonbb (not in the datacard) 
             Dataset("tth_nonbb",
-                folder=p + "ttHToNonbb",
+                folder=p + "ttHToNonbb_M125",
                 process=self.processes.get("tth_nonbb"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.17996,
@@ -401,14 +400,6 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 xs=0.002268,
                 secondary_dataset="ggf_sm_aux",
                 tags=["ul", "nanoV10"]),
-            # # vbf
-            # Dataset("vbf_sm",
-            #     dataset="",
-            #     process=self.processes.get("vbf_sm"),
-            #     # prefix="xrootd-cms.infn.it//",
-            #     xs=0.001726,
-            #     secondary_dataset="vbf_sm_aux",
-            #     tags=["ul", "nanoV10"]),
 
             ###################################### ZZ Signal ##############################################
             ###############################################################################################
@@ -427,223 +418,125 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                 secondary_dataset="zz_bbtt_aux",
                 tags=["ul", "nanoV10"]),
 
-            Dataset("zz_sl_signal_test",
-                folder="/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2018/ZZTo2Q2L",
-                process=self.processes.get("zz_sl_signal"),
-                xs=5.52,
-                secondary_dataset="zz_sl_signal_aux",
-                tags=["ul", "nanoV10"]),
-
-            ###################################### X ZZ 2L2Q ##############################################
-            ###############################################################################################
-
-            # ZZ Resonance high mass
-            Dataset("ggXZZbbtt_M200",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M200/Step_4",
-                process=self.processes.get("ggXZZbbtt_M200"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M300",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M300/Step_4",
-                process=self.processes.get("ggXZZbbtt_M300"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M400",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M400/Step_4",
-                process=self.processes.get("ggXZZbbtt_M400"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M500",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M500/Step_4",
-                process=self.processes.get("ggXZZbbtt_M500"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M600",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M600/Step_4",
-                process=self.processes.get("ggXZZbbtt_M600"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M700",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M700/Step_4",
-                process=self.processes.get("ggXZZbbtt_M700"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M800",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M800/Step_4",
-                process=self.processes.get("ggXZZbbtt_M800"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M900",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M900/Step_4",
-                process=self.processes.get("ggXZZbbtt_M900"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M1000",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M1000/Step_4",
-                process=self.processes.get("ggXZZbbtt_M1000"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M1100",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M1100/Step_4",
-                process=self.processes.get("ggXZZbbtt_M1100"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M1200",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M1200/Step_4",
-                process=self.processes.get("ggXZZbbtt_M1200"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M1300",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M1300/Step_4",
-                process=self.processes.get("ggXZZbbtt_M1300"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M1400",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M1400/Step_4",
-                process=self.processes.get("ggXZZbbtt_M1400"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M1500",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M1500/Step_4",
-                process=self.processes.get("ggXZZbbtt_M1500"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M2000",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M2000/Step_4",
-                process=self.processes.get("ggXZZbbtt_M2000"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-            Dataset("ggXZZbbtt_M3000",
-                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
-                    "gg_X_ZZbbtautau_M3000/Step_4",
-                process=self.processes.get("ggXZZbbtt_M3000"),
-                xs=1,
-                tags=["ul", "nanoV10"]),
-
             ######################################## Data #################################################
             ###############################################################################################
 
-            # Tau 2018
+            # Tau 2017
             Dataset("data_tau_a",
-                folder=p + "Tau_2018A",
+                folder=p + "Tau_Run2017B",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="A",
+                runPeriod="B",
                 splitting=-1,
                 merging={
                     "tautau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_tau_b",
-                folder=p + "Tau_2018B",
+                folder=p + "Tau_Run2017C",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="B",
+                runPeriod="C",
                 splitting=-1,
                 merging={
                     "tautau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_tau_c",
-                folder=p + "Tau_2018C",
+                folder=p + "Tau_Run2017D",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="C",
+                runPeriod="D",
                 splitting=-1,
                 merging={
                     "tautau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_tau_d",
-                folder=p + "Tau_2018D",
+                folder=p + "Tau_Run2017E",
                 selection="pairType == 2",
                 process=self.processes.get("data_tau"),
-                runPeriod="D",
+                runPeriod="E",
+                splitting=-1,
+                merging={
+                    "tautau": 2,
+                },
+                tags=["ul", "nanoV10"]),
+            Dataset("data_tau_e",
+                folder=p + "Tau_Run2017F",
+                selection="pairType == 2",
+                process=self.processes.get("data_tau"),
+                runPeriod="F",
                 splitting=-1,
                 merging={
                     "tautau": 2,
                 },
                 tags=["ul", "nanoV10"]),
 
-            # EGamma 2018
+            # SingleElectron 2017
             Dataset("data_etau_a",
-                folder=p + "EGamma_2018A",
+                folder=p + "SingleElectron_Run2017B",
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
-                runPeriod="A",
+                runPeriod="B",
                 splitting=-1,
                 merging={
                     "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_etau_b",
-                folder=p + "EGamma_2018B",
+                folder=p + "SingleElectron_Run2017C",
                 process=self.processes.get("data_etau"),
-                runPeriod="B",
+                runPeriod="C",
                 splitting=-1,
                 merging={
                     "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_etau_c",
-                folder=p + "EGamma_2018C",
+                folder=p + "SingleElectron_Run2017D",
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
-                runPeriod="C",
+                runPeriod="D",
                 splitting=-1,
                 merging={
                     "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
             Dataset("data_etau_d",
-                folder=p + "EGamma_2018D",
+                folder=p + "SingleElectron_Run2017E",
                 selection="pairType == 1",
                 process=self.processes.get("data_etau"),
-                runPeriod="D",
+                runPeriod="E",
+                splitting=-1,
+                merging={
+                    "etau": 2,
+                },
+                tags=["ul", "nanoV10"]),
+            Dataset("data_etau_e",
+                folder=p + "SingleElectron_Run2017F",
+                selection="pairType == 1",
+                process=self.processes.get("data_etau"),
+                runPeriod="F",
                 splitting=-1,
                 merging={
                     "etau": 2,
                 },
                 tags=["ul", "nanoV10"]),
 
-            # SingleMuon 2018
+            # SingleMuon 2017
             Dataset("data_mutau_a",
-                folder=p + "SingleMuon_2018A",
+                folder=p + "SingleMuon_Run2017B",
                 selection="pairType == 0",
                 process=self.processes.get("data_mutau"),
-                runPeriod="A",
-                splitting=-1,
-                merging={
-                    "mutau": 2,
-                },
-                tags=["ul", "nanoV10"]),
-            Dataset("data_mutau_b",
-                folder=p + "SingleMuon_2018B",
-                process=self.processes.get("data_mutau"),
-                selection="pairType == 0",
                 runPeriod="B",
                 splitting=-1,
                 merging={
                     "mutau": 2,
                 },
                 tags=["ul", "nanoV10"]),
-            Dataset("data_mutau_c",
-                folder=p + "SingleMuon_2018C",
+            Dataset("data_mutau_b",
+                folder=p + "SingleMuon_Run2017C",
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
                 runPeriod="C",
@@ -652,8 +545,8 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                     "mutau": 2,
                 },
                 tags=["ul", "nanoV10"]),
-            Dataset("data_mutau_d",
-                folder=p + "SingleMuon_2018D",
+            Dataset("data_mutau_c",
+                folder=p + "SingleMuon_Run2017D",
                 process=self.processes.get("data_mutau"),
                 selection="pairType == 0",
                 runPeriod="D",
@@ -662,7 +555,27 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
                     "mutau": 2,
                 },
                 tags=["ul", "nanoV10"]),
-                
+            Dataset("data_mutau_d",
+                folder=p + "SingleMuon_Run2017E",
+                process=self.processes.get("data_mutau"),
+                selection="pairType == 0",
+                runPeriod="E",
+                splitting=-1,
+                merging={
+                    "mutau": 2,
+                },
+                tags=["ul", "nanoV10"]),
+            Dataset("data_mutau_e",
+                folder=p + "SingleMuon_Run2017F",
+                process=self.processes.get("data_mutau"),
+                selection="pairType == 0",
+                runPeriod="F",
+                splitting=-1,
+                merging={
+                    "mutau": 2,
+                },
+                tags=["ul", "nanoV10"]),
+
         ]
         datasets = ObjectCollection(datasets)
 
@@ -689,4 +602,4 @@ class Config_ul_2018_v10(Config_ul_2018_ZZ_v9):
     #     }
     #     return versions
 
-config = Config_ul_2018_v10("ul_2018_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True)
+config = Config_ul_2017_v10("ul_2017_v10", year=2017, ecm=13, lumi_pb=36310, isUL=True) # [FIXME]
