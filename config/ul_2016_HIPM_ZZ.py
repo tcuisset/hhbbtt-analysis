@@ -9,6 +9,7 @@ from config.base_config_ZZ import Config as base_config_ZZ
 class Config_ul_2016_HIPM_ZZ(base_config_ZZ):
     def __init__(self, *args, **kwargs):
         super(Config_ul_2016_HIPM_ZZ, self).__init__(*args, **kwargs)
+        self.btag=DotDict(tight=0.6502, medium=0.2598, loose=0.0508)
 
     def add_weights(self):
         weights = DotDict()
@@ -194,7 +195,7 @@ class Config_ul_2016_HIPM_ZZ(base_config_ZZ):
             Dataset("zz_sl_background",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
-                process=self.processes.get("zz"),
+                process=self.processes.get("zz_sl_background"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
@@ -736,4 +737,5 @@ class Config_ul_2016_HIPM_ZZ(base_config_ZZ):
         ]
         return ObjectCollection(datasets)
 
-config = Config_ul_2016_HIPM_ZZ("ul_2016_HIPM", year=2016, ecm=13, lumi_pb=36310, isUL=True, ispreVFP=True) # [FIXME]
+config = Config_ul_2016_HIPM_ZZ("ul_2016_HIPM", year=2016, ecm=13, lumi_pb=19500, isUL=True, ispreVFP=True)
+# https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_MuTau_UL2016APV.cfg#L3C8-L3C13
