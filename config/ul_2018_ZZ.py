@@ -10,6 +10,7 @@ from config.base_config_ZZ import Config as base_config_ZZ
 class Config_ul_2018_ZZ(base_config_ZZ):
     def __init__(self, *args, **kwargs):
         super(Config_ul_2018_ZZ, self).__init__(*args, **kwargs)
+        self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
 
     def add_weights(self):
         weights = DotDict()
@@ -199,7 +200,7 @@ class Config_ul_2018_ZZ(base_config_ZZ):
             Dataset("zz_sl_background",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-                process=self.processes.get("zz"),
+                process=self.processes.get("zz_sl_background"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
