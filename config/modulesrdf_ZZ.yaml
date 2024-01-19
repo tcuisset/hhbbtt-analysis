@@ -36,6 +36,7 @@ tauSF:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 hhlepton:
     name: HHLeptonRDF
@@ -225,6 +226,7 @@ trigSF:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 PUjetID_SF:
     name: PUjetID_SFRDF
@@ -261,6 +263,7 @@ muSF:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 eleSD:
     name: eleSFRDF
@@ -269,6 +272,7 @@ eleSD:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 idAndIsoSF:
     name: dauIdIsoSFRDF
@@ -283,6 +287,7 @@ btag:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
         uncertainties: ["central", "down_hfstats2"]
         lep_pt: "{dau1_pt, dau2_pt}"
         lep_eta: "{dau1_eta, dau2_eta}"
