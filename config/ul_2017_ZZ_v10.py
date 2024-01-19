@@ -9,6 +9,7 @@ from config.ul_2017_ZZ import Config_ul_2017_ZZ as Config_ul_2017_ZZ_v9
 class Config_ul_2017_v10(Config_ul_2017_ZZ_v9):
     def __init__(self, *args, **kwargs):
         super(Config_ul_2017_v10, self).__init__(*args, **kwargs)
+        self.btag=DotDict(tight=0.7476, medium=0.3040, loose=0.0532)
         self.deeptau=DotDict(
             vsjet=DotDict(VVVLoose=1, VVLoose=2, VLoose=3, Loose=4, Medium=5,
                 Tight=6, VTight=7, VVTight=8),
@@ -155,7 +156,7 @@ class Config_ul_2017_v10(Config_ul_2017_ZZ_v9):
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
-                process=self.processes.get("zz"),
+                process=self.processes.get("zz_sl_background"),
                 xs=5.52,
                 secondary_dataset="zz_sl_background_aux",
                 tags=["ul", "nanoV10"]),
@@ -602,4 +603,5 @@ class Config_ul_2017_v10(Config_ul_2017_ZZ_v9):
     #     }
     #     return versions
 
-config = Config_ul_2017_v10("ul_2017_v10", year=2017, ecm=13, lumi_pb=36310, isUL=True) # [FIXME]
+config = Config_ul_2017_v10("ul_2017_v10", year=2017, ecm=13, lumi_pb=41529, isUL=True)
+# https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_ETau_Legacy2017.cfg#L3
