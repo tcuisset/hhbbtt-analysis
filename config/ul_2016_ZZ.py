@@ -9,6 +9,7 @@ from config.base_config_ZZ import Config as base_config_ZZ
 class Config_ul_2016_ZZ(base_config_ZZ):
     def __init__(self, *args, **kwargs):
         super(Config_ul_2016_ZZ, self).__init__(*args, **kwargs)
+        self.btag=DotDict(tight=0.6377, medium=0.2489, loose=0.0480)
 
     def add_weights(self):
         weights = DotDict()
@@ -194,7 +195,7 @@ class Config_ul_2016_ZZ(base_config_ZZ):
             Dataset("zz_sl_background",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-                process=self.processes.get("zz"),
+                process=self.processes.get("zz_sl_background"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
@@ -670,4 +671,5 @@ class Config_ul_2016_ZZ(base_config_ZZ):
         ]
         return ObjectCollection(datasets)
 
-config = Config_ul_2016_ZZ("ul_2016", year=2016, ecm=13, lumi_pb=36310, isUL=True, ispreVFP=False) # [FIXME]
+config = Config_ul_2016_ZZ("ul_2016", year=2016, ecm=13, lumi_pb=16800, isUL=True, ispreVFP=False)
+# https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_ETau_UL2016.cfg#L3C8-L3C13

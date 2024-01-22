@@ -9,6 +9,7 @@ action() {
     # determine the directory of this file
     if [ "$CMT_ON_HTCONDOR" = "1" ]; then
         # echo "We are on condor"
+        /opt/exp_soft/cms/t3/eos-login -username evernazz -wn # [FIXME] we need to make it more general
         cd $CMT_BASE
     else
         # echo "We are in local"
