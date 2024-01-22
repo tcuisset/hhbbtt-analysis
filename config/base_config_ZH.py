@@ -15,13 +15,26 @@ class Config(BaseConfig):
         categories = super().add_categories()
 
         cats_zh_elliptical = ObjectCollection([
-            Category("ZH_elliptical_cut_zbb_htt_v1", "ZH elliptical mass cut targeting Z->bb,H->tautau (non-optimized)",
-                selection="(({{Ztt_svfit_mass}} - 120.) * ({{Ztt_svfit_mass}} - 120.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 90.) * ({{Zbb_mass}} - 90.) / (113. * 113.)) < 1"
+            # ZH elliptical cuts. Optimized. 
+            # Best Ellipse (140.0, 82.0, 57.0, 66.0): S_eff=0.8019, B_eff=0.3956, S/sqrt(B)=1.2751
+            Category("ZH_elliptical_cut_80_zbb_htt", "ZH elliptical mass cut targeting Z->bb,H->tautau",
+                selection="(({{Ztt_svfit_mass}} - 140.) * ({{Ztt_svfit_mass}} - 140.) / (57. * 57.)"
+                " + ({{Zbb_mass}} - 82.) * ({{Zbb_mass}} - 82.) / (66. * 66.)) < 1"
             ),
-            Category("ZH_elliptical_cut_ztt_hbb_v1", "ZH elliptical mass cut targeting Z->bb,H->tautau (non-optimized)",
-                selection="(({{Ztt_svfit_mass}} - 90.) * ({{Ztt_svfit_mass}} - 90.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 120.) * ({{Zbb_mass}} - 120.) / (113. * 113.)) < 1"
+            # Best Ellipse (158.0, 118.0, 83.0, 118.0): S_eff=0.9003, B_eff=0.5991, S/sqrt(B)=1.1632
+            Category("ZH_elliptical_cut_90_zbb_htt", "ZH elliptical mass cut targeting Z->bb,H->tautau",
+                selection="(({{Ztt_svfit_mass}} - 158.) * ({{Ztt_svfit_mass}} - 158.) / (83. * 83.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (118. * 118.)) < 1"
+            ),
+            # Best Ellipse (93.0, 172.0, 37.0, 164.0): S_eff=0.8009, B_eff=0.3313, S/sqrt(B)=1.3914
+            Category("ZH_elliptical_cut_80_ztt_hbb", "ZH elliptical mass cut targeting Z->bb,H->tautau",
+                selection="(({{Ztt_svfit_mass}} - 93.) * ({{Ztt_svfit_mass}} - 93.) / (37. * 37.)"
+                " + ({{Zbb_mass}} - 172.) * ({{Zbb_mass}} - 172.) / (164. * 164.)) < 1"
+            ),
+            #Best Ellipse (100.0, 189.0, 64.0, 187.0): S_eff=0.9000, B_eff=0.5304, S/sqrt(B)=1.2358
+            Category("ZH_elliptical_cut_90_ztt_hbb", "ZH elliptical mass cut targeting Z->bb,H->tautau",
+                selection="(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (64. * 64.)"
+                " + ({{Zbb_mass}} - 189.) * ({{Zbb_mass}} - 189.) / (187. * 187.)) < 1"
             ),
         ])
         categories += cats_zh_elliptical
