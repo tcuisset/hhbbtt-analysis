@@ -258,7 +258,7 @@ action() {
 
         export HTT_PATH="HTT-utilities"
         if [ ! -d "$HTT_PATH" ]; then
-          git clone https://github.com/CMS-HTT/LeptonEff-interface.git HTT-utilities
+          git clone https://github.com/elenavernazza/LeptonEff-interface.git HTT-utilities
           cd HTT-utilities/LepEffInterface/
           rm -rf data
           git clone https://github.com/CMS-HTT/LeptonEfficiencies.git data
