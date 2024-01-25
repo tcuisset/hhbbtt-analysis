@@ -36,26 +36,6 @@ def get_2018_weights():
 
 def get_common_datasets_v9(self):
     datasets = [
-        ######################################## HH bbtautau ##########################################
-        ###############################################################################################
-
-        # ggf 
-        Dataset("ggf_sm",
-            dataset="/GluGluToHHTo2B2Tau_TuneCP5_PSWeights_node_SM_13TeV-madgraph-pythia8/"
-                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-            process=self.processes.get("ggf_sm"),
-            xs=0.002268, # KLUB
-            # xs=0.01313, # XSDB LO
-            tags=["ul"]),
-        # # vbf
-        # Dataset("vbf_sm",
-        #     dataset="/VBFHHTo2B2Tau_CV_1_C2V_1_C3_1_dipoleRecoilOff"
-        #     "-TuneCP5_PSweights_13TeV-madgraph-pythia8/"
-        #     "RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM",
-        #     process=self.processes.get("vbf_sm"),
-        #     # prefix="xrootd-cms.infn.it//",
-        #     xs=0.001726,
-        #     tags=["ul"]),
         
         ######################################## Single boson #########################################
         ###############################################################################################
@@ -207,7 +187,6 @@ def get_common_datasets_v9(self):
             # xs=1.2564, # 9 * 4 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=%CE%BC%CE%BC%20Z%20%E2%86%92%20ee-,0.0349,-%C2%B1%200.0011%20(%C2%B1%200.0016)
             splitting=200000,
             tags=["ul"]),
-        
         Dataset("zz_fh",
             dataset="/ZZTo4Q_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
@@ -511,6 +490,26 @@ def get_common_datasets_v9(self):
             splitting=200000,
             tags=["ul"]),
 
+        ######################################## HH bbtautau ##########################################
+        ###############################################################################################
+
+        # ggf 
+        Dataset("ggf_sm",
+            dataset="/GluGluToHHTo2B2Tau_TuneCP5_PSWeights_node_SM_13TeV-madgraph-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("ggf_sm"),
+            xs=0.002268, # KLUB
+            # xs=0.01313, # XSDB LO
+            tags=["ul"]),
+        # # vbf
+        # Dataset("vbf_sm",
+        #     dataset="/VBFHHTo2B2Tau_CV_1_C2V_1_C3_1_dipoleRecoilOff"
+        #     "-TuneCP5_PSweights_13TeV-madgraph-pythia8/"
+        #     "RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM",
+        #     process=self.processes.get("vbf_sm"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=0.001726,
+        #     tags=["ul"]),
 
         ######################################## Data #################################################
         ###############################################################################################
@@ -655,5 +654,6 @@ def get_common_datasets_v9(self):
             tags=["ul"]),
 
     ]
+    
     return ObjectCollection(datasets)
 

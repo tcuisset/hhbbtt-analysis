@@ -18,13 +18,12 @@ def setupBtagDeeptau(self):
         vsmu=DotDict(VLoose=1, Loose=3, Medium=7, Tight=15),
     )
 
-
 def get_common_processes():
     processes = [
         # W
-        Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="zz_background", llr_name="WJets"),
+        Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="all_background", llr_name="WJets"),
         # DY
-        Process("dy", Label("DY"), color=(255, 149, 5), parent_process="zz_background", llr_name="DYmerged", isDY=True),
+        Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DYmerged", isDY=True),
         Process("dy_high", Label("DY"), color=(255, 149, 5), llr_name="DYmerged", isDY=True),
         # EWK
         Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk"),
@@ -36,7 +35,7 @@ def get_common_processes():
         Process("tt_dl", Label("t#bar{t} DL"), color=(40, 194, 255), parent_process="tt"),
         Process("tt_sl", Label("t#bar{t} SL"), color=(40, 194, 255), parent_process="tt"),
         Process("tt_fh", Label("t#bar{t} FH"), color=(40, 194, 255), parent_process="tt"),
-        Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="zz_background", llr_name="TT"),
+        Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="all_background", llr_name="TT"),
         # TW
         Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="others", llr_name="TW"),
         # singleT
@@ -53,7 +52,7 @@ def get_common_processes():
         Process("www", Label("WWW"), color=(20, 60, 255), parent_process="vvv"),
         Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"),
         Process("vvv", Label("VVV"), color=(20, 60, 255), parent_process="vv_v", llr_name="VVV"),
-        Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="zz_background"),
+        Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="all_background"),
 
         # TTX
         Process("ttw", Label("TTW"), color=(4, 240, 106), parent_process="ttx"),
@@ -63,8 +62,7 @@ def get_common_processes():
         Process("ttwh", Label("TTWH"), color=(4, 240, 106), parent_process="ttx"),
         Process("ttzh", Label("TTZH"), color=(4, 240, 106), parent_process="ttx"),
         Process("ttzz", Label("TTZZ"), color=(4, 240, 106), parent_process="ttx"),
-        Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="zz_background", llr_name="TTX"),
-
+        Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="all_background", llr_name="TTX"),
         
         # WH_htt
         Process("wh_htt", Label("wh_htt"), color=(130, 39, 197), parent_process="wh"),
@@ -80,10 +78,10 @@ def get_common_processes():
         Process("ttH", Label("t#bar{t}H"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH"),
         # ggHH
         Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, parent_process="higgs", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
-        Process("higgs", Label("Higgs"), color=(130, 39, 197), parent_process="zz_background", llr_name="Higgs"),
+        Process("higgs", Label("Higgs"), color=(130, 39, 197), parent_process="all_background", llr_name="Higgs"),
 
         Process("others", Label("Others"), color=(255, 230, 0),
-            parent_process="zz_background"),
+            parent_process="all_background"),
 
         # Data
         Process("data", Label("Data"), color=(0, 0, 0), isData=True),
@@ -92,7 +90,7 @@ def get_common_processes():
         Process("data_mutau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
 
         Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH",
-            parent_process="zz_background"),
+            parent_process="all_background"),
         Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=False,
             parent_process="ggf"),
         Process("ggf_2p45_1", Label("HH_{ggF}^{(2.45, 1)}"), color=(0, 0, 0), isSignal=False,
@@ -115,7 +113,7 @@ def get_common_processes():
         Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
             color=(255, 102, 102), isSignal=False, parent_process="vbf"),
 
-        Process("zz_background", Label("Background"), color=(0, 0, 255)),
+        Process("all_background", Label("Background"), color=(0, 0, 255)),
 
     ]
 
@@ -189,8 +187,6 @@ def get_common_processes():
     }
 
     return ObjectCollection(processes), process_group_names, process_training_names
-
-
 
 class BaseConfig(cmt_config):
     def __init__(self, *args, **kwargs):

@@ -19,24 +19,6 @@ def get_common_datasets_v10(self):
     p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
 
     datasets = [
-        ######################################## HH bbtautau ##########################################
-        ###############################################################################################
-
-        # ggf
-        Dataset("ggf_sm",
-            folder=p + "GluGluToHHTo2B2Tau_node_SM",
-            process=self.processes.get("ggf_sm"),
-            xs=0.002268,
-            secondary_dataset="ggf_sm_aux",
-            tags=["ul", "nanoV10"]),
-        # # vbf
-        # Dataset("vbf_sm",
-        #     dataset="",
-        #     process=self.processes.get("vbf_sm"),
-        #     # prefix="xrootd-cms.infn.it//",
-        #     xs=0.001726,
-        #     secondary_dataset="vbf_sm_aux",
-        #     tags=["ul", "nanoV10"]),
         
         ######################################## Single boson #########################################
         ###############################################################################################
@@ -165,7 +147,6 @@ def get_common_datasets_v10(self):
             xs=1.26,
             secondary_dataset="zz_dl_aux",
             tags=["ul", "nanoV10"]),
-        
         Dataset("zz_fh",
             folder=p + "ZZTo4Q",
             process=self.processes.get("zz"),
@@ -384,9 +365,24 @@ def get_common_datasets_v10(self):
             secondary_dataset="ggH_ZZ_aux",
             tags=["ul", "nanoV10"]),
 
-        
+        ######################################## HH bbtautau ##########################################
+        ###############################################################################################
 
-
+        # ggf
+        Dataset("ggf_sm",
+            folder=p + "GluGluToHHTo2B2Tau_node_SM",
+            process=self.processes.get("ggf_sm"),
+            xs=0.002268,
+            secondary_dataset="ggf_sm_aux",
+            tags=["ul", "nanoV10"]),
+        # # vbf
+        # Dataset("vbf_sm",
+        #     dataset="",
+        #     process=self.processes.get("vbf_sm"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=0.001726,
+        #     secondary_dataset="vbf_sm_aux",
+        #     tags=["ul", "nanoV10"]),
 
         ######################################## Data #################################################
         ###############################################################################################

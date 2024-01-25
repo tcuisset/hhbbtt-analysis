@@ -1,9 +1,6 @@
-# config specific to ZZ analysis but not any particular year
+""" Base configuration for X->ZZ->bbtautau analysis (no specific year). Inherits from base_config.py """
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
-from analysis_tools.utils import DotDict
-
 from plotting_tools import Label
-from collections import OrderedDict
 
 from config.base_config import get_common_processes, BaseConfig
 
@@ -11,11 +8,59 @@ class Config(BaseConfig):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    def add_categories(self, **kwargs):
+        categories = super().add_categories(**kwargs)
+
+        categories += ObjectCollection([
+            Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
+                selection="(({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1"),
+            Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
+                selection="(({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
+                " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1"),
+            
+            Category("ZZ_elliptical_cut_80_sr", "ZZ mass cut E=80% && Signal region",
+                selection="((({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
+                    " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1) && " + \
+                    "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 2) && (isOS == 1) && "
+                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
+                    .format(self.deeptau.vsjet.Medium)),
+
+            Category("ZZ_elliptical_cut_80_mutau", "ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 0)"),
+            Category("ZZ_elliptical_cut_80_etau", "ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 1)"),
+            Category("ZZ_elliptical_cut_80_tautau", "ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 2)"),
+
+            Category("ZZ_elliptical_cut_80_sr_debug", "ZZ mass cut E=80% && Signal region debug",
+                selection="(event == 31332435) || (event == 31336032)"),
+        ])
+
+        return categories
+
+    #@override
     def add_processes(self):
         processes, process_group_names, process_training_names = get_common_processes()
         processes += ObjectCollection([
+
+            # ZZ SL (signal and background)
             Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(126, 238, 124), 
                     isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ZZbbtt"),
+            Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", 
+                    isBkgBBTT=True, ProcType="Zbb_Ztautau"),
+
+            # ZH
+            Process("zh_hbb", Label("zh_hbb"), color=(130, 39, 197), parent_process="zh"),
+            Process("zh_htt", Label("zh_htt"), color=(130, 39, 197), parent_process="zh"),
+            Process("zh", Label("ZH"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH"),
+
+            # ZZ resonant
             Process("ggXZZbbtt_M200", Label("ggX 200 GeV"), color=(238, 245, 99), 
                     isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M200"),
             Process("ggXZZbbtt_M300", Label("ggX 300 GeV"), color=(208, 240, 120), 
@@ -48,20 +93,15 @@ class Config(BaseConfig):
                     isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M2000"),
             Process("ggXZZbbtt_M3000", Label("ggX 3.0 TeV"), color=(5, 59, 63), 
                     isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M3000"),
+            
+            # background for resonant analysis 
             Process("zz_bbtt", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", parent_process="zz_background", llr_name="ZZbbtt"), # background for resonant analysis 
-        
-            Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", 
-                    isBkgBBTT=True, ProcType="Zbb_Ztautau", parent_process="zz_background"),
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", parent_process="zz", llr_name="ZZbbtt"),
 
-            # ZH_hbb
-            Process("zh_hbb", Label("zh_hbb"), color=(130, 39, 197), parent_process="zh"),
-            Process("zh_htt", Label("zh_htt"), color=(130, 39, 197), parent_process="zh"),
-            Process("zh", Label("ZH"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH"),
         ])
 
-        process_group_names |= {
-            "zz": [
+        process_group_names = {
+        "zz": [
             "zz_sl_signal",
             "higgs",
             "vv_v",
@@ -195,7 +235,7 @@ class Config(BaseConfig):
             "data",
         ],
         "zz_sig_vs_bkg": [
-            "zz_background",
+            "common_background",
             "zz_sl_signal",
             "ggXZZbbtt_M200",
             "ggXZZbbtt_M300",
@@ -218,41 +258,3 @@ class Config(BaseConfig):
         }
         return processes, process_group_names, process_training_names
 
-    def add_categories(self, **kwargs):
-        categories = super().add_categories(**kwargs)
-
-        categories += ObjectCollection([
-            Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
-                selection="(({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1"),
-            Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
-                selection="(({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
-                " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1"),
-            
-            Category("ZZ_elliptical_cut_80_sr", "ZZ mass cut E=80% && Signal region",
-                selection="((({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
-                    " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1) && " + \
-                    "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 2) && (isOS == 1) && "
-                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
-                    .format(self.deeptau.vsjet.Medium)),
-            Category("ZZ_elliptical_cut_80_sr_debug", "ZZ mass cut E=80% && Signal region debug",
-                selection="(event == 31332435) || (event == 31336032)"),
-            Category("ZZ_elliptical_cut_80_mutau", "ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 0)"),
-            Category("ZZ_elliptical_cut_80_etau", "ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 1)"),
-            Category("ZZ_elliptical_cut_80_tautau", "ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 2)"),
-        ])
-
-        return categories
-
-
-
-
-#config = Config("base", year=2018, ecm=13, lumi_pb=59741)

@@ -1,18 +1,14 @@
-from types import MethodType
-import copy
-import itertools
-
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from analysis_tools.utils import DotDict
 from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 from collections import OrderedDict
 
-from config.base_config_ZH import Config as Base_config_ZH
+from config.base_config_ZH import Config as base_config_ZH
 from config.ul_2018_v9 import get_2018_weights, get_common_datasets_v9
 from config.ul_2018_v10 import setupBtagDeeptau, get_common_datasets_v10
 
-class Config_ul_2018_ZH_v10(Base_config_ZH):
+class Config_ul_2018_ZH_v10(base_config_ZH):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
@@ -22,14 +18,14 @@ class Config_ul_2018_ZH_v10(Base_config_ZH):
 
     def add_weights(self):
         weights = get_2018_weights()
-        weights["ZH_elliptical_cut_zbb_htt_v1"] = weights.mutau
-        weights["ZH_elliptical_cut_zbb_htt_v1_mutau"] = weights.mutau
-        weights["ZH_elliptical_cut_zbb_htt_v1_etau"] = weights.mutau
-        weights["ZH_elliptical_cut_zbb_htt_v1_tautau"] = weights.mutau
-        weights["ZH_elliptical_cut_ztt_hbb_v1"] = weights.mutau
-        weights["ZH_elliptical_cut_ztt_hbb_v1_mutau"] = weights.mutau
-        weights["ZH_elliptical_cut_ztt_hbb_v1_etau"] = weights.mutau
-        weights["ZH_elliptical_cut_ztt_hbb_v1_tautau"] = weights.mutau
+        weights.ZH_elliptical_cut_zbb_htt_v1 = weights.mutau
+        weights.ZH_elliptical_cut_zbb_htt_v1_mutau = weights.mutau
+        weights.ZH_elliptical_cut_zbb_htt_v1_etau = weights.mutau
+        weights.ZH_elliptical_cut_zbb_htt_v1_tautau = weights.mutau
+        weights.ZH_elliptical_cut_ztt_hbb_v1 = weights.mutau
+        weights.ZH_elliptical_cut_ztt_hbb_v1_mutau = weights.mutau
+        weights.ZH_elliptical_cut_ztt_hbb_v1_etau = weights.mutau
+        weights.ZH_elliptical_cut_ztt_hbb_v1_tautau = weights.mutau
         return weights
 
     #@override
@@ -63,10 +59,14 @@ class Config_ul_2018_ZH_v10(Base_config_ZH):
         # ZH_HToBB_ZToTT is split in 2 processes :
         # - zh_ztt_hbb_signal (with filter for bbtautau decay) 
         # - zh_ztt_hbb_background (with inverted filter)
+        # ZZ_SL is considered as background
 
         p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
 
         datasets += ObjectCollection([
+
+            ###################################### ZH Signal ##############################################
+            ###############################################################################################
 
             #### ZH_Htt_Zbb
             Dataset("zh_zbb_htt_signal",
@@ -85,6 +85,10 @@ class Config_ul_2018_ZH_v10(Base_config_ZH):
                 splitting=200000,
                 tags=["ul", "secondary"]),  
 
+            ###################################### ZZ Background ##########################################
+            ###############################################################################################
+
+            #### ZH_Htt_Zbb
             Dataset("zh_zbb_htt_background",
                 folder=p + "ZHToTauTau",
                 process=self.processes.get("zh_zbb_htt_background"),
@@ -133,6 +137,9 @@ class Config_ul_2018_ZH_v10(Base_config_ZH):
                 # xs=0.07977, # XSDB NLO
                 splitting=200000,
                 tags=["ul", "secondary"]),
+
+            ###################################### ZZ Resonant ############################################
+            ###############################################################################################
 
             #### ZH Resonance high mass
             Dataset("ggZpZHttbb_M600",
