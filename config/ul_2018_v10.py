@@ -315,8 +315,16 @@ def get_common_datasets_v10(self):
         ######################################## Higgs ###############################################
         ###############################################################################################
 
-        ## ZH_HToBB_ZToLL and ZHToTauTau are in ZZ and ZH specific configurations        
-
+        ## ZH_HToBB_ZToLL and ZHToTauTau are in ZZ and ZH specific configurations 
+        
+        # ZH_hbb       
+        Dataset("zh_hbb_zqq",
+            folder=p + "ZH_Hbb_Zqq",
+            process=self.processes.get("zh_hbb"),
+            xs=0.36,
+            secondary_dataset="zh_hbb_zqq_aux",
+            tags=["ul", "nanoV10"]),
+            
         # WH_htt
         Dataset("wminush_htt",
             folder=p + "WminusHToTauTau",
