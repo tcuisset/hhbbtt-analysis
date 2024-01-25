@@ -1,3 +1,6 @@
+# This configuration is used for PreProcess step
+# It is common to all analyses: ZZ, ZH x 2
+
 lumifilter:
     name: lumiFilterRDF
     path: Base.Modules.lumiFilter
@@ -5,7 +8,8 @@ lumifilter:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
-puweight:
+# UL only
+puweightCor:
     name: puWeightRDF
     path: Corrections.LUM.puWeight
     parameters:
@@ -13,30 +17,22 @@ puweight:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
 
-zz_sl_sig_bkg:
-    name: ZZBBTauTauFilterRDF
-    path: Tools.Tools.ZZAnalysis
+bbtautau_sig_bkg:
+    name: BBTauTauFilterRDF
+    path: Tools.Tools.ZZ_ZH_Analysis
     parameters:
-        isZZsig: self.dataset.process.get_aux('isZZsignal', False)
-        isZZbkg: self.dataset.process.get_aux('isZZbackground', False)
+        ProcType: self.dataset.process.get_aux('ProcType', False)
+        isSigBBTT: self.dataset.process.get_aux('isSigBBTT', False)
+        isBkgBBTT: self.dataset.process.get_aux('isBkgBBTT', False)
 
-# # UL only
-# # puweightCor:
-    # # name: puWeightRDF
-    # # path: Corrections.LUM.puWeightCor
-    # # parameters:
-        # # isMC: self.dataset.process.isMC
-        # # year: self.config.year
-        # # isUL: self.dataset.has_tag('ul')
-
-2:
+metfilter:
     name: MetFilterRDF
     path: Base.Modules.METfilters
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
-
+# also comutes TES
 tauSF:
     name: tauSFRDF
     path: Corrections.TAU.tauCorrections
@@ -44,6 +40,7 @@ tauSF:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 hhlepton:
     name: HHLeptonRDF
@@ -66,14 +63,12 @@ hhleptonVar:
     parameters:
         isMC: self.dataset.process.isMC
 
-
 hhleptonVarTESup:
     name: HHLeptonVarRDF
     path: Tools.Tools.HHLepton
     parameters:
         isMC: self.dataset.process.isMC
         tau_syst: corr_up
-
 
 hhleptonVarTESdown:
     name: HHLeptonVarRDF
@@ -82,8 +77,7 @@ hhleptonVarTESdown:
         isMC: self.dataset.process.isMC
         tau_syst: corr_down
 
-
-jet_smearing:
+smearing_SFs:
     name: jetSmearerRDF
     path: Corrections.JME.smearing
     parameters:
@@ -93,21 +87,20 @@ jet_smearing:
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
 
-
-jet_smear_val:
+jer_jet:
     name: jetVarRDF
     path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
 
-
-met_smearing:
-    name: metSmearerRDF
+# also computes up and down variations
+jet_tes_smeared_met:
+    name: metJetTauSmearerRDF
     path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
 
-jec:
+jec_SFs:
     name: jecProviderRDF
     path: Corrections.JME.jec
     parameters:
@@ -115,6 +108,24 @@ jec:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
+        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
+            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+
+jec_jet:
+    name: jecVarRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
+            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+
+jec_met:
+    name: jecMETRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
         # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
             # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
 
@@ -128,6 +139,7 @@ hhjets:
         met_smear_tag: smeared
         filter: True
 
+# probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
 bjet1var:
     name: VarFromVectorRDF
     path: Base.Modules.baseModules
@@ -148,6 +160,7 @@ bjet2var:
         output_prefix: bjet2
         condition: self.dataset.process.isMC
 
+# probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
 jecb1:
     name: jecProviderRDF
     path: Corrections.JME.jec
@@ -170,53 +183,6 @@ jecb2:
         eta: bjet2_eta
         mass: bjet2_mass_nom
 
-dyscaling:
-    name: DYscalingRDF
-    path: Tools.Tools.dyreweighting
-    parameters:
-        year: self.config.year
-        isDY: self.dataset.process.get_aux('isDY', False)
-
-
-svfit:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        met_smear_tag: smeared
-
-
-hh:
-    name: HHKinFitRDF
-    path: Tools.Tools.hh
-    parameters:
-        isMC: self.dataset.process.isMC
-        met_smear_tag: smeared
-
-
-hhvar:
-    name: HHVarRDF
-    path: Tools.Tools.hh
-    parameters:
-        isMC: self.dataset.process.isMC
-        met_smear_tag: smeared
-
-
-hhdnn:
-    name: HHDNNRDF
-    path: Tools.Tools.HHDNN
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-
-hhmulticlass:
-    name: HHMulticlassRDF
-    path: Tools.Tools.HHMulticlass
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-        model_specs: ((v5, kl1_c2v1_c31_vbf))
-
 trigSF:
     name: Htt_trigSFRDF
     path: Tools.Tools.Htt_trigSF
@@ -224,7 +190,7 @@ trigSF:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
-
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 PUjetID_SF:
     name: PUjetID_SFRDF
@@ -246,14 +212,13 @@ PUjetID_SF:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
-
-4_w2:
-    name: prefiringWeightRDF
-    path: Base.Modules.prefiringWeight
-    parameters:
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
-
+# Only applies to non UL samples
+# 4_w2:
+#     name: prefiringWeightRDF
+#     path: Base.Modules.prefiringWeight
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         isUL: self.dataset.has_tag('ul')
 
 muSF:
     name: muSFRDF
@@ -262,6 +227,7 @@ muSF:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 eleSD:
     name: eleSFRDF
@@ -270,14 +236,13 @@ eleSD:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
-
+        ispreVFP: self.config.get_aux('ispreVFP', False)
 
 idAndIsoSF:
     name: dauIdIsoSFRDF
     path: Tools.Tools.dauIdIso
     parameters:
         isMC: self.dataset.process.isMC
-
 
 btag:
     name: btag_SFRDF
@@ -286,6 +251,7 @@ btag:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
         uncertainties: ["central", "down_hfstats2"]
         lep_pt: "{dau1_pt, dau2_pt}"
         lep_eta: "{dau1_eta, dau2_eta}"
