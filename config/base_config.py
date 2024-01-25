@@ -43,7 +43,6 @@ def get_common_processes():
         Process("singlet", Label("st"), color=(255, 230, 0), parent_process="others", llr_name="singleT"),
 
         # VV
-        #Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", isZZbackground=True),
         Process("zz", Label("ZZ"), color=(20, 60, 255), parent_process="vv"),
         Process("wz", Label("WZ"), color=(20, 60, 255), parent_process="vv"),
         Process("ww", Label("WW"), color=(20, 60, 255), parent_process="vv"),

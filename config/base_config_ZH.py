@@ -57,7 +57,7 @@ class Config(BaseConfig):
         # add ggZpZHbbtt
         processes += ObjectCollection([
             Process(f"ggZpZHttbb_M{mass}", Label(r"gg \to Z' \to ZH \to \tau\tau b b (m_{Z'} = " + f"{mass} GeV)"),
-                    isZHsignal="ztt_hbb", isSignal=True, llr_name=f"ZHbbtt_M{mass}")
+                    ProcType="Ztautau_Hbb", isSignal=True, llr_name=f"ZHbbtt_M{mass}")
             for mass in ZHmassPoints
         ])
 
@@ -67,20 +67,19 @@ class Config(BaseConfig):
         #         "zh_hbb", "zh_htt", "zh"]]
 
         processes += ObjectCollection([
-            # signal for non-resonant ZH->bbtt (both ZbbHtt and ZttHbb)
-            Process("zh_sl_signal", Label("ZH_{bb#tau#tau}"),
-                    isZHsignal=["zbb_htt", "ztt_hbb"], isSignal=True), # TODO llr_name ?
             # two subsignals for non-resonant ZH->bbtt
             Process("zh_zbb_htt_sl_signal", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"),
-                    isZHsignal="zbb_htt", isSignal=True, parent_process="zh_sl_signal",
-                    color=(126, 238, 124)),
+                    ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(126, 238, 124)),
             Process("zh_ztt_hbb_sl_signal", Label("ZH (H#rightarrow#tau#tau, Z#rightarrow bb)"),
-                    isZHsignal="ztt_hbb", isSignal=True, parent_process="zh_sl_signal",
-                    color=(32, 196, 201)),
+                    ProcType="Ztautau_Hbb", isSigBBTT=True, isSignal=True, color=(32, 196, 201)),
+
+            Process("zh_zbb_htt_sl_background", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"),
+                    ProcType="Zbb_Htautau", isBkgBBTT=True, color=(126, 238, 124)),
+            Process("zh_ztt_hbb_sl_background", Label("ZH (H#rightarrow#tau#tau, Z#rightarrow bb)"),
+                    ProcType="Ztautau_Hbb", isBkgBBTT=True, color=(32, 196, 201)),
             
-            # ZH background (ZH_HToBB_ZToLL + ZHToTauTau not decaying in bbtautau or tautaubb)
-            Process("zh_sl_background", Label("ZH semileptonic (not bb#tau#tau)"),
-                    isZHbackground=True),
+            # VV
+            Process("zz_sl", Label("zz_sl"), color=(130, 39, 197), parent_process="zz"),
             
             # background (everything)
             # for now we just use zz_background as background name (probably should change the name for clarity)
@@ -131,5 +130,3 @@ class Config(BaseConfig):
         ]
         
         return processes, process_group_names, process_training_names
-
-#config = Config("base", year=2018, ecm=13, lumi_pb=59741)
