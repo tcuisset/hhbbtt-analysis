@@ -47,6 +47,15 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 Dataset(
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
             )
+        
+        datasets += ObjectCollection([
+            ## Zprime -> ZH resonance high mass
+            Dataset("Zprime_Zh_Zbbhtautau_M600",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600/Step_4",
+                process=self.processes.get("Zp_ZH_Zbb_Htautau_M600"),
+                xs=1,
+                tags=["ul", "nanoV10"])
+        ])
 
         # ZH datasets
         # ZH_HToTT_ZToBB is split in 2 processes :

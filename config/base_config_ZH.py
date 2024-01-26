@@ -51,6 +51,10 @@ class Config(BaseConfig):
     #@override
     def add_processes(self):
         processes, process_group_names, process_training_names = get_common_processes()
+
+        ZHmassPoints = [600]
+        resonantProcessesNames = [f"Zp_ZH_Zbb_Htautau_M{mass}" for mass in ZHmassPoints] + [f"Zp_ZH_Ztautau_Hbb_M{mass}" for mass in ZHmassPoints]
+        # add ggZpZHbbtt
         processes += ObjectCollection([
 
             # ZH_HToTT_ZToBB
@@ -81,9 +85,7 @@ class Config(BaseConfig):
         ])
 
         process_group_names = {
-        "ggZpZHttbb": [
-            "ggZpZHttbb_M600",
-        ],
+        "Zp_ZH": resonantProcessesNames,
         "datacard_zh": [
             "zh_zbb_htt_signal",
             "zh_ztt_hbb_signal",
