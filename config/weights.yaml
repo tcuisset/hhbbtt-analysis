@@ -23,9 +23,10 @@ dystitching:
         isDY: self.dataset.process.get_aux('isDY', False)
         isUL: self.dataset.has_tag('ul')
 
-zz_sl_sig_bkg:
-    name: ZZBBTauTauFilterRDF
-    path: Tools.Tools.ZZAnalysis
+filter_bbtt:
+    name: BBTauTauFilterRDF
+    path: Tools.Tools.ZZ_ZH_Analysis
     parameters:
-        isZZsig: self.dataset.process.get_aux('isZZsignal', False)
-        isZZbkg: self.dataset.process.get_aux('isZZbackground', False)
+        ProcType: self.dataset.process.get_aux('ProcType', False)
+        isSigBBTT: self.dataset.process.get_aux('isSigBBTT', False)
+        isBkgBBTT: self.dataset.process.get_aux('isBkgBBTT', False)
