@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# run source setup.sh if needed, taken from upper directory
+# https://stackoverflow.com/a/246128
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+if [ -z "$CMT_BASE" ]; then
+cd "$SCRIPT_DIR/.."
+source setup.sh
+cd - >/dev/null
+fi
+
+exec gdb "$@"

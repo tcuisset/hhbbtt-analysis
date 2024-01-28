@@ -106,6 +106,7 @@ action() {
         fi
       fi
     fi
+    
     [ -z "$CMT_STORE" ] && export CMT_STORE="$CMT_STORE_EOS"
     [ -z "$CMT_JOB_DIR" ] && export CMT_JOB_DIR="$CMT_DATA/jobs"
     [ -z "$CMT_TMP_DIR" ] && export CMT_TMP_DIR="$CMT_DATA/tmp"
@@ -236,13 +237,15 @@ action() {
 
         export BASEMODULES_PATH="Base/Modules"
         if [ ! -d "$BASEMODULES_PATH" ]; then
-          git clone https://gitlab.cern.ch/cms-phys-ciemat/cmt-base-modules.git Base/Modules
+          #git clone https://gitlab.cern.ch/cms-phys-ciemat/cmt-base-modules.git Base/Modules
+          git clone https://gitlab.cern.ch/evernazz/cmt-base-modules.git Base/Modules
           compile="1"
         fi
 
         export HHKINFIT_PATH="HHKinFit2"
         if [ ! -d "$HHKINFIT_PATH" ]; then
-          git clone https://github.com/bvormwald/HHKinFit2.git -b CMSSWversion
+          #git clone https://github.com/bvormwald/HHKinFit2.git -b CMSSWversion
+          git clone https://github.com/elenavernazza/HHKinFit2.git -b CMSSWversion
           rm -r HHKinFit2/HHKinFit2CMSSWPlugins/plugins/
           compile="1"
         fi
@@ -256,7 +259,7 @@ action() {
 
         export HTT_PATH="HTT-utilities"
         if [ ! -d "$HTT_PATH" ]; then
-          git clone https://github.com/CMS-HTT/LeptonEff-interface.git HTT-utilities
+          git clone https://github.com/elenavernazza/LeptonEff-interface.git HTT-utilities
           cd HTT-utilities/LepEffInterface/
           rm -rf data
           git clone https://github.com/CMS-HTT/LeptonEfficiencies.git data
@@ -274,9 +277,11 @@ action() {
         export HHBTAG_PATH="HHTools"
         if [ ! -d "$HHBTAG_PATH" ]; then
           git clone https://github.com/hh-italian-group/HHbtag.git HHTools/HHbtag
-          git clone https://github.com/jaimeleonh/InferenceTools.git Tools/Tools
+          #git clone https://github.com/jaimeleonh/InferenceTools.git Tools/Tools
+          git clone https://github.com/elenavernazza/InferenceTools.git Tools/Tools
           git clone https://gitlab.cern.ch/hh/bbtautau/MulticlassInference
-          git clone https://github.com/GilesStrong/cms_hh_proc_interface.git
+          #git clone https://github.com/GilesStrong/cms_hh_proc_interface.git
+          git clone https://github.com/elenavernazza/cms_hh_proc_interface.git
           cd cms_hh_proc_interface
           git checkout tags/V4.0
           cd -
@@ -284,7 +289,8 @@ action() {
           cd cms_hh_tf_inference/inference
           echo '<use name="boost_filesystem"/>' | cat - BuildFile.xml > temp && mv temp BuildFile.xml
           cd -
-          git clone https://github.com/GilesStrong/cms_runII_dnn_models.git
+          #git clone https://github.com/GilesStrong/cms_runII_dnn_models.git
+          git clone https://github.com/elenavernazza/cms_runII_dnn_models.git
           cd cms_runII_dnn_models/models/test/
           mv test.cc test.cc_x
           cd -
@@ -295,9 +301,11 @@ action() {
         cmt_add_root_inc $(correction config --incdir)
         if [ ! -d "$CORRECTIONS_PATH" ]; then
           git clone https://github.com/jaimeleonh/correctionlib-wrapper --branch cmssw_version  Corrections/Wrapper
-          git clone https://gitlab.cern.ch/cms-phys-ciemat/tau-corrections.git Corrections/TAU
+          #git clone https://gitlab.cern.ch/cms-phys-ciemat/tau-corrections.git Corrections/TAU
+          git clone https://gitlab.cern.ch/evernazz/tau-corrections.git Corrections/TAU
 
-          git clone https://gitlab.cern.ch/cms-phys-ciemat/jme-corrections.git Corrections/JME
+          #git clone https://gitlab.cern.ch/cms-phys-ciemat/jme-corrections.git Corrections/JME
+          git clone https://gitlab.cern.ch/evernazz/jme-corrections.git Corrections/JME
           cd Corrections/JME/data
           wget https://github.com/cms-jet/JECDatabase/raw/master/tarballs/Summer19UL18_V5_MC.tar.gz
           wget https://github.com/cms-jet/JECDatabase/raw/master/tarballs/Summer19UL17_V5_MC.tar.gz
@@ -305,10 +313,14 @@ action() {
           wget https://github.com/cms-jet/JECDatabase/raw/master/tarballs/Summer19UL16APV_V7_MC.tar.gz
           cd -
 
-          git clone https://gitlab.cern.ch/cms-phys-ciemat/lum-corrections.git Corrections/LUM
-          git clone https://gitlab.cern.ch/cms-phys-ciemat/muo-corrections.git Corrections/MUO
-          git clone https://gitlab.cern.ch/cms-phys-ciemat/egm-corrections.git Corrections/EGM
-          git clone https://gitlab.cern.ch/cms-phys-ciemat/btv-corrections.git Corrections/BTV
+          #git clone https://gitlab.cern.ch/cms-phys-ciemat/lum-corrections.git Corrections/LUM
+          git clone https://gitlab.cern.ch/evernazz/lum-corrections.git Corrections/LUM
+          #git clone https://gitlab.cern.ch/cms-phys-ciemat/muo-corrections.git Corrections/MUO
+          git clone https://gitlab.cern.ch/evernazz/muo-corrections.git Corrections/MUO
+          #git clone https://gitlab.cern.ch/cms-phys-ciemat/egm-corrections.git Corrections/EGM
+          git clone https://gitlab.cern.ch/evernazz/egm-corrections.git Corrections/EGM
+          #git clone https://gitlab.cern.ch/cms-phys-ciemat/btv-corrections.git Corrections/BTV
+          git clone https://gitlab.cern.ch/evernazz/btv-corrections.git Corrections/BTV
           compile="1"
         fi
 
@@ -348,8 +360,10 @@ action() {
             cmt_pip_install flake8
             cmt_pip_install luigi==2.8.13
             cmt_pip_install tabulate
-            cmt_pip_install git+https://gitlab.cern.ch/cms-phys-ciemat/analysis_tools.git
-            cmt_pip_install git+https://gitlab.cern.ch/cms-phys-ciemat/plotting_tools.git
+            #cmt_pip_install git+https://gitlab.cern.ch/cms-phys-ciemat/analysis_tools.git
+            cmt_pip_install git+https://gitlab.cern.ch/evernazz/analysis_tools.git
+            #cmt_pip_install git+https://gitlab.cern.ch/cms-phys-ciemat/plotting_tools.git
+            cmt_pip_install git+https://gitlab.cern.ch/evernazz/plotting_tools.git
             cmt_pip_install --no-deps git+https://github.com/riga/law
             cmt_pip_install --no-deps git+https://github.com/riga/plotlib
             cmt_pip_install --no-deps gast==0.2.2  # https://github.com/tensorflow/autograph/issues/1
@@ -425,6 +439,29 @@ action() {
 
     # try to source the law completion script when available
     which law &> /dev/null && source "$( law completion )" ""
+
+    # setup python virtual environment if not yet existing
+    if [ ! -d "../.venv" ]; then
+        (
+        set -x
+        cd .. # go back to upper folder (not nanoaod_base_analysis)
+        python3 -m venv --system-site-packages .venv
+        cd .venv/bin
+        mv python3 python3_symlink
+        cat <<"EOF" >python
+#!/bin/bash
+# https://stackoverflow.com/a/246128
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd "$SCRIPT_DIR/../.."
+source setup.sh
+cd - >/dev/null
+
+exec "$SCRIPT_DIR/python3_symlink" "$@"
+EOF
+        chmod +x ./python
+        )
+    fi
+
 }
 action "$@"
 cd ..
