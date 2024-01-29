@@ -1,5 +1,6 @@
 # This configuration is used for Categorization step
-# It is analysis related, as it computes the variables needed for the Elliptical mass cut optimization
+# It is not analysis related (managed by AnalysisType) 
+# It computes the variables needed for the Elliptical mass cut optimization
 
 svfit_ZZ:
     name: SVFitRDF
