@@ -72,9 +72,9 @@ class Config(BaseConfig):
             # ZZ_SL
             Process("zz_sl", Label("zz_sl"), color=(130, 39, 197), parent_process="zz"),
 
-            # ZH_HToTT_ZToBB resonant
-            Process("ggZpZHttbb_M600", Label("ggZ' 600 GeV"), color=(238, 245, 99), 
-                    isSigBBTT=True, ProcType="Ztautau_Hbb", isSignal=True, llr_name="ZHbbtt_M600"),
+            # ZH resonant
+            Process("Zprime_Zh_Zbbhtautau_M600", Label("Z'#rightarrow ZH #rightarrow bb#tau#tau,  600 GeV"), color=(238, 245, 99), 
+                    isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZHbbtt_M600"),
 
             # background for resonant analysis 
             Process("zh_zbb_htt", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"), color=(0, 165, 80), 

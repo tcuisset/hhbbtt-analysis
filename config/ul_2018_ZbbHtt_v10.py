@@ -47,15 +47,6 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 Dataset(
                     v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
             )
-        
-        datasets += ObjectCollection([
-            ## Zprime -> ZH resonance high mass
-            Dataset("Zprime_Zh_Zbbhtautau_M600",
-                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600/Step_4",
-                process=self.processes.get("Zp_ZH_Zbb_Htautau_M600"),
-                xs=1,
-                tags=["ul", "nanoV10"])
-        ])
 
         # ZH datasets
         # ZH_HToTT_ZToBB is split in 2 processes :
@@ -142,14 +133,34 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
                 splitting=200000,
                 tags=["ul"]),
+            
+            ###################################### ZZ Background ##########################################
+            ###############################################################################################
+            # ZZ semileptonic (added here since ZZ analysis uses this dataset with genfilter for bbtautau, whilst in ZH we use the full dataset)
+            Dataset("zz_sl",
+                folder=p + "ZZTo2Q2L",
+                process=self.processes.get("zz"),
+                xs=5.52,
+                secondary_dataset="zz_sl_aux",
+                tags=["ul", "nanoV10"]),
+            Dataset("zz_sl_aux",
+                dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                process=self.processes.get("zz"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=5.52, # AN
+                # xs=3.676, # XSDB unknown
+                # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
+                splitting=200000,
+                tags=["ul"]),
 
             ###################################### ZZ Resonant ############################################
             ###############################################################################################
 
             #### ZH Resonance high mass
-            Dataset("ggZpZHttbb_M600",
-                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobsPilots/gg_X_ZZbbtautau_M600/Step_4",
-                process=self.processes.get("ggZpZHttbb_M600"),
+            Dataset("Zprime_Zh_Zbbhtautau_M600",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600/Step_4",
+                process=self.processes.get("Zprime_Zh_Zbbhtautau_M600"),
                 xs=1,
                 tags=["ul", "nanoV10"])
         ])
