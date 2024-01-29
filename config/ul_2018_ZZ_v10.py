@@ -274,4 +274,4 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
     #     versions = {"MergeCategorizationStats": "prod_503"}
     #     return versions
 
-config = Config_ul_2018_ZZ_v10("ul_2018_ZZ_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True)
+config = Config_ul_2018_ZZ_v10("ul_2018_ZZ_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Zbb_Ztautau")

@@ -1,0 +1,28 @@
+# This configuration is used for Categorization step
+# It is analysis related, as it computes the variables needed for the Elliptical mass cut optimization
+
+svfit_ZZ:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zz:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zzvar:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+
