@@ -171,6 +171,7 @@ keep Tau_pt
 keep Tau_eta
 keep Tau_phi
 keep Tau_decayMode
+keep Tau_mass
 keep Tau_mass_corr
 keep Tau_mass_corr_up
 keep Tau_mass_corr_down
