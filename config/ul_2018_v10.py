@@ -301,9 +301,9 @@ def get_common_datasets_v10(self):
         # ZH_hbb       
         Dataset("zh_hbb_zqq",
             folder=p + "ZH_Hbb_Zqq",
-            process=self.processes.get("zh_hbb"),
+            process=self.processes.get("zh_hbb_zqq"), # the associated process is defined separately in ZZ and ZH configs since the parent process is different in each case
             xs=0.36,
-            secondary_dataset="zh_hbb_zqq_aux",
+            # secondary_dataset="zh_hbb_zqq_aux", # TODO problem on CMSDAS with this dataset
             tags=["ul", "nanoV10"]),
             
         # WH_htt

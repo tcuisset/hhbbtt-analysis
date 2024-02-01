@@ -79,7 +79,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 splitting=200000,
                 tags=["ul", "secondary"]), 
 
-            ###################################### ZZ Background ##########################################
+            ###################################### ZH Background ##########################################
             ###############################################################################################
 
             #### ZH_Hbb_Zll
@@ -116,17 +116,19 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 splitting=200000,
                 tags=["ul"]), 
 
-            #### ZZ_SL 
+            ###################################### ZZ Background ##########################################
+            ###############################################################################################
+            # ZZ semileptonic (added here since ZZ analysis uses this dataset with genfilter for bbtautau, whilst in ZH we use the full dataset)
             Dataset("zz_sl",
                 folder=p + "ZZTo2Q2L",
-                process=self.processes.get("zz_bbtt"),
+                process=self.processes.get("zz_sl"),
                 xs=5.52,
-                secondary_dataset="zz_bbtt_aux",
+                secondary_dataset="zz_sl_aux",
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-                process=self.processes.get("zz_bbtt"),
+                process=self.processes.get("zz_sl"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
@@ -143,4 +145,4 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
 
         return datasets
 
-config = Config_ul_2018_ZH_v10("ul_2018_ZH_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Ztautau_Hbb")
+config = Config_ul_2018_ZH_v10("ul_2018_ZttHbb_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Ztautau_Hbb")
