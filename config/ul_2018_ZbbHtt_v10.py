@@ -114,12 +114,12 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 xs=0.052, # AN
                 # xs=0.07977, # XSDB NLO
                 splitting=200000,
-                tags=["ul"]),
+                tags=["ul", "secondary"]),
 
             #### ZZ_SL 
             Dataset("zz_sl",
                 folder=p + "ZZTo2Q2L",
-                process=self.processes.get("zz_bbtt"),
+                process=self.processes.get("zz_sl"),
                 xs=5.52,
                 secondary_dataset="zz_bbtt_aux",
                 tags=["ul", "nanoV10"]),
@@ -132,7 +132,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
                 splitting=200000,
-                tags=["ul"]),
+                tags=["ul", "secondary"]),
 
             ###################################### ZZ Resonant ############################################
             ###############################################################################################

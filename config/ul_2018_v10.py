@@ -299,12 +299,12 @@ def get_common_datasets_v10(self):
         ## ZH_HToBB_ZToLL and ZHToTauTau are in ZZ and ZH specific configurations 
         
         # ZH_hbb       
-        Dataset("zh_hbb_zqq",
-            folder=p + "ZH_Hbb_Zqq",
-            process=self.processes.get("zh_hbb"),
-            xs=0.36,
-            secondary_dataset="zh_hbb_zqq_aux",
-            tags=["ul", "nanoV10"]),
+        # Dataset("zh_hbb_zqq",
+        #     folder=p + "ZH_Hbb_Zqq",
+        #     process=self.processes.get("zh_hbb"),
+        #     xs=0.36,
+        #     secondary_dataset="zh_hbb_zqq_aux",
+        #     tags=["ul", "nanoV10"]),
             
         # WH_htt
         Dataset("wminush_htt",
@@ -511,10 +511,8 @@ def get_common_datasets_v10(self):
                 "mutau": 2,
             },
             tags=["ul", "nanoV10"]),
-            
+
     ]
     datasets = ObjectCollection(datasets)
-
-    
 
     return datasets

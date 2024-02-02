@@ -78,7 +78,7 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
                 splitting=200000,
-                tags=["ul"]),
+                tags=["ul", "secondary"]),
 
             ###################################### ZZ Background ##########################################
             ###############################################################################################
@@ -99,7 +99,7 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
                 splitting=200000,
-                tags=["ul"]),
+                tags=["ul", "secondary"]),
             
             #### ZHToTauTau
             Dataset("zh_htt",
@@ -116,7 +116,7 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
                 xs=0.0554, # AN
                 # xs=0.7891, # XSDB NLO
                 splitting=200000,
-                tags=["ul"]), 
+                tags=["ul", "secondary"]),
 
             #### ZH_Hbb_Zll
             Dataset("zh_hbb_zll",
@@ -133,7 +133,7 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
                 xs=0.052, # AN
                 # xs=0.07977, # XSDB NLO
                 splitting=200000,
-                tags=["ul"]),
+                tags=["ul", "secondary"]),
 
             #### ZZ_SL but considered as background for the resonant analysis
             Dataset("zz_bbtt",
@@ -151,7 +151,7 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
                 splitting=200000,
-                tags=["ul"]),
+                tags=["ul", "secondary"]),
 
             ###################################### ZZ Resonant ############################################
             ###############################################################################################
@@ -258,12 +258,12 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
             ###############################################################################################
 
             #### Test ULv12
-            Dataset("zz_sl_signal_test",
-                folder="/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2018/ZZTo2Q2L",
-                process=self.processes.get("zz_sl_signal"),
-                xs=5.52,
-                secondary_dataset="zz_sl_signal_aux",
-                tags=["ul", "nanoV10"]),
+            # Dataset("zz_sl_signal_test",
+            #     folder="/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2018/ZZTo2Q2L",
+            #     process=self.processes.get("zz_sl_signal"),
+            #     xs=5.52,
+            #     secondary_dataset="zz_sl_signal_aux",
+            #     tags=["ul", "nanoV10"]),
 
         ])
             
