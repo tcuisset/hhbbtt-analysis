@@ -1,10 +1,10 @@
-# config common to ZH and ZZ but specific to 2018 (nanoAOD v10)
+# config common to ZH and ZZ but specific to 2017 (nanoAOD v10)
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from analysis_tools.utils import DotDict
 
 
 def setupBtagDeeptau(self):
-    self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
+    self.btag=DotDict(tight=0.7476, medium=0.3040, loose=0.0532)
     self.deeptau=DotDict(
         vsjet=DotDict(VVVLoose=1, VVLoose=2, VLoose=3, Loose=4, Medium=5,
             Tight=6, VTight=7, VVTight=8),
@@ -16,8 +16,9 @@ def setupBtagDeeptau(self):
 def get_common_datasets_v10(self):
     """ Needs to be called with Config object as self as it needs access to self.processes """
     # p = "/eos/home-k/kandroso/cms-hh-bbtautau/nanoAOD/Run2_2018/"
-    p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
-
+    # p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
+    p = "/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2017/"
+    
     datasets = [
         
         ######################################## Single boson #########################################
@@ -27,7 +28,7 @@ def get_common_datasets_v10(self):
         Dataset("wjets",
             folder=p + "WJetsToLNu",
             process=self.processes.get("wjets"),
-            selection="event != 198018547",
+            # selection="event != 198018547",
             xs=61526.7,
             merging={
                 "tautau": 2,
@@ -39,7 +40,7 @@ def get_common_datasets_v10(self):
 
         # DY
         Dataset("dy",
-            folder=p + "DYJetsToLL_M-50",
+            folder=p + "DYJetsToLL_M-50-amcatnloFXFX",
             process=self.processes.get("dy"),
             xs=6077.22,
             merging={
@@ -52,21 +53,21 @@ def get_common_datasets_v10(self):
 
         # EWK
         Dataset("ewk_z",
-            folder=p + "EWKZ2Jets_ZToLL_M-50",
+            folder=p + "EWK_ZTo2L",
             process=self.processes.get("ewk_z"),
             xs=6.215,
             splitting=200000,
             secondary_dataset="ewk_z_aux",
             tags=["ul", "nanoV10"]),
         Dataset("ewk_wplus",
-            folder=p + "EWKWPlus2Jets_WToLNu_M-50",
+            folder=p + "EWK_WplusToLNu",
             process=self.processes.get("ewk_wplus"),
             xs=39.05,
             splitting=200000,
             secondary_dataset="ewk_wplus_aux",
             tags=["ul", "nanoV10"]),
         Dataset("ewk_wminus",
-            folder=p + "EWKWMinus2Jets_WToLNu_M-50",
+            folder=p + "EWK_WminusToLNu",
             process=self.processes.get("ewk_wminus"),
             xs=32.05,
             splitting=200000,
@@ -87,6 +88,7 @@ def get_common_datasets_v10(self):
                 "etau": 40,
             },
             scaling=(0.96639, 0.00863),
+            splitting=50000, 
             secondary_dataset="tt_dl_aux",
             tags=["ul", "nanoV10"]),
         Dataset("tt_sl",
@@ -99,6 +101,7 @@ def get_common_datasets_v10(self):
                 "etau": 40,
             },
             scaling=(0.96639, 0.00863),
+            splitting=50000, 
             secondary_dataset="tt_sl_aux",
             tags=["ul", "nanoV10"]),
         Dataset("tt_fh",
@@ -106,18 +109,19 @@ def get_common_datasets_v10(self):
             process=self.processes.get("tt_fh"),
             xs=377.96,
             scaling=(0.96639, 0.00863),
+            splitting=50000, 
             secondary_dataset="tt_fh_aux",
             tags=["ul", "nanoV10"]),
 
         # TW
         Dataset("st_tw_antitop",
-            folder=p + "ST_tW_antitop_5f_inclusiveDecays",
+            folder=p + "ST_tW_antitop_5f_InclusiveDecays",
             process=self.processes.get("tw"),
             xs=35.85,
             secondary_dataset="st_tw_antitop_aux",
             tags=["ul", "nanoV10"]),
         Dataset("st_tw_top",
-            folder=p + "ST_tW_top_5f_inclusiveDecays",
+            folder=p + "ST_tW_top_5f_InclusiveDecays",
             process=self.processes.get("tw"),
             xs=35.85,
             secondary_dataset="st_tw_top_aux",
@@ -222,13 +226,13 @@ def get_common_datasets_v10(self):
             secondary_dataset="wzz_aux",
             tags=["ul", "nanoV10"]),
         Dataset("www",
-            folder=p + "WWW",
+            folder=p + "WWW_4F",
             process=self.processes.get("www"),
             xs=0.209,
             secondary_dataset="www_aux",
             tags=["ul", "nanoV10"]),
         Dataset("wwz",
-            folder=p + "WWZ",
+            folder=p + "WWZ_4F",
             process=self.processes.get("wwz"),
             xs=0.168,
             secondary_dataset="wwz_aux",
@@ -298,43 +302,42 @@ def get_common_datasets_v10(self):
 
         ## ZH_HToBB_ZToLL and ZHToTauTau are in ZZ and ZH specific configurations 
         
-        # ZH_hbb       # removed since the dataset is not available TODO FIXME
+        # ZH_hbb       
         # Dataset("zh_hbb_zqq",
         #     folder=p + "ZH_Hbb_Zqq",
-        #     process=self.processes.get("zh_hbb"),# the associated process is defined separately in ZZ and ZH configs since the parent process is different in each case
+        #     process=self.processes.get("zh_hbb"),
         #     xs=0.36,
         #     secondary_dataset="zh_hbb_zqq_aux",
         #     tags=["ul", "nanoV10"]),
             
         # WH_htt
         Dataset("wminush_htt",
-            folder=p + "WminusHToTauTau",
+            folder=p + "WminusHToTauTau_M125",
             process=self.processes.get("wh_htt"),
             # prefix="xrootd-cms.infn.it//",
             xs=0.0334,
             secondary_dataset="wminush_htt_aux",
             tags=["ul", "nanoV10"]),
         Dataset("wplush_htt",
-            folder=p + "WplusHToTauTau",
+            folder=p + "WplusHToTauTau_M125",
             process=self.processes.get("wh_htt"),
             # prefix="xrootd-cms.infn.it//",
             xs=0.05268,
             secondary_dataset="wminush_htt_aux",
             tags=["ul", "nanoV10"]),    
 
-        # vbf_htt (removed cause it takes very long and it's not in the datacard for HHbbtt) 
-        # Dataset("vbf_htt",
-        #     folder=p + "VBFHToTauTau",
-        #     process=self.processes.get("vbf_htt"),
-        #     # prefix="xrootd-cms.infn.it//",
-        #     xs=0.237,
-        #     splitting=100000,
-        #     secondary_dataset="vbf_htt_aux",
-        #     tags=["ul", "nanoV10"]),
+        # vbf_htt (not in the datacard)
+        Dataset("vbf_htt",
+            folder=p + "VBFHToTauTau_M125",
+            process=self.processes.get("vbf_htt"),
+            # prefix="xrootd-cms.infn.it//",
+            xs=0.237,
+            secondary_dataset="vbf_htt_aux",
+            tags=["ul", "nanoV10"]),
 
         # ttH_hbb
         Dataset("tth_bb",
-            folder=p + "ttHTobb",
+            folder=p + "ttHTobb_M125",
             process=self.processes.get("tth_bb"),
             # prefix="xrootd-cms.infn.it//",
             xs=0.2953,
@@ -342,20 +345,20 @@ def get_common_datasets_v10(self):
             tags=["ul", "nanoV10"]),
         # ttH_htt (not in the datacard)
         Dataset("tth_tautau",
-            folder=p + "ttHToTauTau",
+            folder=p + "ttHToTauTau_M125",
             process=self.processes.get("tth_tautau"),
             # prefix="xrootd-cms.infn.it//",
             xs=0.031805,
             secondary_dataset="tth_tautau_aux",
             tags=["ul", "nanoV10"]),
-        # ttH_hnonbb (removed cause it takes very long and it's not in the datacard for HHbbtt) 
-        # Dataset("tth_nonbb",
-        #     folder=p + "ttHToNonbb",
-        #     process=self.processes.get("tth_nonbb"),
-        #     # prefix="xrootd-cms.infn.it//",
-        #     xs=0.17996,
-        #     secondary_dataset="tth_nonbb_aux",
-        #     tags=["ul", "nanoV10"]),
+        # ttH_hnonbb (not in the datacard) 
+        Dataset("tth_nonbb",
+            folder=p + "ttHToNonbb_M125",
+            process=self.processes.get("tth_nonbb"),
+            # prefix="xrootd-cms.infn.it//",
+            xs=0.17996,
+            secondary_dataset="tth_nonbb_aux",
+            tags=["ul", "nanoV10"]),
 
         # ggH_ZZ
         Dataset("ggH_ZZ",
@@ -376,124 +379,126 @@ def get_common_datasets_v10(self):
             xs=0.002268,
             secondary_dataset="ggf_sm_aux",
             tags=["ul", "nanoV10"]),
-        # # vbf 
-        # Dataset("vbf_sm",
-        #     dataset="",
-        #     process=self.processes.get("vbf_sm"),
-        #     # prefix="xrootd-cms.infn.it//",
-        #     xs=0.001726,
-        #     secondary_dataset="vbf_sm_aux",
-        #     tags=["ul", "nanoV10"]),
 
         ######################################## Data #################################################
         ###############################################################################################
 
-        # Tau 2018
+        # Tau 2017
         Dataset("data_tau_a",
-            folder=p + "Tau_2018A",
+            folder=p + "Tau_Run2017B",
             selection="pairType == 2",
             process=self.processes.get("data_tau"),
-            runPeriod="A",
+            runPeriod="B",
             splitting=-1,
             merging={
                 "tautau": 2,
             },
             tags=["ul", "nanoV10"]),
         Dataset("data_tau_b",
-            folder=p + "Tau_2018B",
+            folder=p + "Tau_Run2017C",
             selection="pairType == 2",
             process=self.processes.get("data_tau"),
-            runPeriod="B",
+            runPeriod="C",
             splitting=-1,
             merging={
                 "tautau": 2,
             },
             tags=["ul", "nanoV10"]),
         Dataset("data_tau_c",
-            folder=p + "Tau_2018C",
+            folder=p + "Tau_Run2017D",
             selection="pairType == 2",
             process=self.processes.get("data_tau"),
-            runPeriod="C",
+            runPeriod="D",
             splitting=-1,
             merging={
                 "tautau": 2,
             },
             tags=["ul", "nanoV10"]),
         Dataset("data_tau_d",
-            folder=p + "Tau_2018D",
+            folder=p + "Tau_Run2017E",
             selection="pairType == 2",
             process=self.processes.get("data_tau"),
-            runPeriod="D",
+            runPeriod="E",
+            splitting=-1,
+            merging={
+                "tautau": 2,
+            },
+            tags=["ul", "nanoV10"]),
+        Dataset("data_tau_e",
+            folder=p + "Tau_Run2017F",
+            selection="pairType == 2",
+            process=self.processes.get("data_tau"),
+            runPeriod="F",
             splitting=-1,
             merging={
                 "tautau": 2,
             },
             tags=["ul", "nanoV10"]),
 
-        # EGamma 2018
+        # SingleElectron 2017
         Dataset("data_etau_a",
-            folder=p + "EGamma_2018A",
+            folder=p + "SingleElectron_Run2017B",
             selection="pairType == 1",
             process=self.processes.get("data_etau"),
-            runPeriod="A",
+            runPeriod="B",
             splitting=-1,
             merging={
                 "etau": 2,
             },
             tags=["ul", "nanoV10"]),
         Dataset("data_etau_b",
-            folder=p + "EGamma_2018B",
+            folder=p + "SingleElectron_Run2017C",
             process=self.processes.get("data_etau"),
-            runPeriod="B",
+            runPeriod="C",
             splitting=-1,
             merging={
                 "etau": 2,
             },
             tags=["ul", "nanoV10"]),
         Dataset("data_etau_c",
-            folder=p + "EGamma_2018C",
+            folder=p + "SingleElectron_Run2017D",
             selection="pairType == 1",
             process=self.processes.get("data_etau"),
-            runPeriod="C",
+            runPeriod="D",
             splitting=-1,
             merging={
                 "etau": 2,
             },
             tags=["ul", "nanoV10"]),
         Dataset("data_etau_d",
-            folder=p + "EGamma_2018D",
+            folder=p + "SingleElectron_Run2017E",
             selection="pairType == 1",
             process=self.processes.get("data_etau"),
-            runPeriod="D",
+            runPeriod="E",
+            splitting=-1,
+            merging={
+                "etau": 2,
+            },
+            tags=["ul", "nanoV10"]),
+        Dataset("data_etau_e",
+            folder=p + "SingleElectron_Run2017F",
+            selection="pairType == 1",
+            process=self.processes.get("data_etau"),
+            runPeriod="F",
             splitting=-1,
             merging={
                 "etau": 2,
             },
             tags=["ul", "nanoV10"]),
 
-        # SingleMuon 2018
+        # SingleMuon 2017
         Dataset("data_mutau_a",
-            folder=p + "SingleMuon_2018A",
+            folder=p + "SingleMuon_Run2017B",
             selection="pairType == 0",
             process=self.processes.get("data_mutau"),
-            runPeriod="A",
-            splitting=-1,
-            merging={
-                "mutau": 2,
-            },
-            tags=["ul", "nanoV10"]),
-        Dataset("data_mutau_b",
-            folder=p + "SingleMuon_2018B",
-            process=self.processes.get("data_mutau"),
-            selection="pairType == 0",
             runPeriod="B",
             splitting=-1,
             merging={
                 "mutau": 2,
             },
             tags=["ul", "nanoV10"]),
-        Dataset("data_mutau_c",
-            folder=p + "SingleMuon_2018C",
+        Dataset("data_mutau_b",
+            folder=p + "SingleMuon_Run2017C",
             process=self.processes.get("data_mutau"),
             selection="pairType == 0",
             runPeriod="C",
@@ -502,11 +507,31 @@ def get_common_datasets_v10(self):
                 "mutau": 2,
             },
             tags=["ul", "nanoV10"]),
-        Dataset("data_mutau_d",
-            folder=p + "SingleMuon_2018D",
+        Dataset("data_mutau_c",
+            folder=p + "SingleMuon_Run2017D",
             process=self.processes.get("data_mutau"),
             selection="pairType == 0",
             runPeriod="D",
+            splitting=-1,
+            merging={
+                "mutau": 2,
+            },
+            tags=["ul", "nanoV10"]),
+        Dataset("data_mutau_d",
+            folder=p + "SingleMuon_Run2017E",
+            process=self.processes.get("data_mutau"),
+            selection="pairType == 0",
+            runPeriod="E",
+            splitting=-1,
+            merging={
+                "mutau": 2,
+            },
+            tags=["ul", "nanoV10"]),
+        Dataset("data_mutau_e",
+            folder=p + "SingleMuon_Run2017F",
+            process=self.processes.get("data_mutau"),
+            selection="pairType == 0",
+            runPeriod="F",
             splitting=-1,
             merging={
                 "mutau": 2,

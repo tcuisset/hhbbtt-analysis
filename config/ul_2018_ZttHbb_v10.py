@@ -39,8 +39,8 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
             "wminush_htt", "wplush_htt", "vbf_htt", 
             "tth_bb", "tth_nonbb", "tth_tautau", "ggH_ZZ", "ggf_sm", 
             # the following datasets are directly added below
-            # "zh_zbb_htt_signal", "zh_ztt_hbb_signal",
-            # "zh_htt",
+            # "zh_ztt_hbb_signal", "zh_ztt_hbb_background",
+            # "zh_zbb_htt",
             # "zz_sl"
             ]:
             datasets.add(
@@ -105,7 +105,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 process=self.processes.get("zh_htt"),
                 xs=0.0554,
                 secondary_dataset="zh_htt_aux",
-                tags=["ul", "nanoV10"]), 
+                tags=["ul", "nanoV10"]),
             Dataset("zh_htt_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -114,7 +114,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 xs=0.0554, # AN
                 # xs=0.7891, # XSDB NLO
                 splitting=200000,
-                tags=["ul"]), 
+                tags=["ul", "secondary"]),
 
             ###################################### ZZ Background ##########################################
             ###############################################################################################
@@ -134,9 +134,9 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
                 splitting=200000,
-                tags=["ul"]),
+                tags=["ul", "secondary"]),
 
-            ###################################### ZZ Resonant ############################################
+            ###################################### ZH Resonant ############################################
             ###############################################################################################
 
             #### ZH Resonance high mass

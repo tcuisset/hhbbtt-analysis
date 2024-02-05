@@ -5,10 +5,10 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from config.base_config_ZH import Config as base_config_ZH
-from config.ul_2018_v9 import get_2018_weights, get_common_datasets_v9
-from config.ul_2018_v10 import setupBtagDeeptau, get_common_datasets_v10
+from config.ul_2016_HIPM_v9 import get_2016_HIPM_weights, get_common_datasets_v9
+from config.ul_2016_HIPM_v10 import setupBtagDeeptau, get_common_datasets_v10
 
-class Config_ul_2018_ZH_v10(base_config_ZH):
+class Config_ul_2016_HIPM_ZH_v10(base_config_ZH):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
@@ -17,11 +17,11 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
         self.categories = self.add_categories()
 
     def add_weights(self):
-        weights = get_2018_weights()
-        weights.ZH_elliptical_cut_zbb_htt_v1 = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_mutau = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_etau = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_tautau = weights.mutau
+        weights = get_2016_HIPM_weights()
+        weights.ZH_elliptical_cut_ztt_hbb_v1 = weights.mutau
+        weights.ZH_elliptical_cut_ztt_hbb_v1_mutau = weights.mutau
+        weights.ZH_elliptical_cut_ztt_hbb_v1_etau = weights.mutau
+        weights.ZH_elliptical_cut_ztt_hbb_v1_tautau = weights.mutau
         return weights
 
     #@override
@@ -39,8 +39,8 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
             "wminush_htt", "wplush_htt", "vbf_htt", 
             "tth_bb", "tth_nonbb", "tth_tautau", "ggH_ZZ", "ggf_sm", 
             # the following datasets are directly added below
-            # "zh_zbb_htt_signal", "zh_ztt_hbb_signal",
-            # "zh_hbb_zll",
+            # "zh_ztt_hbb_signal", "zh_ztt_hbb_background",
+            # "zh_zbb_htt",
             # "zz_sl"
             ]:
             datasets.add(
@@ -49,30 +49,30 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
             )
 
         # ZH datasets
-        # ZH_HToTT_ZToBB is split in 2 processes :
-        # - zh_zbb_htt_signal (with filter for bbtautau decay) 
-        # - zh_zbb_htt_background (with inverted filter)
-        # ZH_HToBB_ZToTT is considered as background
+        # ZH_HToBB_ZToTT is split in 2 processes :
+        # - zh_ztt_hbb_signal (with filter for bbtautau decay) 
+        # - zh_ztt_hbb_background (with inverted filter)
+        # ZH_HToTT_ZToBB is considered as background
         # ZZ_SL is considered as background
 
-        p = "/data_CMS/cms/vernazza/FrameworkNanoAOD/HHbbtautau_NanoAODv10/"
+        p = "/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2016_HIPM/"
 
         datasets += ObjectCollection([
 
             ###################################### ZH Signal ##############################################
             ###############################################################################################
 
-            #### ZH_Htt_Zbb
-            Dataset("zh_zbb_htt_signal",
-                folder=p + "ZHToTauTau",
-                process=self.processes.get("zh_zbb_htt_signal"),
+            #### ZH_Hbb_Zll
+            Dataset("zh_ztt_hbb_signal",
+                folder=p + "ZH_Hbb_Zll",
+                process=self.processes.get("zh_ztt_hbb_signal"),
                 xs=0.0554,
-                secondary_dataset="zh_zbb_htt_signal_aux",
+                secondary_dataset="zh_ztt_hbb_signal_aux",
                 tags=["ul", "nanoV10"]),
-            Dataset("zh_zbb_htt_signal_aux",
-                dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
-                process=self.processes.get("zh_zbb_htt_signal"),
+            Dataset("zh_ztt_hbb_signal_aux",
+                dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
+                process=self.processes.get("zh_ztt_hbb_signal"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.0554, # AN
                 # xs=0.7891, # XSDB NLO
@@ -82,43 +82,41 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
             ###################################### ZH Background ##########################################
             ###############################################################################################
 
-            #### ZH_Htt_Zbb
-            Dataset("zh_zbb_htt_background",
-                folder=p + "ZHToTauTau",
-                process=self.processes.get("zh_zbb_htt_background"),
+            #### ZH_Hbb_Zll
+            Dataset("zh_ztt_hbb_background",
+                folder=p + "ZH_Hbb_Zll",
+                process=self.processes.get("zh_ztt_hbb_background"),
                 xs=0.0554,
-                secondary_dataset="zh_zbb_htt_background_aux",
+                secondary_dataset="zh_ztt_hbb_background_aux",
                 tags=["ul", "nanoV10"]),
-            Dataset("zh_zbb_htt_background_aux",
-                dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
-                process=self.processes.get("zh_zbb_htt_background"),
+            Dataset("zh_ztt_hbb_background_aux",
+                dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
+                process=self.processes.get("zh_ztt_hbb_background"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.0554, # AN
                 # xs=0.7891, # XSDB NLO
                 splitting=200000,
                 tags=["ul", "secondary"]),
 
-            #### ZH_Hbb_Zll
-            Dataset("zh_hbb_zll",
-                folder=p + "ZH_Hbb_Zll",
-                process=self.processes.get("zh_hbb"),
-                xs=0.052,
-                secondary_dataset="zh_hbb_zll_aux",
+            #### ZHToTauTau
+            Dataset("zh_htt",
+                folder=p + "ZHToTauTau_M125_ext1",
+                process=self.processes.get("zh_htt"),
+                xs=0.0554,
+                secondary_dataset="zh_htt_aux",
                 tags=["ul", "nanoV10"]),
-            Dataset("zh_hbb_zll_aux",
-                dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-                process=self.processes.get("zh_hbb"),
+            Dataset("zh_htt_aux",
+                dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+                process=self.processes.get("zh_htt"),
                 # prefix="xrootd-cms.infn.it//",
-                xs=0.052, # AN
-                # xs=0.07977, # XSDB NLO
+                xs=0.0554, # AN
+                # xs=0.7891, # XSDB NLO
                 splitting=200000,
                 tags=["ul", "secondary"]),
 
-            ###################################### ZZ Background ##########################################
-            ###############################################################################################
-            # ZZ semileptonic (added here since ZZ analysis uses this dataset with genfilter for bbtautau, whilst in ZH we use the full dataset)
+            #### ZZ_SL 
             Dataset("zz_sl",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl"),
@@ -127,7 +125,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
                 process=self.processes.get("zz_sl"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=5.52, # AN
@@ -136,17 +134,12 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 splitting=200000,
                 tags=["ul", "secondary"]),
 
-            ###################################### ZZ Resonant ############################################
+            ###################################### ZH Resonant ############################################
             ###############################################################################################
 
-            #### ZH Resonance high mass
-            Dataset("Zprime_Zh_Zbbhtautau_M600",
-                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600/Step_4",
-                process=self.processes.get("Zprime_Zh_Zbbhtautau_M600"),
-                xs=1,
-                tags=["ul", "nanoV10"])
         ])
 
         return datasets
 
-config = Config_ul_2018_ZH_v10("ul_2018_ZbbHtt_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Zbb_Htautau")
+config = Config_ul_2016_HIPM_ZH_v10("ul_2016_HIPM_ZH_v10", year=2016, ecm=13, lumi_pb=19500, isUL=True, ispreVFP=True, AnalysisType="Ztautau_Hbb")
+# https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_MuTau_UL2016APV.cfg#L3C8-L3C13
