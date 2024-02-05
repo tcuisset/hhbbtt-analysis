@@ -406,7 +406,7 @@ def get_common_datasets_v9(self):
         
         ## ZH_HToBB_ZToLL and ZHToTauTau are in ZZ and ZH specific configurations
         
-        # ZH_hbb
+        # ZH_hbb : does not work from CMSDAS for some reason
         # Dataset("zh_hbb_zqq",
         #     dataset="/ZH_HToBB_ZToQQ_M-125_TuneCP5_13TeV-powheg-pythia8/"
         #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",

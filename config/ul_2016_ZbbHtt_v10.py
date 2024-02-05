@@ -141,5 +141,5 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
 
         return datasets
 
-config = Config_ul_2016_ZH_v10("ul_2016_ZH_v10", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Htautau")
+config = Config_ul_2016_ZH_v10("ul_2016_ZbbHtt_v10", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Htautau")
 # https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_ETau_UL2016.cfg#L3C8-L3C13

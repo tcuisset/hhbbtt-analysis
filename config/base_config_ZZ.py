@@ -56,6 +56,7 @@ class Config(BaseConfig):
                     isBkgBBTT=True, ProcType="Zbb_Ztautau"),
 
             # ZH
+            Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(130, 39, 197), parent_process="zh_hbb"),
             Process("zh_hbb", Label("zh_hbb"), color=(130, 39, 197), parent_process="zh"),
             Process("zh_htt", Label("zh_htt"), color=(130, 39, 197), parent_process="zh"),
             Process("zh", Label("ZH"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH"),

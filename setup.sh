@@ -349,7 +349,13 @@ action() {
 
         # ammend software paths
         cmt_add_bin "$CMT_SOFTWARE/bin"
-        cmt_add_py "$CMT_SOFTWARE/lib/python$pyv/site-packages:$CMT_SOFTWARE/lib64/python$pyv/site-packages"
+        # Adding a directory in PYTHON3PATH will lead to the CMSSW sitecustomize.py (located at /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python3/3.9.6-67e5cf5b4952101922f1d4c8474baa39/lib/python3.9/sitecustomize.py)
+        # to run site.addsitedir($CMT_SOFTWARE), which will add it to sys.path as well as load any .pth file therein
+        # this will allow for example pip editable installs to work properly (pip install -e )
+        # We need to put our site-packages in front otherwise python will prefer CMSSW-provided packages rather than our own
+        export PYTHON3PATH="$CMT_SOFTWARE/lib/python$pyv/site-packages:$CMT_SOFTWARE/lib64/python$pyv/site-packages:$PYTHON3PATH"
+        # cmt_add_py "$CMT_SOFTWARE/lib/python$pyv/site-packages:$CMT_SOFTWARE/lib64/python$pyv/site-packages"
+
 
         # setup custom software
         if [ ! -d "$CMT_SOFTWARE" ]; then

@@ -298,10 +298,10 @@ def get_common_datasets_v10(self):
 
         ## ZH_HToBB_ZToLL and ZHToTauTau are in ZZ and ZH specific configurations 
         
-        # ZH_hbb       
+        # ZH_hbb       # removed since the dataset is not available TODO FIXME
         # Dataset("zh_hbb_zqq",
         #     folder=p + "ZH_Hbb_Zqq",
-        #     process=self.processes.get("zh_hbb"),
+        #     process=self.processes.get("zh_hbb"),# the associated process is defined separately in ZZ and ZH configs since the parent process is different in each case
         #     xs=0.36,
         #     secondary_dataset="zh_hbb_zqq_aux",
         #     tags=["ul", "nanoV10"]),

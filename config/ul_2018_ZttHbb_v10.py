@@ -117,7 +117,9 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 splitting=200000,
                 tags=["ul", "secondary"]),
 
-            #### ZZ_SL 
+            ###################################### ZZ Background ##########################################
+            ###############################################################################################
+            # ZZ semileptonic (added here since ZZ analysis uses this dataset with genfilter for bbtautau, whilst in ZH we use the full dataset)
             Dataset("zz_sl",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl"),
@@ -144,4 +146,4 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
 
         return datasets
 
-config = Config_ul_2018_ZH_v10("ul_2018_ZH_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Ztautau_Hbb")
+config = Config_ul_2018_ZH_v10("ul_2018_ZttHbb_v10", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Ztautau_Hbb")

@@ -141,5 +141,5 @@ class Config_ul_2016_HIPM_ZH_v10(base_config_ZH):
 
         return datasets
 
-config = Config_ul_2016_HIPM_ZH_v10("ul_2016_HIPM_ZH_v10", year=2016, ecm=13, lumi_pb=19500, isUL=True, ispreVFP=True, AnalysisType="Ztautau_Hbb")
+config = Config_ul_2016_HIPM_ZH_v10("ul_2016_HIPM_ZttHbb_v10", year=2016, ecm=13, lumi_pb=19500, isUL=True, ispreVFP=True, AnalysisType="Ztautau_Hbb")
 # https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_MuTau_UL2016APV.cfg#L3C8-L3C13
