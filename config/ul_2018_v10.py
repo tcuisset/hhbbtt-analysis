@@ -322,14 +322,15 @@ def get_common_datasets_v10(self):
             secondary_dataset="wminush_htt_aux",
             tags=["ul", "nanoV10"]),    
 
-        # vbf_htt (not in the datacard)
-        Dataset("vbf_htt",
-            folder=p + "VBFHToTauTau",
-            process=self.processes.get("vbf_htt"),
-            # prefix="xrootd-cms.infn.it//",
-            xs=0.237,
-            secondary_dataset="vbf_htt_aux",
-            tags=["ul", "nanoV10"]),
+        # vbf_htt (removed cause it takes very long and it's not in the datacard for HHbbtt) 
+        # Dataset("vbf_htt",
+        #     folder=p + "VBFHToTauTau",
+        #     process=self.processes.get("vbf_htt"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=0.237,
+        #     splitting=100000,
+        #     secondary_dataset="vbf_htt_aux",
+        #     tags=["ul", "nanoV10"]),
 
         # ttH_hbb
         Dataset("tth_bb",
@@ -347,14 +348,14 @@ def get_common_datasets_v10(self):
             xs=0.031805,
             secondary_dataset="tth_tautau_aux",
             tags=["ul", "nanoV10"]),
-        # ttH_hnonbb (not in the datacard) 
-        Dataset("tth_nonbb",
-            folder=p + "ttHToNonbb",
-            process=self.processes.get("tth_nonbb"),
-            # prefix="xrootd-cms.infn.it//",
-            xs=0.17996,
-            secondary_dataset="tth_nonbb_aux",
-            tags=["ul", "nanoV10"]),
+        # ttH_hnonbb (removed cause it takes very long and it's not in the datacard for HHbbtt) 
+        # Dataset("tth_nonbb",
+        #     folder=p + "ttHToNonbb",
+        #     process=self.processes.get("tth_nonbb"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=0.17996,
+        #     secondary_dataset="tth_nonbb_aux",
+        #     tags=["ul", "nanoV10"]),
 
         # ggH_ZZ
         Dataset("ggH_ZZ",
@@ -375,7 +376,7 @@ def get_common_datasets_v10(self):
             xs=0.002268,
             secondary_dataset="ggf_sm_aux",
             tags=["ul", "nanoV10"]),
-        # # vbf
+        # # vbf 
         # Dataset("vbf_sm",
         #     dataset="",
         #     process=self.processes.get("vbf_sm"),

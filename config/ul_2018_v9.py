@@ -438,16 +438,16 @@ def get_common_datasets_v9(self):
             tags=["ul"]),
 
         # vbf_htt (not in the datacard)
-        Dataset("vbf_htt",
-            dataset="/VBFHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
-                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-            process=self.processes.get("vbf_htt"),
-            # prefix="xrootd-cms.infn.it//",
-            xs=0.237, # AN
-            # xs=3.861, # XSDB NLO
-            # xs=3.748, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=1478412-,3.748,-x%200.0632
-            splitting=200000,
-            tags=["ul"]),
+        # Dataset("vbf_htt", # (removed cause it takes very long and it's not in the datacard for HHbbtt) 
+        #     dataset="/VBFHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+        #     process=self.processes.get("vbf_htt"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=0.237, # AN
+        #     # xs=3.861, # XSDB NLO
+        #     # xs=3.748, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=1478412-,3.748,-x%200.0632
+        #     splitting=200000,
+        #     tags=["ul"]),
 
         # ttH_hbb
         Dataset("tth_bb",
@@ -469,16 +469,16 @@ def get_common_datasets_v9(self):
             # xs=0.0321, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#ttH:~:text=pb%20*%206.32E%2D02%20%3D-,0.0321,-pb
             splitting=200000,
             tags=["ul"]),
-        Dataset("tth_nonbb",
-            dataset="/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/"
-                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
-            process=self.processes.get("tth_nonbb"),
-            # prefix="xrootd-cms.infn.it//",
-            xs=0.17996, # AN
-            # xs=0.5638, # XSDB NLO
-            # xs=0.2151, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#ttH:~:text=1%20%2D%205.77E%2D01)%20%3D-,0.2151,-pb
-            splitting=200000,
-            tags=["ul"]),
+        # Dataset("tth_nonbb", # (removed cause it takes very long and it's not in the datacard for HHbbtt) 
+        #     dataset="/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+        #     process=self.processes.get("tth_nonbb"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=0.17996, # AN
+        #     # xs=0.5638, # XSDB NLO
+        #     # xs=0.2151, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#ttH:~:text=1%20%2D%205.77E%2D01)%20%3D-,0.2151,-pb
+        #     splitting=200000,
+        #     tags=["ul"]),
 
         # ggH_ZZ 
         Dataset("ggH_ZZ",
