@@ -37,8 +37,9 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
             "wz_lllnu", "wz_lnuqq", "wz_lnununu", "wz_llqq", "ww_llnunu", "ww_lnuqq", "ww_qqqq",
             "zzz", "wzz", "www", "wwz", 
             "ttw_lnu", "ttw_qq", "ttww", "ttwz", "ttwh", "ttzh", "ttz_llnunu", "ttz_qq", "ttzz", 
-            "wminush_htt", "wplush_htt", "vbf_htt", 
-            "tth_bb", "tth_nonbb", "tth_tautau", "ggH_ZZ", "ggf_sm", 
+            "wminush_htt", "wplush_htt", 
+            "tth_bb", "tth_tautau", "ggH_ZZ", "ggf_sm", 
+            # "tth_nonbb", "vbf_htt" # removed
             # the following datasets are directly added below
             # "zz_sl_signal", "zz_sl_background",
             # "zh_htt", "zh_hbb_zll",
