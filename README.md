@@ -147,3 +147,5 @@ Processes for ZH analysis:
 
 ## Known bugs
 When force reinstalling the software using setup.sh, if the rm calls fail (for example a .nfs file is remaining) then you will be left in a state where the script won't reinstall the software because the software folder exists, but it is mostly empty. You have to remove the folder by hand (`rm -r $CMT_SOFTWARE`), eventually fixing the stale process issue (`/usr/sbin/lsof xxx/.nfsxxx` is useful), then rerun `source setup.sh`
+
+Do not use request_cpus > 1, as some modules are not thread-safe.
