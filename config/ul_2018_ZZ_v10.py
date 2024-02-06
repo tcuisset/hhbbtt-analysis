@@ -108,6 +108,7 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zh_htt"),
                 xs=0.0554,
                 secondary_dataset="zh_htt_aux",
+                categorization_max_events=30000,
                 tags=["ul", "nanoV10"]), 
             Dataset("zh_htt_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
