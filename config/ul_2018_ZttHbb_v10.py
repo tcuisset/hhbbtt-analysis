@@ -126,6 +126,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 process=self.processes.get("zz_sl"),
                 xs=5.52,
                 secondary_dataset="zz_sl_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
