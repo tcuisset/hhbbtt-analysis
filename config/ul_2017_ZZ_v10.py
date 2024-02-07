@@ -69,6 +69,7 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zz_sl_signal"),
                 xs=5.52,
                 secondary_dataset="zz_sl_signal_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_signal_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
