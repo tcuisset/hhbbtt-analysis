@@ -37,8 +37,9 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
             "wz_lllnu", "wz_lnuqq", "wz_lnununu", "wz_llqq", "ww_llnunu", "ww_lnuqq", "ww_qqqq",
             "zzz", "wzz", "www", "wwz", 
             "ttw_lnu", "ttw_qq", "ttww", "ttwz", "ttwh", "ttzh", "ttz_llnunu", "ttz_qq", "ttzz", 
-            "wminush_htt", "wplush_htt", "vbf_htt", 
-            "tth_bb", "tth_nonbb", "tth_tautau", "ggH_ZZ", "ggf_sm", 
+            "wminush_htt", "wplush_htt", 
+            "tth_bb", "tth_tautau", "ggH_ZZ", "ggf_sm", 
+            # "tth_nonbb", "vbf_htt" # removed
             # the following datasets are directly added below
             # "zz_sl_signal", "zz_sl_background",
             # "zh_htt", "zh_hbb_zll",
@@ -62,7 +63,7 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
             ###################################### ZZ Signal ##############################################
             ###############################################################################################
 
-            # ZZ Signal
+            #### ZZ_SL
             Dataset("zz_sl_signal",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
@@ -77,7 +78,6 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
-                splitting=200000,
                 tags=["ul", "secondary"]),
 
             ###################################### ZZ Background ##########################################
@@ -89,6 +89,7 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zz_sl_background"),
                 xs=5.52,
                 secondary_dataset="zz_sl_background_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_background_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
@@ -98,7 +99,6 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
-                splitting=200000,
                 tags=["ul", "secondary"]),
             
             #### ZHToTauTau
@@ -107,6 +107,7 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zh_htt"),
                 xs=0.0554,
                 secondary_dataset="zh_htt_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]), 
             Dataset("zh_htt_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
@@ -115,7 +116,6 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.0554, # AN
                 # xs=0.7891, # XSDB NLO
-                splitting=200000,
                 tags=["ul", "secondary"]),
 
             #### ZH_Hbb_Zll
@@ -124,6 +124,7 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zh_hbb"),
                 xs=0.052,
                 secondary_dataset="zh_hbb_zll_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zh_hbb_zll_aux",
                 dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
@@ -132,7 +133,6 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.052, # AN
                 # xs=0.07977, # XSDB NLO
-                splitting=200000,
                 tags=["ul", "secondary"]),
 
             #### ZZ_SL but considered as background for the resonant analysis
@@ -141,6 +141,7 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zz_bbtt"),
                 xs=5.52,
                 secondary_dataset="zz_bbtt_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zz_bbtt_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
@@ -150,7 +151,6 @@ class Config_ul_2017_ZZ_v10(base_config_ZZ):
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
-                splitting=200000,
                 tags=["ul", "secondary"]),
 
             ###################################### ZZ Resonant ############################################
