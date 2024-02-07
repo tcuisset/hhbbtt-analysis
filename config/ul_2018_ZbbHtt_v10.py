@@ -4,11 +4,11 @@ from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 from collections import OrderedDict
 
-from config.base_config_ZH import Config as base_config_ZH
+from config.base_config_ZbbHtt import ConfigZbbHtt as base_config_ZbbHtt
 from config.ul_2018_v9 import get_2018_weights, get_common_datasets_v9
 from config.ul_2018_v10 import setupBtagDeeptau, get_common_datasets_v10
 
-class Config_ul_2018_ZH_v10(base_config_ZH):
+class Config_ul_2018_ZH_v10(base_config_ZbbHtt):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
