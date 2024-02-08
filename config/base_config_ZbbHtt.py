@@ -137,19 +137,19 @@ class ConfigZbbHtt(BaseConfig):
         processes += ObjectCollection([
             ########### ZbbHtt analysis
             # ZH_HToTT_ZToBB
-            Process("zh_zbb_htt_signal", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"),
+            Process("zh_zbb_htt_signal", Label("ZH (Z#rightarrow bb, H#rightarrow #tau#tau)"),
                     ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(126, 238, 124)),
-            Process("zh_zbb_htt_background", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"), parent_process='higgs',
-                    ProcType="Zbb_Htautau", isBkgBBTT=True, color=(126, 238, 124)),
+            Process("zh_zbb_htt_background", Label("ZH (H#rightarrow#tau#tau) bkg"), parent_process='higgs',
+                    ProcType="Zbb_Htautau", isBkgBBTT=True, color=(224, 190, 79)),
 
             # includes ZH_HToBB_ZToTT as background of ZbbHtt analysis
             Process("zh_hbb", Label("ZH (H#rightarrow bb, Z#rightarrow ll)"), parent_process='higgs',
-                    color=(126, 238, 124)),
+                    color=(1, 99, 24)),
             
             ######### Common
             # ZZ_SL
             Process("zz_sl", Label("zz_sl"), color=(130, 39, 197), parent_process="zz"),
-            Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(130, 39, 197), parent_process="higgs"),
+            Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(28, 130, 145), parent_process="higgs"),
 
 
             ######## Resonant
@@ -157,7 +157,7 @@ class ConfigZbbHtt(BaseConfig):
             Process("Zprime_Zh_Zbbhtautau_M600", Label("Z'#rightarrow ZH #rightarrow bb#tau#tau,  600 GeV"), color=(238, 245, 99), 
                     isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZHbbtt_M600"),
 
-            # background for resonant analysis 
+            # background for resonant analysis TODO actually use it (needs creating the associated dataset)
             Process("zh_zbb_htt", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"), color=(0, 165, 80), 
                     ProcType="Zbb_Htautau", isSigBBTT=True, parent_process='higgs'),
         ])
@@ -177,6 +177,30 @@ class ConfigZbbHtt(BaseConfig):
             "wh",
             #"zh", # this is actually zh_background ie ZH processes not part of signal
             "zh_hbb_zqq",
+            "zh_hbb",
+            "tw",
+            "singlet",
+            "ewk",
+            "wjets",
+            "tt",
+            "ggf_sm",
+            "data",
+        ],
+        "datacard_ZbbHtt_res": [
+            "zh_zbb_htt_signal", # ZbbHtt as background for resonant analysis
+            "zh_zbb_htt_background", # remainder of ZHToTauTau dataset
+            "Zprime_Zh_Zbbhtautau_M600",
+            "ttH",
+            "dy",
+            "vvv",
+            "vbf_htt",
+            "ggH_ZZ",
+            "ttx",
+            "vv", # this includes zz
+            "wh",
+            #"zh", # this is actually zh_background ie ZH processes not part of signal
+            "zh_hbb_zqq",
+            "zh_hbb",
             "tw",
             "singlet",
             "ewk",
