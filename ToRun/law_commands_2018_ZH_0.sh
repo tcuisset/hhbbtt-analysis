@@ -78,6 +78,31 @@ law run CategorizationWrapper --version prod_240128 --category-names base --conf
 
 
 ###############################################################################################################################################
+# DNN INPUT
+###############################################################################################################################################
+
+#pilot
+law run Categorization --version prod_240128 --category-name ZbbHtt_elliptical_cut_90 --config-name ul_2018_ZbbHtt_v10 \
+ --dataset-name zh_zbb_htt_signal \
+ --Categorization-base-category-name base_selection \
+ --Categorization-feature-modules-file modulesrdf_DNN  --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 1 --branch 0
+
+
+law run CategorizationWrapper --version prod_240128 --category-names ZbbHtt_elliptical_cut_90 --config-name ul_2018_ZbbHtt_v10 \
+ --skip-dataset-tags secondary --skip-dataset-names 'data_*' \
+ --Categorization-base-category-name base_selection \
+ --Categorization-feature-modules-file modulesrdf_DNN  --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 50 \
+ --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
+ --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
+
+law run CategorizationWrapper --version prod_240128 --category-names ZttHbb_elliptical_cut_90 --config-name ul_2018_ZttHbb_v10 \
+ --skip-dataset-tags secondary --skip-dataset-names 'data_*' \
+ --Categorization-base-category-name base_selection \
+ --Categorization-feature-modules-file modulesrdf_DNN  --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 100 \
+ --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
+ --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
+
+###############################################################################################################################################
 ############################################################  PRECOUNTER  #####################################################################
 ###############################################################################################################################################
 # ZH specific 
@@ -110,7 +135,7 @@ ln -s /grid_mnt/data__data.polcms/cms/cuisset/cmt/MergeCategorizationStats/ul_20
 ###############################################################################################################################################
 ###### 1D plots
 # ZbbHtt
-law run FeaturePlot --version prod_240128  --category-name base --config-name ul_2018_ZbbHtt_v10 \
+law run FeaturePlot --version prod_240128  --category-name base --config-name ul_2018_ZbbHtt_v10 --region-name os_iso \
  --Categorization-base-category-name base_selection --Categorization-feature-modules-file modulesrdf_Ellipse  \
  --PrePlot2D-workflow local --PrePlot2D-version prod_240128 --PrePlot2D-skip-merging \
  --MergeCategorizationStats-version prod_240128 --Categorization-version prod_240128 \
@@ -118,7 +143,7 @@ law run FeaturePlot --version prod_240128  --category-name base --config-name ul
  --process-group-name datacard_ZbbHtt --save-root --save-png --stack --workers 20 --print-status 1
 
 # ZttHbb
-law run FeaturePlot --version prod_240128  --category-name base --config-name ul_2018_ZttHbb_v10 \
+law run FeaturePlot --version prod_240128  --category-name base --config-name ul_2018_ZttHbb_v10 --region-name os_iso \
  --Categorization-base-category-name base_selection --Categorization-feature-modules-file modulesrdf_Ellipse  \
  --PrePlot2D-workflow local --PrePlot2D-version prod_240128 --PrePlot2D-skip-merging \
  --feature-names ZHKinFit_mass,ZHKinFit_highmass --skip-dataset-tags secondary --skip-dataset-names 'data_*' \
