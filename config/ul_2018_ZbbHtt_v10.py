@@ -89,6 +89,7 @@ class Config_ul_2018_ZH_v10(base_config_ZbbHtt):
                 process=self.processes.get("zh_zbb_htt_background"),
                 xs=0.0554,
                 secondary_dataset="zh_zbb_htt_background_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zh_zbb_htt_background_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
