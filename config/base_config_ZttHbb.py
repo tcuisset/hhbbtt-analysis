@@ -138,7 +138,7 @@ class ConfigZttHbb(BaseConfig):
         processes += ObjectCollection([
             ########### ZttHbb analysis
             # ZH_HToBB_ZToTT
-            Process("zh_ztt_hbb_signal", Label("ZH (Z#rightarrow#tau#tau, H#rightarrow bb)"),
+            Process("zh_ztt_hbb_signal", Label("Z_{#tau#tau}H_{bb}"),
                     ProcType="Ztautau_Hbb", isSigBBTT=True, isSignal=True, color=(126, 238, 124)),
             Process("zh_ztt_hbb_background", Label("ZH (Z#rightarrow ll, H#rightarrow bb) bkg"), parent_process='higgs',
                     ProcType="Ztautau_Hbb", isBkgBBTT=True, color=(224, 190, 79)),
@@ -184,6 +184,17 @@ class ConfigZttHbb(BaseConfig):
             "wjets",
             "tt",
             "ggf_sm",
+            "data",
+        ],
+        "plot": [
+            "zh_ztt_hbb_signal",
+            "higgs", # includes zh_ztt_hbb_background
+            "vv_v",
+            "wjets",
+            "dy",
+            "others",
+            "tt",
+            "ttx",
             "data",
         ],
         # "datacard_ZttHbb_res": [

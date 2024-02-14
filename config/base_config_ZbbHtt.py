@@ -137,7 +137,7 @@ class ConfigZbbHtt(BaseConfig):
         processes += ObjectCollection([
             ########### ZbbHtt analysis
             # ZH_HToTT_ZToBB
-            Process("zh_zbb_htt_signal", Label("ZH (Z#rightarrow bb, H#rightarrow #tau#tau)"),
+            Process("zh_zbb_htt_signal", Label("Z_{bb}H_{#tau#tau}"),
                     ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(126, 238, 124)),
             Process("zh_zbb_htt_background", Label("ZH (H#rightarrow#tau#tau) bkg"), parent_process='higgs',
                     ProcType="Zbb_Htautau", isBkgBBTT=True, color=(224, 190, 79)),
@@ -154,7 +154,7 @@ class ConfigZbbHtt(BaseConfig):
 
             ######## Resonant
             # ZH resonant
-            Process("Zprime_Zh_Zbbhtautau_M600", Label("Z'#rightarrow ZH #rightarrow bb#tau#tau,  600 GeV"), color=(238, 245, 99), 
+            Process("Zprime_Zh_Zbbhtautau_M600", Label("Z'#rightarrow Z_{bb}H_{#tau#tau} (600 GeV)"), color=(238, 245, 99), 
                     isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZHbbtt_M600"),
 
             # background for resonant analysis TODO actually use it (needs creating the associated dataset)
@@ -186,6 +186,17 @@ class ConfigZbbHtt(BaseConfig):
             "ggf_sm",
             "data",
         ],
+        "plot": [
+            "zh_zbb_htt_signal",
+            "higgs", # includes zh_zbb_htt_background
+            "vv_v",
+            "wjets",
+            "dy",
+            "others",
+            "tt",
+            "ttx",
+            "data",
+        ],
         "datacard_ZbbHtt_res": [
             "zh_zbb_htt_signal", # ZbbHtt as background for resonant analysis
             "zh_zbb_htt_background", # remainder of ZHToTauTau dataset
@@ -207,6 +218,18 @@ class ConfigZbbHtt(BaseConfig):
             "wjets",
             "tt",
             "ggf_sm",
+            "data",
+        ],
+        "plot_res": [
+            "Zprime_Zh_Zbbhtautau_M600",
+            "zh_zbb_htt_signal", # TODO fix this
+            "higgs", # includes zh_zbb_htt_background
+            "vv_v",
+            "wjets",
+            "dy",
+            "others",
+            "tt",
+            "ttx",
             "data",
         ],
         "zh_split_signal": [
