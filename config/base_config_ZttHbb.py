@@ -13,6 +13,14 @@ class ConfigZttHbb(BaseConfig):
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
+        sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 2) && (isOS == 1) && "
+                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
+                    .format(self.deeptau.vsjet.Medium))
+        elliptical_cut_90 = ("((({{Ztt_svfit_mass}} - 91.) * ({{Ztt_svfit_mass}} - 91.) / (83. * 83.)"
+                " + ({{Hbb_mass}} - 102.) * ({{Hbb_mass}} - 102.) / (143. * 143.)) < 1)")
+
         categories_mass_cut = ObjectCollection([
             ########## old elliptical cut, not centered on maximum of signal
             # # Best Ellipse (93.0, 172.0, 37.0, 164.0): S_eff=0.8009, B_eff=0.3313, S/sqrt(B)=1.3914
@@ -28,10 +36,22 @@ class ConfigZttHbb(BaseConfig):
 
             ########## New elliptifcal cut, centered on signal maximum
 
-            Category("ZttHbb_elliptical_cut_90", "ZH elliptical mass cut targeting Z->tautau,H->bb, 90% efficiency",
-                selection="(({{Ztt_svfit_mass}} - 91.) * ({{Ztt_svfit_mass}} - 91.) / (83. * 83.)"
-                " + ({{Hbb_mass}} - 102.) * ({{Hbb_mass}} - 102.) / (143. * 143.)) < 1"
+            Category("ZttHbb_elliptical_cut_90", "ZttHbb E=90",
+                selection=elliptical_cut_90
             ),
+            Category("ZttHbb_elliptical_cut_90_sr", "ZZttHbb E=90 & Signal region",
+                selection="(" + elliptical_cut_90 + ") && (" + sr_cut + ")"
+            ),
+            # added automatically below
+            # Category("ZttHbb_elliptical_cut_90_etau", "ZttHbb E=90, etau",
+            #     selection="(" + elliptical_cut_90 + ") && (pairType == 1)"
+            # ),
+            # Category("ZttHbb_elliptical_cut_90_mutau", "ZttHbb E=90, mutau",
+            #     selection="(" + elliptical_cut_90 + ") && (pairType == 0)"
+            # ),
+            # Category("ZttHbb_elliptical_cut_90_tautau", "ZttHbb E=90, tautau",
+            #     selection="(" + elliptical_cut_90 + ") && (pairType == 2)"
+            # ),
         ])
         categories += categories_mass_cut
 

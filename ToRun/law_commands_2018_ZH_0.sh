@@ -88,14 +88,14 @@ law run Categorization --version prod_240128 --category-name ZbbHtt_elliptical_c
  --Categorization-feature-modules-file modulesrdf_DNN  --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 1 --branch 0
 
 
-law run CategorizationWrapper --version prod_240128 --category-names ZbbHtt_elliptical_cut_90 --config-name ul_2018_ZbbHtt_v10 \
+law run CategorizationWrapper --version prod_240128 --category-names ZbbHtt_elliptical_cut_90_sr --config-name ul_2018_ZbbHtt_v10 \
  --skip-dataset-tags secondary --skip-dataset-names 'data_*' \
  --Categorization-base-category-name base_selection \
  --Categorization-feature-modules-file modulesrdf_DNN  --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 50 \
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
 
-law run CategorizationWrapper --version prod_240128 --category-names ZttHbb_elliptical_cut_90 --config-name ul_2018_ZttHbb_v10 \
+law run CategorizationWrapper --version prod_240128 --category-names ZttHbb_elliptical_cut_90_sr --config-name ul_2018_ZttHbb_v10 \
  --skip-dataset-tags secondary --skip-dataset-names 'data_*' \
  --Categorization-base-category-name base_selection \
  --Categorization-feature-modules-file modulesrdf_DNN  --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 100 \
