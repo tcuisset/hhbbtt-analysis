@@ -18,10 +18,15 @@ class Config_ul_2018_ZH_v10(base_config_ZttHbb):
 
     def add_weights(self):
         weights = get_2018_weights()
-        weights.ZH_elliptical_cut_ztt_hbb_v1 = weights.mutau
-        weights.ZH_elliptical_cut_ztt_hbb_v1_mutau = weights.mutau
-        weights.ZH_elliptical_cut_ztt_hbb_v1_etau = weights.mutau
-        weights.ZH_elliptical_cut_ztt_hbb_v1_tautau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90 = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_mutau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_etau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_tautau = weights.mutau
+
+        weights.ZttHbb_elliptical_cut_90_sr = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_sr_mutau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_sr_etau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_sr_tautau = weights.mutau
         return weights
 
     #@override
