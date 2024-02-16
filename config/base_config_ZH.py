@@ -82,6 +82,11 @@ def get_ZH_common_features():
             x_title=Label("ZH #chi^{2} (Kin. Fit)"),
             systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+        
+        Feature("dnn_ZHbbtt_kl_1", "dnn_ZHbbtt_kl_1", binning=(10, 0, 1),
+                x_title=Label("DNN ZZ"),
+                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
     ])
 
 #def get_ZH_common_processes():

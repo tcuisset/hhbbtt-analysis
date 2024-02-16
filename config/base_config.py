@@ -709,12 +709,9 @@ class BaseConfig(cmt_config):
                 systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
             
-            Feature("dnn_ZZbbtt_kl_1", "dnn_ZZbbtt_kl_1", binning=(10, 0, 1),
-                x_title=Label("DNN ZZ"),
-                systematics=["tes", "jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("dnn_hhbbtt_kl_1", "dnn_hhbbtt_kl_1", binning=(10, 0, 1),
-                x_title=Label("DNN HH")),
+            # dnn_ZZbbtt_kl_1 was moved in base_config_ZZ.py
+            # Feature("dnn_hhbbtt_kl_1", "dnn_hhbbtt_kl_1", binning=(10, 0, 1),
+            #     x_title=Label("DNN HH")),
 
             # VBFjet features
             Feature("vbfjet1_pt", "Jet_pt.at(VBFjet1_JetIdx)", binning=(10, 50, 150),
@@ -852,7 +849,7 @@ class BaseConfig(cmt_config):
 
     def get_channel_from_region(self, region):
         for sign in ["os", "ss"]:
-            if sign in region.name:
+            if region is not None and sign in region.name:
                 if region.name.startswith(sign):
                     return ""
                 return region.name[:region.name.index("_%s" % sign)]
