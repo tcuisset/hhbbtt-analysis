@@ -8,6 +8,13 @@ def strToArgs(str:str) -> list[str]:
     args = list(filter(None, str.split(" ")))
     if args[0] == "law":
         args.pop(0)
+    # remove single quotes around arguments (for --skip-dataset-names 'data_*')
+    for i, arg in enumerate(args):
+        try:
+            if arg[0] == "'" and arg[-1] == "'":
+                args[i] = arg[1:-1]
+        except:
+            pass
     args.append("--workers")
     args.append("1")
     return args

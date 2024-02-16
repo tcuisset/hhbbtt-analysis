@@ -11,5 +11,5 @@ export PYTHON3PATH="$PYTHON3PATH:$CMT_SOFTWARE/lib/python$pyv/site-packages:$CMT
 
 Then you can run (replacing then path to your local clone) : 
 ~~~bash
-env pip3 install --ignore-installed --no-cache-dir --upgrade --prefix "$CMT_SOFTWARE" -e /home/llr/cms/cuisset/bbtautau/ZHbbtautau/frameworkDev/analysis_tools
+env pip3 install --ignore-installed --no-cache-dir --upgrade --prefix "$CMT_SOFTWARE" -e /grid_mnt/vol_home/llr/cms/cuisset/bbtautau/ZHbbtautau/frameworkDev/analysis_tools
 ~~~
