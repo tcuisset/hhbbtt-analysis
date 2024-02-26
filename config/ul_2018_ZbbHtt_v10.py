@@ -153,13 +153,13 @@ class Config_ul_2018_ZH_v10(base_config_ZbbHtt):
                 folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600_v1/Step_4",
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M600"),
                 xs=1,
-                tags=["ul", "nanoV10"]),
+                tags=["ul"]),
             # version 2 (miniAODv2, nanov9)
             Dataset("Zprime_Zh_Zbbhtautau_M600",
                 folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600/Step_6",
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M600"),
                 xs=1,
-                tags=["ul", "nanoV10"])
+                tags=["ul"])
         ])
 
         return datasets
