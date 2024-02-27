@@ -22,7 +22,9 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
         weights.ZZ_elliptical_cut_80_etau = weights.mutau
         weights.ZZ_elliptical_cut_80_mutau = weights.mutau
         weights.ZZ_elliptical_cut_80_tautau = weights.mutau
-
+        weights.ZZ_elliptical_cut_80_CR_etau = weights.mutau
+        weights.ZZ_elliptical_cut_80_CR_mutau = weights.mutau
+        weights.ZZ_elliptical_cut_80_CR_tautau = weights.mutau
         return weights
 
     #@override

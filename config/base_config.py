@@ -743,7 +743,7 @@ class BaseConfig(cmt_config):
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
 
             # ZZ KinFit
-            Feature("ZZKinFit_mass", "ZZKinFit_mass", binning=(50, 0, 1000),
+            Feature("ZZKinFit_mass", "ZZKinFit_mass", binning=(50, 150, 1000),
                 x_title=Label("ZZ mass (Kin. Fit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 

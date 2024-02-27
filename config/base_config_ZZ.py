@@ -38,6 +38,16 @@ class Config(BaseConfig):
                 selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 2)"),
 
+            Category("ZZ_elliptical_cut_80_CR_mutau", "CR ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 0)"),
+            Category("ZZ_elliptical_cut_80_CR_etau", "CR ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 1)"),
+            Category("ZZ_elliptical_cut_80_CR_tautau", "CR ZZ mass cut E=80%",
+                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 2)"),
+
             Category("ZZ_elliptical_cut_80_sr_debug", "ZZ mass cut E=80% && Signal region debug",
                 selection="(event == 31332435) || (event == 31336032)"),
         ])
