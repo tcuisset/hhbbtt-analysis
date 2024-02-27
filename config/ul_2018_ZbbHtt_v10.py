@@ -4,11 +4,11 @@ from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 from collections import OrderedDict
 
-from config.base_config_ZH import Config as base_config_ZH
+from config.base_config_ZbbHtt import ConfigZbbHtt as base_config_ZbbHtt
 from config.ul_2018_v9 import get_2018_weights, get_common_datasets_v9
 from config.ul_2018_v10 import setupBtagDeeptau, get_common_datasets_v10
 
-class Config_ul_2018_ZH_v10(base_config_ZH):
+class Config_ul_2018_ZH_v10(base_config_ZbbHtt):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
@@ -18,10 +18,15 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
 
     def add_weights(self):
         weights = get_2018_weights()
-        weights.ZH_elliptical_cut_zbb_htt_v1 = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_mutau = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_etau = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_tautau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90 = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_mutau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_etau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_tautau = weights.mutau
+
+        weights.ZbbHtt_elliptical_cut_90_sr = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_sr_mutau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_sr_etau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_sr_tautau = weights.mutau
         return weights
 
     #@override
@@ -89,6 +94,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 process=self.processes.get("zh_zbb_htt_background"),
                 xs=0.0554,
                 secondary_dataset="zh_zbb_htt_background_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zh_zbb_htt_background_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
@@ -125,6 +131,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 process=self.processes.get("zz_sl"),
                 xs=5.52,
                 secondary_dataset="zz_sl_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
@@ -141,8 +148,15 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
             ###############################################################################################
 
             #### ZH Resonance high mass
+            # version 1 (miniAODv1)
+            Dataset("Zprime_Zh_Zbbhtautau_M600_v1",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600_v1/Step_4",
+                process=self.processes.get("Zprime_Zh_Zbbhtautau_M600"),
+                xs=1,
+                tags=["ul", "nanoV10"]),
+            # version 2 (miniAODv2, nanov9)
             Dataset("Zprime_Zh_Zbbhtautau_M600",
-                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600/Step_4",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600/Step_6",
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M600"),
                 xs=1,
                 tags=["ul", "nanoV10"])

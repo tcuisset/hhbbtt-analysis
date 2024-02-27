@@ -4,11 +4,11 @@ from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 from collections import OrderedDict
 
-from config.base_config_ZH import Config as base_config_ZH
+from config.base_config_ZttHbb import ConfigZttHbb as base_config_ZttHbb
 from config.ul_2018_v9 import get_2018_weights, get_common_datasets_v9
 from config.ul_2018_v10 import setupBtagDeeptau, get_common_datasets_v10
 
-class Config_ul_2018_ZH_v10(base_config_ZH):
+class Config_ul_2018_ZH_v10(base_config_ZttHbb):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
@@ -18,10 +18,15 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
 
     def add_weights(self):
         weights = get_2018_weights()
-        weights.ZH_elliptical_cut_ztt_hbb_v1 = weights.mutau
-        weights.ZH_elliptical_cut_ztt_hbb_v1_mutau = weights.mutau
-        weights.ZH_elliptical_cut_ztt_hbb_v1_etau = weights.mutau
-        weights.ZH_elliptical_cut_ztt_hbb_v1_tautau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90 = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_mutau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_etau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_tautau = weights.mutau
+
+        weights.ZttHbb_elliptical_cut_90_sr = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_sr_mutau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_sr_etau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_sr_tautau = weights.mutau
         return weights
 
     #@override
@@ -126,6 +131,7 @@ class Config_ul_2018_ZH_v10(base_config_ZH):
                 process=self.processes.get("zz_sl"),
                 xs=5.52,
                 secondary_dataset="zz_sl_aux",
+                categorization_max_events=10000,
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
