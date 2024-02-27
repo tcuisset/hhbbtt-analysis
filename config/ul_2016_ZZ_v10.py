@@ -18,6 +18,9 @@ class Config_ul_2016_ZZ_v10(base_config_ZZ):
 
     def add_weights(self):
         weights = get_2016_weights()
+        weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
+            "idAndIsoAndFakeSF", "PUjetID_SF",
+            "bTagweightReshape"]
         weights.ZZ_elliptical_cut_80_sr = weights.mutau
         weights.ZZ_elliptical_cut_80_etau = weights.mutau
         weights.ZZ_elliptical_cut_80_mutau = weights.mutau

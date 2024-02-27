@@ -11,7 +11,7 @@ def get_2016_HIPM_weights():
     weights.total_events_weights = ["genWeight", "puWeight"]
 
     weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-        "idAndIsoAndFakeSF", "PUjetID_SF", "L1PreFiringWeight",
+        "idAndIsoAndFakeSF", "PUjetID_SF",
         "bTagweightReshape"] # removed L1PreFiringWeight for 2018
     
     weights.etau = weights.mutau
