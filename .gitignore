@@ -14,3 +14,5 @@ ToRun/env_changes.md
 ToRun/env_crash.txt
 ToRun/env_works.txt
 ToRun/RunNow.sh
+.venv/
+.vscode/
