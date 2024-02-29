@@ -6,6 +6,7 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from cmt.config.base_config import Config as cmt_config
+from cmt.base_tasks.base import Task
 
 def setupBtagDeeptau(self):
     # https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
@@ -90,6 +91,7 @@ def get_common_processes():
         Process("data_etau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
         Process("data_mutau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
 
+        # unused currently for ZZ/ZH analysis
         Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH",
             parent_process="all_background"),
         Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=False,
@@ -99,6 +101,7 @@ def get_common_processes():
         Process("ggf_5_1", Label("HH_{ggF}^{(5, 1)}"), color=(0, 0, 0), isSignal=False,
             parent_process="ggf"),
 
+        # unused currently for ZZ/ZH analysis
         Process("vbf", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, llr_name="qqH"),
         Process("vbf_sm", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, parent_process="vbf"),
         Process("vbf_0p5_1_1", Label("HH_{VBF}^{(0.5,1,1)}"), color=(0, 0, 0),
