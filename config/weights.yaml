@@ -16,12 +16,10 @@ puweight:
         # isUL: self.dataset.has_tag('ul')
 
 dystitching:
-    name: DYstitchingRDF
+    name: DYstitchingEasyRDF
     path: Tools.Tools.dyreweighting
     parameters:
-        year: self.config.year
         isDY: self.dataset.process.get_aux('isDY', False)
-        isUL: self.dataset.has_tag('ul')
 
 filter_bbtt:
     name: BBTauTauFilterRDF

@@ -2,14 +2,6 @@
 # It is not analysis related (managed by AnalysisType) 
 # It computes the output of the DNN and all the systematic uncertainties
 
-svfit_ZZ:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        met_smear_tag: smeared
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-
 zz:
     name: HHKinFitRDF
     path: Tools.Tools.hh
@@ -35,24 +27,8 @@ zzdnn:
         AnalysisType: self.config.get_aux('AnalysisType', False)
 
 ######################################################################
-# Tau Energy Scale (tes): SVFitRDF + HHKinFitRDF + HHVarRDF + ZZDNNRDF
+# Tau Energy Scale (tes): HHKinFitRDF + HHVarRDF + ZZDNNRDF
 ######################################################################
-
-svfit_tes_up:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        tau_syst: corr_up
-
-svfit_tes_down:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        tau_syst: corr_down
         
 zz_tes_up:
     name: HHKinFitRDF
@@ -114,24 +90,6 @@ zzdnn_tes_down:
 
 # I had to add the the smearing to svfit even if it is not affected by it
 # How to define a systematics that contains two variations? (jet + MET smearing)
-
-svfit_JER_up:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        jet_syst: smeared_up
-        met_syst: up
-
-svfit_JER_down:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        jet_syst: smeared_down
-        met_syst: down
 
 zz_JER_up:
     name: HHKinFitRDF
@@ -196,23 +154,6 @@ zzdnn_JER_down:
 ######################################################################
 # Jet Energy Scale (JES) : HHKinFitRDF + HHVarRDF + ZZDNNRDF
 ######################################################################
-
-svfit_Total_up:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        jet_syst: Total_up
-        met_syst: Total_up
-svfit_Total_down:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        jet_syst: Total_down
-        met_syst: Total_down
 
 zz_Total_up:
     name: HHKinFitRDF

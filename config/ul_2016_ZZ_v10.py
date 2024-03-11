@@ -5,10 +5,10 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from config.base_config_ZZ import Config as base_config_ZZ
-from config.ul_2016_v9 import get_2016_weights, get_common_datasets_v9
-from config.ul_2016_v10 import setupBtagDeeptau, get_common_datasets_v10
+from config.ul_2016_v9 import get_common_datasets_v9
+from config.ul_2016_v10 import setupBtagDeeptau, get_common_datasets_v12, get_2016_v12_weights
 
-class Config_ul_2016_ZZ_v10(base_config_ZZ):
+class Config_ul_2016_ZZ_v12(base_config_ZZ):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
@@ -17,24 +17,25 @@ class Config_ul_2016_ZZ_v10(base_config_ZZ):
         self.categories = self.add_categories()
 
     def add_weights(self):
-        weights = get_2016_weights()
-        weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-            "idAndIsoAndFakeSF", "PUjetID_SF",
-            "bTagweightReshape"]
+        weights = get_2016_v12_weights()
         weights.ZZ_elliptical_cut_80_sr = weights.mutau
         weights.ZZ_elliptical_cut_80_etau = weights.mutau
         weights.ZZ_elliptical_cut_80_mutau = weights.mutau
         weights.ZZ_elliptical_cut_80_tautau = weights.mutau
-
+        weights.ZZ_elliptical_cut_80_CR_etau = weights.mutau
+        weights.ZZ_elliptical_cut_80_CR_mutau = weights.mutau
+        weights.ZZ_elliptical_cut_80_CR_tautau = weights.mutau
         return weights
 
     #@override
     def add_datasets(self):
         v9_datasets = get_common_datasets_v9(self)
-        datasets = get_common_datasets_v10(self)
+        datasets = get_common_datasets_v12(self)
 
         for name in [
-            "wjets", "dy", "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
+            "wjets_ht1", "wjets_ht2", "wjets_ht3", "wjets_ht4", "wjets_ht5", "wjets_ht6", "wjets_ht7", "wjets_ht8",
+            "dy", "dy_ptz1", "dy_ptz2", "dy_ptz3", "dy_ptz4", "dy_ptz5", "dy_ptz6", "dy_0j", "dy_1j", "dy_2j", 
+            "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
             "st_tw_antitop", "st_tw_top", "st_antitop", "st_top",
             "zz_dl", "zz_fh", "zz_lnu", "zz_qnu",
             "wz_lllnu", "wz_lnuqq", "wz_lnununu", "wz_llqq", "ww_llnunu", "ww_lnuqq", "ww_qqqq",
@@ -72,7 +73,7 @@ class Config_ul_2016_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zz_sl_signal"),
                 xs=5.52,
                 secondary_dataset="zz_sl_signal_aux",
-                categorization_max_events=10000,
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_signal_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
@@ -93,7 +94,8 @@ class Config_ul_2016_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zz_sl_background"),
                 xs=5.52,
                 secondary_dataset="zz_sl_background_aux",
-                categorization_max_events=10000,
+                # categorization_max_events=10000,
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_background_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
@@ -111,7 +113,8 @@ class Config_ul_2016_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zh_htt"),
                 xs=0.0554,
                 secondary_dataset="zh_htt_aux",
-                categorization_max_events=10000,
+                # categorization_max_events=10000,
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]), 
             Dataset("zh_htt_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
@@ -128,7 +131,8 @@ class Config_ul_2016_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zh_hbb"),
                 xs=0.052,
                 secondary_dataset="zh_hbb_zll_aux",
-                categorization_max_events=10000,
+                # categorization_max_events=10000,
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
             Dataset("zh_hbb_zll_aux",
                 dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
@@ -145,7 +149,8 @@ class Config_ul_2016_ZZ_v10(base_config_ZZ):
                 process=self.processes.get("zz_bbtt"),
                 xs=5.52,
                 secondary_dataset="zz_bbtt_aux",
-                categorization_max_events=10000,
+                # categorization_max_events=10000,
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
             Dataset("zz_bbtt_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
@@ -168,5 +173,5 @@ class Config_ul_2016_ZZ_v10(base_config_ZZ):
     #     versions = {"MergeCategorizationStats": "prod_503"}
     #     return versions
 
-config = Config_ul_2016_ZZ_v10("ul_2016_ZZ_v10", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Ztautau")
+config = Config_ul_2016_ZZ_v12("ul_2016_ZZ_v12", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Ztautau")
 # https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_ETau_UL2016.cfg#L3C8-L3C13

@@ -13,6 +13,8 @@ drop IsoTrack.*
 drop nIsoTrack.*
 drop nLHEPart
 drop LHE.*
+keep LHE_Vpt
+keep LHE_HT
 drop boostedTau.*
 drop nboostedTau
 drop .*cleanmask
@@ -105,7 +107,6 @@ drop GenProton.*
 drop nGenProton
 drop Proton.*
 drop nProton
-
 drop BeamSpot.*
 drop CaloMET.*
 drop ChsMET.*
@@ -117,6 +118,7 @@ drop FatJet.*
 keep FatJet_pt
 keep FatJet_eta
 keep FatJet_phi
+keep FatJet_mass
 drop nGenJetAK8
 drop GenJetAK8.*
 drop nGenJet

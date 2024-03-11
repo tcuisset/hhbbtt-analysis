@@ -5,8 +5,8 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from config.base_config_ZZ import Config as base_config_ZZ
-from config.ul_2018_v9 import get_2018_weights, get_common_datasets_v9
-from config.ul_2018_v10 import setupBtagDeeptau, get_common_datasets_v10
+from config.ul_2018_v9 import get_common_datasets_v9
+from config.ul_2018_v10 import setupBtagDeeptau, get_common_datasets_v10, get_2018_v10_weights
 
 class Config_ul_2018_ZZ_v10(base_config_ZZ):
     def __init__(self, *args, **kwargs):
@@ -17,7 +17,7 @@ class Config_ul_2018_ZZ_v10(base_config_ZZ):
         self.categories = self.add_categories()
 
     def add_weights(self):
-        weights = get_2018_weights()
+        weights = get_2018_v10_weights()
         weights.ZZ_elliptical_cut_80_sr = weights.mutau
         weights.ZZ_elliptical_cut_80_etau = weights.mutau
         weights.ZZ_elliptical_cut_80_mutau = weights.mutau

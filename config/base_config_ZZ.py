@@ -13,14 +13,14 @@ class Config(BaseConfig):
 
         categories += ObjectCollection([
             Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
-                selection="(({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                selection="(({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1"),
             Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
-                selection="(({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
+                selection="(({{Xtt_svfit_mass}} - 121.) * ({{Xtt_svfit_mass}} - 121.) / (82. * 82.)"
                 " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1"),
             
             Category("ZZ_elliptical_cut_80_sr", "ZZ mass cut E=80% && Signal region",
-                selection="((({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
+                selection="((({{Xtt_svfit_mass}} - 121.) * ({{Xtt_svfit_mass}} - 121.) / (82. * 82.)"
                     " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1) && " + \
                     "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
@@ -29,23 +29,23 @@ class Config(BaseConfig):
                     .format(self.deeptau.vsjet.Medium)),
 
             Category("ZZ_elliptical_cut_80_mutau", "ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 0)"),
             Category("ZZ_elliptical_cut_80_etau", "ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 1)"),
             Category("ZZ_elliptical_cut_80_tautau", "ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 2)"),
 
             Category("ZZ_elliptical_cut_80_CR_mutau", "CR ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 0)"),
             Category("ZZ_elliptical_cut_80_CR_etau", "CR ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 1)"),
             Category("ZZ_elliptical_cut_80_CR_tautau", "CR ZZ mass cut E=80%",
-                selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
                 " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 2)"),
 
             Category("ZZ_elliptical_cut_80_sr_debug", "ZZ mass cut E=80% && Signal region debug",
@@ -141,11 +141,11 @@ class Config(BaseConfig):
             Feature("Ztt_svfit_phi", "Ztt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}) #phi (SVFit)"),
                 systematics=["tes"]),
-            Feature("Ztt_svfit_mass", "Ztt_svfit_mass", binning=(32, 40, 200),
+            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(32, 40, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
-            Feature("Ztt_svfit_mass_ellipse", "Ztt_svfit_mass", binning=(35, 0, 350),
+            Feature("Ztt_svfit_mass_ellipse", "Xtt_svfit_mass", binning=(35, 0, 350),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV"),
 

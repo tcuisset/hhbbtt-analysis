@@ -790,7 +790,7 @@ class BaseConfig(cmt_config):
         weights.default = "1"
 
         # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
-        weights.total_events_weights = ["genWeight", "puWeight"]
+        weights.total_events_weights = ["genWeight", "puWeight", "DYstitchEasyWeight"]
 
         weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",

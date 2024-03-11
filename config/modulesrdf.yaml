@@ -25,6 +25,12 @@ bbtautau_sig_bkg:
         isSigBBTT: self.dataset.process.get_aux('isSigBBTT', False)
         isBkgBBTT: self.dataset.process.get_aux('isBkgBBTT', False)
 
+dystitching:
+    name: DYstitchingEasyRDF
+    path: Tools.Tools.dyreweighting
+    parameters:
+        isDY: self.dataset.process.get_aux('isDY', False)
+
 metfilter:
     name: MetFilterRDF
     path: Base.Modules.METfilters
@@ -49,13 +55,13 @@ hhlepton:
         isMC: self.dataset.process.isMC
         isV10: self.dataset.has_tag("nanoV10")
         year: self.config.year
-        runPeriod: self.dataset.runPeriod
+        runEra: self.dataset.runEra
         vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
         vl_vse: self.config.deeptau.vse.VLoose
         vvl_vse: self.config.deeptau.vse.VVLoose
         t_vsmu: self.config.deeptau.vsmu.Tight
         vl_vsmu: self.config.deeptau.vsmu.VLoose
-        filter: True
+        pairType_filter: True
 
 hhleptonVar:
     name: HHLeptonVarRDF
@@ -139,7 +145,6 @@ hhjets:
         met_smear_tag: smeared
         filter: True
 
-# probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
 bjet1var:
     name: VarFromVectorRDF
     path: Base.Modules.baseModules
@@ -160,6 +165,16 @@ bjet2var:
         output_prefix: bjet2
         condition: self.dataset.process.isMC
 
+fatjetvar:
+    name: VarFromVectorRDF
+    path: Base.Modules.baseModules
+    parameters:
+        variables: [FatJet_pt, FatJet_eta, FatJet_mass]
+        index: fatjet_JetIdx
+        input_prefix: FatJet
+        output_prefix: fatjet
+        condition: self.dataset.process.isMC
+
 # probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
 jecb1:
     name: jecProviderRDF
@@ -172,6 +187,7 @@ jecb1:
         eta: bjet1_eta
         mass: bjet1_mass_nom
 
+# probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
 jecb2:
     name: jecProviderRDF
     path: Corrections.JME.jec
@@ -258,3 +274,73 @@ btag:
         lep_phi: "{dau1_phi, dau2_phi}"
         lep_mass: "{dau1_mass, dau2_mass}"
 
+svfit_ZZ:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+######################################################################
+# Tau Energy Scale (tes): SVFitRDF
+######################################################################
+
+svfit_tes_up:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        tau_syst: corr_up
+
+svfit_tes_down:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        tau_syst: corr_down
+
+######################################################################
+# Jet Energy Resolution (JER) : SVFitRDF
+######################################################################
+
+svfit_JER_up:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        jet_syst: smeared_up
+        met_syst: up
+
+svfit_JER_down:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        jet_syst: smeared_down
+        met_syst: down
+
+######################################################################
+# Jet Energy Scale (JES) : SVFitRDF
+######################################################################
+
+svfit_Total_up:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        jet_syst: Total_up
+        met_syst: Total_up
+svfit_Total_down:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        jet_syst: Total_down
+        met_syst: Total_down

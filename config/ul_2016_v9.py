@@ -3,42 +3,17 @@
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from analysis_tools.utils import DotDict
 
-
-def get_2016_weights():
-    weights = DotDict()
-    weights.default = "1"
-    # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
-    weights.total_events_weights = ["genWeight", "puWeight"]
-
-    weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
-        "idAndIsoAndFakeSF", "PUjetID_SF", 
-        "bTagweightReshape"] # removed L1PreFiringWeight for 2018
-    
-    weights.etau = weights.mutau
-    weights.tautau = weights.mutau
-    weights.base_selection = weights.mutau
-    weights.base = weights.mutau
-    weights.ZZ_elliptical_cut_80_sr = weights.mutau
-    weights.ZZ_elliptical_cut_80_etau = weights.mutau
-    weights.ZZ_elliptical_cut_80_mutau = weights.mutau
-    weights.ZZ_elliptical_cut_80_tautau = weights.mutau
-
-    # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
-        # for channel in weights.channels}
-    return weights
-
 def get_common_datasets_v9(self):
     datasets = [
         
         ######################################## Single boson #########################################
         ###############################################################################################
 
-        # W
+        # used in v10
         Dataset("wjets",
-            dataset="/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            dataset="/WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
             process=self.processes.get("wjets"),
-            # selection="event != 198018547", # to remove high weight event
             # prefix="xrootd-cms.infn.it//",
             xs=61526.7, # 3 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=l%CE%BD%2C%20l%3D%CE%BC-,20508.9,-%2B165.7%20%2D88.2%20(%C2%B1%20770.9
             merging={
@@ -47,6 +22,79 @@ def get_common_datasets_v9(self):
             },
             splitting=200000,
             tags=["ul"]),
+
+        # W
+        Dataset("wjets_ht1",
+            dataset="/WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
+            process=self.processes.get("wjets"),
+            selection="(LHE_HT < 100)",
+            # prefix="xrootd-cms.infn.it//",
+            xs=61526.7, # 3 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=l%CE%BD%2C%20l%3D%CE%BC-,20508.9,-%2B165.7%20%2D88.2%20(%C2%B1%20770.9
+            splitting=200000,
+            tags=["ul"]),
+        Dataset("wjets_ht2",
+            dataset="/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("wjets"),
+            xs=1345, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("wjets_ht3",
+            dataset="/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("wjets"),
+            xs=359.7, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("wjets_ht4",
+            dataset="/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("wjets"),
+            xs=48.91, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("wjets_ht5",
+            dataset="/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("wjets"),
+            xs=12.05, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("wjets_ht6",
+            dataset="/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("wjets"),
+            xs=5.501, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("wjets_ht7",
+            dataset="/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("wjets"),
+            xs=1.329, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("wjets_ht8",
+            dataset="/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("wjets"),
+            xs=0.03216, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+
+        # It's not used at the moment (following HHbbtt strategy)
+        # Dataset("wjets_0j",
+        #     dataset="/WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+        #     process=self.processes.get("wjets"),
+        #     xs=53330.0, # CMSDAS
+        #     tags=["ul"]),
+        # Dataset("wjets_1j",
+        #     dataset="/WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+        #     process=self.processes.get("wjets"),
+        #     xs=8875.0, # CMSDAS
+        #     tags=["ul"]),
+        # Dataset("wjets_2j",
+        #     dataset="/WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+        #     process=self.processes.get("wjets"),
+        #     xs=3338.0, # CMSDAS
+        #     tags=["ul"]),
 
         # DY
         Dataset("dy",
@@ -61,6 +109,62 @@ def get_common_datasets_v9(self):
                 "etau": 20,
                 "mutau": 20,
             },
+            tags=["ul"]),
+
+        Dataset("dy_ptz1",
+            dataset="/DYJetsToLL_LHEFilterPtZ-0To50_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=1409.22, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("dy_ptz2",
+            dataset="/DYJetsToLL_LHEFilterPtZ-50To100_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=377.12, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("dy_ptz3",
+            dataset="/DYJetsToLL_LHEFilterPtZ-100To250_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=92.24, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("dy_ptz4",
+            dataset="/DYJetsToLL_LHEFilterPtZ-250To400_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=3.512, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("dy_ptz5",
+            dataset="/DYJetsToLL_LHEFilterPtZ-400To650_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=0.4826, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("dy_ptz6",
+            dataset="/DYJetsToLL_LHEFilterPtZ-650ToInf_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=0.04487, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+
+        Dataset("dy_0j",
+            dataset="/DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=4867.28, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("dy_1j",
+            dataset="/DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=902.95, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            tags=["ul"]),
+        Dataset("dy_2j",
+            dataset="/DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+            process=self.processes.get("dy"),
+            xs=342.96, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),
 
         # EWK
@@ -399,10 +503,10 @@ def get_common_datasets_v9(self):
         
         ## ZH_HToBB_ZToLL and ZHToTauTau are in ZZ and ZH specific configurations
         
-        # ZH_hbb
+        # ZH_hbb : does not work from CMSDAS for some reason
         # Dataset("zh_hbb_zqq",
         #     dataset="/ZH_HToBB_ZToQQ_M-125_TuneCP5_13TeV-powheg-pythia8/"
-        #     "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+        #         "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
         #     process=self.processes.get("zh_hbb"),
         #     # prefix="xrootd-cms.infn.it//",
         #     xs=0.36, # AN
@@ -431,16 +535,16 @@ def get_common_datasets_v9(self):
             tags=["ul"]),
 
         # vbf_htt (not in the datacard)
-        Dataset("vbf_htt",
-            dataset="/VBFHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
-                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
-            process=self.processes.get("vbf_htt"),
-            # prefix="xrootd-cms.infn.it//",
-            xs=0.237, # AN
-            # xs=3.861, # XSDB NLO
-            # xs=3.748, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=1478412-,3.748,-x%200.0632
-            splitting=200000,
-            tags=["ul"]),
+        # Dataset("vbf_htt", # (removed cause it takes very long and it's not in the datacard for HHbbtt) 
+        #     dataset="/VBFHToTauTau_M125_TuneCP5_13TeV-powheg-pythia8/"
+        #         "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
+        #     process=self.processes.get("vbf_htt"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=0.237, # AN
+        #     # xs=3.861, # XSDB NLO
+        #     # xs=3.748, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=1478412-,3.748,-x%200.0632
+        #     splitting=200000,
+        #     tags=["ul"]),
 
         # ttH_hbb
         Dataset("tth_bb",
@@ -462,16 +566,16 @@ def get_common_datasets_v9(self):
             # xs=0.0321, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#ttH:~:text=pb%20*%206.32E%2D02%20%3D-,0.0321,-pb
             splitting=200000,
             tags=["ul"]),
-        Dataset("tth_nonbb",
-            dataset="/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/"
-                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
-            process=self.processes.get("tth_nonbb"),
-            # prefix="xrootd-cms.infn.it//",
-            xs=0.17996, # AN
-            # xs=0.5638, # XSDB NLO
-            # xs=0.2151, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#ttH:~:text=1%20%2D%205.77E%2D01)%20%3D-,0.2151,-pb
-            splitting=200000,
-            tags=["ul"]),
+        # Dataset("tth_nonbb", # (removed cause it takes very long and it's not in the datacard for HHbbtt) 
+        #     dataset="/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/"
+        #         "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
+        #     process=self.processes.get("tth_nonbb"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=0.17996, # AN
+        #     # xs=0.5638, # XSDB NLO
+        #     # xs=0.2151, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#ttH:~:text=1%20%2D%205.77E%2D01)%20%3D-,0.2151,-pb
+        #     splitting=200000,
+        #     tags=["ul"]),
 
         # ggH_ZZ 
         Dataset("ggH_ZZ",
@@ -503,7 +607,7 @@ def get_common_datasets_v9(self):
             dataset="/Tau/Run2016F-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             selection="pairType == 2",
             process=self.processes.get("data_tau"),
-            runPeriod="F",
+            runEra="F",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={
@@ -514,7 +618,7 @@ def get_common_datasets_v9(self):
             dataset="/Tau/Run2016G-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             selection="pairType == 2",
             process=self.processes.get("data_tau"),
-            runPeriod="G",
+            runEra="G",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={
@@ -525,7 +629,7 @@ def get_common_datasets_v9(self):
             dataset="/Tau/Run2016H-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             selection="pairType == 2",
             process=self.processes.get("data_tau"),
-            runPeriod="H",
+            runEra="H",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={
@@ -538,7 +642,7 @@ def get_common_datasets_v9(self):
             dataset="/SingleElectron/Run2016F-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             selection="pairType == 1",
             process=self.processes.get("data_etau"),
-            runPeriod="F",
+            runEra="F",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={
@@ -549,7 +653,7 @@ def get_common_datasets_v9(self):
             dataset="/SingleElectron/Run2016G-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             selection="pairType == 1",
             process=self.processes.get("data_etau"),
-            runPeriod="G",
+            runEra="G",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={
@@ -560,7 +664,7 @@ def get_common_datasets_v9(self):
             dataset="/SingleElectron/Run2016H-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             selection="pairType == 1",
             process=self.processes.get("data_etau"),
-            runPeriod="H",
+            runEra="H",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={
@@ -573,7 +677,7 @@ def get_common_datasets_v9(self):
             dataset="/SingleMuon/Run2016F-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             selection="pairType == 0",
             process=self.processes.get("data_mutau"),
-            runPeriod="F",
+            runEra="F",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={
@@ -584,7 +688,7 @@ def get_common_datasets_v9(self):
             dataset="/SingleMuon/Run2016G-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             process=self.processes.get("data_mutau"),
             selection="pairType == 0",
-            runPeriod="G",
+            runEra="G",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={
@@ -595,7 +699,7 @@ def get_common_datasets_v9(self):
             dataset="/SingleMuon/Run2016H-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD",
             process=self.processes.get("data_mutau"),
             selection="pairType == 0",
-            runPeriod="H",
+            runEra="H",
             # prefix="xrootd-cms.infn.it//",
             splitting=-1,
             merging={

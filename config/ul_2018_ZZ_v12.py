@@ -5,10 +5,10 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from config.base_config_ZZ import Config as base_config_ZZ
-from config.ul_2016_HIPM_v9 import get_common_datasets_v9
-from config.ul_2016_HIPM_v12 import setupBtagDeeptau, get_common_datasets_v12, get_2016_HIPM_v12_weights
+from config.ul_2018_v9 import get_common_datasets_v9
+from config.ul_2018_v12 import setupBtagDeeptau, get_common_datasets_v12, get_2018_v12_weights 
 
-class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
+class Config_ul_2018_ZZ_v12(base_config_ZZ):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
@@ -17,7 +17,7 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
         self.categories = self.add_categories()
 
     def add_weights(self):
-        weights = get_2016_HIPM_v12_weights()
+        weights = get_2018_v12_weights()
         weights.ZZ_elliptical_cut_80_sr = weights.mutau
         weights.ZZ_elliptical_cut_80_etau = weights.mutau
         weights.ZZ_elliptical_cut_80_mutau = weights.mutau
@@ -61,7 +61,7 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
         # ZHToTauTau is considered as background
         # ZH_Hbb_Zll is considered as background
 
-        p = "/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2016_HIPM/"
+        p = "/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2018/"
         datasets += ObjectCollection([
 
             ###################################### ZZ Signal ##############################################
@@ -77,7 +77,7 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_signal_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("zz_sl_signal"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=5.52, # AN
@@ -99,7 +99,7 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_background_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("zz"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=5.52, # AN
@@ -118,7 +118,7 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
                 tags=["ul", "nanoV10"]), 
             Dataset("zh_htt_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8/"
-                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
                 process=self.processes.get("zh_htt"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.0554, # AN
@@ -136,7 +136,7 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
                 tags=["ul", "nanoV10"]),
             Dataset("zh_hbb_zll_aux",
                 dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
-                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("zh_hbb"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.052, # AN
@@ -154,7 +154,7 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
                 tags=["ul", "nanoV10"]),
             Dataset("zz_bbtt_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
                 process=self.processes.get("zz_bbtt"),
                 # prefix="xrootd-cms.infn.it//",
                 xs=5.52, # AN
@@ -165,7 +165,119 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
             ###################################### ZZ Resonant ############################################
             ###############################################################################################
 
+            #### ZZ Resonance high mass
+            Dataset("ggXZZbbtt_M200",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M200/Step_4",
+                process=self.processes.get("ggXZZbbtt_M200"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M300",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M300/Step_4",
+                process=self.processes.get("ggXZZbbtt_M300"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M400",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M400/Step_4",
+                process=self.processes.get("ggXZZbbtt_M400"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M500",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M500/Step_4",
+                process=self.processes.get("ggXZZbbtt_M500"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M600",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M600/Step_4",
+                process=self.processes.get("ggXZZbbtt_M600"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M700",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M700/Step_4",
+                process=self.processes.get("ggXZZbbtt_M700"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M800",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M800/Step_4",
+                process=self.processes.get("ggXZZbbtt_M800"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M900",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M900/Step_4",
+                process=self.processes.get("ggXZZbbtt_M900"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M1000",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M1000/Step_4",
+                process=self.processes.get("ggXZZbbtt_M1000"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M1100",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M1100/Step_4",
+                process=self.processes.get("ggXZZbbtt_M1100"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M1200",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M1200/Step_4",
+                process=self.processes.get("ggXZZbbtt_M1200"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M1300",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M1300/Step_4",
+                process=self.processes.get("ggXZZbbtt_M1300"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M1400",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M1400/Step_4",
+                process=self.processes.get("ggXZZbbtt_M1400"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M1500",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M1500/Step_4",
+                process=self.processes.get("ggXZZbbtt_M1500"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M2000",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M2000/Step_4",
+                process=self.processes.get("ggXZZbbtt_M2000"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ggXZZbbtt_M3000",
+                folder="/data_CMS/cms/vernazza/MCProduction/2023_11_14/MyPrivateGridpacks/"
+                    "gg_X_ZZbbtautau_M3000/Step_4",
+                process=self.processes.get("ggXZZbbtt_M3000"),
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+
+            ###################################### Other ##################################################
+            ###############################################################################################
+
+            #### Test ULv12
+            # Dataset("zz_sl_signal_test",
+            #     folder="/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2018/ZZTo2Q2L",
+            #     process=self.processes.get("zz_sl_signal"),
+            #     xs=5.52,
+            #     secondary_dataset="zz_sl_signal_aux",
+            #     # categorization_max_events=10000,
+            #     prefix="xrootd-cms.infn.it//",
+            #     tags=["ul", "nanoV10"]),
+
         ])
+            
         return datasets
 
     # if I don't want to specify the version every time
@@ -173,5 +285,4 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
     #     versions = {"MergeCategorizationStats": "prod_503"}
     #     return versions
 
-config = Config_ul_2016_HIPM_ZZ_v12("ul_2016_HIPM_ZZ_v12", year=2016, ecm=13, lumi_pb=19500, isUL=True, ispreVFP=True, AnalysisType="Zbb_Ztautau")
-# https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_MuTau_UL2016APV.cfg#L3C8-L3C13
+config = Config_ul_2018_ZZ_v12("ul_2018_ZZ_v12", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Zbb_Ztautau")

@@ -140,7 +140,7 @@ law run CategorizationWrapper --version prod_240207 --category-names ZZ_elliptic
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
 
-# RUNNING TMUX 0
+# DONE
 law run CategorizationWrapper --version prod_240207 --category-names ZZ_elliptical_cut_80_CR_mutau --config-name ul_2018_ZZ_v10 \
  --skip-dataset-tags secondary \
  --PreprocessRDF-version prod_240128 \
