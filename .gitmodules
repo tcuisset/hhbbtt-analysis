@@ -1,3 +1,9 @@
 [submodule "nanoaod_base_analysis"]
 	path = nanoaod_base_analysis
 	url = https://gitlab.cern.ch/cms-phys-ciemat/nanoaod_base_analysis.git
+[submodule "cmssw_pkgs/InferenceTools"]
+	path = cmssw_pkgs/InferenceTools
+	url = https://github.com/elenavernazza/InferenceTools.git
+[submodule "python_pkgs/analysis_tools"]
+	path = python_pkgs/analysis_tools
+	url = https://gitlab.cern.ch/evernazz/analysis_tools.git
