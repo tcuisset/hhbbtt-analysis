@@ -147,22 +147,17 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
                 tags=["ul", "secondary"]),
 
-            ###################################### ZZ Resonant ############################################
+            ###################################### ZH Resonant ############################################
             ###############################################################################################
 
             #### ZH Resonance high mass
-            # version 1 (miniAODv1)
-            Dataset("Zprime_Zh_Zbbhtautau_M600_v1",
-                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600_v1/Step_4",
-                process=self.processes.get("Zprime_Zh_Zbbhtautau_M600"),
+            # version 3 (miniAODv2 nanoAODv12)
+            Dataset("Zprime_Zh_Zbbhtautau_M500_v3",
+                folder="/eos/grif/cms/llr/store/user/evernazz/bbtt-prod/ZbbHtt_500/",
+                process=self.processes.get("Zprime_Zh_Zbbhtautau_M500"),
+                prefix="eos.grif.fr//",
                 xs=1,
-                tags=["ul"]),
-            # version 2 (miniAODv2, nanov9)
-            Dataset("Zprime_Zh_Zbbhtautau_M600",
-                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_Zh_Zbbhtautau_M600/Step_6",
-                process=self.processes.get("Zprime_Zh_Zbbhtautau_M600"),
-                xs=1,
-                tags=["ul"])
+                tags=["ul", "nanoV10", "res"]),
         ])
 
         return datasets
