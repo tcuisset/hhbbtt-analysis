@@ -35,37 +35,37 @@ def get_common_datasets_v9(self):
             tags=["ul"]),
         Dataset("wjets_ht2",
             dataset="/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=1345, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),
         Dataset("wjets_ht3",
             dataset="/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=359.7, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),
         Dataset("wjets_ht4",
             dataset="/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=48.91, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),
         Dataset("wjets_ht5",
             dataset="/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=12.05, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),
         Dataset("wjets_ht6",
             dataset="/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=5.501, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),
         Dataset("wjets_ht7",
             dataset="/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=1.329, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),

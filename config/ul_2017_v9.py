@@ -59,7 +59,7 @@ def get_common_datasets_v9(self):
             tags=["ul"]),
         Dataset("wjets_ht6",
             dataset="/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
+                "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v3/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=5.501, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),
@@ -71,7 +71,7 @@ def get_common_datasets_v9(self):
             tags=["ul"]),
         Dataset("wjets_ht8",
             dataset="/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
+                "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=0.03216, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),

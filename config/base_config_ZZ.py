@@ -12,44 +12,75 @@ class Config(BaseConfig):
         categories = super().add_categories(**kwargs)
 
         categories += ObjectCollection([
-            Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
-                selection="(({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1"),
-            Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
-                selection="(({{Xtt_svfit_mass}} - 121.) * ({{Xtt_svfit_mass}} - 121.) / (82. * 82.)"
-                " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1"),
+            # Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
+            #     selection="(({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1"),
+            # Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
+            #     selection="(({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
+            #     " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1"),
             
-            Category("ZZ_elliptical_cut_80_sr", "ZZ mass cut E=80% && Signal region",
-                selection="((({{Xtt_svfit_mass}} - 121.) * ({{Xtt_svfit_mass}} - 121.) / (82. * 82.)"
-                    " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1) && " + \
+            # Category("ZZ_elliptical_cut_80_sr", "ZZ mass cut E=80% && Signal region",
+            #     selection="((({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
+            #         " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1) && " + \
+            #         "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+            #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+            #         "((pairType == 2) && (isOS == 1) && "
+            #         "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
+            #         .format(self.deeptau.vsjet.Medium)),
+
+            # Category("ZZ_elliptical_cut_80_mutau", "ZZ mass cut E=80%",
+            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 0)"),
+            # Category("ZZ_elliptical_cut_80_etau", "ZZ mass cut E=80%",
+            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 1)"),
+            # Category("ZZ_elliptical_cut_80_tautau", "ZZ mass cut E=80%",
+            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 2)"),
+
+            # Category("ZZ_elliptical_cut_80_CR_mutau", "CR ZZ mass cut E=80%",
+            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 0)"),
+            # Category("ZZ_elliptical_cut_80_CR_etau", "CR ZZ mass cut E=80%",
+            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 1)"),
+            # Category("ZZ_elliptical_cut_80_CR_tautau", "CR ZZ mass cut E=80%",
+            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
+            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 2)"),
+
+            Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
+                selection="(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1"),
+
+            Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region",
+                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                    " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1) && " + \
                     "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 2) && (isOS == 1) && "
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium)),
 
-            Category("ZZ_elliptical_cut_80_mutau", "ZZ mass cut E=80%",
-                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 0)"),
-            Category("ZZ_elliptical_cut_80_etau", "ZZ mass cut E=80%",
-                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 1)"),
-            Category("ZZ_elliptical_cut_80_tautau", "ZZ mass cut E=80%",
-                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 2)"),
+            Category("ZZ_elliptical_cut_90_CR_mutau", "CR ZZ mass cut E=90%",
+                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1) && (pairType == 0)"),
+            Category("ZZ_elliptical_cut_90_CR_etau", "CR ZZ mass cut E=90%",
+                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1) && (pairType == 1)"),
+            Category("ZZ_elliptical_cut_90_CR_tautau", "CR ZZ mass cut E=90%",
+                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1) && (pairType == 2)"),
 
-            Category("ZZ_elliptical_cut_80_CR_mutau", "CR ZZ mass cut E=80%",
-                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 0)"),
-            Category("ZZ_elliptical_cut_80_CR_etau", "CR ZZ mass cut E=80%",
-                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 1)"),
-            Category("ZZ_elliptical_cut_80_CR_tautau", "CR ZZ mass cut E=80%",
-                selection="((({{Xtt_svfit_mass}} - 105.) * ({{Xtt_svfit_mass}} - 105.) / (51. * 51.)"
-                " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 2)"),
+            Category("ZZ_elliptical_cut_90_mutau", "ZZ mass cut E=90%",
+                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1) && (pairType == 0)"),
+            Category("ZZ_elliptical_cut_90_etau", "ZZ mass cut E=90%",
+                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1) && (pairType == 1)"),
+            Category("ZZ_elliptical_cut_90_tautau", "ZZ mass cut E=90%",
+                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1) && (pairType == 2)"),
 
-            Category("ZZ_elliptical_cut_80_sr_debug", "ZZ mass cut E=80% && Signal region debug",
-                selection="(event == 31332435) || (event == 31336032)"),
         ])
 
         return categories
@@ -74,6 +105,8 @@ class Config(BaseConfig):
             # Feature("ZZ_dR", "sqrt({{ZZ_deta}}*{{ZZ_deta}} + {{ZZ_dphi}}*{{ZZ_dphi}})", 
             #     binning=(30, 0, 10),
             #     x_title=Label("#DeltaR_{ZZ}")),
+            Feature("pairType", "pairType", binning=(5, 0, 4),
+                x_title=Label("Pair Type")),
 
             # Zbb
             Feature("Zbb_pt", "Zbb_pt", binning=(10, 50, 150),
@@ -131,14 +164,14 @@ class Config(BaseConfig):
                 systematics=["tes"]),
 
             # Ztt (SVFit)
-            Feature("Ztt_svfit_pt", "Ztt_svfit_pt", binning=(10, 50, 150),
+            Feature("Ztt_svfit_pt", "Xtt_svfit_pt", binning=(10, 50, 150),
                 x_title=Label("Z(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
-            Feature("Ztt_svfit_eta", "Ztt_svfit_eta", binning=(20, -5., 5.),
+            Feature("Ztt_svfit_eta", "Xtt_svfit_eta", binning=(20, -5., 5.),
                 x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"),
                 systematics=["tes"]),
-            Feature("Ztt_svfit_phi", "Ztt_svfit_phi", binning=(20, -3.2, 3.2),
+            Feature("Ztt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}) #phi (SVFit)"),
                 systematics=["tes"]),
             Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(32, 40, 200),
@@ -229,6 +262,9 @@ class Config(BaseConfig):
                 x_title=Label("DNN ZZ"),
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            
+            Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
+                x_title=Label("LHE PtZ"), units="GeV"),
         ]
         return base_features + ObjectCollection(zz_features)
 
@@ -287,10 +323,43 @@ class Config(BaseConfig):
             # background for resonant analysis 
             Process("zz_bbtt", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
                     isSigBBTT=True, ProcType="Zbb_Ztautau", parent_process="zz", llr_name="ZZbbtt"),
-
+            
+            # DY studies
+            Process("dy_incl", Label("DY Incl"), color=(0, 165, 80), 
+                    parent_process="dy"),
+            Process("dy_ptz1", Label("DY PtZ1"), color=(86, 3, 173), 
+                    parent_process="dy"),
+            Process("dy_ptz2", Label("DY PtZ2"), color=(109, 53,186), 
+                    parent_process="dy"),
+            Process("dy_ptz3", Label("DY PtZ3"), color=(131, 103,199), 
+                    parent_process="dy"),
+            Process("dy_ptz4", Label("DY PtZ4"), color=(179, 161, 232), 
+                    parent_process="dy"),
+            Process("dy_ptz5", Label("DY PtZ5"), color=(210, 208, 237), 
+                    parent_process="dy"),
+            Process("dy_ptz6", Label("DY PtZ6"), color=(225, 232, 239), 
+                    parent_process="dy"),
+            Process("dy_0j", Label("DY 0j"), color=(91, 179, 207), 
+                    parent_process="dy"),
+            Process("dy_1j", Label("DY 1j"), color=(109, 243, 187), 
+                    parent_process="dy"),
+            Process("dy_2j", Label("DY 2j"), color=(83, 223, 124), 
+                    parent_process="dy"),
         ])
 
         process_group_names = {
+        "dy_split": [
+            "dy_incl",
+            "dy_ptz1",
+            "dy_ptz2",
+            "dy_ptz3",
+            "dy_ptz4",
+            "dy_ptz5",
+            "dy_ptz6",
+            "dy_0j",
+            "dy_1j",
+            "dy_2j",
+        ],
         "zz": [
             "zz_sl_signal",
             "higgs",

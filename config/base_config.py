@@ -6,6 +6,7 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from cmt.config.base_config import Config as cmt_config
+from cmt.base_tasks.base import Task
 
 def setupBtagDeeptau(self):
     # https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
