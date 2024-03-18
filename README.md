@@ -78,6 +78,9 @@ dl : dilepton, sl : semileptonic, fh:fully hadronic
 ## Categories
  - base-selection : removes the events where the object has low pt that have no way to be selected for speed (should maybe be cross checked for ZH)
 
+## Systematics
+Actual systematics are computed at Categorization step, configured by the yaml modules config.
+Then at PrePlot step, the Feature definitions list of systematics are looked up. You can remove systematics from Feature.systematics = [....]. If requested systematics were not computed in Categorisation, then you will get an error saying ..._FlavorQCD_up symbol is missing for example.
 
 ## Analysis documentation ZZ
 ### Datasets
@@ -149,3 +152,12 @@ Processes for ZH analysis:
 When force reinstalling the software using setup.sh, if the rm calls fail (for example a .nfs file is remaining) then you will be left in a state where the script won't reinstall the software because the software folder exists, but it is mostly empty. You have to remove the folder by hand (`rm -r $CMT_SOFTWARE`), eventually fixing the stale process issue (`/usr/sbin/lsof xxx/.nfsxxx` is useful), then rerun `source setup.sh`
 
 Do not use request_cpus > 1, as some modules are not thread-safe.
+
+RuntimeError: Failed to find qcd_tesUp : you need to add --propagate-syst-qcd option (FeaturePlot option). You might need to clear out FeaturePlot output with `law run CreateDatacards ... --remove-output 1`
+
+Framework : when there are inheriting tasks, say C depends on B depends on A and B inherits from A (but C does not inherit from B), then parameters to A should be passed on the CLI as --B-param (if passed as --A-param, they will not be passed on when running B.vreq, unless it is "version").
+In particular : `law run RunCombineCombination ...  --FeaturePlot-version prod_240226_fixSystQcd --CreateDatacards-do-qcd --CreateDatacards-... ` rether than `--FeaturePlot-do-qcd`
+
+### Notebooks issues
+luigi v2.8.13 wants tornado>=4,<6 but notebook installed in cmssw wants tornado 6 ([issue](https://github.com/jupyter/notebook/issues/5920)). There is also a jinja issue.
+In case you get the error ̀`ImportError: cannot import name 'contextfilter' from 'jinja2'`, then run `pip install --upgrade --prefix "$CMT_SOFTWARE" jinja2==3.0.3 `. The issue is due to a too recent version of jinja2 being installed , not compatible with the old jupyter nbconvert that comes with CMSSW.
