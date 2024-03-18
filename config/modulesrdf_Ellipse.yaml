@@ -1,14 +1,6 @@
 # This configuration is used for Categorization step
 # It is not analysis related (managed by AnalysisType) 
-# It computes the variables needed for the Elliptical mass cut optimization
-
-svfit_ZZ:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        met_smear_tag: smeared
-        AnalysisType: self.config.get_aux('AnalysisType', False)
+# It computes the variables needed for the Elliptical mass cut optimization (SVFit is already computed at preprocess level)
 
 zz:
     name: HHKinFitRDF

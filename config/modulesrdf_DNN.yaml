@@ -2,14 +2,6 @@
 # It is not analysis related (managed by AnalysisType) 
 # It computes the variables needed for the DNN training
 
-svfit_ZZ:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        met_smear_tag: smeared
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-
 zz:
     name: HHKinFitRDF
     path: Tools.Tools.hh
