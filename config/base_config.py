@@ -26,6 +26,28 @@ def get_common_processes():
         # DY
         Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DYmerged", isDY=True),
         Process("dy_high", Label("DY"), color=(255, 149, 5), llr_name="DYmerged", isDY=True),
+        # DY studies
+        Process("dy_incl", Label("DY Incl"), color=(0, 165, 80), 
+                parent_process="dy", isDY=True),
+        Process("dy_ptz1", Label("DY PtZ1"), color=(86, 3, 173), 
+                parent_process="dy", isDY=True),
+        Process("dy_ptz2", Label("DY PtZ2"), color=(109, 53,186), 
+                parent_process="dy", isDY=True),
+        Process("dy_ptz3", Label("DY PtZ3"), color=(131, 103,199), 
+                parent_process="dy", isDY=True),
+        Process("dy_ptz4", Label("DY PtZ4"), color=(179, 161, 232), 
+                parent_process="dy", isDY=True),
+        Process("dy_ptz5", Label("DY PtZ5"), color=(210, 208, 237), 
+                parent_process="dy", isDY=True),
+        Process("dy_ptz6", Label("DY PtZ6"), color=(225, 232, 239), 
+                parent_process="dy", isDY=True),
+        Process("dy_0j", Label("DY 0j"), color=(91, 179, 207), 
+                parent_process="dy", isDY=True),
+        Process("dy_1j", Label("DY 1j"), color=(109, 243, 187), 
+                parent_process="dy", isDY=True),
+        Process("dy_2j", Label("DY 2j"), color=(83, 223, 124), 
+                parent_process="dy", isDY=True),
+
         # EWK
         Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk"),
         Process("ewk_wplus",  Label("EWK W^{+}"), color=(255, 230, 0), parent_process="ewk"),

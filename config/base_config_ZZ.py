@@ -324,27 +324,6 @@ class Config(BaseConfig):
             Process("zz_bbtt", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
                     isSigBBTT=True, ProcType="Zbb_Ztautau", parent_process="zz", llr_name="ZZbbtt"),
             
-            # DY studies
-            Process("dy_incl", Label("DY Incl"), color=(0, 165, 80), 
-                    parent_process="dy"),
-            Process("dy_ptz1", Label("DY PtZ1"), color=(86, 3, 173), 
-                    parent_process="dy"),
-            Process("dy_ptz2", Label("DY PtZ2"), color=(109, 53,186), 
-                    parent_process="dy"),
-            Process("dy_ptz3", Label("DY PtZ3"), color=(131, 103,199), 
-                    parent_process="dy"),
-            Process("dy_ptz4", Label("DY PtZ4"), color=(179, 161, 232), 
-                    parent_process="dy"),
-            Process("dy_ptz5", Label("DY PtZ5"), color=(210, 208, 237), 
-                    parent_process="dy"),
-            Process("dy_ptz6", Label("DY PtZ6"), color=(225, 232, 239), 
-                    parent_process="dy"),
-            Process("dy_0j", Label("DY 0j"), color=(91, 179, 207), 
-                    parent_process="dy"),
-            Process("dy_1j", Label("DY 1j"), color=(109, 243, 187), 
-                    parent_process="dy"),
-            Process("dy_2j", Label("DY 2j"), color=(83, 223, 124), 
-                    parent_process="dy"),
         ])
 
         process_group_names = {
