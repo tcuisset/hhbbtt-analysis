@@ -174,8 +174,9 @@ class ConfigZbbHtt(BaseConfig):
 
             ######## Resonant
             # ZH resonant
-            Process("Zprime_Zh_Zbbhtautau_M600", Label("Z'#rightarrow Z_{bb}H_{#tau#tau} (600 GeV)"), color=(240, 112, 5), 
-                    isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZHbbtt_M600"),
+            *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label("Z'#rightarrow Z_{bb}H_{#tau#tau} " + f"({mass} GeV)"), color=(240, 112, 5), 
+                    isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name=f"ZHbbtt_M{mass}")
+            for mass in [500,600,700,800,1000,1200,1400,1600,1800,2000,2500,3000,3500,4000,4500,5000,5500,6000]],
 
             # background for resonant analysis TODO actually use it (needs creating the associated dataset)
             Process("zh_zbb_htt", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"), color=(0, 165, 80), 
@@ -241,7 +242,7 @@ class ConfigZbbHtt(BaseConfig):
             "data",
         ],
         "plot_res": [
-            "Zprime_Zh_Zbbhtautau_M600",
+            "Zprime_Zh_Zbbhtautau_M500",
             "zh_zbb_htt_signal", # TODO fix this
             "higgs", # includes zh_zbb_htt_background
             "vv_v",
