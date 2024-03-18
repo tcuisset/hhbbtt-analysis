@@ -6,7 +6,7 @@ from collections import OrderedDict
 
 from config.base_config_ZZ import Config as base_config_ZZ
 from config.ul_2016_v9 import get_common_datasets_v9
-from config.ul_2016_v10 import setupBtagDeeptau, get_common_datasets_v12, get_2016_v12_weights
+from config.ul_2016_v12 import setupBtagDeeptau, get_common_datasets_v12, get_2016_v12_weights
 
 class Config_ul_2016_ZZ_v12(base_config_ZZ):
     def __init__(self, *args, **kwargs):
@@ -109,7 +109,7 @@ class Config_ul_2016_ZZ_v12(base_config_ZZ):
             
             #### ZHToTauTau
             Dataset("zh_htt",
-                folder=p + "ZHToTauTau_M125_ext1",
+                folder=p + "ZHToTauTau_M125",
                 process=self.processes.get("zh_htt"),
                 xs=0.0554,
                 secondary_dataset="zh_htt_aux",
@@ -173,5 +173,5 @@ class Config_ul_2016_ZZ_v12(base_config_ZZ):
     #     versions = {"MergeCategorizationStats": "prod_503"}
     #     return versions
 
-config = Config_ul_2016_ZZ_v12("ul_2016_ZZ_v12", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Ztautau")
+config = Config_ul_2016_ZZ_v12("ul_2016_ZZ_v12", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Ztautau", ispreVFP=False)
 # https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_ETau_UL2016.cfg#L3C8-L3C13
