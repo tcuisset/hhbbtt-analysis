@@ -18,13 +18,13 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
 
     def add_weights(self):
         weights = get_2016_HIPM_v12_weights()
-        weights.ZZ_elliptical_cut_80_sr = weights.mutau
-        weights.ZZ_elliptical_cut_80_etau = weights.mutau
-        weights.ZZ_elliptical_cut_80_mutau = weights.mutau
-        weights.ZZ_elliptical_cut_80_tautau = weights.mutau
-        weights.ZZ_elliptical_cut_80_CR_etau = weights.mutau
-        weights.ZZ_elliptical_cut_80_CR_mutau = weights.mutau
-        weights.ZZ_elliptical_cut_80_CR_tautau = weights.mutau
+        weights.ZZ_elliptical_cut_90_sr = weights.mutau
+        weights.ZZ_elliptical_cut_90_etau = weights.mutau
+        weights.ZZ_elliptical_cut_90_mutau = weights.mutau
+        weights.ZZ_elliptical_cut_90_tautau = weights.mutau
+        weights.ZZ_elliptical_cut_90_CR_etau = weights.mutau
+        weights.ZZ_elliptical_cut_90_CR_mutau = weights.mutau
+        weights.ZZ_elliptical_cut_90_CR_tautau = weights.mutau
         return weights
 
     #@override
