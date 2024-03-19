@@ -8,7 +8,7 @@ from config.base_config_ZttHbb import ConfigZttHbb as base_config_ZttHbb
 from config.ul_2016_HIPM_v9 import get_common_datasets_v9
 from config.ul_2016_HIPM_v12 import setupBtagDeeptau, get_common_datasets_v12, get_2016_HIPM_v12_weights 
 
-class Config_ul_2016_HIPM_ZH_v10(base_config_ZttHbb):
+class Config_ul_2016_HIPM_ZH_v12(base_config_ZttHbb):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
