@@ -150,7 +150,67 @@ class Config_ul_2018_ZH_v12(base_config_ZttHbb):
             ###################################### ZH Resonant ############################################
             ###############################################################################################
 
-            #### ZH Resonance high mass
+            #### ZH Resonance high mass (Private Production)
+            # version 3 (miniAODv2 nanoAODv12)
+            Dataset("Zprime_Zh_Ztautauhbb_M500_v3",
+                folder="/eos/grif/cms/llr/store/user/evernazz/bbtt-prod/PrivateZH/ZttHbb_500/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M500"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("Zprime_Zh_Ztautauhbb_M500_v3_aux",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Ztautauhbb_M500/Step_6",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M500"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("Zprime_Zh_Ztautauhbb_M1000_v3",
+                folder="/eos/grif/cms/llr/store/user/evernazz/bbtt-prod/PrivateZH/ZttHbb_1000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("Zprime_Zh_Ztautauhbb_M1000_v3_aux",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Ztautauhbb_M1000/Step_6",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("Zprime_Zh_Ztautauhbb_M2000_v3",
+                folder="/eos/grif/cms/llr/store/user/evernazz/bbtt-prod/PrivateZH/ZttHbb_2000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M2000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("Zprime_Zh_Ztautauhbb_M2000_v3_aux",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Ztautauhbb_M2000/Step_6",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M2000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("Zprime_Zh_Ztautauhbb_M3000_v3",
+                folder="/eos/grif/cms/llr/store/user/evernazz/bbtt-prod/PrivateZH/ZttHbb_3000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M3000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("Zprime_Zh_Ztautauhbb_M3000_v3_aux",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Ztautauhbb_M3000/Step_6",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M3000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("Zprime_Zh_Ztautauhbb_M4000_v3",
+                folder="/eos/grif/cms/llr/store/user/evernazz/bbtt-prod/PrivateZH/ZttHbb_4000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M4000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("Zprime_Zh_Ztautauhbb_M4000_v3_aux",
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Ztautauhbb_M4000/Step_6",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M4000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
 
         ])
 
