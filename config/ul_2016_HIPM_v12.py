@@ -6,7 +6,7 @@ def get_2016_HIPM_v12_weights():
     weights = DotDict()
     weights.default = "1"
     # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
-    weights.total_events_weights = ["genWeight", "puWeight", "DYstitchEasyWeight"]
+    weights.total_events_weights = ["genWeight", "puWeight"]
 
     weights.mutau = ["genWeight", "puWeight", "DYstitchEasyWeight", "prescaleWeight", 
         "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF",
