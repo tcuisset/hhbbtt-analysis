@@ -10,18 +10,18 @@ def get_common_datasets_v9(self):
         ###############################################################################################
 
         # used in v10
-        Dataset("wjets",
-            dataset="/WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
-            process=self.processes.get("wjets"),
-            # prefix="xrootd-cms.infn.it//",
-            xs=61526.7, # 3 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=l%CE%BD%2C%20l%3D%CE%BC-,20508.9,-%2B165.7%20%2D88.2%20(%C2%B1%20770.9
-            merging={
-                "tautau": 5,
-                "etau": 10,
-            },
-            splitting=200000,
-            tags=["ul"]),
+        # Dataset("wjets",
+        #     dataset="/WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+        #         "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
+        #     process=self.processes.get("wjets"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=61526.7, # 3 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=l%CE%BD%2C%20l%3D%CE%BC-,20508.9,-%2B165.7%20%2D88.2%20(%C2%B1%20770.9
+        #     merging={
+        #         "tautau": 5,
+        #         "etau": 10,
+        #     },
+        #     splitting=200000,
+        #     tags=["ul"]),
 
         # W
         Dataset("wjets_ht1",
@@ -100,10 +100,10 @@ def get_common_datasets_v9(self):
         Dataset("dy",
             dataset="/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
+            process=self.processes.get("dy_incl"),
             # prefix="xrootd-cms.infn.it//",
             # prefix="cms-xrd-global.cern.ch//",
-            xs=6077.22, # https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=Z%20%E2%86%92%20%E2%84%93%E2%84%93-,6077.22,-Z/a*%20(60
+            xs=6424.0, # XSDB
             merging={
                 "tautau": 20,
                 "etau": 20,
@@ -114,57 +114,57 @@ def get_common_datasets_v9(self):
         Dataset("dy_ptz1",
             dataset="/DYJetsToLL_LHEFilterPtZ-0To50_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=1409.22, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_ptz1"),
+            xs=1485.0, # XSDB
             tags=["ul"]),
         Dataset("dy_ptz2",
             dataset="/DYJetsToLL_LHEFilterPtZ-50To100_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=377.12, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_ptz2"),
+            xs=397.4, # XSDB
             tags=["ul"]),
         Dataset("dy_ptz3",
             dataset="/DYJetsToLL_LHEFilterPtZ-100To250_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=92.24, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_ptz3"),
+            xs=97.2, # XSDB
             tags=["ul"]),
         Dataset("dy_ptz4",
             dataset="/DYJetsToLL_LHEFilterPtZ-250To400_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=3.512, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_ptz4"),
+            xs=3.701, # XSDB
             tags=["ul"]),
         Dataset("dy_ptz5",
             dataset="/DYJetsToLL_LHEFilterPtZ-400To650_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=0.4826, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_ptz5"),
+            xs=0.5086, # XSDB
             tags=["ul"]),
         Dataset("dy_ptz6",
             dataset="/DYJetsToLL_LHEFilterPtZ-650ToInf_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=0.04487, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_ptz6"),
+            xs=0.040981055, # XSDB
             tags=["ul"]),
 
         Dataset("dy_0j",
             dataset="/DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=4867.28, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_0j"),
+            xs=5090.0, # XSDB
             tags=["ul"]),
         Dataset("dy_1j",
             dataset="/DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=902.95, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_1j"),
+            xs=983.5, # XSDB
             tags=["ul"]),
         Dataset("dy_2j",
             dataset="/DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                 "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
-            process=self.processes.get("dy"),
-            xs=342.96, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
+            process=self.processes.get("dy_2j"),
+            xs=353.6, # XSDB
             tags=["ul"]),
 
         # EWK
