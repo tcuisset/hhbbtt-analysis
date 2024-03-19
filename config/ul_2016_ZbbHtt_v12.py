@@ -4,11 +4,11 @@ from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 from collections import OrderedDict
 
-from config.base_config_ZH import Config as base_config_ZH
-from config.ul_2016_v9 import get_2016_weights, get_common_datasets_v9
-from config.ul_2016_v10 import setupBtagDeeptau, get_common_datasets_v10
+from config.base_config_ZbbHtt import ConfigZbbHtt as base_config_ZbbHtt
+from config.ul_2016_v9 import get_common_datasets_v9
+from config.ul_2016_v12 import setupBtagDeeptau, get_common_datasets_v12, get_2016_v12_weights
 
-class Config_ul_2016_ZH_v10(base_config_ZH):
+class Config_ul_2016_ZH_v12(base_config_ZbbHtt):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
@@ -17,27 +17,35 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
         self.categories = self.add_categories()
 
     def add_weights(self):
-        weights = get_2016_weights()
-        weights.ZH_elliptical_cut_zbb_htt_v1 = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_mutau = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_etau = weights.mutau
-        weights.ZH_elliptical_cut_zbb_htt_v1_tautau = weights.mutau
+        weights = get_2016_v12_weights()
+        weights.ZbbHtt_elliptical_cut_90 = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_mutau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_etau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_tautau = weights.mutau
+
+        weights.ZbbHtt_elliptical_cut_90_sr = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_sr_mutau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_sr_etau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_sr_tautau = weights.mutau
         return weights
 
     #@override
     def add_datasets(self):
         v9_datasets = get_common_datasets_v9(self)
-        datasets = get_common_datasets_v10(self)
+        datasets = get_common_datasets_v12(self)
 
         for name in [
-            "wjets", "dy", "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
+            "wjets_ht1", "wjets_ht2", "wjets_ht3", "wjets_ht4", "wjets_ht5", "wjets_ht6", "wjets_ht7", "wjets_ht8",
+            "dy", "dy_ptz1", "dy_ptz2", "dy_ptz3", "dy_ptz4", "dy_ptz5", "dy_ptz6", "dy_0j", "dy_1j", "dy_2j", 
+            "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
             "st_tw_antitop", "st_tw_top", "st_antitop", "st_top",
             "zz_dl", "zz_fh", "zz_lnu", "zz_qnu",
             "wz_lllnu", "wz_lnuqq", "wz_lnununu", "wz_llqq", "ww_llnunu", "ww_lnuqq", "ww_qqqq",
             "zzz", "wzz", "www", "wwz", 
             "ttw_lnu", "ttw_qq", "ttww", "ttwz", "ttwh", "ttzh", "ttz_llnunu", "ttz_qq", "ttzz", 
-            "wminush_htt", "wplush_htt", "vbf_htt", 
-            "tth_bb", "tth_nonbb", "tth_tautau", "ggH_ZZ", "ggf_sm", 
+            "wminush_htt", "wplush_htt", 
+            "tth_bb", "tth_tautau", "ggH_ZZ", "ggf_sm", 
+            # "tth_nonbb", "vbf_htt" # removed
             # the following datasets are directly added below
             # "zh_zbb_htt_signal", "zh_ztt_hbb_signal",
             # "zh_hbb_zll",
@@ -56,7 +64,6 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
         # ZZ_SL is considered as background
 
         p = "/eos/cms/store/group/phys_higgs/HLepRare/HTT_skim_v1/Run2_2016/"
-
         datasets += ObjectCollection([
 
             ###################################### ZH Signal ##############################################
@@ -64,10 +71,11 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
 
             #### ZH_Htt_Zbb
             Dataset("zh_zbb_htt_signal",
-                folder=p + "ZHToTauTau_M125_ext1",
+                folder=p + "ZHToTauTau_M125",
                 process=self.processes.get("zh_zbb_htt_signal"),
                 xs=0.0554,
                 secondary_dataset="zh_zbb_htt_signal_aux",
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
             Dataset("zh_zbb_htt_signal_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
@@ -84,10 +92,12 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
 
             #### ZH_Htt_Zbb
             Dataset("zh_zbb_htt_background",
-                folder=p + "ZHToTauTau_M125_ext1",
+                folder=p + "ZHToTauTau_M125",
                 process=self.processes.get("zh_zbb_htt_background"),
                 xs=0.0554,
                 secondary_dataset="zh_zbb_htt_background_aux",
+                # categorization_max_events=10000,
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
             Dataset("zh_zbb_htt_background_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8_ext1/"
@@ -96,7 +106,6 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.0554, # AN
                 # xs=0.7891, # XSDB NLO
-                splitting=200000,
                 tags=["ul", "secondary"]),
 
             #### ZH_Hbb_Zll
@@ -105,6 +114,8 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
                 process=self.processes.get("zh_hbb"),
                 xs=0.052,
                 secondary_dataset="zh_hbb_zll_aux",
+                # categorization_max_events=10000,
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
             Dataset("zh_hbb_zll_aux",
                 dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
@@ -113,7 +124,6 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
                 # prefix="xrootd-cms.infn.it//",
                 xs=0.052, # AN
                 # xs=0.07977, # XSDB NLO
-                splitting=200000,
                 tags=["ul", "secondary"]),
 
             #### ZZ_SL 
@@ -122,6 +132,8 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
                 process=self.processes.get("zz_sl"),
                 xs=5.52,
                 secondary_dataset="zz_sl_aux",
+                # categorization_max_events=10000,
+                prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
             Dataset("zz_sl_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
@@ -131,7 +143,6 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
-                splitting=200000,
                 tags=["ul", "secondary"]),
 
             ###################################### ZH Resonant ############################################
@@ -141,5 +152,5 @@ class Config_ul_2016_ZH_v10(base_config_ZH):
 
         return datasets
 
-config = Config_ul_2016_ZH_v10("ul_2016_ZbbHtt_v10", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Htautau")
+config = Config_ul_2016_ZH_v12("ul_2016_ZbbHtt_v12", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Htautau", ispreVFP=False)
 # https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_ETau_UL2016.cfg#L3C8-L3C13
