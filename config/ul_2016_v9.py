@@ -71,7 +71,7 @@ def get_common_datasets_v9(self):
             tags=["ul"]),
         Dataset("wjets_ht8",
             dataset="/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/"
-                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM",
+                "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM",
             process=self.processes.get("wjets"),
             xs=0.03216, # https://github.com/LLRCMS/KLUBAnalysis/blob/master/scripts/submit_skims.sh
             tags=["ul"]),
