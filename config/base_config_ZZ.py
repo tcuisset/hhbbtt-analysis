@@ -233,22 +233,22 @@ class Config(BaseConfig):
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
 
             # ZZ KinFit
-            Feature("ZZKinFit_mass", "ZZKinFit_mass", binning=(50, 0, 1000),
+            Feature("ZZKinFit_mass", "ZZKinFit_mass", binning=(50, 150, 1150),
                 x_title=Label("ZZ mass (Kin. Fit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ZZKinFit_highmass", "ZZKinFit_mass", binning=(175, 0, 3500),
+            Feature("ZZKinFit_highmass", "ZZKinFit_mass", binning=(175, 150, 3550),
                 x_title=Label("ZZ mass (Kin. Fit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ZZKinFit_mass_res", "ZZKinFit_mass", binning=(50, 180, 1180),
+            Feature("ZZKinFit_mass_res", "ZZKinFit_mass", binning=(50, 150, 1150),
                 x_title=Label("ZZ mass (Kin. Fit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ZZKinFit_highmass_res", "ZZKinFit_mass", binning=(175, 180, 3680),
+            Feature("ZZKinFit_highmass_res", "ZZKinFit_mass", binning=(175, 150, 3650),
                 x_title=Label("ZZ mass (Kin. Fit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
@@ -265,6 +265,9 @@ class Config(BaseConfig):
             
             Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
                 x_title=Label("LHE PtZ"), units="GeV"),
+            Feature("LHE_HT", "LHE_HT", binning=(100, 0, 1000),
+                x_title=Label("LHE HT"), units="GeV"),
+
         ]
         return base_features + ObjectCollection(zz_features)
 
@@ -326,6 +329,7 @@ class Config(BaseConfig):
             
         ])
 
+
         process_group_names = {
         "dy_split": [
             "dy_incl",
@@ -338,6 +342,35 @@ class Config(BaseConfig):
             "dy_0j",
             "dy_1j",
             "dy_2j",
+        ],
+        "dy_incl": [
+            "dy_incl",
+        ],
+        "dy_nj": [
+            "dy_0j",
+            "dy_1j",
+            "dy_2j",
+        ],
+        "dy_ptz": [
+            "dy_ptz1",
+            "dy_ptz2",
+            "dy_ptz3",
+            "dy_ptz4",
+            "dy_ptz5",
+            "dy_ptz6",
+        ],
+        "wjets_incl": [
+            "wjets",
+        ],
+        "wjets_split": [
+            "wjets_ht1",
+            "wjets_ht2",
+            "wjets_ht3",
+            "wjets_ht4",
+            "wjets_ht5",
+            "wjets_ht6",
+            "wjets_ht7",
+            "wjets_ht8",
         ],
         "zz": [
             "zz_sl_signal",

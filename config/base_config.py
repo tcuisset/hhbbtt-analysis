@@ -23,6 +23,23 @@ def get_common_processes():
     processes = [
         # W
         Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="all_background", llr_name="WJets"),
+        Process("wjets_ht1", Label("Wjets 1"), color=(5, 87, 92), 
+                parent_process="wjets"),
+        Process("wjets_ht2", Label("Wjets 2"), color=(54, 125, 135), 
+                parent_process="wjets"),
+        Process("wjets_ht3", Label("Wjets 3"), color=(77, 149, 167), 
+                parent_process="wjets"),
+        Process("wjets_ht4", Label("Wjets 4"), color=(99, 173, 199), 
+                parent_process="wjets"),
+        Process("wjets_ht5", Label("Wjets 5"), color=(144, 221, 244), 
+                parent_process="wjets"),
+        Process("wjets_ht6", Label("Wjets 6"), color=(127, 232, 214), 
+                parent_process="wjets"),
+        Process("wjets_ht7", Label("Wjets 7"), color=(109, 243, 187), 
+                parent_process="wjets"),
+        Process("wjets_ht8", Label("Wjets 8"), color=(126, 238, 124), 
+                parent_process="wjets"),
+
         # DY
         Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DYmerged", isDY=True),
         Process("dy_high", Label("DY"), color=(255, 149, 5), llr_name="DYmerged", isDY=True),
