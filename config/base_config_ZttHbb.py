@@ -9,63 +9,44 @@ from config.base_config_ZH import get_ZH_common_features
 class ConfigZttHbb(BaseConfig):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-    
+
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
+        elliptical_cut_90 = ("((({{Ztt_svfit_mass}} - 91.) * ({{Ztt_svfit_mass}} - 91.) / (83. * 83.)"
+                " + ({{Hbb_mass}} - 102.) * ({{Hbb_mass}} - 102.) / (143. * 143.)) < 1)")
+        elliptical_cut_90_inv = ("((({{Ztt_svfit_mass}} - 91.) * ({{Ztt_svfit_mass}} - 91.) / (83. * 83.)"
+                " + ({{Hbb_mass}} - 102.) * ({{Hbb_mass}} - 102.) / (143. * 143.)) >= 1)")
         sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 2) && (isOS == 1) && "
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium))
-        elliptical_cut_90 = ("((({{Ztt_svfit_mass}} - 91.) * ({{Ztt_svfit_mass}} - 91.) / (83. * 83.)"
-                " + ({{Hbb_mass}} - 102.) * ({{Hbb_mass}} - 102.) / (143. * 143.)) < 1)")
+        
+        categories += ObjectCollection([
 
-        categories_mass_cut = ObjectCollection([
-            ########## old elliptical cut, not centered on maximum of signal
-            # # Best Ellipse (93.0, 172.0, 37.0, 164.0): S_eff=0.8009, B_eff=0.3313, S/sqrt(B)=1.3914
-            # Category("ZH_elliptical_cut_80_ztt_hbb", "ZH elliptical mass cut targeting Z->bb,H->tautau",
-            #     selection="(({{Ztt_svfit_mass}} - 93.) * ({{Ztt_svfit_mass}} - 93.) / (37. * 37.)"
-            #     " + ({{Zbb_mass}} - 172.) * ({{Zbb_mass}} - 172.) / (164. * 164.)) < 1"
-            # ),
-            # #Best Ellipse (100.0, 189.0, 64.0, 187.0): S_eff=0.9000, B_eff=0.5304, S/sqrt(B)=1.2358
-            # Category("ZH_elliptical_cut_90_ztt_hbb", "ZH elliptical mass cut targeting Z->bb,H->tautau",
-            #     selection="(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (64. * 64.)"
-            #     " + ({{Zbb_mass}} - 189.) * ({{Zbb_mass}} - 189.) / (187. * 187.)) < 1"
-            # ),
+            Category("ZttHbb_elliptical_cut_90", "Elliptical cut E=90%",
+                selection=elliptical_cut_90),
+            Category("ZttHbb_elliptical_cut_90_sr", "ZH mass cut E=90% && Signal region",
+                selection="("+elliptical_cut_90+") && ("+sr_cut+")"),
 
-            ########## New elliptifcal cut, centered on signal maximum
+            Category("ZttHbb_elliptical_cut_90_CR_mutau", "CR ZH mass cut E=90%",
+                selection="("+elliptical_cut_90_inv+") && (pairType == 0)"),
+            Category("ZttHbb_elliptical_cut_90_CR_etau", "CR ZH mass cut E=90%",
+                selection="("+elliptical_cut_90_inv+") && (pairType == 1)"),
+            Category("ZttHbb_elliptical_cut_90_CR_tautau", "CR ZH mass cut E=90%",
+                selection="("+elliptical_cut_90_inv+") && (pairType == 2)"),
 
-            Category("ZttHbb_elliptical_cut_90", "ZttHbb E=90",
-                selection=elliptical_cut_90
-            ),
-            Category("ZttHbb_elliptical_cut_90_sr", "ZZttHbb E=90 & Signal region",
-                selection="(" + elliptical_cut_90 + ") && (" + sr_cut + ")"
-            ),
-            # added automatically below
-            # Category("ZttHbb_elliptical_cut_90_etau", "ZttHbb E=90, etau",
-            #     selection="(" + elliptical_cut_90 + ") && (pairType == 1)"
-            # ),
-            # Category("ZttHbb_elliptical_cut_90_mutau", "ZttHbb E=90, mutau",
-            #     selection="(" + elliptical_cut_90 + ") && (pairType == 0)"
-            # ),
-            # Category("ZttHbb_elliptical_cut_90_tautau", "ZttHbb E=90, tautau",
-            #     selection="(" + elliptical_cut_90 + ") && (pairType == 2)"
-            # ),
+            Category("ZttHbb_elliptical_cut_90_mutau", "ZH mass cut E=90%",
+                selection="("+elliptical_cut_90+") && (pairType == 0)"),
+            Category("ZttHbb_elliptical_cut_90_etau", "ZH mass cut E=90%",
+                selection="("+elliptical_cut_90+") && (pairType == 1)"),
+            Category("ZttHbb_elliptical_cut_90_tautau", "ZH mass cut E=90%",
+                selection="("+elliptical_cut_90+") && (pairType == 2)"),
+
         ])
-        categories += categories_mass_cut
 
-        # add the same ellipitical cuts but in mutau, etau, tautau versions
-        for channelName, pairType in {"mutau": 0, "etau": 1, "tautau": 2}.items():
-            for baseEllipticalCut in categories_mass_cut:
-                categories.append(
-                        Category(
-                            name = baseEllipticalCut.name + "_" + channelName,
-                            label = baseEllipticalCut.label + f" ({channelName})",
-                            selection  =f"({baseEllipticalCut.selection}) && (pairType == {pairType})"
-                        )
-                    )
-        return ObjectCollection(categories)
+        return categories
     
     #@override
     def add_features(self):
@@ -130,21 +111,21 @@ class ConfigZttHbb(BaseConfig):
                 systematics=["tes"]),
 
             # Ztt (SVFit)
-            Feature("Ztt_svfit_pt", "Ztt_svfit_pt", binning=(10, 50, 150),
+            Feature("Ztt_svfit_pt", "Xtt_svfit_pt", binning=(10, 50, 150),
                 x_title=Label("Z(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
-            Feature("Ztt_svfit_eta", "Ztt_svfit_eta", binning=(20, -5., 5.),
+            Feature("Ztt_svfit_eta", "Xtt_svfit_eta", binning=(20, -5., 5.),
                 x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"),
                 systematics=["tes"]),
-            Feature("Ztt_svfit_phi", "Ztt_svfit_phi", binning=(20, -3.2, 3.2),
+            Feature("Ztt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}) #phi (SVFit)"),
                 systematics=["tes"]),
-            Feature("Ztt_svfit_mass", "Ztt_svfit_mass", binning=(32, 40, 200),
+            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(32, 40, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
-            Feature("Ztt_svfit_mass_ellipse", "Ztt_svfit_mass", binning=(35, 0, 350),
+            Feature("Ztt_svfit_mass_ellipse", "Xtt_svfit_mass", binning=(35, 0, 350),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV"),
         ]
@@ -172,11 +153,11 @@ class ConfigZttHbb(BaseConfig):
             Process("zz_sl", Label("zz_sl"), color=(130, 39, 197), parent_process="zz"),
             Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(130, 39, 197), parent_process="higgs"),
 
-
             ######## Resonant
             # ZH resonant
-            # Process("Zprime_Zh_Zbbhtautau_M600", Label("Z'#rightarrow ZH #rightarrow bb#tau#tau,  600 GeV"), color=(238, 245, 99), 
-            #         isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZHbbtt_M600"),
+            *[Process(f"Zprime_Zh_Ztautauhbb_M{mass}", Label("Z'#rightarrow Z_{#tau#tau}H_{bb} " + f"({mass} GeV)"), color=(240, 112, 5), 
+                    isSigBBTT=True, ProcType="Ztautau_Hbb", isSignal=True, llr_name=f"ZHbbtt_M{mass}")
+            for mass in [500,600,700,800,1000,1200,1400,1600,1800,2000,2500,3000,3500,4000,4500,5000,5500,6000]],
 
             # background for resonant analysis TODO use this (needs processing the dataset) instead of using zh_ztt_hbb_signal
             # Process("zh_ztt_hbb", Label("ZH (H#rightarrow#tau#tau, Z#rightarrow bb)"), color=(0, 165, 80), 

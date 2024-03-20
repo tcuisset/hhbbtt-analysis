@@ -9,62 +9,44 @@ from config.base_config_ZH import get_ZH_common_features
 class ConfigZbbHtt(BaseConfig):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-    
+
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
+        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
+                " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) < 1)")
+        elliptical_cut_90_inv = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
+                " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) >= 1)")
         sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 2) && (isOS == 1) && "
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium))
-        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
-                " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) < 1)")
+        
+        categories += ObjectCollection([
 
-        categories_mass_cut = ObjectCollection([
-            ########## old elliptical cut, not centered on maximum of signal
-            # # Best Ellipse (140.0, 82.0, 57.0, 66.0): S_eff=0.8019, B_eff=0.3956, S/sqrt(B)=1.2751
-            # Category("ZH_elliptical_cut_80_zbb_htt", "ZH elliptical mass cut targeting Z->bb,H->tautau",
-            #     selection="(({{Ztt_svfit_mass}} - 140.) * ({{Ztt_svfit_mass}} - 140.) / (57. * 57.)"
-            #     " + ({{Zbb_mass}} - 82.) * ({{Zbb_mass}} - 82.) / (66. * 66.)) < 1"
-            # ),
-            # # Best Ellipse (158.0, 118.0, 83.0, 118.0): S_eff=0.9003, B_eff=0.5991, S/sqrt(B)=1.1632
-            # Category("ZH_elliptical_cut_90_zbb_htt", "ZH elliptical mass cut targeting Z->bb,H->tautau",
-            #     selection="(({{Ztt_svfit_mass}} - 158.) * ({{Ztt_svfit_mass}} - 158.) / (83. * 83.)"
-            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (118. * 118.)) < 1"
-            # ),
+            Category("ZbbHtt_elliptical_cut_90", "Elliptical cut E=90%",
+                selection=elliptical_cut_90),
+            Category("ZbbHtt_elliptical_cut_90_sr", "ZH mass cut E=90% && Signal region",
+                selection="("+elliptical_cut_90+") && ("+sr_cut+")"),
 
-            ########## New elliptifcal cut, centered on signal maximum
-            Category("ZbbHtt_elliptical_cut_90", "ZbbHtt E=90",
-                selection=elliptical_cut_90
-            ),
-            Category("ZbbHtt_elliptical_cut_90_sr", "ZbbHtt E=90",
-                selection="(" + elliptical_cut_90 + ") && (" + sr_cut + ")"
-            ),
+            Category("ZbbHtt_elliptical_cut_90_CR_mutau", "CR ZH mass cut E=90%",
+                selection="("+elliptical_cut_90_inv+") && (pairType == 0)"),
+            Category("ZbbHtt_elliptical_cut_90_CR_etau", "CR ZH mass cut E=90%",
+                selection="("+elliptical_cut_90_inv+") && (pairType == 1)"),
+            Category("ZbbHtt_elliptical_cut_90_CR_tautau", "CR ZH mass cut E=90%",
+                selection="("+elliptical_cut_90_inv+") && (pairType == 2)"),
 
-            # Category("ZbbHtt_elliptical_cut_90_etau", "ZbbHtt E=90, etau",
-            #     selection="(" + elliptical_cut_90 + ") && (pairType == 1)"
-            # ),
-            # Category("ZbbHtt_elliptical_cut_90_mutau", "ZbbHtt E=90, mutau",
-            #     selection="(" + elliptical_cut_90 + ") && (pairType == 0)"
-            # ),
-            # Category("ZbbHtt_elliptical_cut_90_tautau", "ZbbHtt E=90, tautau",
-            #     selection="(" + elliptical_cut_90 + ") && (pairType == 2)"
-            # ),
+            Category("ZbbHtt_elliptical_cut_90_mutau", "ZH mass cut E=90%",
+                selection="("+elliptical_cut_90+") && (pairType == 0)"),
+            Category("ZbbHtt_elliptical_cut_90_etau", "ZH mass cut E=90%",
+                selection="("+elliptical_cut_90+") && (pairType == 1)"),
+            Category("ZbbHtt_elliptical_cut_90_tautau", "ZH mass cut E=90%",
+                selection="("+elliptical_cut_90+") && (pairType == 2)"),
+
         ])
-        categories += categories_mass_cut
 
-        # add the same ellipitical cuts but in mutau, etau, tautau versions
-        for channelName, pairType in {"mutau": 0, "etau": 1, "tautau": 2}.items():
-            for baseEllipticalCut in categories_mass_cut:
-                categories.append(
-                        Category(
-                            name = baseEllipticalCut.name + "_" + channelName,
-                            label = baseEllipticalCut.label + f" ({channelName})",
-                            selection  =f"({baseEllipticalCut.selection}) && (pairType == {pairType})"
-                        )
-                    )
-        return ObjectCollection(categories)
+        return categories
     
     #@override
     def add_features(self):
@@ -139,11 +121,11 @@ class ConfigZbbHtt(BaseConfig):
             Feature("Htt_svfit_phi", "Htt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("H(#tau^{+}#tau^{-}) #phi (SVFit)"),
                 systematics=["tes"]),
-            Feature("Htt_svfit_mass", "Htt_svfit_mass", binning=(32, 40, 200),
+            Feature("Htt_svfit_mass", "Xtt_svfit_mass", binning=(32, 40, 200),
                 x_title=Label("H(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
-            Feature("Htt_svfit_mass_ellipse", "Htt_svfit_mass", binning=(35, 0, 350),
+            Feature("Htt_svfit_mass_ellipse", "Xtt_svfit_mass", binning=(35, 0, 350),
                 x_title=Label("H(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV"),
         ]
