@@ -38,13 +38,13 @@ def get_common_datasets_v9(self):
             xs=3338.0, # CMSDAS
             tags=["ul"]),
 
-        # Dataset("wjets_MLM",
-        #     dataset="/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer19UL18NanoAOD-106X_upgrade2018_realistic_v11_L1v1-v1/NANOAODSIM",
-        #     process=self.processes.get("wjets_mlm"),
-        #     # prefix="xrootd-cms.infn.it//",
-        #     xs=53940.0, # XSDB
-        #     tags=["ul"]),
+        Dataset("wjets_MLM",
+            dataset="/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("wjets_mlm"),
+            # prefix="xrootd-cms.infn.it//",
+            xs=53940.0, # XSDB
+            tags=["ul"]),
 
         # Dataset("wjets_MLM_1j",
         #     dataset="/W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/"
