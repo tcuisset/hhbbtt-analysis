@@ -359,10 +359,20 @@ class Config(BaseConfig):
             "dy_ptz5",
             "dy_ptz6",
         ],
-        "wjets_incl": [
-            "wjets",
+        "wjets_fxfx": [ "wjets_fxfx" ],
+        "wjets_mlm" : [ "wjets_mlm" ],
+        "wjets_fxfx_Nj": [
+            "wjets_fxfx_0j",
+            "wjets_fxfx_1j",
+            "wjets_fxfx_2j",
         ],
-        "wjets_split": [
+        "wjets_mlm_Nj": [
+            "wjets_mlm_1j",
+            "wjets_mlm_2j",
+            "wjets_mlm_3j",
+            "wjets_mlm_4j",
+        ],
+        "wjets_mlm_HT": [
             "wjets_ht1",
             "wjets_ht2",
             "wjets_ht3",
