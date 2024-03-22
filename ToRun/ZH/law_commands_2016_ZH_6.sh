@@ -10,7 +10,7 @@ law run PreprocessRDFWrapper --version prod_240305 --category-names base_selecti
  --PreprocessRDF-workflow htcondor --PreprocessRDF-htcondor-scheduler llrt3condor.in2p3.fr --PreprocessRDF-transfer-logs \
  --PreprocessRDF-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=long,WNTag=el7'
 
-# RUNNING TMUX 4
+# DONE
 law run PreprocessRDFWrapper --version prod_240305 --category-names base_selection --config-name ul_2016_ZttHbb_v12 \
  --skip-dataset-tags secondary \
  --PreprocessRDF-modules-file modulesrdf \
@@ -22,14 +22,14 @@ law run PreprocessRDFWrapper --version prod_240305 --category-names base_selecti
 ############################################################  PRECOUNTER  #####################################################################
 ###############################################################################################################################################
 
-# 
+# DONE
 law run MergeCategorizationStatsWrapper --version prod_240305 --config-name ul_2016_ZbbHtt_v12 \
  --dataset-tags secondary,res \
  --workers 30 --PreCounter-weights-file weights --systematic-names pu \
  --PreCounter-workflow htcondor --PreCounter-htcondor-scheduler llrt3condor.in2p3.fr --PreCounter-transfer-logs \
  --PreCounter-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
 
-# 
+# DONE
 law run MergeCategorizationStatsWrapper --version prod_240305 --config-name ul_2016_ZttHbb_v12 \
  --dataset-tags secondary,res \
  --workers 30 --PreCounter-weights-file weights --systematic-names pu \

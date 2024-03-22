@@ -22,14 +22,14 @@ law run PreprocessRDFWrapper --version prod_240305 --category-names base_selecti
 ############################################################  PRECOUNTER  #####################################################################
 ###############################################################################################################################################
 
-# 
+# DONE
 law run MergeCategorizationStatsWrapper --version prod_240305 --config-name ul_2016_HIPM_ZbbHtt_v12 \
  --dataset-tags secondary,res \
  --workers 30 --PreCounter-weights-file weights --systematic-names pu \
  --PreCounter-workflow htcondor --PreCounter-htcondor-scheduler llrt3condor.in2p3.fr --PreCounter-transfer-logs \
  --PreCounter-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
 
-# 
+# DONE
 law run MergeCategorizationStatsWrapper --version prod_240305 --config-name ul_2016_HIPM_ZttHbb_v12 \
  --dataset-tags secondary,res \
  --workers 30 --PreCounter-weights-file weights --systematic-names pu \

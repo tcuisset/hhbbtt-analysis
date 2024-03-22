@@ -10,40 +10,40 @@ def get_common_datasets_v9(self):
         ###############################################################################################
 
         # W
-        Dataset("wjets_FXFX",
-            dataset="/WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
-            process=self.processes.get("wjets_fxfx"),
-            selection="(event != 198018547)", # to remove high weight event
-            # prefix="xrootd-cms.infn.it//",
-            xs=66680.0, # XSDB
-            tags=["ul"]),
+        # Dataset("wjets_FXFX",
+        #     dataset="/WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+        #     process=self.processes.get("wjets_fxfx"),
+        #     # prefix="xrootd-cms.infn.it//",
+        #     xs=61526.7, # XSDB
+        #     tags=["ul"]),
 
-        Dataset("wjets_FXFX_0j",
-            dataset="/WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-            process=self.processes.get("wjets_fxfx_0j"),
-            xs=53330.0, # CMSDAS
-            tags=["ul"]),
-        Dataset("wjets_FXFX_1j",
-            dataset="/WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-            process=self.processes.get("wjets_fxfx_1j"),
-            xs=8875.0, # CMSDAS
-            tags=["ul"]),
-        Dataset("wjets_FXFX_2j",
-            dataset="/WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
-                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-            process=self.processes.get("wjets"),
-            xs=3338.0, # CMSDAS
-            tags=["ul"]),
+        # Dataset("wjets_FXFX_0j",
+        #     dataset="/WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+        #     process=self.processes.get("wjets_fxfx_0j"),
+        #     xs=52780.0/64888.0*61526.7, # CMSDAS
+        #     tags=["ul"]),
+        # Dataset("wjets_FXFX_1j",
+        #     dataset="/WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+        #     process=self.processes.get("wjets_fxfx_1j"),
+        #     xs=8832.0/64888.0*61526.7, # CMSDAS
+        #     tags=["ul"]),
+        # Dataset("wjets_FXFX_2j",
+        #     dataset="/WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
+        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+        #     process=self.processes.get("wjets"),
+        #     xs=3276.0/64888.0*61526.7, # CMSDAS
+        #     tags=["ul"]),
 
         Dataset("wjets_MLM",
             dataset="/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            selection="(event != 198018547)", # to remove high weight event
             process=self.processes.get("wjets_mlm"),
             # prefix="xrootd-cms.infn.it//",
-            xs=53940.0, # XSDB
+            xs=61526.7, # XSDB
             tags=["ul"]),
 
         # Dataset("wjets_MLM_1j",
@@ -71,57 +71,57 @@ def get_common_datasets_v9(self):
         #     xs=385.5, # CMSDAS
         #     tags=["ul"]),
 
-        # Dataset("wjets_ht1",
-        #     dataset="/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer19UL18NanoAOD-106X_upgrade2018_realistic_v11_L1v1-v1/NANOAODSIM",
-        #     process=self.processes.get("wjets_ht1"),
-        #     selection="(LHE_HT < 100) && (event != 198018547)", # to remove high weight event
-        #     # prefix="xrootd-cms.infn.it//",
-        #     xs=61526.7, # 3 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=l%CE%BD%2C%20l%3D%CE%BC-,20508.9,-%2B165.7%20%2D88.2%20(%C2%B1%20770.9
-        #     splitting=200000,
-        #     tags=["ul"]),
-        # Dataset("wjets_ht2",
-        #     dataset="/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-        #     process=self.processes.get("wjets_ht2"),
-        #     xs=1244.0, # XSDB
-        #     tags=["ul"]),
-        # Dataset("wjets_ht3",
-        #     dataset="/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-        #     process=self.processes.get("wjets_ht3"),
-        #     xs=337.8, # XSDB
-        #     tags=["ul"]),
-        # Dataset("wjets_ht4",
-        #     dataset="/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-        #     process=self.processes.get("wjets_ht4"),
-        #     xs=44.93, # XSDB
-        #     tags=["ul"]),
-        # Dataset("wjets_ht5",
-        #     dataset="/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-        #     process=self.processes.get("wjets_ht5"),
-        #     xs=11.19, # XSDB
-        #     tags=["ul"]),
-        # Dataset("wjets_ht6",
-        #     dataset="/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-        #     process=self.processes.get("wjets_ht6"),
-        #     xs=4.926, # XSDB
-        #     tags=["ul"]),
-        # Dataset("wjets_ht7",
-        #     dataset="/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
-        #     process=self.processes.get("wjets_ht7"),
-        #     xs=1.152, # XSDB
-        #     tags=["ul"]),
-        # Dataset("wjets_ht8",
-        #     dataset="/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/"
-        #         "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
-        #     process=self.processes.get("wjets_ht8"),
-        #     xs=0.0002507, # XSDB
-        #     tags=["ul"]),
+        Dataset("wjets_ht1",
+            dataset="/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("wjets_ht1"),
+            selection="(event != 198018547)", # to remove high weight event
+            # prefix="xrootd-cms.infn.it//",
+            xs=61526.7, # 3 * https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=l%CE%BD%2C%20l%3D%CE%BC-,20508.9,-%2B165.7%20%2D88.2%20(%C2%B1%20770.9
+            splitting=200000,
+            tags=["ul"]),
+        Dataset("wjets_ht2",
+            dataset="/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("wjets_ht2"),
+            xs=1244.0, # XSDB
+            tags=["ul"]),
+        Dataset("wjets_ht3",
+            dataset="/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("wjets_ht3"),
+            xs=337.8, # XSDB
+            tags=["ul"]),
+        Dataset("wjets_ht4",
+            dataset="/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("wjets_ht4"),
+            xs=44.93, # XSDB
+            tags=["ul"]),
+        Dataset("wjets_ht5",
+            dataset="/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("wjets_ht5"),
+            xs=11.19, # XSDB
+            tags=["ul"]),
+        Dataset("wjets_ht6",
+            dataset="/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("wjets_ht6"),
+            xs=4.926, # XSDB
+            tags=["ul"]),
+        Dataset("wjets_ht7",
+            dataset="/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
+            process=self.processes.get("wjets_ht7"),
+            xs=1.152, # XSDB
+            tags=["ul"]),
+        Dataset("wjets_ht8",
+            dataset="/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/"
+                "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+            process=self.processes.get("wjets_ht8"),
+            xs=0.0002507, # XSDB
+            tags=["ul"]),
 
         # DY
         Dataset("dy",

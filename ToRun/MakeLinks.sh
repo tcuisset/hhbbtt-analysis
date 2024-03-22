@@ -49,6 +49,54 @@ for process_dir in /data_CMS/cms/vernazza/cmt/PreprocessRDF/ul_2016_ZZ_v12/*; do
     fi
 done 
 
+mkdir /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2018_ZbbHtt_v12
+cd /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2018_ZbbHtt_v12
+for process_dir in /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2018_ZZ_v12/*; do
+    if [[ ! $(basename $process_dir) == ggXZZbbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+        ln -s $process_dir $(basename $process_dir)
+    fi
+    fi
+    fi
+done 
+
+mkdir /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2017_ZbbHtt_v12
+cd /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2017_ZbbHtt_v12
+for process_dir in /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2017_ZZ_v12/*; do
+    if [[ ! $(basename $process_dir) == ggXZZbbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+        ln -s $process_dir $(basename $process_dir)
+    fi
+    fi
+    fi
+done
+
+mkdir /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_HIPM_ZbbHtt_v12
+cd /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_HIPM_ZbbHtt_v12
+for process_dir in /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_HIPM_ZZ_v12/*; do
+    if [[ ! $(basename $process_dir) == ggXZZbbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+        ln -s $process_dir $(basename $process_dir)
+    fi
+    fi
+    fi
+done
+
+mkdir /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_ZbbHtt_v12
+cd /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_ZbbHtt_v12
+for process_dir in /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_ZZ_v12/*; do
+    if [[ ! $(basename $process_dir) == ggXZZbbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+        ln -s $process_dir $(basename $process_dir)
+    fi
+    fi
+    fi
+done
+
 ####################################################################################
 # ZttHbb
 ####################################################################################
@@ -100,6 +148,54 @@ for process_dir in /data_CMS/cms/vernazza/cmt/PreprocessRDF/ul_2016_ZZ_v12/*; do
     fi
     fi
 done
+
+mkdir /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2018_ZttHbb_v12
+cd /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2018_ZttHbb_v12
+for process_dir in /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2018_ZZ_v12/*; do
+    if [[ ! $(basename $process_dir) == ggXZZbbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+        ln -s $process_dir $(basename $process_dir)
+    fi
+    fi
+    fi
+done 
+
+mkdir /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2017_ZttHbb_v12
+cd /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2017_ZttHbb_v12
+for process_dir in /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2017_ZZ_v12/*; do
+    if [[ ! $(basename $process_dir) == ggXZZbbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+        ln -s $process_dir $(basename $process_dir)
+    fi
+    fi
+    fi
+done 
+
+mkdir /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_HIPM_ZttHbb_v12
+cd /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_HIPM_ZttHbb_v12
+for process_dir in /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_HIPM_ZZ_v12/*; do
+    if [[ ! $(basename $process_dir) == ggXZZbbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+        ln -s $process_dir $(basename $process_dir)
+    fi
+    fi
+    fi
+done 
+
+mkdir /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_ZttHbb_v12
+cd /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_ZttHbb_v12
+for process_dir in /data_CMS/cms/vernazza/cmt/MergeCategorizationStats/ul_2016_ZZ_v12/*; do
+    if [[ ! $(basename $process_dir) == ggXZZbbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
+    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+        ln -s $process_dir $(basename $process_dir)
+    fi
+    fi
+    fi
+done 
 
 ####################################################################################
 # Testing resonant samples
