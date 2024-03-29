@@ -120,7 +120,7 @@ def get_common_datasets_v9(self):
             dataset="/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/"
                 "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM",
             process=self.processes.get("wjets_ht8"),
-            xs=0.0002507, # XSDB
+            xs=0.02646, # XSDB
             tags=["ul"]),
 
         # DY

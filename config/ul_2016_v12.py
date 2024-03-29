@@ -176,7 +176,7 @@ def get_common_datasets_v12(self):
         Dataset("wjets_ht8",
             folder=p + "WJetsToLNu_HT-2500ToInf",
             process=self.processes.get("wjets_ht8"),
-            xs=0.0002507,
+            xs=0.02646,
             # categorization_max_events=10000,
             secondary_dataset="wjets_ht8_aux",
             prefix="eoscms.cern.ch//",
