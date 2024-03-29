@@ -87,6 +87,12 @@ def get_ZH_common_features():
                 x_title=Label("DNN ZH"),
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+        
+        *[Feature(f"dnn_ZHbbtt_kl_1_{mass}", f"dnn_ZHbbtt_kl_1_{mass}", binning=(10, 0, 1),
+                x_title=Label(f"DNN ZH resonant {mass}"),
+                systematics=["tes", "jer", "jec"]) # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+        for mass in [500, 1000, 2000, 3000, 4000]]
     ])
 
 #def get_ZH_common_processes():

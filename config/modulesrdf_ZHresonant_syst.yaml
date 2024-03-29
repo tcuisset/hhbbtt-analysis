@@ -1,0 +1,583 @@
+# This configuration is used for Categorization step
+# It is not analysis related (managed by AnalysisType) 
+# It computes the output of the DNN and all the systematic uncertainties
+
+# This is the ZH resonant version, that runs the ZH resonant DNN. 
+# TODO actually put the ZH res DNN
+
+zz:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zzvar:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zzdnn:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zh_res_dnn_500:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 500.
+
+zh_res_dnn_1tev:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 1000.
+
+zh_res_dnn_2tev:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 2000.
+
+zh_res_dnn_3tev:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 3000.
+
+zh_res_dnn_4tev:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 4000.
+
+######################################################################
+# Tau Energy Scale (tes): HHKinFitRDF + HHVarRDF + ZZDNNRDF
+######################################################################
+        
+zz_tes_up:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        tau_syst: corr_up
+
+zz_tes_down:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        tau_syst: corr_down
+
+zzvar_tes_up:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        tau_syst: corr_up
+
+zzvar_tes_down:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        tau_syst: corr_down
+
+zzdnn_tes_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        tau_syst: corr_up
+
+zzdnn_tes_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        tau_syst: corr_down
+
+zh_res_dnn_500_tes_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 500.
+        tau_syst: corr_up
+
+zh_res_dnn_500_tes_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 500.
+        tau_syst: corr_down
+
+zh_res_dnn_1tev_tes_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 1000.
+        tau_syst: corr_up
+
+zh_res_dnn_1tev_tes_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 1000.
+        tau_syst: corr_down
+
+zh_res_dnn_2tev_tes_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 2000.
+        tau_syst: corr_up
+
+zh_res_dnn_2tev_tes_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 2000.
+        tau_syst: corr_down
+
+zh_res_dnn_3tev_tes_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 3000.
+        tau_syst: corr_up
+
+zh_res_dnn_3tev_tes_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 3000.
+        tau_syst: corr_down
+
+zh_res_dnn_4tev_tes_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 4000.
+        tau_syst: corr_up
+
+zh_res_dnn_4tev_tes_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 4000.
+        tau_syst: corr_down
+
+
+######################################################################
+# Jet Energy Resolution (JER) : HHKinFitRDF + HHVarRDF + ZZDNNRDF
+######################################################################
+
+# I had to add the the smearing to svfit even if it is not affected by it
+# How to define a systematics that contains two variations? (jet + MET smearing)
+
+zz_JER_up:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        met_smear_tag: smeared
+        jet_syst: smeared_up
+        met_syst: up
+
+zz_JER_down:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        met_smear_tag: smeared
+        jet_syst: smeared_down
+        met_syst: down
+
+zzvar_JER_up:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        met_smear_tag: smeared
+        jet_syst: smeared_up
+        met_syst: up
+
+zzvar_JER_down:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        met_smear_tag: smeared
+        jet_syst: smeared_down
+        met_syst: down
+
+zzdnn_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        jet_syst: smeared_up
+        met_syst: up
+
+zzdnn_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        jet_syst: smeared_down
+        met_syst: down
+
+zh_res_dnn_500_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 500.
+        jet_syst: smeared_up
+        met_syst: up
+
+zh_res_dnn_500_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 500.
+        jet_syst: smeared_down
+        met_syst: down
+
+zh_res_dnn_1tev_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 1000.
+        jet_syst: smeared_up
+        met_syst: up
+
+zh_res_dnn_1tev_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 1000.
+        jet_syst: smeared_down
+        met_syst: down
+
+zh_res_dnn_2tev_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 2000.
+        jet_syst: smeared_up
+        met_syst: up
+
+zh_res_dnn_2tev_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 2000.
+        jet_syst: smeared_down
+        met_syst: down
+
+zh_res_dnn_3tev_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 3000.
+        jet_syst: smeared_up
+        met_syst: up
+
+zh_res_dnn_3tev_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 3000.
+        jet_syst: smeared_down
+        met_syst: down
+
+zh_res_dnn_4tev_JER_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 4000.
+        jet_syst: smeared_up
+        met_syst: up
+
+zh_res_dnn_4tev_JER_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 4000.
+        jet_syst: smeared_down
+        met_syst: down
+
+
+######################################################################
+# Jet Energy Scale (JES) : HHKinFitRDF + HHVarRDF + ZZDNNRDF
+######################################################################
+
+zz_Total_up:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        met_smear_tag: smeared
+        jet_syst: Total_up
+        met_syst: Total_up
+zz_Total_down:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        met_smear_tag: smeared
+        jet_syst: Total_down
+        met_syst: Total_down
+
+zzvar_Total_up:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        met_smear_tag: smeared
+        jet_syst: Total_up
+        met_syst: Total_up
+zzvar_Total_down:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        met_smear_tag: smeared
+        jet_syst: Total_down
+        met_syst: Total_down
+
+zzdnn_Total_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        jet_syst: Total_up
+        met_syst: Total_up
+zzdnn_Total_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        jet_syst: Total_down
+        met_syst: Total_down
+
+zh_res_dnn_500_Total_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 500.
+        jet_syst: Total_up
+        met_syst: Total_up
+
+zh_res_dnn_500_Total_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 500.
+        jet_syst: Total_down
+        met_syst: Total_down
+
+zh_res_dnn_1tev_Total_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 1000.
+        jet_syst: Total_up
+        met_syst: Total_up
+
+zh_res_dnn_1tev_Total_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 1000.
+        jet_syst: Total_down
+        met_syst: Total_down
+
+zh_res_dnn_2tev_Total_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 2000.
+        jet_syst: Total_up
+        met_syst: Total_up
+
+zh_res_dnn_2tev_Total_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 2000.
+        jet_syst: Total_down
+        met_syst: Total_down
+
+zh_res_dnn_3tev_Total_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 3000.
+        jet_syst: Total_up
+        met_syst: Total_up
+
+zh_res_dnn_3tev_Total_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 3000.
+        jet_syst: Total_down
+        met_syst: Total_down
+
+zh_res_dnn_4tev_Total_up:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 4000.
+        jet_syst: Total_up
+        met_syst: Total_up
+
+zh_res_dnn_4tev_Total_down:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        DNN_res_mass: 4000.
+        jet_syst: Total_down
+        met_syst: Total_down
