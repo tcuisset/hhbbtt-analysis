@@ -134,6 +134,26 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 xs=0.052, # AN
                 # xs=0.07977, # XSDB NLO
                 tags=["ul", "secondary"]),
+            
+            # Z->bb, H->tt considered as background for resonant analysis (genfilter bbtautau)
+            # (exact same zh_zbb_htt_signal, you can even symlink the dataset to avoid reprocessing)
+            Dataset("zh_zbb_htt",
+                folder=p + "ZHToTauTau_M125",
+                process=self.processes.get("zh_zbb_htt"),
+                xs=0.0554,
+                secondary_dataset="zh_zbb_htt_aux",
+                prefix="eoscms.cern.ch//",
+                tags=["ul", "nanoV10"]),
+            Dataset("zh_zbb_htt_aux",
+                dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+                process=self.processes.get("zh_zbb_htt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.0554, # AN
+                # xs=0.7891, # XSDB NLO
+                splitting=200000,
+                tags=["ul", "secondary"]),  
+
 
             ###################################### ZZ Background ##########################################
             ###############################################################################################
