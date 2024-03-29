@@ -115,14 +115,14 @@ class ConfigZbbHtt(BaseConfig):
                 systematics=["tes"]),
             
             # Htt (SVFit)
-            Feature("Htt_svfit_pt", "Htt_svfit_pt", binning=(10, 50, 150),
+            Feature("Htt_svfit_pt", "Xtt_svfit_pt", binning=(10, 50, 150),
                 x_title=Label("H(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
-            Feature("Htt_svfit_eta", "Htt_svfit_eta", binning=(20, -5., 5.),
+            Feature("Htt_svfit_eta", "Xtt_svfit_eta", binning=(20, -5., 5.),
                 x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"),
                 systematics=["tes"]),
-            Feature("Htt_svfit_phi", "Htt_svfit_phi", binning=(20, -3.2, 3.2),
+            Feature("Htt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("H(#tau^{+}#tau^{-}) #phi (SVFit)"),
                 systematics=["tes"]),
             Feature("Htt_svfit_mass", "Xtt_svfit_mass", binning=(32, 40, 200),
