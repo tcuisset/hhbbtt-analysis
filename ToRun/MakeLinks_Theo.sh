@@ -15,7 +15,7 @@ for year in 2016; do
         ln -s /data_CMS/cms/vernazza/cmt/PreprocessRDF/ul_$year\_ZttHbb_v12/$process/ $process
     done 
     # symbolic link for zh_ztt_hbb (Z->tautau,H->bb as bkg of resonant ZttHbb analysis) which is the same dataset as zh_ztt_hbb_signal (but process.isSignal=False)
-    ln -s /data_CMS/cms/vernazza/cmt/PreprocessRDF/ul_$year\_ZbbHtt_v12/zh_ztt_hbb_signal/ zh_ztt_hbb
+    ln -s /data_CMS/cms/vernazza/cmt/PreprocessRDF/ul_$year\_ZttHbb_v12/zh_ztt_hbb_signal/ zh_ztt_hbb
 
     cd /data_CMS/cms/cuisset/cmt/MergeCategorizationStats/ul_$year\_ZbbHtt_v12
     for process in zh_zbb_htt_signal zh_zbb_htt_background zz_sl; do
