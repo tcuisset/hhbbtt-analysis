@@ -63,6 +63,19 @@ source setup.sh
 ~~~
 This should use all the forked repos
 
+## Plotting conventions
+### Legend ordering
+Ordering of legend for plots :
+ - Signal
+ - DY
+ - Wjets
+ - ttbar
+ - VV(V)
+ - H
+ - TTX
+ - others
+ - QCD
+
 ## Datasets
 ### ZZ (SM)
 Dataset name in CMSDAS (dataset name in ul_2018_ZZ.py)
