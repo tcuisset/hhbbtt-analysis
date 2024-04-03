@@ -27,6 +27,11 @@ class Config_ul_2016_ZH_v12(base_config_ZttHbb):
         weights.ZttHbb_elliptical_cut_90_sr_mutau = weights.mutau
         weights.ZttHbb_elliptical_cut_90_sr_etau = weights.mutau
         weights.ZttHbb_elliptical_cut_90_sr_tautau = weights.mutau
+
+        weights.ZttHbb_elliptical_cut_90_CR = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_CR_mutau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_CR_etau = weights.mutau
+        weights.ZttHbb_elliptical_cut_90_CR_tautau = weights.mutau
         return weights
 
     #@override

@@ -8,13 +8,14 @@ import os
 import numpy as np
 import subprocess
 from collections import defaultdict
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import mplhep
 
 from analysis_tools.utils import import_root, randomize, create_file_dir
 
-from cmt.base_tasks.base import ConfigTaskWithCategory, ConfigTask
+from cmt.base_tasks.base import ConfigTaskWithCategory, ConfigTask, ConfigTaskWithRegion
 from cmt.base_tasks.analysis import CreateDatacards
 
 from plotting_tools import Label
@@ -24,7 +25,7 @@ class CombineTaskBase:
     feature = luigi.Parameter(description="Feature name to run Combine on (ex : dnn_ZHbbtt_kl_1)")
 
 
-class RunCombine(ConfigTaskWithCategory, CombineTaskBase):
+class RunCombine(ConfigTaskWithCategory, ConfigTaskWithRegion, CombineTaskBase):
     """ Run combine on datacards, on the feature given 
     Combine must have been installed (the path has to be given in argument)
     Usage :
@@ -243,7 +244,8 @@ class RunCombineCombination(ConfigTask, CombineTaskBase):
             for i_category, category in enumerate(self.input().keys()):
                 createDatacards_output = self.input()[category]["datacard"][self.feature]
                 subprocess.run(f"cp '" + createDatacards_output["txt"].path + "' '" + createDatacards_output["root"].path + f"' '{combdir}'", check=True, shell=True)
-                cmd += f' Name{i_category}={self.feature}_{self.get_channel_from_category(category)}_{self.region_name}.txt'
+                #cmd += f' Name{i_category}={self.feature}_{self.get_channel_from_category(category)}_{self.region_name}.txt'
+                cmd += f' Name{i_category}=' + Path(createDatacards_output["txt"].path).name
 
             cmd += ' > dnn_comb.txt'
             run_c(cmd)

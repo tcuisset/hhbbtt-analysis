@@ -27,6 +27,11 @@ class Config_ul_2016_HIPM_ZH_v12(base_config_ZbbHtt):
         weights.ZbbHtt_elliptical_cut_90_sr_mutau = weights.mutau
         weights.ZbbHtt_elliptical_cut_90_sr_etau = weights.mutau
         weights.ZbbHtt_elliptical_cut_90_sr_tautau = weights.mutau
+        
+        weights.ZbbHtt_elliptical_cut_90_CR = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_CR_mutau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_CR_etau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_CR_tautau = weights.mutau
         return weights
 
     #@override

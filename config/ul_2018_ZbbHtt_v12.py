@@ -27,6 +27,12 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
         weights.ZbbHtt_elliptical_cut_90_sr_mutau = weights.mutau
         weights.ZbbHtt_elliptical_cut_90_sr_etau = weights.mutau
         weights.ZbbHtt_elliptical_cut_90_sr_tautau = weights.mutau
+
+        weights.ZbbHtt_elliptical_cut_90_CR = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_CR_mutau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_CR_etau = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_CR_tautau = weights.mutau
+
         return weights
 
     #@override
@@ -128,6 +134,26 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 xs=0.052, # AN
                 # xs=0.07977, # XSDB NLO
                 tags=["ul", "secondary"]),
+            
+            # Z->bb, H->tt considered as background for resonant analysis (genfilter bbtautau)
+            # (exact same zh_zbb_htt_signal, you can even symlink the dataset to avoid reprocessing)
+            Dataset("zh_zbb_htt",
+                folder=p + "ZHToTauTau_M125",
+                process=self.processes.get("zh_zbb_htt"),
+                xs=0.0554,
+                secondary_dataset="zh_zbb_htt_aux",
+                prefix="eoscms.cern.ch//",
+                tags=["ul", "nanoV10"]),
+            Dataset("zh_zbb_htt_aux",
+                dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
+                process=self.processes.get("zh_zbb_htt"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.0554, # AN
+                # xs=0.7891, # XSDB NLO
+                splitting=200000,
+                tags=["ul", "secondary"]),  
+
 
             ###################################### ZZ Background ##########################################
             ###############################################################################################
@@ -160,6 +186,7 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M500"),
                 prefix="eos.grif.fr//",
                 xs=1,
+                secondary_dataset="Zprime_Zh_Zbbhtautau_M500_v3_aux",
                 tags=["ul", "nanoV10", "res"]),
             Dataset("Zprime_Zh_Zbbhtautau_M500_v3_aux",
                 folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Zbbhtautau_M500/Step_6",
@@ -172,6 +199,7 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M1000"),
                 prefix="eos.grif.fr//",
                 xs=1,
+                secondary_dataset="Zprime_Zh_Zbbhtautau_M1000_v3_aux",
                 tags=["ul", "nanoV10", "res"]),
             Dataset("Zprime_Zh_Zbbhtautau_M1000_v3_aux",
                 folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Zbbhtautau_M1000/Step_6",
@@ -184,6 +212,7 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M2000"),
                 prefix="eos.grif.fr//",
                 xs=1,
+                secondary_dataset="Zprime_Zh_Zbbhtautau_M2000_v3_aux",
                 tags=["ul", "nanoV10", "res"]),
             Dataset("Zprime_Zh_Zbbhtautau_M2000_v3_aux",
                 folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Zbbhtautau_M2000/Step_6",
@@ -196,6 +225,7 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M3000"),
                 prefix="eos.grif.fr//",
                 xs=1,
+                secondary_dataset="Zprime_Zh_Zbbhtautau_M3000_v3_aux",
                 tags=["ul", "nanoV10", "res"]),
             Dataset("Zprime_Zh_Zbbhtautau_M3000_v3_aux",
                 folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Zbbhtautau_M3000/Step_6",
@@ -208,6 +238,7 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M4000"),
                 prefix="eos.grif.fr//",
                 xs=1,
+                secondary_dataset="Zprime_Zh_Zbbhtautau_M4000_v3_aux",
                 tags=["ul", "nanoV10", "res"]),
             Dataset("Zprime_Zh_Zbbhtautau_M4000_v3_aux",
                 folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/jobs/Zprime_v3/Zprime_Zh_Zbbhtautau_M4000/Step_6",
