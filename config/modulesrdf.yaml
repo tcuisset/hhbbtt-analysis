@@ -142,6 +142,7 @@ hhjets:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
+        isTMP: self.dataset.has_tag('tmp')
         met_smear_tag: smeared
         filter: True
 

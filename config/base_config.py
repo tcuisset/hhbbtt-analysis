@@ -424,8 +424,6 @@ class BaseConfig(cmt_config):
             Category("debug", "debug category", selection="(event >= 31122668) && (event <= 31185105)"),
             Category("mutau", "#mu#tau channel", selection="pairType == 0"),
             Category("etau", "e#tau channel", selection="pairType == 1"),
-            # Category("etau", "e#tau channel", selection="pairType >= -999"),
-            # Category("etau", "e#tau channel", selection="1."),
             Category("tautau", "#tau#tau channel", selection="pairType == 2"),
             Category("resolved_1b", label="Resolved 1b category",
                 selection=sel["resolved_1b_combined"]),

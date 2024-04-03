@@ -208,7 +208,12 @@ class Config(BaseConfig):
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
 
             # ZZ (SVFit)
-            Feature("ZZ_svfit_pt", "ZZ_svfit_pt", binning=(10, 50, 150),
+            Feature("ZZ_svfit_pt", "ZZ_svfit_pt", binning=(15, 30, 330),
+                x_title=Label("ZZ p_{T} (SVFit)"),
+                units="GeV",
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("ZZ_svfit_pt_fine", "ZZ_svfit_pt", binning=(20, 30, 330),
                 x_title=Label("ZZ p_{T} (SVFit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
