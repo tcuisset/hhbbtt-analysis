@@ -56,7 +56,7 @@ class ConfigZttHbb(BaseConfig):
         base_features = super().add_features() + get_ZH_common_features()
         zttHbb_features = [
             # Hbb
-            Feature("Hbb_pt", "Hbb_pt", binning=(10, 50, 150),
+            Feature("Hbb_pt", "Hbb_pt", binning=(15, 50, 200),
                 x_title=Label("H(b#bar{b}) p_{T}"),
                 units="GeV",
                 systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
@@ -95,7 +95,7 @@ class ConfigZttHbb(BaseConfig):
                 systematics=["tes"]),
 
             # Ztt + met
-            Feature("Ztt_met_pt", "Ztt_met_pt", binning=(10, 50, 150),
+            Feature("Ztt_met_pt", "Ztt_met_pt", binning=(15, 50, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}+MET) p_{T}"),
                 units="GeV",
                 systematics=["tes"]),
@@ -105,23 +105,23 @@ class ConfigZttHbb(BaseConfig):
             Feature("Ztt_met_phi", "Ztt_met_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}+MET) #phi"),
                 systematics=["tes"]),
-            Feature("Ztt_met_mass", "Ztt_met_mass", binning=(30, 0, 150),
+            Feature("Ztt_met_mass", "Ztt_met_mass", binning=(25, 0, 500),
                 x_title=Label("Z(#tau^{+}#tau^{-}+MET) mass"),
                 units="GeV",
                 systematics=["tes"]),
 
             # Ztt (SVFit)
-            Feature("Ztt_svfit_pt", "Xtt_svfit_pt", binning=(10, 50, 150),
+            Feature("Ztt_svfit_pt", "Xtt_svfit_pt", binning=(15, 50, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
             Feature("Ztt_svfit_eta", "Xtt_svfit_eta", binning=(20, -5., 5.),
-                x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"),
+                x_title=Label("Z(#tau^{+}#tau^{-}) #eta (SVFit)"),
                 systematics=["tes"]),
             Feature("Ztt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}) #phi (SVFit)"),
                 systematics=["tes"]),
-            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(32, 40, 200),
+            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(25, 1, 501),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),

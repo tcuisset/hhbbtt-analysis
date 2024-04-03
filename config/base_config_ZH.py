@@ -33,7 +33,7 @@ def get_ZH_common_features():
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
 
         # ZH (SVFit)
-        Feature("ZH_svfit_pt", "ZH_svfit_pt", binning=(10, 50, 150),
+        Feature("ZH_svfit_pt", "ZH_svfit_pt", binning=(20, 30, 330),
             x_title=Label("ZH p_{T} (SVFit)"),
             units="GeV",
             systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
@@ -46,7 +46,7 @@ def get_ZH_common_features():
             x_title=Label("ZH #phi (SVFit)"),
             systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-        Feature("ZH_svfit_mass", "ZH_svfit_mass", binning=(50, 0, 1000),
+        Feature("ZH_svfit_mass", "ZH_svfit_mass", binning=(50, 150, 1150),
             x_title=Label("ZH_{bb#tau#tau}^{SVFit} mass"),
             units="GeV",
             systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 

@@ -109,7 +109,7 @@ class Config(BaseConfig):
                 x_title=Label("Pair Type")),
 
             # Zbb
-            Feature("Zbb_pt", "Zbb_pt", binning=(10, 50, 150),
+            Feature("Zbb_pt", "Zbb_pt", binning=(15, 50, 200),
                 x_title=Label("Z(b#bar{b}) p_{T}"),
                 units="GeV",
                 systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
@@ -148,7 +148,7 @@ class Config(BaseConfig):
                 systematics=["tes"]),
 
             # Ztt + met
-            Feature("Ztt_met_pt", "Ztt_met_pt", binning=(10, 50, 150),
+            Feature("Ztt_met_pt", "Ztt_met_pt", binning=(15, 50, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}+MET) p_{T}"),
                 units="GeV",
                 systematics=["tes"]),
@@ -158,23 +158,23 @@ class Config(BaseConfig):
             Feature("Ztt_met_phi", "Ztt_met_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}+MET) #phi"),
                 systematics=["tes"]),
-            Feature("Ztt_met_mass", "Ztt_met_mass", binning=(30, 0, 150),
+            Feature("Ztt_met_mass", "Ztt_met_mass", binning=(25, 0, 500),
                 x_title=Label("Z(#tau^{+}#tau^{-}+MET) mass"),
                 units="GeV",
                 systematics=["tes"]),
 
             # Ztt (SVFit)
-            Feature("Ztt_svfit_pt", "Xtt_svfit_pt", binning=(10, 50, 150),
+            Feature("Ztt_svfit_pt", "Xtt_svfit_pt", binning=(15, 50, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
             Feature("Ztt_svfit_eta", "Xtt_svfit_eta", binning=(20, -5., 5.),
-                x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"),
+                x_title=Label("Z(#tau^{+}#tau^{-}) #eta (SVFit)"),
                 systematics=["tes"]),
             Feature("Ztt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}) #phi (SVFit)"),
                 systematics=["tes"]),
-            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(32, 40, 200),
+            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(25, 1, 501),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
@@ -208,12 +208,7 @@ class Config(BaseConfig):
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
 
             # ZZ (SVFit)
-            Feature("ZZ_svfit_pt", "ZZ_svfit_pt", binning=(15, 30, 330),
-                x_title=Label("ZZ p_{T} (SVFit)"),
-                units="GeV",
-                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ZZ_svfit_pt_fine", "ZZ_svfit_pt", binning=(20, 30, 330),
+            Feature("ZZ_svfit_pt", "ZZ_svfit_pt", binning=(20, 30, 330),
                 x_title=Label("ZZ p_{T} (SVFit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
@@ -226,7 +221,7 @@ class Config(BaseConfig):
                 x_title=Label("ZZ #phi (SVFit)"),
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ZZ_svfit_mass", "ZZ_svfit_mass", binning=(50, 0, 1000),
+            Feature("ZZ_svfit_mass", "ZZ_svfit_mass", binning=(50, 150, 1150),
                 x_title=Label("ZZ_{bb#tau#tau}^{SVFit} mass"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
