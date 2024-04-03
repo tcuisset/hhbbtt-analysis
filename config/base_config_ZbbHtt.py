@@ -1,5 +1,5 @@
 # Config for ZbbHtt analysis common for all years
-
+import itertools
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from plotting_tools import Label
 
@@ -59,21 +59,25 @@ class ConfigZbbHtt(BaseConfig):
             Feature("Zbb_pt", "Zbb_pt", binning=(10, 50, 150),
                 x_title=Label("Z(b#bar{b}) p_{T}"),
                 units="GeV",
-                systematics=["jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                systematics=["jer","jec", #"jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             #"jec_7", "jec_8", "jec_9", "jec_10", "jec_11"
+                            ]),
             Feature("Zbb_eta", "Zbb_eta", binning=(20, -5., 5.),
                 x_title=Label("Z(b#bar{b}) #eta"),
-                systematics=["jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                systematics=["jer","jec", #"jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             #"jec_7", "jec_8", "jec_9", "jec_10", "jec_11"
+                            ]),
             Feature("Zbb_phi", "Zbb_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(b#bar{b}) #phi"),
-                systematics=["jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                systematics=["jer","jec", #"jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             #"jec_7", "jec_8", "jec_9", "jec_10", "jec_11"
+                            ]),
             Feature("Zbb_mass", "Zbb_mass", binning=(30, 0, 250),
                 x_title=Label("Z(b#bar{b}) mass"),
                 units="GeV",
-                systematics=["jer", "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                systematics=["jer","jec", #"jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             #"jec_7", "jec_8", "jec_9", "jec_10", "jec_11"
+                            ]),
             Feature("Zbb_mass_ellipse", "Zbb_mass", binning=(50, 0, 500),
                 x_title=Label("Z(b#bar{b}) mass"),
                 units="GeV"),
@@ -111,14 +115,14 @@ class ConfigZbbHtt(BaseConfig):
                 systematics=["tes"]),
             
             # Htt (SVFit)
-            Feature("Htt_svfit_pt", "Htt_svfit_pt", binning=(10, 50, 150),
+            Feature("Htt_svfit_pt", "Xtt_svfit_pt", binning=(10, 50, 150),
                 x_title=Label("H(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
                 units="GeV",
                 systematics=["tes"]),
-            Feature("Htt_svfit_eta", "Htt_svfit_eta", binning=(20, -5., 5.),
+            Feature("Htt_svfit_eta", "Xtt_svfit_eta", binning=(20, -5., 5.),
                 x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"),
                 systematics=["tes"]),
-            Feature("Htt_svfit_phi", "Htt_svfit_phi", binning=(20, -3.2, 3.2),
+            Feature("Htt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("H(#tau^{+}#tau^{-}) #phi (SVFit)"),
                 systematics=["tes"]),
             Feature("Htt_svfit_mass", "Xtt_svfit_mass", binning=(32, 40, 200),
@@ -134,13 +138,18 @@ class ConfigZbbHtt(BaseConfig):
     #@override
     def add_processes(self):
         processes, process_group_names, process_training_names = get_common_processes()
-
-        # add ggZpZHbbtt
+        # https://leonardocolor.io/scales.html#
+        # long version
+        colors_res = itertools.cycle([(31, 0, 117), (4, 41, 100), (0, 55, 101), (0, 66, 106), (0, 78, 110), (0, 88, 113), (0, 99, 115), (0, 109, 115), (0, 119, 114), (0, 129, 111), (0, 139, 105), (14, 148, 99), (48, 155, 92), (78, 161, 84), (103, 165, 76), (127, 169, 68), (151, 172, 60), (174, 174, 55)])
+        #short version
+        colors_res = itertools.cycle([(31, 0, 117), (0, 66, 106), (0, 99, 115), (0, 129, 111), (48, 155, 92), (127, 169, 68), (174, 174, 55)])
+        
         processes += ObjectCollection([
             ########### ZbbHtt analysis
-            # ZH_HToTT_ZToBB
+            # ZHToTauTau_M125 dataset with genfilter Z->bb,H->tautau
             Process("zh_zbb_htt_signal", Label("Z_{bb}H_{#tau#tau}"),
                     ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(126, 238, 124)),
+            # same as above but with reversed genfilter (everything except Z->bb,H->tautau)
             Process("zh_zbb_htt_background", Label("ZH (H#rightarrow#tau#tau) bkg"), parent_process='higgs',
                     ProcType="Zbb_Htautau", isBkgBBTT=True, color=(224, 190, 79)),
 
@@ -156,17 +165,19 @@ class ConfigZbbHtt(BaseConfig):
 
             ######## Resonant
             # ZH resonant
-            *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label("Z'#rightarrow Z_{bb}H_{#tau#tau} " + f"({mass} GeV)"), color=(240, 112, 5), 
+            *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label("Z'#rightarrow Z_{bb}H_{#tau#tau} " + f"({mass} GeV)"), color=next(colors_res), 
                     isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name=f"ZHbbtt_M{mass}")
             for mass in [500,600,700,800,1000,1200,1400,1600,1800,2000,2500,3000,3500,4000,4500,5000,5500,6000]],
 
-            # background for resonant analysis TODO actually use it (needs creating the associated dataset)
-            Process("zh_zbb_htt", Label("ZH (H#rightarrow bb, Z#rightarrow#tau#tau)"), color=(0, 165, 80), 
+            # background for resonant analysis (zh_zbb_htt_signal with isSignal=False, dataset is the exact same)
+            Process("zh_zbb_htt", Label("Z_{bb}H_{#tau#tau}"), color=(0, 165, 80), 
                     ProcType="Zbb_Htautau", isSigBBTT=True, parent_process='higgs'),
         ])
 
+        resonant_dataset_names = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in [500, 1000, 2000, 3000, 4000]]
+
         process_group_names = {
-        "Zprime_Zh_Zbbhtt": ["Zprime_Zh_Zbbhtautau_M600"],
+        "Zprime_Zh_Zbbhtt": resonant_dataset_names,
         "datacard_ZbbHtt": [
             "zh_zbb_htt_signal",
             "zh_zbb_htt_background", # parent=higgs
@@ -200,10 +211,21 @@ class ConfigZbbHtt(BaseConfig):
             "ttx",
             "data",
         ],
+        "plot_res": [
+            *resonant_dataset_names,
+            "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
+            "vv_v",
+            "wjets",
+            "dy",
+            "others",
+            "tt",
+            "ttx",
+            "data",
+        ],
         "datacard_ZbbHtt_res": [
-            "zh_zbb_htt_signal", # ZbbHtt as background for resonant analysis
-            "zh_zbb_htt_background", # remainder of ZHToTauTau dataset
-            "Zprime_Zh_Zbbhtautau_M600",
+            *resonant_dataset_names,
+            "zh_zbb_htt", # ZbbHtt as background for resonant analysis
+            "zh_zbb_htt_background", # remainder of ZHToTauTau dataset (TODO probably put this under some more general category (in ZZ analysis it is under vv))
             "ttH",
             "dy",
             "vvv",
@@ -221,18 +243,6 @@ class ConfigZbbHtt(BaseConfig):
             "wjets",
             "tt",
             "ggf_sm",
-            "data",
-        ],
-        "plot_res": [
-            "Zprime_Zh_Zbbhtautau_M500",
-            "zh_zbb_htt_signal", # TODO fix this
-            "higgs", # includes zh_zbb_htt_background
-            "vv_v",
-            "wjets",
-            "dy",
-            "others",
-            "tt",
-            "ttx",
             "data",
         ],
         "zh_split_signal": [

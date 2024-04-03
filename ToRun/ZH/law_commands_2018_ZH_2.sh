@@ -61,7 +61,7 @@ DATASETS_ZbbHtt=zh_zbb_htt_signal,dy,tt_dl,tt_sl,tt_fh,wjets,ttw_lnu,ttw_qq,ttww
 DATASETS_ZttHbb=zh_ztt_hbb_signal,dy,tt_dl,tt_sl,tt_fh,wjets,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,tth_bb,tth_nonbb,tth_tautau,zh_htt,zh_hbb_zqq,wplush_htt,wminush_htt,ggH_ZZ,ggf_sm,zz_dl,zh_ztt_hbb_background,zh_hbb,zz_sl,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_llqq,wz_lnununu,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top
 DATASETS_DATA_ETAU=data_etau_a,data_etau_b,data_etau_c,data_etau_d
 DATASETS_DATA_MUTAU=data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d
-DATASETS_DATA_TAUTAU=data_tau_a,data_tau_b,data_tau_c,data_tau_d
+DATASETS_DATA_TAUTAU=data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e
 declare -a logCommands=("" "--log-y")
 
 # clearing out PrePlot : rm /grid_mnt/data__data.polcms/cms/cuisset/cmt/PrePlot/ul_2018_ZbbHtt_v10/*/cat_ZbbHtt_elliptical_cut_90_*/prod_240215/data_*.root
