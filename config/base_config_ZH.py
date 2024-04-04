@@ -1,6 +1,7 @@
 """ Base configuration for X->ZH->bbtautau analysis (no specific year). Inherits from base_config.py """
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from plotting_tools import Label
+import numpy as np
 
 from config.base_config import get_common_processes, BaseConfig
 
@@ -63,8 +64,14 @@ def get_ZH_common_features():
             units="GeV",
             systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-        Feature("ZHKinFit_highmass", "ZHKinFit_mass", binning=(175, 150, 3550),
-            x_title=Label("ZH mass (Kin. Fit)"),
+        Feature("ZHKinFit_highmass", "ZHKinFit_mass",
+            binning=(79-1, 160, 2500),
+            # Attempts at variable binning. Looks super ugly
+            # the +1 is to include the last bin edge
+            #old binning=(175, 150, 3550),
+            #binning=np.concatenate([np.arange(160, 1000, 20), np.arange(1000, 1500, 50), np.arange(1500, 2000, 100), np.arange(2000, 3500+1, 500)]),
+            #binning=np.concatenate([np.arange(160, 1000, 20), np.arange(1000, 1500, 50), np.arange(1500, 2000, 100), np.arange(2000, 3500+1, 500)]),
+            x_title=Label("ZH mass (Kin. Fit)"), 
             units="GeV",
             systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
