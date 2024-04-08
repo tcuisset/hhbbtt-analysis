@@ -200,36 +200,36 @@ function featurePlotZbbHtt_CR {
     DATASETS_DATA=$2
     LOG_PARAMS=$3
 
-    law run FeaturePlot --version prod_240318 --PrePlot-version prod_240318 --config-name ul_2016_HIPM_ZbbHtt_v12 \
+    law run FeaturePlot --version prod_240404 --PrePlot-version prod_240404 --config-name ul_2016_HIPM_ZbbHtt_v12 \
  --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_chi2,ZHKinFit_mass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,\
 Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
  --dataset-names $DATASETS_ZbbHtt_nonres,$DATASETS_DATA \
- --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 \
+ --workers 10 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 --MergeCategorization-version prod_240318 \
  --process-group-name plot --save-root --save-png --category-name ZbbHtt_elliptical_cut_90_CR_$REGION_NAME --region-name $REGION_NAME\_os_iso \
  --save-yields --stack --do-qcd --hide-data False $LOG_PARAMS "${@:4}"
 }
 
-featurePlotZbbHtt_CR etau $DATASETS_DATA_ETAU 
-featurePlotZbbHtt_CR mutau $DATASETS_DATA_MUTAU 
-featurePlotZbbHtt_CR tautau $DATASETS_DATA_TAUTAU 
+featurePlotZbbHtt_CR etau $DATASETS_DATA_ETAU &
+featurePlotZbbHtt_CR mutau $DATASETS_DATA_MUTAU &
+featurePlotZbbHtt_CR tautau $DATASETS_DATA_TAUTAU &
 
-function featurePlotZttHbb {
+function featurePlotZttHbb_CR {
     REGION_NAME=$1
     DATASETS_DATA=$2
     LOG_PARAMS=$3
 
-    law run FeaturePlot --version prod_240318 --PrePlot-version prod_240318 --config-name ul_2016_HIPM_ZttHbb_v12 \
+    law run FeaturePlot --version prod_240404 --PrePlot-version prod_240404 --config-name ul_2016_HIPM_ZttHbb_v12 \
  --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_chi2,ZHKinFit_mass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,\
 Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Hbb_pt,Hbb_eta,Hbb_phi,Hbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
  --dataset-names $DATASETS_ZttHbb_nonres,$DATASETS_DATA \
- --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 \
+ --workers 10 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 --MergeCategorization-version prod_240318 \
  --process-group-name plot --save-root --save-png --category-name ZttHbb_elliptical_cut_90_CR_$REGION_NAME --region-name $REGION_NAME\_os_iso \
  --save-yields --stack --do-qcd --hide-data False $LOG_PARAMS "${@:4}"
 }
 
 featurePlotZttHbb_CR etau $DATASETS_DATA_ETAU 
-featurePlotZttHbb_CR mutau $DATASETS_DATA_MUTAU 
-featurePlotZttHbb_CR tautau $DATASETS_DATA_TAUTAU 
+featurePlotZttHbb_CR mutau $DATASETS_DATA_MUTAU
+featurePlotZttHbb_CR tautau $DATASETS_DATA_TAUTAU
 
 
 
