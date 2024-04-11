@@ -86,6 +86,23 @@ def checkChildDatasets(config):
                 errors = True
     return errors
 
+def checkSelectionCoherenceWithAux(config):
+    """ Check that if a dataset has a selection attribute, it is identical with the secondary dataset. """
+    errors = False
+    for dataset in config.datasets:
+        if not dataset.name.startswith("data") and not dataset.name.endswith("_aux"):
+            try:
+                dataset_aux = config.datasets.get(dataset.name + "_aux")
+            except ValueError:
+                print(f"No aux dataset found for {dataset.name}")
+
+            #if dataset.get_aux("selection", None) != dataset_aux.get_aux("selection", None):
+            if dataset_aux.get_aux("selection", None):
+                print(f'ERROR : secondary dataset has selection {dataset_aux.get_aux("selection", None)} but the framework does not apply dataset selections to PreCounter')
+                #print(f'ERROR : dataset {dataset.name} has selection {dataset.get_aux("selection", None)} but its secondary dataset has selection {dataset_aux.get_aux("selection", None)}')
+                print()
+                errors = True
+    return errors
 
 ################# XSDB search
 # import subprocess
@@ -178,7 +195,8 @@ if __name__ == "__main__":
     with open(config.name + ".csv", "w") as f:
         infoToCSV(datasetInfoSummary(config), f)
 
-    if checkChildDatasets(config):
+    errors =  checkSelectionCoherenceWithAux(config) #checkChildDatasets(config) or
+    if errors:
         print()
         print("THERE WERE ERRORS")
         sys.exit(-1)
