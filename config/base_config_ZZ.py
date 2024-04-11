@@ -262,12 +262,6 @@ class Config(BaseConfig):
                 x_title=Label("DNN ZZ"),
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            
-            Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
-                x_title=Label("LHE PtZ"), units="GeV"),
-            Feature("LHE_HT", "LHE_HT", binning=(100, 0, 1000),
-                x_title=Label("LHE HT"), units="GeV"),
-
         ]
         return base_features + ObjectCollection(zz_features)
 
@@ -361,6 +355,7 @@ class Config(BaseConfig):
         ],
         "wjets_fxfx": [ "wjets_fxfx" ],
         "wjets_mlm" : [ "wjets_mlm" ],
+        "wjets_mlm_aux" : [ "wjets_mlm_aux" ],
         "wjets_fxfx_Nj": [
             "wjets_fxfx_0j",
             "wjets_fxfx_1j",
@@ -381,6 +376,16 @@ class Config(BaseConfig):
             "wjets_ht6",
             "wjets_ht7",
             "wjets_ht8",
+        ],
+        "wjets_mlm_HT_aux": [
+            "wjets_ht1_aux",
+            "wjets_ht2_aux",
+            "wjets_ht3_aux",
+            "wjets_ht4_aux",
+            "wjets_ht5_aux",
+            "wjets_ht6_aux",
+            "wjets_ht7_aux",
+            "wjets_ht8_aux",
         ],
         "zz": [
             "zz_sl_signal",

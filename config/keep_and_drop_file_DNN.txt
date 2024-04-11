@@ -30,6 +30,7 @@ keep jet_1_quality
 keep jet_2_quality
 keep year
 keep genWeight
+keep genWeightFixed
 keep puWeight
 keep puWeightUp
 keep puWeightDown

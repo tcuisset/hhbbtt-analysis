@@ -43,7 +43,8 @@ class Config_ul_2016_ZH_v12(base_config_ZbbHtt):
             # "wjets_FXFX", "wjets_FXFX_0j", "wjets_FXFX_1j", "wjets_FXFX_2j", 
             "wjets_MLM", 
             # "wjets_MLM_1j", "wjets_MLM_2j", "wjets_MLM_3j", "wjets_MLM_4j", 
-            "wjets_ht1", "wjets_ht2", "wjets_ht3", "wjets_ht4", "wjets_ht5", "wjets_ht6", "wjets_ht7", "wjets_ht8",
+            # "wjets_ht1",
+            "wjets_ht2", "wjets_ht3", "wjets_ht4", "wjets_ht5", "wjets_ht6", "wjets_ht7", "wjets_ht8",
             "dy", "dy_ptz1", "dy_ptz2", "dy_ptz3", "dy_ptz4", "dy_ptz5", "dy_ptz6", "dy_0j", "dy_1j", "dy_2j", 
             "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
             "st_tw_antitop", "st_tw_top", "st_antitop", "st_top",
@@ -61,7 +62,12 @@ class Config_ul_2016_ZH_v12(base_config_ZbbHtt):
             ]:
             datasets.add(
                 Dataset(
-                    v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"])
+                    v9_datasets.get(name), dataset_name="%s_aux" % name, tags=["ul", "secondary"],
+                    # The get_aux properties are dropped in the copy, so we need to explicitly keep those we need
+                    # We don't actually use the selection for aux datasets (PreCounter does not apply it) so the next line is not really useful, just as a reminder
+                    selection=v9_datasets.get(name).get_aux("selection", None),
+                    setGenWeightToOne=v9_datasets.get(name).get_aux("setGenWeightToOne", None)
+                )
             )
 
         # ZH datasets
