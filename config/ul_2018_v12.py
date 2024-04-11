@@ -75,12 +75,20 @@ def get_common_datasets_v12(self):
         #     secondary_dataset="wjets_FXFX_2j_aux",
         #     prefix="eoscms.cern.ch//",
         #     tags=["ul", "nanoV10"]),
+        
+        # Wjets cross-sections : 
+        # NNLO Inclusive W prod * BR(W->muon+neutrino) = 20508.9 (https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV#:~:text=l%CE%BD%2C%20l%3D%CE%BC-,20508.9,-%2B165.7%20%2D88.2%20(%C2%B1%20770.9 )
+        # x3 (electron, muon, tau) to get WToLNu : 61526.7
 
+        # - NNLO inclusive xs=61526.7 
+        # - LO inclusive xs=53870 (XSDB)
+        # kfactor LO->NNLO = 61526.7 / 53870 = 1.14
         Dataset("wjets_MLM",
             folder=p + "WJetsToLNu",
             process=self.processes.get("wjets_mlm"),
             selection="(event != 198018547)",
-            xs=61526.7,
+            xs=61526.7, # NNLO
+            setGenWeightToOne=True, # buggy genWeight, see https://twiki.cern.ch/twiki/bin/view/CMS/MCKnownIssues#Different_weights_at_LHE_level_f 
             # categorization_max_events=10000,
             secondary_dataset="wjets_MLM_aux",
             prefix="eoscms.cern.ch//",
@@ -119,19 +127,22 @@ def get_common_datasets_v12(self):
         #     prefix="eoscms.cern.ch//",
         #     tags=["ul", "nanoV10"]),
 
-        Dataset("wjets_ht1",
+        Dataset("wjets_ht1", # use WJets inclusive (wjets_MLM_aux) for normalization
             folder=p + "WJetsToLNu",
             process=self.processes.get("wjets_ht1"),
-            selection="(LHE_HT < 100) && (event != 198018547)",
-            xs=61526.7,
+            selection="LHE_HT < 100",
+            # We use the WJets inclusive cross-section to renormalize
+            xs=61526.7, # NNLO inclusive
+            setGenWeightToOne=True,
             # categorization_max_events=10000,
-            secondary_dataset="wjets_ht1_aux",
+            secondary_dataset="wjets_MLM_aux", 
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
         Dataset("wjets_ht2",
             folder=p + "WJetsToLNu_HT-100To200",
             process=self.processes.get("wjets_ht2"),
-            xs=1244.0,
+            xs=1244.0 * 61526.7 / 53870, # LO * NNLO(incl)/LO(incl)
+            setGenWeightToOne=True,
             # categorization_max_events=10000,
             secondary_dataset="wjets_ht2_aux",
             prefix="eoscms.cern.ch//",
@@ -139,7 +150,8 @@ def get_common_datasets_v12(self):
         Dataset("wjets_ht3",
             folder=p + "WJetsToLNu_HT-200To400",
             process=self.processes.get("wjets_ht3"),
-            xs=337.8,
+            xs=337.8 * 61526.7 / 53870, # LO * NNLO(incl)/LO(incl)
+            setGenWeightToOne=True,
             # categorization_max_events=10000,
             secondary_dataset="wjets_ht3_aux",
             prefix="eoscms.cern.ch//",
@@ -147,7 +159,8 @@ def get_common_datasets_v12(self):
         Dataset("wjets_ht4",
             folder=p + "WJetsToLNu_HT-400To600",
             process=self.processes.get("wjets_ht4"),
-            xs=44.93,
+            xs=44.93 * 61526.7 / 53870, # LO * NNLO(incl)/LO(incl)
+            setGenWeightToOne=True,
             # categorization_max_events=10000,
             secondary_dataset="wjets_ht4_aux",
             prefix="eoscms.cern.ch//",
@@ -155,7 +168,8 @@ def get_common_datasets_v12(self):
         Dataset("wjets_ht5",
             folder=p + "WJetsToLNu_HT-600To800",
             process=self.processes.get("wjets_ht5"),
-            xs=11.19,
+            xs=11.19 * 61526.7 / 53870, # LO * NNLO(incl)/LO(incl)
+            setGenWeightToOne=True,
             # categorization_max_events=10000,
             secondary_dataset="wjets_ht5_aux",
             prefix="eoscms.cern.ch//",
@@ -163,7 +177,8 @@ def get_common_datasets_v12(self):
         Dataset("wjets_ht6",
             folder=p + "WJetsToLNu_HT-800To1200",
             process=self.processes.get("wjets_ht6"),
-            xs=4.926,
+            xs=4.926 * 61526.7 / 53870, # LO * NNLO(incl)/LO(incl)
+            setGenWeightToOne=True,
             # categorization_max_events=10000,
             secondary_dataset="wjets_ht6_aux",
             prefix="eoscms.cern.ch//",
@@ -171,7 +186,8 @@ def get_common_datasets_v12(self):
         Dataset("wjets_ht7",
             folder=p + "WJetsToLNu_HT-1200To2500",
             process=self.processes.get("wjets_ht7"),
-            xs=1.152,
+            xs=1.152 * 61526.7 / 53870, # LO * NNLO(incl)/LO(incl)
+            setGenWeightToOne=True,
             # categorization_max_events=10000,
             secondary_dataset="wjets_ht7_aux",
             prefix="eoscms.cern.ch//",
@@ -179,7 +195,8 @@ def get_common_datasets_v12(self):
         Dataset("wjets_ht8",
             folder=p + "WJetsToLNu_HT-2500ToInf",
             process=self.processes.get("wjets_ht8"),
-            xs=0.02646,
+            xs=0.02646 * 61526.7 / 53870, # LO * NNLO(incl)/LO(incl)
+            setGenWeightToOne=True,
             # categorization_max_events=10000,
             secondary_dataset="wjets_ht8_aux",
             prefix="eoscms.cern.ch//",
