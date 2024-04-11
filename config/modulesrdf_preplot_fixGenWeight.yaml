@@ -1,0 +1,8 @@
+# Temporary workaround to set WJets genWeight to 1 until we run Preprocess again
+# To be used as --PrePlot-modules-file
+
+genWeightLOFix:
+    name: GenWeightLOFixRDF
+    path: Tools.Tools.genWeightLOFix
+    parameters:
+        setGenWeightToOne: self.dataset.get_aux('setGenWeightToOne', False)

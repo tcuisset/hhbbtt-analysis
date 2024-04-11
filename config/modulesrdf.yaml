@@ -31,6 +31,13 @@ dystitching:
     parameters:
         isDY: self.dataset.process.get_aux('isDY', False)
 
+# set genWeight to one for some bugged LO madgraph datasets (https://twiki.cern.ch/twiki/bin/view/CMS/MCKnownIssues#Different_weights_at_LHE_level_f)
+genWeightLOFix:
+    name: GenWeightLOFixRDF
+    path: Tools.Tools.genWeightLOFix
+    parameters:
+        setGenWeightToOne: self.dataset.get_aux('setGenWeightToOne', False)
+
 metfilter:
     name: MetFilterRDF
     path: Base.Modules.METfilters

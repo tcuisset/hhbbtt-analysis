@@ -6,15 +6,17 @@ def get_2018_v12_weights():
     weights = DotDict()
     weights.default = "1"
     # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
-    weights.total_events_weights = ["genWeight", "puWeight"]
+    weights.total_events_weights = ["genWeightFixed", "puWeight"]
 
-    weights.mutau = ["genWeight", "puWeight", "DYstitchEasyWeight", "prescaleWeight", 
+    weights.mutau = ["genWeightFixed", "puWeight", "DYstitchEasyWeight", "prescaleWeight", 
         "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF",
         "bTagweightReshape"] # removed L1PreFiringWeight for UL
     weights.etau = weights.mutau
     weights.tautau = weights.mutau
     weights.base_selection = weights.mutau
     weights.base = weights.mutau
+    weights.base_fixedGenWeight = ["genWeightFixed"]
+    weights.base_oldGenWeight = ["genWeight"]
 
     # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
         # for channel in weights.channels}
