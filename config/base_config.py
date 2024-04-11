@@ -843,6 +843,14 @@ class BaseConfig(cmt_config):
                 systematics=["prefiring_syst"]),
             Feature("PUjetID_SF", "PUjetID_SF", binning=(20, 0, 2),
                 x_title=Label("PUjetID_SF")),
+            
+
+            Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
+                x_title=Label("LHE PtZ"), units="GeV"),
+            Feature("LHE_HT", "LHE_HT", binning=(100, 0, 1000),
+                x_title=Label("LHE HT"), units="GeV"),
+            Feature("LHE_HT_low", "LHE_HT", binning=(100, 0, 130),
+                x_title=Label("LHE HT"), units="GeV"),
 
         ]
         return ObjectCollection(features)

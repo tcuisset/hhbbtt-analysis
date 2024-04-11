@@ -262,12 +262,6 @@ class Config(BaseConfig):
                 x_title=Label("DNN ZZ"),
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            
-            Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
-                x_title=Label("LHE PtZ"), units="GeV"),
-            Feature("LHE_HT", "LHE_HT", binning=(100, 0, 1000),
-                x_title=Label("LHE HT"), units="GeV"),
-
         ]
         return base_features + ObjectCollection(zz_features)
 
