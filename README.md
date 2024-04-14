@@ -63,6 +63,19 @@ source setup.sh
 ~~~
 This should use all the forked repos
 
+## Plotting conventions
+### Legend ordering
+Ordering of legend for plots :
+ - Signal
+ - DY
+ - Wjets
+ - ttbar
+ - VV(V)
+ - H
+ - TTX
+ - others
+ - QCD
+
 ## Datasets
 ### ZZ (SM)
 Dataset name in CMSDAS (dataset name in ul_2018_ZZ.py)
@@ -81,6 +94,24 @@ dl : dilepton, sl : semileptonic, fh:fully hadronic
 ## Systematics
 Actual systematics are computed at Categorization step, configured by the yaml modules config.
 Then at PrePlot step, the Feature definitions list of systematics are looked up. You can remove systematics from Feature.systematics = [....]. If requested systematics were not computed in Categorisation, then you will get an error saying ..._FlavorQCD_up symbol is missing for example.
+
+The systematics shift are loaded in FeaturePlot by calling config.get_norm_systematics which loads the files in nanoaod_base_analysis/cmt/files/systematics
+
+## Weights
+Preplot weight :
+$ w^P_i = \text{gen}_i * \text{PU}_i * \text{St}_i * X_i$
+where $\text{St}_i$ is the eventual stitching weight (used for Drell-Yan only) $X_i$ has $prescaleWeight*trigSF*idAndIsoAndFakeSF*PUjetID_SF*bTagweightReshape$
+
+PreCounter weight :
+$ w^C_j = \text{gen}_j * \text{PU}_j * \text{St}_j$
+
+FeaturePlot weight :
+$$ w^F_i = w^P_i * \frac{\sigma \mathcal{L}}{\sum_{j \in \text{NanoV9}} w^C_j}$$
+or in full : 
+$$ w^F_i = \text{gen}_i * \text{PU}_i * \text{St}_i * X_i * \frac{\sigma \mathcal{L}}{\sum_{j \in \text{NanoV9}} \text{gen}_j * \text{PU}_j * \text{St}_j}$$
+
+The bin error in bin $k$ is :
+$$ E^F_k = \frac{\sigma \mathcal{L}}{\sum_{j \in \text{NanoV9}} w^C_j} \sqrt{\sum_{i \in \text{bin k}} (w^P_i)^2} $$
 
 ## Analysis documentation ZZ
 ### Datasets
@@ -157,6 +188,10 @@ RuntimeError: Failed to find qcd_tesUp : you need to add --propagate-syst-qcd op
 
 Framework : when there are inheriting tasks, say C depends on B depends on A and B inherits from A (but C does not inherit from B), then parameters to A should be passed on the CLI as --B-param (if passed as --A-param, they will not be passed on when running B.vreq, unless it is "version").
 In particular : `law run RunCombineCombination ...  --FeaturePlot-version prod_240226_fixSystQcd --CreateDatacards-do-qcd --CreateDatacards-... ` rether than `--FeaturePlot-do-qcd`
+
+Framework : Dataset.selection is applied at Categorization and at PrePlot level (why both is a mystery). Especially it is not applied at Preprocess or PreCounter level.
+
+Framework : creating a Dataset from another Dataset copies all properties except the "aux" dictionary, in particular it discards the "selection" and other attributes. This happens when copying the v9 datasets to v12.
 
 ### Notebooks issues
 luigi v2.8.13 wants tornado>=4,<6 but notebook installed in cmssw wants tornado 6 ([issue](https://github.com/jupyter/notebook/issues/5920)). There is also a jinja issue.

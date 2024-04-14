@@ -160,7 +160,7 @@ class ConfigZttHbb(BaseConfig):
 
             ######## Resonant
             # ZH resonant
-            *[Process(f"Zprime_Zh_Ztautauhbb_M{mass}", Label("Z'#rightarrow Z_{#tau#tau}H_{bb} " + f"({mass} GeV)"), color=next(colors_res),
+            *[Process(f"Zprime_Zh_Ztautauhbb_M{mass}", Label(f"Z' ({mass} GeV)" if mass < 1000 else f"Z' ({mass/1000:g} TeV)"), color=next(colors_res),
                     isSigBBTT=True, ProcType="Ztautau_Hbb", isSignal=True, llr_name=f"ZHbbtt_M{mass}")
             for mass in [500,600,700,800,1000,1200,1400,1600,1800,2000,2500,3000,3500,4000,4500,5000,5500,6000]],
 

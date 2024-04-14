@@ -216,25 +216,30 @@ law run FeaturePlot2D --version prod_240318 --PrePlot2D-version prod_240318 --ca
 # CONTROL REGION ETAU, MUTAU, TAUTAU
 ###############################################################################################################################################
 source setup.sh
-DATASETS_ZbbHtt=zh_zbb_htt_signal,wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,\
-dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,ewk_z,ewk_wplus,ewk_wminus,tt_dl,tt_sl,tt_fh,\
-st_tw_antitop,st_tw_top,st_antitop,st_top,zz_dl,zh_zbb_htt_background,zh_hbb,zz_sl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
-ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm
-DATASETS_ZbbHtt_res=zh_zbb_htt,Zprime_Zh_Zbbhtautau_M500_v3,Zprime_Zh_Zbbhtautau_M1000_v3,Zprime_Zh_Zbbhtautau_M2000_v3,Zprime_Zh_Zbbhtautau_M3000_v3
-# remove 4TeV point as no statistics
-#,Zprime_Zh_Zbbhtautau_M4000_v3
+# datasets common to nonres and res. Not to be used by itself, use _res or _nonres versions
+DATASETS_ZbbHtt_base=dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,\
+tt_dl,tt_sl,tt_fh,zz_dl,zz_sl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_zbb_htt_background,zh_hbb,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,\
+ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top
 
-DATASETS_ZttHbb=zh_ztt_hbb_signal,wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,\
-dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,ewk_z,ewk_wplus,ewk_wminus,tt_dl,tt_sl,tt_fh,\
-st_tw_antitop,st_tw_top,st_antitop,st_top,zz_dl,zh_ztt_hbb_background,zh_hbb,zz_sl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
-ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm
-DATASETS_ZttHbb_res=zh_ztt_hbb,Zprime_Zh_ZtautauHbb_M500_v3,Zprime_Zh_ZtautauHbb_M1000_v3,Zprime_Zh_ZtautauHbb_M2000_v3,Zprime_Zh_ZtautauHbb_M3000_v3
-#,Zprime_Zh_ZtautauHbb_M4000_v3
+DATASETS_ZbbHtt_nonres=zh_zbb_htt_signal,$DATASETS_ZbbHtt_base
+# zh_zbb_htt goes at the end to not mess up the legend order
+RES_MASSES="500 1000 2000"
+DATASETS_ZbbHtt_res=Zprime_Zh_Zbbhtautau_M500_v3,Zprime_Zh_Zbbhtautau_M1000_v3,Zprime_Zh_Zbbhtautau_M2000_v3,$DATASETS_ZbbHtt_base,zh_zbb_htt
+# remove 3,4TeV point as no statistics
+#Zprime_Zh_Zbbhtautau_M3000_v3,Zprime_Zh_Zbbhtautau_M4000_v3
+
+DATASETS_ZttHbb_base=dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,\
+tt_dl,tt_sl,tt_fh,zz_dl,zz_sl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_ztt_hbb_background,zh_hbb,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,\
+ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top
+DATASETS_ZttHbb_nonres=zh_ztt_hbb_signal,$DATASETS_ZttHbb_base
+DATASETS_ZttHbb_res=Zprime_Zh_Ztautauhbb_M500_v3,Zprime_Zh_Ztautauhbb_M1000_v3,Zprime_Zh_Ztautauhbb_M2000_v3,$DATASETS_ZttHbb_base,zh_ztt_hbb
+#Zprime_Zh_Ztautauhbb_M3000_v3,Zprime_Zh_Ztautauhbb_M4000_v3
 
 DATASETS_DATA_ETAU=data_etau_a,data_etau_b,data_etau_c,data_etau_d
 DATASETS_DATA_MUTAU=data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d
 DATASETS_DATA_TAUTAU=data_tau_a,data_tau_b,data_tau_c,data_tau_d
-declare -a logCommands=("" "--log-y")
 
 # features to plots
 # dnn_ZHbbtt_kl_1,ZHKinFit_chi2,ZHKinFit_mass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,\
@@ -245,11 +250,11 @@ function featurePlotZbbHtt_CR {
     DATASETS_DATA=$2
     LOG_PARAMS=$3
 
-    law run FeaturePlot --version prod_240318 --PrePlot-version prod_240318 --config-name ul_2018_ZbbHtt_v12 \
+    law run FeaturePlot --version prod_240403 --PrePlot-version prod_240403 --config-name ul_2018_ZbbHtt_v12 \
  --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_chi2,ZHKinFit_mass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,\
 Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
- --dataset-names $DATASETS_ZbbHtt,$DATASETS_DATA \
- --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 \
+ --dataset-names $DATASETS_ZbbHtt_nonres,$DATASETS_DATA \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 --MergeCategorization-version prod_240318 \
  --process-group-name plot --save-root --save-png --category-name ZbbHtt_elliptical_cut_90_CR_$REGION_NAME --region-name $REGION_NAME\_os_iso \
  --save-yields --stack --do-qcd --hide-data False $LOG_PARAMS "${@:4}"
 }
@@ -263,11 +268,11 @@ function featurePlotZttHbb_CR {
     DATASETS_DATA=$2
     LOG_PARAMS=$3
 
-    law run FeaturePlot --version prod_240318 --PrePlot-version prod_240318 --config-name ul_2018_ZttHbb_v12 \
+    law run FeaturePlot --version prod_240403 --PrePlot-version prod_240403 --config-name ul_2018_ZttHbb_v12 \
  --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_chi2,ZHKinFit_mass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,\
 Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Hbb_pt,Hbb_eta,Hbb_phi,Hbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
- --dataset-names $DATASETS_ZttHbb,$DATASETS_DATA \
- --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 \
+ --dataset-names $DATASETS_ZttHbb_nonres,$DATASETS_DATA \
+ --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 --MergeCategorization-version prod_240318 \
  --process-group-name plot --save-root --save-png --category-name ZttHbb_elliptical_cut_90_CR_$REGION_NAME --region-name $REGION_NAME\_os_iso \
  --save-yields --stack --do-qcd --hide-data False $LOG_PARAMS "${@:4}"
 }
@@ -287,8 +292,8 @@ function featurePlotZbbHtt_baseline {
     law run FeaturePlot --version prod_240318_baseline --PrePlot-version prod_240318_baseline --config-name ul_2018_ZbbHtt_v12 \
  --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_chi2,ZHKinFit_mass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,\
 Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
- --dataset-names $DATASETS_ZbbHtt,$DATASETS_DATA --PrePlot-skip-merging \
- --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318_baseline \
+ --dataset-names $DATASETS_ZbbHtt_nonres,$DATASETS_DATA --PrePlot-skip-merging \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318_baseline --MergeCategorization-version prod_240318_baseline \
  --process-group-name plot --save-root --save-png --category-name base --region-name $REGION_NAME\_os_iso \
  --save-yields --stack --do-qcd --hide-data False $LOG_PARAMS "${@:4}"
 }
@@ -301,22 +306,26 @@ featurePlotZbbHtt_baseline tautau $DATASETS_DATA_TAUTAU
 # ANALYSIS ETAU, MUTAU, TAUTAU
 ###############################################################################################################################################
 ############ Non-resonant plots
+# We add the DNN as feature also in nonres so we can reuse the same PrePlot in both cases
 function featurePlotZbbHtt_SR_nonres {
     REGION_NAME=$1
     DATASETS_DATA=$2
 
-    law run FeaturePlot --version prod_240331_nonres --PrePlot-version prod_240331 --config-name ul_2018_ZbbHtt_v12 \
+    law run FeaturePlot --version prod_240404_nonres --PrePlot-version prod_240403 --config-name ul_2018_ZbbHtt_v12 \
  --feature-names  dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_500,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,ZHKinFit_chi2,ZHKinFit_mass,ZHKinFit_highmass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,\
 Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
- --dataset-names $DATASETS_ZbbHtt_res,$DATASETS_ZbbHtt,$DATASETS_DATA \
+ --dataset-names $DATASETS_ZbbHtt_nonres,$DATASETS_DATA \
  --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 --MergeCategorization-version prod_240329 \
  --process-group-name plot --save-root --save-png --category-name ZbbHtt_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
- --save-yields --stack --do-qcd --hide-data True --multiply-signals-normalization 1000. "${@:3}"
+ --save-yields --stack --do-qcd --hide-data True "${@:3}"
 }
-
-featurePlotZbbHtt_SR_nonres etau $DATASETS_DATA_ETAU
-featurePlotZbbHtt_SR_nonres mutau $DATASETS_DATA_MUTAU 
-featurePlotZbbHtt_SR_nonres tautau $DATASETS_DATA_TAUTAU  
+declare -a logCommands=("--multiply-signals-normalization 1000." "--log-y True --histogram-minimum 0.1")
+for logParams in "${logCommands[@]}"; do
+featurePlotZbbHtt_SR_nonres etau $DATASETS_DATA_ETAU $logParams & 
+featurePlotZbbHtt_SR_nonres mutau $DATASETS_DATA_MUTAU $logParams & 
+featurePlotZbbHtt_SR_nonres tautau $DATASETS_DATA_TAUTAU $logParams & 
+wait
+done
 
 
 function featurePlotZttHbb_SR_nonres {
@@ -324,150 +333,147 @@ function featurePlotZttHbb_SR_nonres {
     DATASETS_DATA=$2
     LOG_PARAMS=$3
 
-    law run FeaturePlot --version prod_240331_nonres --PrePlot-version prod_240331 --config-name ul_2018_ZttHbb_v12 \
+    law run FeaturePlot --version prod_240404_nonres --PrePlot-version prod_240403 --config-name ul_2018_ZttHbb_v12 \
  --feature-names dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_500,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,ZHKinFit_chi2,ZHKinFit_mass,ZHKinFit_highmass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,\
 Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Hbb_pt,Hbb_eta,Hbb_phi,Hbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
- --dataset-names $DATASETS_ZttHbb,$DATASETS_DATA \
- --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 --MergeCategorization-version prod_240329 \
+ --dataset-names $DATASETS_ZttHbb_nonres,$DATASETS_DATA \
+ --workers 10 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 --MergeCategorization-version prod_240329 \
  --process-group-name plot --save-root --save-png --category-name ZttHbb_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
- --save-yields --stack --do-qcd --hide-data True --multiply-signals-normalization 1000. $LOG_PARAMS "${@:4}"
+ --save-yields --stack --do-qcd --hide-data True $LOG_PARAMS "${@:4}"
 }
-
-featurePlotZttHbb_SR_nonres etau $DATASETS_DATA_ETAU
-featurePlotZttHbb_SR_nonres mutau $DATASETS_DATA_MUTAU
-featurePlotZttHbb_SR_nonres tautau $DATASETS_DATA_TAUTAU
-
+declare -a logCommands=("--multiply-signals-normalization 1000." "--log-y True --histogram-minimum 0.1")
+for logParams in "${logCommands[@]}"; do
+featurePlotZttHbb_SR_nonres etau $DATASETS_DATA_ETAU $logParams &
+featurePlotZttHbb_SR_nonres mutau $DATASETS_DATA_MUTAU $logParams  & 
+featurePlotZttHbb_SR_nonres tautau $DATASETS_DATA_TAUTAU $logParams  & 
+wait
+done
 
 ########### Resonant plots
 function featurePlotZbbHtt_SR_res {
     REGION_NAME=$1
     DATASETS_DATA=$2
 
-    law run FeaturePlot --version prod_240331_res --PrePlot-version prod_240331 --config-name ul_2018_ZbbHtt_v12 \
+    law run FeaturePlot --version prod_240404_res --PrePlot-version prod_240403 --config-name ul_2018_ZbbHtt_v12 \
  --feature-names dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_500,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,ZHKinFit_chi2,ZHKinFit_mass,ZHKinFit_highmass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,\
 Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
- --dataset-names $DATASETS_ZbbHtt_res,$DATASETS_ZbbHtt,$DATASETS_DATA \
+ --dataset-names $DATASETS_ZbbHtt_res,$DATASETS_DATA \
  --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 --MergeCategorization-version prod_240329 \
  --process-group-name plot_res --save-root --save-png --category-name ZbbHtt_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
- --save-yields --stack --do-qcd --hide-data True  --multiply-signals-normalization 10. "${@:3}"
+ --save-yields --stack --do-qcd --hide-data True  "${@:3}"
 }
-
+declare -a logCommands=("--multiply-signals-normalization 10." "--log-y True --histogram-minimum 0.1")
 for logParams in "${logCommands[@]}"; do
-featurePlotZbbHtt_SR_res etau $DATASETS_DATA_ETAU $logParams
-featurePlotZbbHtt_SR_res mutau $DATASETS_DATA_MUTAU $logParams
-featurePlotZbbHtt_SR_res tautau $DATASETS_DATA_TAUTAU $logParams
+featurePlotZbbHtt_SR_res etau $DATASETS_DATA_ETAU $logParams &
+featurePlotZbbHtt_SR_res mutau $DATASETS_DATA_MUTAU $logParams &
+featurePlotZbbHtt_SR_res tautau $DATASETS_DATA_TAUTAU $logParams &
+wait
 done
+
+# Plots parametrized DNN distribution showing only the corresponding resonant sample
+# to be run after another featureplot to not mess up PrePlot
+function featurePlotZbbHtt_SR_res_individualMasses {
+    REGION_NAME=$1
+    DATASETS_DATA=$2
+
+    for mass in $RES_MASSES; do
+
+    law run FeaturePlot --version prod_240404_res_DNN --PrePlot-version prod_240403 --config-name ul_2018_ZbbHtt_v12 \
+ --feature-names dnn_ZHbbtt_kl_1_$mass \
+ --dataset-names Zprime_Zh_Zbbhtautau_M${mass}_v3,$DATASETS_ZbbHtt_base,zh_ztt_hbb,$DATASETS_DATA \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 --MergeCategorization-version prod_240329 \
+ --process-group-name plot_res --save-root --save-png --category-name ZbbHtt_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
+ --save-yields --stack --do-qcd --hide-data True  "${@:3}" &
+ done
+}
+declare -a logCommands=("--multiply-signals-normalization 10." "--log-y True --histogram-minimum 0.1")
+for logParams in "${logCommands[@]}"; do
+featurePlotZbbHtt_SR_res_individualMasses etau $DATASETS_DATA_ETAU $logParams &
+featurePlotZbbHtt_SR_res_individualMasses mutau $DATASETS_DATA_MUTAU $logParams &
+featurePlotZbbHtt_SR_res_individualMasses tautau $DATASETS_DATA_TAUTAU $logParams &
+wait
+done
+
 
 function featurePlotZttHbb_SR_res {
     REGION_NAME=$1
     DATASETS_DATA=$2
 
-    law run FeaturePlot --version prod_240331_res --PrePlot-version prod_240331 --config-name ul_2018_ZttHbb_v12 \
+    law run FeaturePlot --version prod_240404_res --PrePlot-version prod_240403 --config-name ul_2018_ZttHbb_v12 \
  --feature-names dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_500,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,ZHKinFit_chi2,ZHKinFit_mass,ZHKinFit_highmass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,\
 Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Hbb_pt,Hbb_eta,Hbb_phi,Hbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
- --dataset-names $DATASETS_ZttHbb_res,$DATASETS_ZttHbb,$DATASETS_DATA \
+ --dataset-names $DATASETS_ZttHbb_res,$DATASETS_DATA \
  --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 --MergeCategorization-version prod_240329 \
- --process-group-name plot --save-root --save-png --category-name ZttHbb_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
- --save-yields --stack --do-qcd --hide-data True --multiply-signals-normalization 10. "${@:4}"
+ --process-group-name plot_res --save-root --save-png --category-name ZttHbb_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
+ --save-yields --stack --do-qcd --hide-data True "${@:3}"
 }
-
+declare -a logCommands=("--multiply-signals-normalization 10." "--log-y True --histogram-minimum 0.1")
 for logParams in "${logCommands[@]}"; do
-featurePlotZttHbb_SR_res etau $DATASETS_DATA_ETAU --version prod_240327_res  --process-group-name plot_res --multiply-signals-normalization 10.
-featurePlotZttHbb_SR_res mutau $DATASETS_DATA_MUTAU --version prod_240327_res  --process-group-name plot_res --multiply-signals-normalization 10.
-featurePlotZttHbb_SR_res tautau $DATASETS_DATA_TAUTAU --version prod_240327_res  --process-group-name plot_res --multiply-signals-normalization 10.
+featurePlotZttHbb_SR_res etau $DATASETS_DATA_ETAU $logParams &
+featurePlotZttHbb_SR_res mutau $DATASETS_DATA_MUTAU  $logParams &
+featurePlotZttHbb_SR_res tautau $DATASETS_DATA_TAUTAU  $logParams &
+wait
 done
 
-######## resonant plots ZHKinFitMass with Bayesian blocks histograming
-# function featurePlotZbbHtt_SR_res_bayesianBlock {
-#     REGION_NAME=$1
-#     DATASETS_DATA=$2
+# Plots parametrized DNN distribution showing only the corresponding resonant sample
+# to be run after another featureplot to not mess up PrePlot
+function featurePlotZttHbb_SR_res_individualMasses {
+    REGION_NAME=$1
+    DATASETS_DATA=$2
 
-#     law run FeaturePlot --version prod_240331_res --PrePlot-version prod_240331 --config-name ul_2018_ZbbHtt_v12 \
-#  --feature-names dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_500,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,ZHKinFit_mass,ZHKinFit_highmass \
-#  --dataset-names $DATASETS_ZbbHtt_res,$DATASETS_ZbbHtt,$DATASETS_DATA \
-#  --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 --MergeCategorization-version prod_240329 \
-#  --process-group-name plot_res --save-root --save-png --category-name ZbbHtt_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
-#  --save-yields --stack --do-qcd --hide-data True  --multiply-signals-normalization 10. "${@:3}"
-# }
+    for mass in $RES_MASSES; do
 
+    law run FeaturePlot --version prod_240404_res_DNN --PrePlot-version prod_240403 --config-name ul_2018_ZttHbb_v12 \
+ --feature-names dnn_ZHbbtt_kl_1_$mass \
+ --dataset-names Zprime_Zh_Ztautauhbb_M${mass}_v3,$DATASETS_ZttHbb_base,zh_ztt_hbb,$DATASETS_DATA \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 --MergeCategorization-version prod_240329 \
+ --process-group-name plot_res --save-root --save-png --category-name ZttHbb_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
+ --save-yields --stack --do-qcd --hide-data True  "${@:3}" &
+ done
+}
+declare -a logCommands=("--multiply-signals-normalization 10." "--log-y True --histogram-minimum 0.1")
+for logParams in "${logCommands[@]}"; do
+featurePlotZttHbb_SR_res_individualMasses etau $DATASETS_DATA_ETAU $logParams &
+featurePlotZttHbb_SR_res_individualMasses mutau $DATASETS_DATA_MUTAU $logParams &
+featurePlotZttHbb_SR_res_individualMasses tautau $DATASETS_DATA_TAUTAU $logParams &
+wait
+done
 
-# ################## DNN resonant
-# function featurePlotZbbHtt_DNN_res {
-#     REGION_NAME=$1
-#     DATASETS_DATA=$2
-
-#     law run FeaturePlot --version prod_240329_resDNN  --config-name ul_2018_ZbbHtt_v12 \
-#  --feature-names dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_500,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000 \
-#  --dataset-names $DATASETS_ZbbHtt_res,$DATASETS_ZbbHtt,$DATASETS_DATA \
-#  --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 \
-#  --process-group-name plot_res --save-root --save-png --category-name ZbbHtt_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
-#  --save-yields --stack --do-qcd --hide-data True "${@:3}"
-# }
-
-# for logParams in "${logCommands[@]}"; do
-#     featurePlotZbbHtt_DNN_res etau $DATASETS_DATA_ETAU $logParams --multiply-signals-normalization 10.
-#     featurePlotZbbHtt_DNN_res mutau $DATASETS_DATA_MUTAU $logParams --multiply-signals-normalization 10.
-#     featurePlotZbbHtt_DNN_res tautau $DATASETS_DATA_TAUTAU $logParams --multiply-signals-normalization 10.
-# done
-
-# function featurePlotZttHbb_DNN_res {
-#     REGION_NAME=$1
-#     DATASETS_DATA=$2
-
-#     law run FeaturePlot --version prod_240329_resDNN  --config-name ul_2018_ZttHbb_v12 \
-#  --feature-names dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_500,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000 \
-#  --dataset-names $DATASETS_ZttHbb_res,$DATASETS_ZttHbb,$DATASETS_DATA \
-#  --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240329 \
-#  --process-group-name plot_res --save-root --save-png --category-name ZttHbb_elliptical_cut_90_$REGION_NAME --region-name $REGION_NAME\_os_iso \
-#  --save-yields --stack --do-qcd --hide-data True "${@:3}"
-# }
-
-# for logParams in "${logCommands[@]}"; do
-#     featurePlotZttHbb_DNN_res etau $DATASETS_DATA_ETAU $logParams --multiply-signals-normalization 10.
-#     featurePlotZttHbb_DNN_res mutau $DATASETS_DATA_MUTAU $logParams --multiply-signals-normalization 10.
-#     featurePlotZttHbb_DNN_res tautau $DATASETS_DATA_TAUTAU $logParams --multiply-signals-normalization 10.
-# done
 
 ###############################################################################################################################################
 ############################################################  Datacards  #################################################################
 ###############################################################################################################################################
+########### Non-resonant
+function makeNonResonantDatacards_ZbbHtt(){
+    REGION_NAME=$1
+    DATASETS_DATA=$2
 
-law run CreateDatacards --version prod_240327 --FeaturePlot-version prod_240327 --PrePlot-version prod_240327 --config-name ul_2018_ZbbHtt_v12 \
- --feature-names dnn_ZHbbtt_kl_1 --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240327 --Categorization-version prod_240327  \
- --dataset-names "$DATASETS_ZbbHtt,$DATASETS_DATA_ETAU" \
- --process-group-name datacard_ZbbHtt --save-root --save-png --hide-data True  --category-name ZbbHtt_elliptical_cut_90_etau \
- --region-name etau_os_iso --do-qcd --hide-data True --propagate-syst-qcd
+    law run CreateDatacards --version prod_240403_nonres --FeaturePlot-version prod_240403_nonres --PrePlot-version prod_240403 --config-name ul_2018_ZbbHtt_v12 \
+ --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_mass --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240329 --Categorization-version prod_240329  \
+ --dataset-names "$DATASETS_ZbbHtt_nonres,$DATASETS_DATA" \
+ --process-group-name datacard_ZbbHtt --save-root --save-png --hide-data True  --category-name ZbbHtt_elliptical_cut_90_$REGION_NAME \
+ --region-name ${REGION_NAME}_os_iso --do-qcd --hide-data True --propagate-syst-qcd
+}
 
-law run CreateDatacards --version prod_240327 --FeaturePlot-version prod_240327 --PrePlot-version prod_240327 --config-name ul_2018_ZbbHtt_v12 \
- --feature-names dnn_ZHbbtt_kl_1 --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240327 --Categorization-version prod_240327  \
- --dataset-names "$DATASETS_ZbbHtt,$DATASETS_DATA_MUTAU" \
- --process-group-name datacard_ZbbHtt --save-root --save-png --hide-data True  --category-name ZbbHtt_elliptical_cut_90_mutau \
- --region-name mutau_os_iso --do-qcd --hide-data True --propagate-syst-qcd
-
-law run CreateDatacards --version prod_240327 --FeaturePlot-version prod_240327 --PrePlot-version prod_240327 --config-name ul_2018_ZbbHtt_v12 \
- --feature-names dnn_ZHbbtt_kl_1 --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240327 --Categorization-version prod_240327  \
- --dataset-names "$DATASETS_ZbbHtt,$DATASETS_DATA_TAUTAU" \
- --process-group-name datacard_ZbbHtt --save-root --save-png --hide-data True  --category-name ZbbHtt_elliptical_cut_90_tautau \
- --region-name tautau_os_iso --do-qcd --hide-data True --propagate-syst-qcd
+makeNonResonantDatacards_ZbbHtt etau $DATASETS_DATA_ETAU
+makeNonResonantDatacards_ZbbHtt mutau $DATASETS_DATA_MUTAU
+makeNonResonantDatacards_ZbbHtt tautau $DATASETS_DATA_TAUTAU
 
 # ZttHbb
-law run CreateDatacards --version prod_240327 --FeaturePlot-version prod_240327 --PrePlot-version prod_240327 --config-name ul_2018_ZttHbb_v12 \
- --feature-names dnn_ZHbbtt_kl_1 --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240327 --Categorization-version prod_240327  \
- --dataset-names "$DATASETS_ZttHbb,$DATASETS_DATA_ETAU" \
- --process-group-name datacard_ZttHbb --save-root --save-png --hide-data True  --category-name ZttHbb_elliptical_cut_90_etau \
- --region-name etau_os_iso --do-qcd --hide-data True --propagate-syst-qcd
+function makeNonResonantDatacards_ZttHbb(){
+    REGION_NAME=$1
+    DATASETS_DATA=$2
 
-law run CreateDatacards --version prod_240327 --FeaturePlot-version prod_240327 --PrePlot-version prod_240327 --config-name ul_2018_ZttHbb_v12 \
- --feature-names dnn_ZHbbtt_kl_1 --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240327 --Categorization-version prod_240327  \
- --dataset-names "$DATASETS_ZttHbb,$DATASETS_DATA_MUTAU" \
- --process-group-name datacard_ZttHbb --save-root --save-png --hide-data True  --category-name ZttHbb_elliptical_cut_90_mutau \
- --region-name mutau_os_iso --do-qcd --hide-data True --propagate-syst-qcd
+    law run CreateDatacards --version prod_240403_nonres --FeaturePlot-version prod_240403_nonres --PrePlot-version prod_240403 --config-name ul_2018_ZttHbb_v12 \
+ --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_mass --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240329 --Categorization-version prod_240329  \
+ --dataset-names "$DATASETS_ZttHbb_nonres,$DATASETS_DATA" \
+ --process-group-name datacard_ZttHbb --save-root --save-png --hide-data True  --category-name ZttHbb_elliptical_cut_90_$REGION_NAME \
+ --region-name ${REGION_NAME}_os_iso --do-qcd --hide-data True --propagate-syst-qcd
+}
 
-law run CreateDatacards --version prod_240327 --FeaturePlot-version prod_240327 --PrePlot-version prod_240327 --config-name ul_2018_ZttHbb_v12 \
- --feature-names dnn_ZHbbtt_kl_1 --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240327 --Categorization-version prod_240327  \
- --dataset-names "$DATASETS_ZttHbb,$DATASETS_DATA_TAUTAU" \
- --process-group-name datacard_ZttHbb --save-root --save-png --hide-data True  --category-name ZttHbb_elliptical_cut_90_tautau \
- --region-name tautau_os_iso --do-qcd --hide-data True --propagate-syst-qcd
+makeNonResonantDatacards_ZttHbb etau $DATASETS_DATA_ETAU
+makeNonResonantDatacards_ZttHbb mutau $DATASETS_DATA_MUTAU
+makeNonResonantDatacards_ZttHbb tautau $DATASETS_DATA_TAUTAU
 
 
 ########################### Resonant datacards
@@ -477,9 +483,9 @@ function makeResonantDatacards_ZbbHtt {
     REGION_NAME=$2
     DATASETS_DATA=$3
     # make datacards for both the parametrized an non-parametrized DNN
-    law run CreateDatacards --version prod_240329_M$RES_MASS --FeaturePlot-version prod_240329_resDNN --PrePlot-version prod_240329_resDNN --config-name ul_2018_ZbbHtt_v12 \
+    law run CreateDatacards --version prod_240403_M$RES_MASS --FeaturePlot-version prod_240403_resDNN --PrePlot-version prod_240403 --config-name ul_2018_ZbbHtt_v12 \
  --feature-names dnn_ZHbbtt_kl_1_$RES_MASS,dnn_ZHbbtt_kl_1,ZHKinFit_highmass --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240329 --Categorization-version prod_240329  \
- --dataset-names "Zprime_Zh_Zbbhtautau_M${RES_MASS}_v3,$DATASETS_ZbbHtt,zh_zbb_htt,$DATASETS_DATA" \
+ --dataset-names "Zprime_Zh_Zbbhtautau_M${RES_MASS}_v3,$DATASETS_ZbbHtt_base,zh_zbb_htt,$DATASETS_DATA" \
  --process-group-name datacard_ZbbHtt_res --save-root --save-png --hide-data True  --category-name ZbbHtt_elliptical_cut_90_$REGION_NAME \
  --region-name $REGION_NAME\_os_iso --do-qcd --hide-data True --propagate-syst-qcd "${@:4}"
 }
@@ -495,9 +501,9 @@ function makeResonantDatacards_ZttHbb {
     REGION_NAME=$2
     DATASETS_DATA=$3
 
-    law run CreateDatacards --version prod_240329_M$RES_MASS --FeaturePlot-version prod_240329_resDNN --PrePlot-version prod_240329_resDNN --config-name ul_2018_ZttHbb_v12 \
+    law run CreateDatacards --version prod_240403_M$RES_MASS --FeaturePlot-version prod_240403_resDNN --PrePlot-version prod_240403 --config-name ul_2018_ZttHbb_v12 \
  --feature-names dnn_ZHbbtt_kl_1_$RES_MASS,dnn_ZHbbtt_kl_1,ZHKinFit_highmass --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240329 --Categorization-version prod_240329  \
- --dataset-names "Zprime_Zh_Ztautauhbb_M${RES_MASS}_v3,$DATASETS_ZttHbb,zh_zbb_htt,$DATASETS_DATA" \
+ --dataset-names "Zprime_Zh_Ztautauhbb_M${RES_MASS}_v3,$DATASETS_ZttHbb_base,zh_zbb_htt,$DATASETS_DATA" \
  --process-group-name datacard_ZttHbb_res --save-root --save-png --hide-data True  --category-name ZttHbb_elliptical_cut_90_$REGION_NAME \
  --region-name $REGION_NAME\_os_iso --do-qcd --hide-data True --propagate-syst-qcd "${@:4}"
 }

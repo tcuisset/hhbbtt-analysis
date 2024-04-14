@@ -401,6 +401,8 @@ class BaseConfig(cmt_config):
 
         categories = [
             Category("base", "base category", selection="event >= 0"),
+            Category("base_fixedGenWeight", "base with genWeight (fixed)", selection="1"),
+            Category("base_oldGenWeight", "base with old genWeight (no fix)", selection="1"),
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
             Category("base_selection", "base category",
                 nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
@@ -830,6 +832,8 @@ class BaseConfig(cmt_config):
             # Weights
             Feature("genWeight", "genWeight", binning=(20, 0, 2),
                 x_title=Label("genWeight")),
+            Feature("genWeightFixed", "genWeightFixed", binning=(20, 0, 2),
+                x_title=Label("genWeightFixed")), # genWeight eventually modified to fix Madgraph LO bug
             Feature("puWeight", "puWeight", binning=(20, 0, 2),
                 x_title=Label("puWeight"),
                 systematics=["pu"]),
@@ -843,6 +847,14 @@ class BaseConfig(cmt_config):
                 systematics=["prefiring_syst"]),
             Feature("PUjetID_SF", "PUjetID_SF", binning=(20, 0, 2),
                 x_title=Label("PUjetID_SF")),
+            
+
+            Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
+                x_title=Label("LHE PtZ"), units="GeV"),
+            Feature("LHE_HT", "LHE_HT", binning=(100, 0, 1000),
+                x_title=Label("LHE HT"), units="GeV"),
+            Feature("LHE_HT_low", "LHE_HT", binning=(100, 0, 130),
+                x_title=Label("LHE HT"), units="GeV"),
 
         ]
         return ObjectCollection(features)
@@ -851,10 +863,10 @@ class BaseConfig(cmt_config):
         weights = DotDict()
         weights.default = "1"
 
-        # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
-        weights.total_events_weights = ["genWeight", "puWeight", "DYstitchEasyWeight"]
+        # These weights are used for PreCounter
+        weights.total_events_weights = ["genWeightFixed", "puWeight", "DYstitchEasyWeight"]
 
-        weights.mutau = ["genWeight", "puWeight", "prescaleWeight", "trigSF",
+        weights.mutau = ["genWeightFixed", "puWeight", "prescaleWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
             "bTagweightReshape"]
             
