@@ -238,17 +238,17 @@ class Config(BaseConfig):
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ZZKinFit_highmass", "ZZKinFit_mass", binning=(175, 150, 3550),
+            Feature("ZZKinFit_mass_fit_1", "ZZKinFit_mass", binning=(20, 180, 780),
                 x_title=Label("ZZ mass (Kin. Fit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ZZKinFit_mass_res", "ZZKinFit_mass", binning=(50, 150, 1150),
+            Feature("ZZKinFit_mass_fit_2", "ZZKinFit_mass", binning=(24, 180, 780),
                 x_title=Label("ZZ mass (Kin. Fit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ZZKinFit_highmass_res", "ZZKinFit_mass", binning=(175, 150, 3650),
+            Feature("ZZKinFit_mass_res", "ZZKinFit_mass", binning=(50, 150, 1650),
                 x_title=Label("ZZ mass (Kin. Fit)"),
                 units="GeV",
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
@@ -262,6 +262,63 @@ class Config(BaseConfig):
                 x_title=Label("DNN ZZ"),
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_200", "dnn_ZZbbtt_kl_1_200", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (200 GeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_300", "dnn_ZZbbtt_kl_1_300", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (300 GeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_400", "dnn_ZZbbtt_kl_1_400", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (400 GeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_500", "dnn_ZZbbtt_kl_1_500", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (500 GeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_600", "dnn_ZZbbtt_kl_1_600", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (600 GeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_700", "dnn_ZZbbtt_kl_1_700", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (700 GeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_800", "dnn_ZZbbtt_kl_1_800", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (800 GeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_900", "dnn_ZZbbtt_kl_1_900", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (900 GeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_1000", "dnn_ZZbbtt_kl_1_1000", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (1 TeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_1100", "dnn_ZZbbtt_kl_1_1100", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (1.1 TeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_1200", "dnn_ZZbbtt_kl_1_1200", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (1.2 TeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_1300", "dnn_ZZbbtt_kl_1_1300", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (1.3 TeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_1400", "dnn_ZZbbtt_kl_1_1400", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (1.4 TeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            Feature("dnn_ZZbbtt_kl_1_1500", "dnn_ZZbbtt_kl_1_1500", binning=(10, 0, 1),
+                x_title=Label("PNN ZZ (1.5 TeV)"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+
             
             Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
                 x_title=Label("LHE PtZ"), units="GeV"),
@@ -325,7 +382,7 @@ class Config(BaseConfig):
             
             # background for resonant analysis 
             Process("zz_bbtt", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", parent_process="zz", llr_name="ZZbbtt"),
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", llr_name="ZZbbtt"),
             
         ])
 
@@ -439,6 +496,48 @@ class Config(BaseConfig):
             "ggf_sm",
             "data",
         ],
+        "datacard_dnn_zz_res_200": [
+            "ggXZZbbtt_M200", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_300": [
+            "ggXZZbbtt_M300", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_400": [
+            "ggXZZbbtt_M400", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_500": [
+            "ggXZZbbtt_M500", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_600": [
+            "ggXZZbbtt_M600", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_700": [
+            "ggXZZbbtt_M700", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_800": [
+            "ggXZZbbtt_M800", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_900": [
+            "ggXZZbbtt_M900", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_1000": [
+            "ggXZZbbtt_M1000", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_1100": [
+            "ggXZZbbtt_M1100", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_1200": [
+            "ggXZZbbtt_M1200", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_1300": [
+            "ggXZZbbtt_M1300", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_1400": [
+            "ggXZZbbtt_M1400", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
+        "datacard_dnn_zz_res_1500": [
+            "ggXZZbbtt_M1500", "zz_bbtt", "ttH", "dy", "vvv", "vbf_htt", "ggH_ZZ", "ttx", "vv", "wh", "zh", "tw", "singlet", "ewk", "wjets", "tt", "ggf_sm", "data",
+        ],
         "datacard_zz_res": [
             "zz_bbtt",
             "ggXZZbbtt_M200",
@@ -474,6 +573,48 @@ class Config(BaseConfig):
             "tt",
             "ggf_sm",
             "data",
+        ],
+        "dnn_zz_res_200": [
+            "ggXZZbbtt_M200", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_300": [
+            "ggXZZbbtt_M300", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_400": [
+            "ggXZZbbtt_M400", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_500": [
+            "ggXZZbbtt_M500", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_600": [
+            "ggXZZbbtt_M600", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_700": [
+            "ggXZZbbtt_M700", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_800": [
+            "ggXZZbbtt_M800", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_900": [
+            "ggXZZbbtt_M900", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_1000": [
+            "ggXZZbbtt_M1000", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_1100": [
+            "ggXZZbbtt_M1100", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_1200": [
+            "ggXZZbbtt_M1200", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_1300": [
+            "ggXZZbbtt_M1300", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_1400": [
+            "ggXZZbbtt_M1400", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
+        ],
+        "dnn_zz_res_1500": [
+            "ggXZZbbtt_M1500", "zz_bbtt", "higgs", "vv_v", "wjets", "dy", "others", "tt", "ttx", "data",
         ],
         "ggXZZbbtt": [
             "ggXZZbbtt_M200",
@@ -519,11 +660,11 @@ class Config(BaseConfig):
             "all_background",
             "zz_sl_signal",
         ],
-        "zz_res_sig_vs_bkg": [
-            "all_background",
-            "zz_sl_signal",
-            "zz_res",
-        ],
+        # "zz_res_sig_vs_bkg": [
+        #     "all_background",
+        #     "zz_sl_signal",
+        #     "zz_res",
+        # ],
         }
         return processes, process_group_names, process_training_names
 
