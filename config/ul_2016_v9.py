@@ -244,7 +244,7 @@ def get_common_datasets_v9(self):
                 "mutau": 20,
                 "etau": 40,
             },
-            scaling=(0.96639, 0.00863),
+            scaling=(0.908, 0.006),
             tags=["ul"]),
         Dataset("tt_sl",
             dataset="/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/"
@@ -257,7 +257,7 @@ def get_common_datasets_v9(self):
                 "mutau": 60,
                 "etau": 40,
             },
-            scaling=(0.96639, 0.00863),
+            scaling=(0.908, 0.006),
             tags=["ul"]),
         Dataset("tt_fh",
             dataset="/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/"
@@ -265,7 +265,7 @@ def get_common_datasets_v9(self):
             process=self.processes.get("tt_fh"),
             # prefix="xrootd-cms.infn.it//",
             xs=377.96, # XSDB NNLO
-            scaling=(0.96639, 0.00863),
+            scaling=(0.908, 0.006),
             tags=["ul"]),
 
         # TW
