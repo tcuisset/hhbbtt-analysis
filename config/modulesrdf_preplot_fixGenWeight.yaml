@@ -6,3 +6,11 @@ genWeightLOFix:
     path: Tools.Tools.genWeightLOFix
     parameters:
         setGenWeightToOne: self.dataset.get_aux('setGenWeightToOne', False)
+
+puweightCor:
+    name: puWeightRDF
+    path: Corrections.LUM.puWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')

@@ -15,8 +15,8 @@ def get_2018_v12_weights():
     weights.tautau = weights.mutau
     weights.base_selection = weights.mutau
     weights.base = weights.mutau
-    weights.base_fixedGenWeight = ["genWeightFixed"]
-    weights.base_oldGenWeight = ["genWeight"]
+    weights.base_fixedGenWeight = ["genWeightFixed", "puWeight"]
+    weights.base_oldGenWeight = ["genWeight", "puWeight"]
 
     # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
         # for channel in weights.channels}
