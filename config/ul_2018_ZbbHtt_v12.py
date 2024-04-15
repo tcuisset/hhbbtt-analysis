@@ -149,7 +149,7 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 xs=0.0554,
                 secondary_dataset="zh_zbb_htt_aux",
                 prefix="eoscms.cern.ch//",
-                tags=["ul", "nanoV10"]),
+                tags=["ul", "nanoV10", "res"]),
             Dataset("zh_zbb_htt_aux",
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8/"
                     "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -158,7 +158,7 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
                 xs=0.0554, # AN
                 # xs=0.7891, # XSDB NLO
                 splitting=200000,
-                tags=["ul", "secondary"]),  
+                tags=["ul", "secondary", "res"]),  
 
 
             ###################################### ZZ Background ##########################################

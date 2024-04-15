@@ -160,7 +160,7 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
                 secondary_dataset="zz_bbtt_aux",
                 # categorization_max_events=10000,
                 prefix="eoscms.cern.ch//",
-                tags=["ul", "nanoV10"]),
+                tags=["ul", "nanoV10", "res"]),
             Dataset("zz_bbtt_aux",
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
@@ -169,7 +169,7 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
                 xs=5.52, # AN
                 # xs=3.676, # XSDB unknown
                 # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
-                tags=["ul", "secondary"]),
+                tags=["ul", "secondary", "res"]),
 
             ###################################### ZZ Resonant ############################################
             ###############################################################################################
