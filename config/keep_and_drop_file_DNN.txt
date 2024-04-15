@@ -42,3 +42,7 @@ keep pairType
 keep dau1_idDeepTau2017v2p1VSjet
 keep dau2_idDeepTau2017v2p1VSjet
 keep isOS
+keep DYstitchEasyWeight
+keep idAndIsoAndFakeSF
+keep bTagweightReshape
+keep LHE_HT
