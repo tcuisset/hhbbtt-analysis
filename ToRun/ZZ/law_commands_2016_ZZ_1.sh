@@ -275,28 +275,21 @@ data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e \
  --PrePlot-workflow htcondor --PrePlot-htcondor-scheduler llrt3condor.in2p3.fr --PrePlot-transfer-logs \
  --PrePlot-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
 
-# ###############################################################################################################################################
-# # PLOT DNN INPUT
-# ###############################################################################################################################################
+###############################################################################################################################################
+# PLOT DNN FEATURES
+###############################################################################################################################################
 
-# law run FeaturePlot --version prod_231003 --PrePlot-skip-merging --config-name ul_2016_ZZ_v12 \
-#  --feature-names zz_kinfit_chi2,zz_kinfit_m,sv_mass,sv_mass_large,dR_l1_l2_x_sv_pT,l1_mt,l_2_pT,dR_l1_l2,dphi_sv_met,z_bb_mass,b_2_hhbtag,diZ_mass_sv,dphi_zbb_sv,z_bb_pT,dR_l1_l2_boosted_ztt_met,l_1_pT,b_1_pT,phi,costheta_l2_zttmet,b_1_cvsb,b_1_cvsl \
-#  --workers 20  --MergeCategorization-version prod_240207 --MergeCategorizationStats-version prod_230718 --Categorization-version prod_231002  \
-#  --dataset-names zz_sl_signal,dy,tt_dl,tt_sl,tt_fh,wjets,tth_bb,tth_tautau,tth_nonbb,ggf_sm,zz_sl_background,zz_qnu,zz_lnu,zz_dl,zz_fh,zzz,st_antitop,st_top,st_tw_antitop,st_tw_top,data_etau_a,data_etau_b,data_etau_c,data_etau_d \
-#  --process-group-name zz_total_data --save-root --save-png --hide-data True  --category-name ZZ_elliptical_cut_80_etau \
-#  --region-name etau_os_iso --do-qcd --hide-data False --stack
-# law run FeaturePlot --version prod_231003 --PrePlot-skip-merging --config-name ul_2016_ZZ_v12 \
-#  --feature-names zz_kinfit_chi2,zz_kinfit_m,sv_mass,sv_mass_large,dR_l1_l2_x_sv_pT,l1_mt,l_2_pT,dR_l1_l2,dphi_sv_met,z_bb_mass,b_2_hhbtag,diZ_mass_sv,dphi_zbb_sv,z_bb_pT,dR_l1_l2_boosted_ztt_met,l_1_pT,b_1_pT,phi,costheta_l2_zttmet,b_1_cvsb,b_1_cvsl \
-#  --workers 20  --MergeCategorization-version prod_240207 --MergeCategorizationStats-version prod_230718 --Categorization-version prod_231002  \
-#  --dataset-names zz_sl_signal,dy,tt_dl,tt_sl,tt_fh,wjets,tth_bb,tth_tautau,tth_nonbb,ggf_sm,zz_sl_background,zz_qnu,zz_lnu,zz_dl,zz_fh,zzz,st_antitop,st_top,st_tw_antitop,st_tw_top,data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d \
-#  --process-group-name zz_total_data --save-root --save-png --hide-data True  --category-name ZZ_elliptical_cut_80_mutau \
-#  --region-name mutau_os_iso --do-qcd --hide-data False --stack
-# law run FeaturePlot --version prod_231003 --PrePlot-skip-merging --config-name ul_2016_ZZ_v12 \
-#  --feature-names zz_kinfit_chi2,zz_kinfit_m,sv_mass,sv_mass_large,dR_l1_l2_x_sv_pT,l1_mt,l_2_pT,dR_l1_l2,dphi_sv_met,z_bb_mass,b_2_hhbtag,diZ_mass_sv,dphi_zbb_sv,z_bb_pT,dR_l1_l2_boosted_ztt_met,l_1_pT,b_1_pT,phi,costheta_l2_zttmet,b_1_cvsb,b_1_cvsl \
-#  --workers 20  --MergeCategorization-version prod_240207 --MergeCategorizationStats-version prod_230718 --Categorization-version prod_231002  \
-#  --dataset-names zz_sl_signal,dy,tt_dl,tt_sl,tt_fh,wjets,tth_bb,tth_tautau,tth_nonbb,ggf_sm,zz_sl_background,zz_qnu,zz_lnu,zz_dl,zz_fh,zzz,st_antitop,st_top,st_tw_antitop,st_tw_top,data_tau_a,data_tau_b,data_tau_c,data_tau_d \
-#  --process-group-name zz_total_data --save-root --save-png --hide-data True  --category-name ZZ_elliptical_cut_80_tautau \
-#  --region-name tautau_os_iso --do-qcd --hide-data False --stack
+law run FeaturePlot --version prod_240414 --PrePlot-version prod_240414 --category-name ZZ_elliptical_cut_90_sr --config-name ul_2016_ZZ_v12 \
+ --feature-names zz_kinfit_chi2,zz_kinfit_m,sv_mass,dR_l1_l2_x_sv_pT,l1_mt,l_2_pT,dR_l1_l2,dphi_sv_met,z_bb_mass,b_2_hhbtag,diZ_mass_sv,\
+dphi_zbb_sv,z_bb_pT,dR_l1_l2_boosted_ztt_met,l_1_pT,b_1_pT,phi,costheta_l2_zttmet,b_1_cvsb,b_1_cvsl,boosted,is_vbf,jet_1_quality,jet_2_quality \
+ --dataset-names zz_sl_signal,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top \
+ --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 --region-name os_iso \
+ --workers 50 --PreprocessRDF-version prod_240305 --PrePlot-skip-merging \
+ --process-group-name zz_sig_vs_bkg --save-root --save-png
 
 # ###############################################################################################################################################
 # # ANALYSIS ETAU, MUTAU, TAUTAU

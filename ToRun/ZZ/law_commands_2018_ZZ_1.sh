@@ -179,6 +179,22 @@ law run FeaturePlot2D --version prod_240318 --PrePlot2D-version prod_240318 --ca
  --process-group-name zz_res_sig_vs_bkg --save-root --save-png --stack
 
 ###############################################################################################################################################
+# PLOT DNN FEATURES
+###############################################################################################################################################
+
+law run FeaturePlot --version prod_240414 --PrePlot-version prod_240414 --category-name ZZ_elliptical_cut_90_sr --config-name ul_2018_ZZ_v12 \
+ --feature-names zz_kinfit_chi2,zz_kinfit_m,sv_mass,dR_l1_l2_x_sv_pT,l1_mt,l_2_pT,dR_l1_l2,dphi_sv_met,z_bb_mass,b_2_hhbtag,diZ_mass_sv,\
+dphi_zbb_sv,z_bb_pT,dR_l1_l2_boosted_ztt_met,l_1_pT,b_1_pT,phi,costheta_l2_zttmet,b_1_cvsb,b_1_cvsl,boosted,is_vbf,jet_1_quality,jet_2_quality \
+ --dataset-names zz_sl_signal,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top \
+ --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 --region-name os_iso \
+ --workers 50 --PreprocessRDF-version prod_240305 --PrePlot-skip-merging \
+ --process-group-name zz_sig_vs_bkg --save-root --save-png
+
+###############################################################################################################################################
 # CONTROL REGION ETAU, MUTAU, TAUTAU
 ###############################################################################################################################################
 
