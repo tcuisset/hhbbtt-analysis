@@ -6,9 +6,9 @@ def get_2016_v12_weights():
     weights = DotDict()
     weights.default = "1"
     # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
-    weights.total_events_weights = ["genWeightFixed", "puWeight"]
+    weights.total_events_weights = ["genWeight", "puWeight"]
 
-    weights.mutau = ["genWeightFixed", "puWeight", "DYstitchEasyWeight", "prescaleWeight", 
+    weights.mutau = ["genWeight", "puWeight", "DYstitchEasyWeight", "prescaleWeight", 
         "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF",
         "bTagweightReshape"] # removed L1PreFiringWeight for UL
     weights.etau = weights.mutau
@@ -74,14 +74,15 @@ def get_common_datasets_v12(self):
         #     prefix="eoscms.cern.ch//",
         #     tags=["ul", "nanoV10"]),
 
-        Dataset("wjets_MLM",
-            folder=p + "WJetsToLNu",
-            process=self.processes.get("wjets_mlm"),
-            xs=61526.7,
-            # categorization_max_events=10000,
-            secondary_dataset="wjets_MLM_aux",
-            prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+        # not used in the current wjets stitching method
+        # Dataset("wjets_MLM",
+        #     folder=p + "WJetsToLNu",
+        #     process=self.processes.get("wjets_mlm"),
+        #     xs=61526.7,
+        #     # categorization_max_events=10000,
+        #     secondary_dataset="wjets_MLM_aux",
+        #     prefix="eoscms.cern.ch//",
+        #     tags=["ul", "nanoV10"]),
         
         # Dataset("wjets_MLM_1j",
         #     folder=p + "W1JetsToLNu",
@@ -314,9 +315,9 @@ def get_common_datasets_v12(self):
             process=self.processes.get("tt_dl"),
             xs=88.29,
             merging={
-                "tautau": 20,
-                "mutau": 20,
-                "etau": 40,
+                "tautau": 10,
+                "mutau": 10,
+                "etau": 20,
             },
             scaling=(0.96639, 0.00863),
             secondary_dataset="tt_dl_aux",
@@ -698,9 +699,9 @@ def get_common_datasets_v12(self):
             process=self.processes.get("data_tau"),
             runEra="F",
             splitting=-1,
-            merging={
-                "tautau": 2,
-            },
+            # merging={
+            #     "tautau": 2,
+            # },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
@@ -736,9 +737,9 @@ def get_common_datasets_v12(self):
             process=self.processes.get("data_etau"),
             runEra="F",
             splitting=-1,
-            merging={
-                "etau": 2,
-            },
+            # merging={
+            #     "etau": 2,
+            # },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
@@ -773,9 +774,9 @@ def get_common_datasets_v12(self):
             process=self.processes.get("data_mutau"),
             runEra="F",
             splitting=-1,
-            merging={
-                "mutau": 2,
-            },
+            # merging={
+            #     "mutau": 2,
+            # },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
