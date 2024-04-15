@@ -74,14 +74,15 @@ def get_common_datasets_v12(self):
         #     prefix="eoscms.cern.ch//",
         #     tags=["ul", "nanoV10"]),
 
-        Dataset("wjets_MLM",
-            folder=p + "WJetsToLNu",
-            process=self.processes.get("wjets_mlm"),
-            xs=61526.7,
-            # categorization_max_events=10000,
-            secondary_dataset="wjets_MLM_aux",
-            prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+        # not used in the current wjets stitching method
+        # Dataset("wjets_MLM",
+        #     folder=p + "WJetsToLNu",
+        #     process=self.processes.get("wjets_mlm"),
+        #     xs=61526.7,
+        #     # categorization_max_events=10000,
+        #     secondary_dataset="wjets_MLM_aux",
+        #     prefix="eoscms.cern.ch//",
+        #     tags=["ul", "nanoV10"]),
         
         # Dataset("wjets_MLM_1j",
         #     folder=p + "W1JetsToLNu",
