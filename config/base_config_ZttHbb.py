@@ -144,20 +144,22 @@ class ConfigZttHbb(BaseConfig):
             ########### ZttHbb analysis
             # ZH_Hbb_Zll dataset with genfilter Z->tautau,H->bb
             Process("zh_ztt_hbb_signal", Label("Z_{#tau#tau}H_{bb}"),
-                    ProcType="Ztautau_Hbb", isSigBBTT=True, isSignal=True, color=(126, 238, 124)),
+                    ProcType="Ztautau_Hbb", isSigBBTT=True, isSignal=True, color=(126, 238, 124), llr_name="ZttHbb"),
             # same as above but with reversed genfilter (everything except Z->tautau,H->bb)
-            Process("zh_ztt_hbb_background", Label("ZH (Z#rightarrow ll, H#rightarrow bb) bkg"), parent_process='higgs',
+            Process("zh_ztt_hbb_background", Label("ZH (Z#rightarrow ll, H#rightarrow bb) bkg"), parent_process='zh',
                     ProcType="Ztautau_Hbb", isBkgBBTT=True, color=(224, 190, 79)),
             
             # includes ZHToTauTau as background of ZttHbb analysis
-            Process("zh_htt", Label("ZH (Z#rightarrow anything, H#rightarrow #tau#tau)"), parent_process='higgs',
+            Process("zh_htt", Label("ZH (Z#rightarrow anything, H#rightarrow #tau#tau)"), parent_process='zh',
                     color=(1, 99, 24)),
+            # ZH includes all the processes BUT THE ZBBHTT SIGNAL
+            Process("zh", Label("ZH"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH"),
             
             ######### Common
             # ZZ_SL
             Process("zz_sl", Label("zz_sl"), color=(130, 39, 197), parent_process="zz"),
-            Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(130, 39, 197), parent_process="higgs"),
-
+            Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(130, 39, 197), parent_process="zh"),
+            
             ######## Resonant
             # ZH resonant
             *[Process(f"Zprime_Zh_Ztautauhbb_M{mass}", Label(f"Z' ({mass} GeV)" if mass < 1000 else f"Z' ({mass/1000:g} TeV)"), color=next(colors_res),
@@ -175,17 +177,15 @@ class ConfigZttHbb(BaseConfig):
         "Zprime_Zh_Zbbhtautau": resonant_dataset_names,
         "datacard_ZttHbb": [
             "zh_ztt_hbb_signal",
-            "zh_ztt_hbb_background",
             "ttH",
             "dy",
             "vvv",
             "vbf_htt",
             "ggH_ZZ",
             "ttx",
-            "vv", # this includes zz
+            "vv", # this includes zz which in turn includes zz_sl
             "wh",
-            "zh_hbb_zqq",
-            "zh_htt",
+            "zh", # this is actually zh_background ie ZH processes not part of signal
             "tw",
             "singlet",
             "ewk",

@@ -487,7 +487,6 @@ class Config(BaseConfig):
             "ttH",
             "dy",
             "vvv",
-            "vbf_htt",
             "ggH_ZZ",
             "ttx",
             "vv",

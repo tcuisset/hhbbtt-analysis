@@ -946,7 +946,8 @@ class BaseConfig(cmt_config):
                     if p.get_aux("llr_name", None) else p.name)
 
         from cmt.analysis.systReader import systReader
-        syst_folder = "files/systematics/"
+        syst_folder = "files/systematics_ZZ_ZH/"
+        print(syst_folder + "systematics_{}.cfg".format(self.year))
         syst = systReader(Task.retrieve_file(self, syst_folder + "systematics_{}.cfg".format(
             self.year)), all_signal_names, all_background_names, None)
         syst.writeOutput(False)
