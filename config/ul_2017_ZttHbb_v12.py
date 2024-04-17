@@ -420,6 +420,12 @@ class Config_ul_2017_ZH_v12(base_config_ZttHbb):
             Dataset("ZprimeToZH_ZToTauTau_HToBB_M5500_aux",
                 dataset="/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/"
                     "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM",
+                skip_files=[
+                    "/store/mc/RunIISummer20UL17MiniAODv2/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/7F0BF094-8C82-D447-9806-8569B622703D.root",
+                    "/store/mc/RunIISummer20UL17MiniAODv2/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/49D3532D-71C5-534A-B1C0-452A4AAE8057.root",
+                    "/store/mc/RunIISummer20UL17MiniAODv2/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/EBC650B7-D09B-2F43-83C5-4FE2C01644F7.root",
+                    "/store/mc/RunIISummer20UL17MiniAODv2/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/EC2DB370-0D9D-2A40-B898-AE91884744B1.root",
+                ],
                 process=self.processes.get("Zprime_Zh_Ztautauhbb_M5500"),
                 xs=1,
                 tags=["ul", "secondary", "res"]),

@@ -434,6 +434,12 @@ class Config_ul_2016_HIPM_ZH_v12(base_config_ZbbHtt):
             Dataset("ZprimeToZH_ZToBB_HToTauTau_M6000_aux",
                 dataset="/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/"
                     "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                skip_files=[
+                    "/store/mc/RunIISummer20UL16MiniAODAPVv2/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/2830000/4A14A1CF-E9FE-A943-A4D0-B4CAB0153C1A.root",
+                    "/store/mc/RunIISummer20UL16MiniAODAPVv2/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/2830000/5A1ABB56-819F-DD4D-AAC8-08C41E6655E2.root",
+                    "/store/mc/RunIISummer20UL16MiniAODAPVv2/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/2830000/91B85314-BA92-BF4C-8984-98F535FAD50B.root",
+                    "/store/mc/RunIISummer20UL16MiniAODAPVv2/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/2830000/9385D478-9A41-7748-9419-32A95CC1B82F.root",
+                ],
                 process=self.processes.get("Zprime_Zh_Zbbhtautau_M6000"),
                 xs=1,
                 tags=["ul", "secondary", "res"]),
