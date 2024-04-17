@@ -529,29 +529,39 @@ done
 ###############################################################################################################################################
 ############################################################  COMBINE  #######################################################################
 ###############################################################################################################################################
+# New combine in  the framework by Jaime
+#  --FeaturePlot-version prod_240403_nonres
+law run RunCombine --version 240417 --config-name ul_2018_ZbbHtt_v12 \
+ --dataset-names "$DATASETS_ZbbHtt_nonres,$DATASETS_DATA_ETAU" \
+ --category-names ZbbHtt_elliptical_cut_90_etau --process-group-name datacard_ZbbHtt  \
+ --PrePlot-version 240417 --config-name ul_2018_ZbbHtt_v12 \
+ --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_mass --MergeCategorizationStats-version prod_240305 --MergeCategorization-version 240417 --Categorization-version prod_240329  \
+ --FeaturePlot-save-root --FeaturePlot-save-png --FeaturePlot-hide-data True  \
+ --region-name etau_os_iso --FeaturePlot-do-qcd --CreateDatacards-propagate-syst-qcd --workers 50 --print-status 5
 
-law run RunCombineCombination --version prod_240327 --config-name ul_2018_ZbbHtt_v12 --category-names ZbbHtt_elliptical_cut_90_etau,ZbbHtt_elliptical_cut_90_mutau,ZbbHtt_elliptical_cut_90_tautau  \
-  --combine-install /grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/combine/CMSSW_11_3_4 --feature dnn_ZHbbtt_kl_1  --region-name os_iso \
-  --CreateDatacards-version prod_240327  --CreateDatacards-process-group-name datacard_ZbbHtt \
-  --FeaturePlot-version prod_240327 \
-  --CreateDatacards-do-qcd --CreateDatacards-hide-data True --CreateDatacards-process-group-name datacard_ZbbHtt --CreateDatacards-feature-names dnn_ZHbbtt_kl_1 \
-  --workers 5
+# Old combine done by Theo
+# law run RunCombineCombination --version prod_240327 --config-name ul_2018_ZbbHtt_v12 --category-names ZbbHtt_elliptical_cut_90_etau,ZbbHtt_elliptical_cut_90_mutau,ZbbHtt_elliptical_cut_90_tautau  \
+#   --combine-install /grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/combine/CMSSW_11_3_4 --feature dnn_ZHbbtt_kl_1  --region-name os_iso \
+#   --CreateDatacards-version prod_240327  --CreateDatacards-process-group-name datacard_ZbbHtt \
+#   --FeaturePlot-version prod_240327 \
+#   --CreateDatacards-do-qcd --CreateDatacards-hide-data True --CreateDatacards-process-group-name datacard_ZbbHtt --CreateDatacards-feature-names dnn_ZHbbtt_kl_1 \
+#   --workers 5
 
 
-law run RunCombineCombination --version prod_240327 --config-name ul_2018_ZttHbb_v12 --category-names ZttHbb_elliptical_cut_90_etau,ZttHbb_elliptical_cut_90_mutau,ZttHbb_elliptical_cut_90_tautau  \
-  --combine-install /grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/combine/CMSSW_11_3_4 --feature dnn_ZHbbtt_kl_1  --region-name os_iso \
-  --CreateDatacards-version prod_240327  --CreateDatacards-process-group-name datacard_ZttHbb \
-  --FeaturePlot-version prod_240327 --PrePlot-version prod_240327 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240327 --Categorization-version prod_240327 \
-  --CreateDatacards-do-qcd --CreateDatacards-hide-data True --CreateDatacards-process-group-name datacard_ZttHbb --CreateDatacards-feature-names dnn_ZHbbtt_kl_1 \
-  --workers 5
+# law run RunCombineCombination --version prod_240327 --config-name ul_2018_ZttHbb_v12 --category-names ZttHbb_elliptical_cut_90_etau,ZttHbb_elliptical_cut_90_mutau,ZttHbb_elliptical_cut_90_tautau  \
+#   --combine-install /grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/combine/CMSSW_11_3_4 --feature dnn_ZHbbtt_kl_1  --region-name os_iso \
+#   --CreateDatacards-version prod_240327  --CreateDatacards-process-group-name datacard_ZttHbb \
+#   --FeaturePlot-version prod_240327 --PrePlot-version prod_240327 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240327 --Categorization-version prod_240327 \
+#   --CreateDatacards-do-qcd --CreateDatacards-hide-data True --CreateDatacards-process-group-name datacard_ZttHbb --CreateDatacards-feature-names dnn_ZHbbtt_kl_1 \
+#   --workers 5
 
 
-# testing
-law run RunCombineCombination --version prod_240327_test1 --config-name ul_2018_ZbbHtt_v12 --category-names ZbbHtt_elliptical_cut_90_etau,ZbbHtt_elliptical_cut_90_mutau,ZbbHtt_elliptical_cut_90_tautau  \
-  --combine-install /grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/combine/CMSSW_11_3_4 --feature dnn_ZHbbtt_kl_1  --region-name os_iso \
-  --CreateDatacards-version prod_240327  --CreateDatacards-process-group-name datacard_ZbbHtt \
-  --FeaturePlot-version prod_240327 \
-  --CreateDatacards-do-qcd --CreateDatacards-hide-data True --CreateDatacards-process-group-name datacard_ZbbHtt --CreateDatacards-feature-names dnn_ZHbbtt_kl_1 
+# # testing
+# law run RunCombineCombination --version prod_240327_test1 --config-name ul_2018_ZbbHtt_v12 --category-names ZbbHtt_elliptical_cut_90_etau,ZbbHtt_elliptical_cut_90_mutau,ZbbHtt_elliptical_cut_90_tautau  \
+#   --combine-install /grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/combine/CMSSW_11_3_4 --feature dnn_ZHbbtt_kl_1  --region-name os_iso \
+#   --CreateDatacards-version prod_240327  --CreateDatacards-process-group-name datacard_ZbbHtt \
+#   --FeaturePlot-version prod_240327 \
+#   --CreateDatacards-do-qcd --CreateDatacards-hide-data True --CreateDatacards-process-group-name datacard_ZbbHtt --CreateDatacards-feature-names dnn_ZHbbtt_kl_1 
 
 
 
