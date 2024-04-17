@@ -817,7 +817,8 @@ class BaseConfig(cmt_config):
                 x_title=Label("LHE HT"), units="GeV"),
             Feature("LHE_HT_low", "LHE_HT", binning=(100, 0, 130),
                 x_title=Label("LHE HT"), units="GeV"),
-
+            Feature("LHE_HT_high", "LHE_HT", binning=(100, 0, 3000),
+                x_title=Label("LHE HT"), units="GeV"),
         ]
         return ObjectCollection(features)
     

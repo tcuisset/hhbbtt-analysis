@@ -32,7 +32,13 @@ done
 
 # for year in 2018 2017 2016 2016_HIPM; do
 # cd /data_CMS/cms/cuisset/cmt/PreprocessRDF/ul_$year\_ZttHbb_v12
-# ln -s /data_CMS/cms/vernazza/cmt/PreprocessRDF/ul_$year\_ZbbHtt_v12/zh_ztt_hbb_signal/ zh_ztt_hbb
+# rm zh_ztt_hbb
+# ln -s /data_CMS/cms/vernazza/cmt/PreprocessRDF/ul_$year\_ZttHbb_v12/zh_ztt_hbb_signal/ zh_ztt_hbb
 # done
 
 
+cd /scratch/cuisset/cmt/MergeCategorization
+
+for path_base in ul_*_v12/*/cat_*_elliptical_cut_*; do
+    # mv $path_base/prod_240329_resDNN $path_base/prod_240329
+done
