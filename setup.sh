@@ -130,10 +130,16 @@ action() {
        mkdir -p "$TMPDIR"
     fi 
     if [ -n "$CMT_LLR_USER" ]; then
-       if [ -n "$CMT_REMOTE_JOB" ]; then
-         export TMPDIR=$CMT_TMP_DIR
+        if [[ "$( hostname )" = llruicms01.in2p3.fr ]]; then
+         export TMPDIR="/scratch/$CMT_LLR_USER/cmt/tmp"
+         export CMT_STORE_EOS_MERGECATEGORIZATION="/scratch/$CMT_LLR_USER/cmt"
+         mkdir -p "$CMT_STORE_EOS_MERGECATEGORIZATION"
+        elif [[ "$( hostname )" = llrai01.in2p3.fr ]]; then
+         export TMPDIR="/aissd1/$CMT_LLR_USER/cmt/tmp"
+         export CMT_STORE_EOS_MERGECATEGORIZATION="/aissd1/$CMT_LLR_USER/cmt"
+         mkdir -p "$CMT_STORE_EOS_MERGECATEGORIZATION"
        else
-         export TMPDIR="/scratch/$CMT_LLR_USER/tmp"
+        export TMPDIR=$CMT_TMP_DIR
        fi
        mkdir -p "$TMPDIR"
     fi 
