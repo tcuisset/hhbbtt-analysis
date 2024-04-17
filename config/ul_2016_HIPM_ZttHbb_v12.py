@@ -32,6 +32,7 @@ class Config_ul_2016_HIPM_ZH_v12(base_config_ZttHbb):
         weights.ZttHbb_elliptical_cut_90_CR_mutau = weights.mutau
         weights.ZttHbb_elliptical_cut_90_CR_etau = weights.mutau
         weights.ZttHbb_elliptical_cut_90_CR_tautau = weights.mutau
+
         return weights
 
     #@override
@@ -43,7 +44,7 @@ class Config_ul_2016_HIPM_ZH_v12(base_config_ZttHbb):
             # "wjets_FXFX", "wjets_FXFX_0j", "wjets_FXFX_1j", "wjets_FXFX_2j", 
             "wjets_MLM", 
             # "wjets_MLM_1j", "wjets_MLM_2j", "wjets_MLM_3j", "wjets_MLM_4j", 
-            # "wjets_ht1",
+            # "wjets_ht1", # actually not used since we normalize wjets_ht1 to inclusive directly
             "wjets_ht2", "wjets_ht3", "wjets_ht4", "wjets_ht5", "wjets_ht6", "wjets_ht7", "wjets_ht8",
             "dy", "dy_ptz1", "dy_ptz2", "dy_ptz3", "dy_ptz4", "dy_ptz5", "dy_ptz6", "dy_0j", "dy_1j", "dy_2j", 
             "ewk_z", "ewk_wplus", "ewk_wminus", "tt_dl", "tt_sl", "tt_fh",
@@ -99,7 +100,7 @@ class Config_ul_2016_HIPM_ZH_v12(base_config_ZttHbb):
                 xs=0.052, # AN
                 # xs=0.07977, # XSDB NLO
                 splitting=200000,
-                tags=["ul", "secondary"]), 
+                tags=["ul", "secondary"]),  
 
             ###################################### ZH Background ##########################################
             ###############################################################################################
@@ -139,8 +140,30 @@ class Config_ul_2016_HIPM_ZH_v12(base_config_ZttHbb):
                 xs=0.0554, # AN
                 # xs=0.7891, # XSDB NLO
                 tags=["ul", "secondary"]),
+            
+            # Z->tt, H->bb considered as background for resonant analysis (genfilter bbtautau)
+            # (exact same zh_zbb_htt_signal, you can even symlink the dataset to avoid reprocessing)
+            Dataset("zh_ztt_hbb",
+                folder=p + "ZH_Hbb_Zll",
+                process=self.processes.get("zh_ztt_hbb_signal"),
+                xs=0.052,
+                secondary_dataset="zh_ztt_hbb_aux",
+                prefix="eoscms.cern.ch//",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("zh_ztt_hbb_aux",
+                dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
+                process=self.processes.get("zh_ztt_hbb_signal"),
+                # prefix="xrootd-cms.infn.it//",
+                xs=0.052, # AN
+                # xs=0.07977, # XSDB NLO
+                splitting=200000,
+                tags=["ul", "secondary", "res"]),  
 
-            #### ZZ_SL 
+
+            ###################################### ZZ Background ##########################################
+            ###############################################################################################
+            # ZZ semileptonic (added here since ZZ analysis uses this dataset with genfilter for bbtautau, whilst in ZH we use the full dataset)
             Dataset("zz_sl",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl"),
@@ -161,6 +184,260 @@ class Config_ul_2016_HIPM_ZH_v12(base_config_ZttHbb):
 
             ###################################### ZH Resonant ############################################
             ###############################################################################################
+
+            #### ZH Resonance high mass
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M500",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-500/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M500"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M500_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M500_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-500_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M500"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M600",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-600/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M600"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M600_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M600_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-600_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M600"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M700",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-700/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M700"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M700_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M700_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-700_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M700"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M800",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-800/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M800"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M800_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M800_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-800_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M800"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1000",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-1000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M1000_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1000_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-1000_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1200",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-1200/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1200"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M1200_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1200_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-1200_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1200"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1400",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-1400/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1400"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M1400_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1400_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-1400_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1400"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1600",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-1600/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1600"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M1600_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1600_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-1600_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1600"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1800",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-1800/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1800"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M1800_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M1800_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-1800_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M1800"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M2000",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-2000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M2000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M2000_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M2000_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-2000_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M2000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M2500",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-2500/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M2500"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M2500_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M2500_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-2500_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M2500"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M3000",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-3000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M3000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M3000_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M3000_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-3000_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M3000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M3500",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-3500/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M3500"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M3500_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M3500_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-3500_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M3500"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M4000",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-4000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M4000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M4000_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M4000_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-4000_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M4000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M4500",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-4500/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M4500"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M4500_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M4500_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-4500_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M4500"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M5000",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-5000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M5000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M5000_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M5000_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-5000_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M5000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M5500",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-5500/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M5500"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M5500_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M5500_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M5500"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
+
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M6000",
+                folder="/eos/grif/cms/llr/store/user/evernazz/HTT/Run2_2016_HIPM/ZprimeToZH_ZToTauTau_HToBB_M-6000/",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M6000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M6000_aux",
+                tags=["ul", "nanoV10", "res"]),
+            Dataset("ZprimeToZH_ZToTauTau_HToBB_M6000_aux",
+                dataset="/ZprimeToZH_ZToTauTau_HToBB_M-6000_TuneCP5_13TeV-madgraph-pythia8/"
+                    "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM",
+                process=self.processes.get("Zprime_Zh_Ztautauhbb_M6000"),
+                xs=1,
+                tags=["ul", "secondary", "res"]),
 
         ])
 
