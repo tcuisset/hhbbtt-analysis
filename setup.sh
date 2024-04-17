@@ -135,8 +135,15 @@ action() {
          export CMT_STORE_EOS_MERGECATEGORIZATION="/scratch/$CMT_LLR_USER/cmt"
          mkdir -p "$CMT_STORE_EOS_MERGECATEGORIZATION"
         elif [[ "$( hostname )" = llrai01.in2p3.fr ]]; then
-         export TMPDIR="/aissd1/$CMT_LLR_USER/cmt/tmp"
-         export CMT_STORE_EOS_MERGECATEGORIZATION="/aissd1/$CMT_LLR_USER/cmt"
+         if [ "$CMT_LLR_USER" = "evernazza" ]; then
+         # At LLR, Mme Elena Vernazza's username is evernazza but her folder on data_CMS is named vernazza for some reason. So drop the first letter
+          export TMPDIR="/aissd1/${CMT_LLR_USER:1}/cmt/tmp"
+          export CMT_STORE_EOS_MERGECATEGORIZATION="/aissd1/${CMT_LLR_USER:1}/cmt"
+          echo "CMT_STORE_EOS_MERGECATEGORIZATION = $CMT_STORE_EOS_MERGECATEGORIZATION"
+         else
+          export TMPDIR="/aissd1/$CMT_LLR_USER/cmt/tmp"
+          export CMT_STORE_EOS_MERGECATEGORIZATION="/aissd1/$CMT_LLR_USER/cmt"
+         fi
          mkdir -p "$CMT_STORE_EOS_MERGECATEGORIZATION"
        else
         export TMPDIR=$CMT_TMP_DIR
