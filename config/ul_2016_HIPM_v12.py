@@ -315,9 +315,9 @@ def get_common_datasets_v12(self):
             process=self.processes.get("tt_dl"),
             xs=88.29,
             merging={
-                "tautau": 20,
-                "mutau": 20,
-                "etau": 40,
+                "tautau": 10,
+                "mutau": 10,
+                "etau": 20,
             },
             # scaling=(0.908, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_dl_aux",
