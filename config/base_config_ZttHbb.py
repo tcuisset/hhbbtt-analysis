@@ -174,7 +174,7 @@ class ConfigZttHbb(BaseConfig):
         resonant_dataset_names = [f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in [500, 1000, 2000, 3000, 4000]]
 
         process_group_names = {
-        "Zprime_Zh_Zbbhtautau": resonant_dataset_names,
+        "Zprime_Zh_Ztautauhbb": resonant_dataset_names,
         "datacard_ZttHbb": [
             "zh_ztt_hbb_signal",
             "ttH",
