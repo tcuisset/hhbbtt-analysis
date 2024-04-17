@@ -331,7 +331,7 @@ class Config(BaseConfig):
         processes += ObjectCollection([
 
             # ZZ SL (signal and background)
-            Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(126, 238, 124), 
+            Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
                     isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ZZbbtt"),
             Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", 
                     isBkgBBTT=True, ProcType="Zbb_Ztautau"),

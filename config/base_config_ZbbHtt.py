@@ -148,7 +148,7 @@ class ConfigZbbHtt(BaseConfig):
             ########### ZbbHtt analysis
             # ZHToTauTau_M125 dataset with genfilter Z->bb,H->tautau
             Process("zh_zbb_htt_signal", Label("Z_{bb}H_{#tau#tau}"),
-                    ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(126, 238, 124), llr_name="ZbbHtt"),
+                    ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(0, 165, 80), llr_name="ZbbHtt"),
             # same as above but with reversed genfilter (everything except Z->bb,H->tautau)
             Process("zh_zbb_htt_background", Label("ZH (H#rightarrow#tau#tau) bkg"), parent_process='zh',
                     ProcType="Zbb_Htautau", isBkgBBTT=True, color=(224, 190, 79)),

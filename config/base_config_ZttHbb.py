@@ -144,7 +144,7 @@ class ConfigZttHbb(BaseConfig):
             ########### ZttHbb analysis
             # ZH_Hbb_Zll dataset with genfilter Z->tautau,H->bb
             Process("zh_ztt_hbb_signal", Label("Z_{#tau#tau}H_{bb}"),
-                    ProcType="Ztautau_Hbb", isSigBBTT=True, isSignal=True, color=(126, 238, 124), llr_name="ZttHbb"),
+                    ProcType="Ztautau_Hbb", isSigBBTT=True, isSignal=True, color=(0, 165, 80), llr_name="ZttHbb"),
             # same as above but with reversed genfilter (everything except Z->tautau,H->bb)
             Process("zh_ztt_hbb_background", Label("ZH (Z#rightarrow ll, H#rightarrow bb) bkg"), parent_process='zh',
                     ProcType="Ztautau_Hbb", isBkgBBTT=True, color=(224, 190, 79)),
