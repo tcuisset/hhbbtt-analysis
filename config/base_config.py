@@ -802,14 +802,18 @@ class BaseConfig(cmt_config):
             Feature("prescaleWeight", "prescaleWeight", binning=(20, 0, 2),
                 x_title=Label("prescaleWeight")),
             Feature("trigSF", "trigSF", binning=(20, 0, 2),
-                x_title=Label("trigSF")),
+                x_title=Label("trigSF"),
+                systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11"]),
             Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(20, 0, 2),
                 x_title=Label("L1PreFiringWeight"),
-                central="prefiring",
-                systematics=["prefiring_syst"]),
+                central="prefiring_central",
+                systematics=["prefiring"]),
             Feature("PUjetID_SF", "PUjetID_SF", binning=(20, 0, 2),
-                x_title=Label("PUjetID_SF")),
-            
+                x_title=Label("PUjetID_SF"),
+                systematics=["PUjetID"]),
+            Feature("idAndIsoAndFakeSF", "idAndIsoAndFakeSF", binning=(20, 0, 2),
+                x_title=Label("idAndIsoAndFakeSF"),
+                systematics=["jetTauFakes", "etauFR", "mutauFR", "eleIso", "muIso", "muId"]),
 
             Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
                 x_title=Label("LHE PtZ"), units="GeV"),
@@ -875,8 +879,25 @@ class BaseConfig(cmt_config):
             Systematic("jec_MET_10", ("MET", "MET_smeared"), up="_HF_2018_up", down='_HF_2018_down'),
             Systematic("jec_MET_11", ("MET", "MET_smeared"), up="_RelativeSample_2018_up", down='_RelativeSample_2018_down'),
             Systematic("jec_MET", ("MET", "MET_smeared"), up="_Total_up", down='_Total_down'),
-            # Systematic("prefiring", "_Nom"),
-            # Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
+
+            Systematic("prefiring_central", "_Nom"),
+            Systematic("prefiring", "", up="_Up", down="_Dn"),
+
+            Systematic("jetTauFakes", "", up="_tau_vsjet_up", down="_tau_vsjet_down"),
+            Systematic("etauFR", "", up="_tau_vse_up", down="_tau_vse_down"),
+            Systematic("mutauFR", "", up="_tau_vsmu_up", down="_tau_vsmu_down"),
+            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down"),
+            Systematic("muIso", "", up="_muon_iso_up", down="_muon_iso_down"),
+            Systematic("muId", "", up="_muon_id_up", down="_muon_id_down"),
+
+            Systematic("trigSFele", "", up="_eleUp", down="_eleDown"),
+            Systematic("trigSFmu", "", up="_muUp", down="_muDown"),
+            Systematic("trigSFDM0", "", up="_DM0Up", down="_DM0Down"),
+            Systematic("trigSFDM1", "", up="_DM1Up", down="_DM1Down"),
+            Systematic("trigSFDM10", "", up="_DM10Up", down="_DM10Down"),
+            Systematic("trigSFDM11", "", up="_DM11Up", down="_DM11Down"),
+
+            Systematic("PUjetID", "", up="_up", down="_down"),
             Systematic("pu", "", up="Up", down="Down"),
             Systematic("empty", "", up="", down="")
         ]
