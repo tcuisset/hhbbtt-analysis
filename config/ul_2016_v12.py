@@ -319,7 +319,7 @@ def get_common_datasets_v12(self):
                 "mutau": 10,
                 "etau": 20,
             },
-            scaling=(0.908, 0.006),
+            # scaling=(0.908, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_dl_aux",
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
@@ -333,7 +333,7 @@ def get_common_datasets_v12(self):
                 "mutau": 60,
                 "etau": 40,
             },
-            scaling=(0.908, 0.006),
+            # scaling=(0.908, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_sl_aux",
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
@@ -342,7 +342,7 @@ def get_common_datasets_v12(self):
             folder=p + "TTToHadronic",
             process=self.processes.get("tt_fh"),
             xs=377.96,
-            scaling=(0.908, 0.006),
+            # scaling=(0.908, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_fh_aux",
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
