@@ -221,14 +221,14 @@ function featurePlotZttHbb_CR {
  --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_chi2,ZHKinFit_mass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,\
 Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Hbb_pt,Hbb_eta,Hbb_phi,Hbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
  --dataset-names $DATASETS_ZttHbb_nonres,$DATASETS_DATA \
- --workers 10 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 --MergeCategorization-version prod_240318 \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240318 --MergeCategorization-version prod_240318 \
  --process-group-name plot --save-root --save-png --category-name ZttHbb_elliptical_cut_90_CR_$REGION_NAME --region-name $REGION_NAME\_os_iso \
  --save-yields --stack --do-qcd --hide-data False $LOG_PARAMS "${@:4}"
 }
 
 featurePlotZttHbb_CR etau $DATASETS_DATA_ETAU &
-featurePlotZttHbb_CR mutau $DATASETS_DATA_MUTAU &
-featurePlotZttHbb_CR tautau $DATASETS_DATA_TAUTAU &
+featurePlotZttHbb_CR mutau $DATASETS_DATA_MUTAU 
+featurePlotZttHbb_CR tautau $DATASETS_DATA_TAUTAU 
 
 
 

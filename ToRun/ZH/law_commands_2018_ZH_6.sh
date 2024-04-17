@@ -66,13 +66,13 @@ law run MergeCategorizationStatsWrapper --version prod_240305 --config-name ul_2
 
 
 law run CategorizationWrapper --version prod_240312 --category-names base,ZbbHtt_elliptical_cut_90_sr --config-name ul_2018_ZbbHtt_v12 \
- --skip-dataset-tags secondary,res \
+ --skip-dataset-tags secondary \
  --PreprocessRDF-version prod_240305 \
  --Categorization-base-category-name base_selection --Categorization-feature-modules-file modulesrdf_Ellipse --workers 50
 
 
 law run CategorizationWrapper --version prod_240312 --category-names base,ZttHbb_elliptical_cut_90_sr --config-name ul_2018_ZttHbb_v12 \
- --skip-dataset-tags secondary,res \
+ --skip-dataset-tags secondary \
  --PreprocessRDF-version prod_240305 \
  --Categorization-base-category-name base_selection --Categorization-feature-modules-file modulesrdf_Ellipse --workers 50 
 
@@ -185,7 +185,7 @@ law run CategorizationWrapper --version prod_240329 --config-name ul_2018_ZttHbb
 # PLOT ELLIPTICAL MASS CUT
 ###############################################################################################################################################
  
-# 
+# for plotting, no selection
 law run FeaturePlot2D --version prod_240318 --PrePlot2D-version prod_240318 --category-name base --config-name ul_2018_ZbbHtt_v12 \
  --feature-names Htt_svfit_mass_ellipse:Zbb_mass_ellipse --workers 10  --MergeCategorizationStats-version prod_240305 \
  --Categorization-version prod_240312 \
@@ -198,8 +198,20 @@ law run FeaturePlot2D --version prod_240318 --PrePlot2D-version prod_240318 --ca
  --skip-dataset-tags secondary,res \
  --process-group-name zh_sig_vs_bkg --save-root --save-png --stack
 
+# resonant
+law run FeaturePlot2D --version prod_240318 --PrePlot2D-version prod_240318 --category-name base --config-name ul_2018_ZbbHtt_v12 \
+ --feature-names Htt_svfit_mass_ellipse:Zbb_mass_ellipse --workers 30  --MergeCategorizationStats-version prod_240305 \
+ --Categorization-version prod_240312 \
+ --skip-dataset-tags secondary \
+ --process-group-name Zprime_Zh_Zbbhtt --save-root --save-png --stack
 
+law run FeaturePlot2D --version prod_240318 --PrePlot2D-version prod_240318 --category-name base --config-name ul_2018_ZttHbb_v12 \
+ --feature-names Ztt_svfit_mass_ellipse:Hbb_mass_ellipse --workers 30  --MergeCategorizationStats-version prod_240305 \
+ --Categorization-version prod_240312 \
+ --skip-dataset-tags secondary \
+ --process-group-name Zprime_Zh_Ztautauhbb --save-root --save-png --stack
 
+# with elliptical cut selection
 law run FeaturePlot2D --version prod_240318 --PrePlot2D-version prod_240318 --category-name ZbbHtt_elliptical_cut_90_sr --config-name ul_2018_ZbbHtt_v12 \
  --feature-names Htt_svfit_mass_ellipse:Zbb_mass_ellipse --workers 10 --MergeCategorizationStats-version prod_240305 \
  --Categorization-version prod_240312 \
