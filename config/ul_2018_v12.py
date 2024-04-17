@@ -9,8 +9,8 @@ def get_2018_v12_weights():
     weights.total_events_weights = ["genWeight", "puWeight"]
 
     weights.mutau = ["genWeight", "puWeight", "DYstitchEasyWeight", "prescaleWeight", 
-        "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF",
-        "bTagweightReshape"] # removed L1PreFiringWeight for UL
+        "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF", "L1PreFiringWeight",
+        "bTagweightReshape"]
     weights.etau = weights.mutau
     weights.tautau = weights.mutau
     weights.base_selection = weights.mutau
