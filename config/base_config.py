@@ -847,10 +847,10 @@ class BaseConfig(cmt_config):
 
     def add_systematics(self):
         systematics = [
-            Systematic("tes", "_corr"), #up="_up", down='_down'),
+            Systematic("tes", "_corr", decorrelate="year"), #up="_up", down='_down'),
 
             Systematic("jet_smearing", "_nom"),
-            Systematic("jer", "_smeared", label="JES", llr_name="CMS_res_j_2018"), #up="_up", down='_down'),
+            Systematic("jer", "_smeared", label="JES", llr_name="CMS_res_j_2018", decorrelate="year"), #up="_up", down='_down'),
             Systematic("jec_1", "_FlavorQCD", label="FlavorQCD"), #up="_up", down='_down'),
             Systematic("jec_2", "_RelativeBal", label="RelativeBal"), #up="_up", down='_down'),
             Systematic("jec_3", "_HF", label="HF"), #up="_up", down='_down'),
@@ -862,7 +862,7 @@ class BaseConfig(cmt_config):
             Systematic("jec_9", "_Absolute_2018", label="Absolute_2018"), #up="_up", down='_down'),
             Systematic("jec_10", "_HF_2018", label="HF_2018"), #up="_up", down='_down'),
             Systematic("jec_11", "_RelativeSample_2018", label="RelativeSample_2018"), #up="_up", down='_down'),
-            Systematic("jec", "_Total"), #up="_up", down='_down'),
+            Systematic("jec", "_Total", decorrelate="year"), #up="_up", down='_down'),
 
             Systematic("met_smearing", ("MET", "MET_smeared")), # includes both jer and tes
             Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'),
@@ -881,24 +881,24 @@ class BaseConfig(cmt_config):
             Systematic("jec_MET", ("MET", "MET_smeared"), up="_Total_up", down='_Total_down'),
 
             Systematic("prefiring_central", "_Nom"),
-            Systematic("prefiring", "", up="_Up", down="_Dn"),
+            Systematic("prefiring", "", up="_Up", down="_Dn", decorrelate="year"),
 
-            Systematic("jetTauFakes", "", up="_tau_vsjet_up", down="_tau_vsjet_down"),
-            Systematic("etauFR", "", up="_tau_vse_up", down="_tau_vse_down"),
-            Systematic("mutauFR", "", up="_tau_vsmu_up", down="_tau_vsmu_down"),
-            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down"),
-            Systematic("muIso", "", up="_muon_iso_up", down="_muon_iso_down"),
-            Systematic("muId", "", up="_muon_id_up", down="_muon_id_down"),
+            Systematic("jetTauFakes", "", up="_tau_vsjet_up", down="_tau_vsjet_down", decorrelate="year"),
+            Systematic("etauFR", "", up="_tau_vse_up", down="_tau_vse_down", decorrelate="year"),
+            Systematic("mutauFR", "", up="_tau_vsmu_up", down="_tau_vsmu_down", decorrelate="year"),
+            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down", decorrelate="year"),
+            Systematic("muIso", "", up="_muon_iso_up", down="_muon_iso_down", decorrelate="year"),
+            Systematic("muId", "", up="_muon_id_up", down="_muon_id_down", decorrelate="year"),
 
-            Systematic("trigSFele", "", up="_eleUp", down="_eleDown"),
-            Systematic("trigSFmu", "", up="_muUp", down="_muDown"),
-            Systematic("trigSFDM0", "", up="_DM0Up", down="_DM0Down"),
-            Systematic("trigSFDM1", "", up="_DM1Up", down="_DM1Down"),
-            Systematic("trigSFDM10", "", up="_DM10Up", down="_DM10Down"),
-            Systematic("trigSFDM11", "", up="_DM11Up", down="_DM11Down"),
+            Systematic("trigSFele", "", up="_eleUp", down="_eleDown", decorrelate="year"),
+            Systematic("trigSFmu", "", up="_muUp", down="_muDown", decorrelate="year"),
+            Systematic("trigSFDM0", "", up="_DM0Up", down="_DM0Down", decorrelate="year"),
+            Systematic("trigSFDM1", "", up="_DM1Up", down="_DM1Down", decorrelate="year"),
+            Systematic("trigSFDM10", "", up="_DM10Up", down="_DM10Down", decorrelate="year"),
+            Systematic("trigSFDM11", "", up="_DM11Up", down="_DM11Down", decorrelate="year"),
 
-            Systematic("PUjetID", "", up="_up", down="_down"),
-            Systematic("pu", "", up="Up", down="Down"),
+            Systematic("PUjetID", "", up="_up", down="_down", decorrelate="year"),
+            Systematic("pu", "", up="Up", down="Down", decorrelate="year"),
             Systematic("empty", "", up="", down="")
         ]
         return ObjectCollection(systematics)
