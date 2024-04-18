@@ -193,6 +193,8 @@ Framework : Dataset.selection is applied at Categorization and at PrePlot level 
 
 Framework : creating a Dataset from another Dataset copies all properties except the "aux" dictionary, in particular it discards the "selection" and other attributes. This happens when copying the v9 datasets to v12.
 
+`Exception: too few leaves (28) for number of requested trees (40)` during MergeCategorization : you should reduce the numbers in Dataset.merging such that it is less than the number of files in the dataset.
+
 ### Notebooks issues
 luigi v2.8.13 wants tornado>=4,<6 but notebook installed in cmssw wants tornado 6 ([issue](https://github.com/jupyter/notebook/issues/5920)). There is also a jinja issue.
 In case you get the error ̀`ImportError: cannot import name 'contextfilter' from 'jinja2'`, then run `pip install --upgrade --prefix "$CMT_SOFTWARE" jinja2==3.0.3 `. The issue is due to a too recent version of jinja2 being installed , not compatible with the old jupyter nbconvert that comes with CMSSW.
