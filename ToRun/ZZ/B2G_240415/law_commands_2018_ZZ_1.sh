@@ -943,6 +943,230 @@ done
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+###############################################################################################################################################
+# ANALYSIS ETAU, MUTAU, TAUTAU - AN CR and SR PLOTS
+###############################################################################################################################################
+
+YEAR=2018
+
+# MergeCategorization + PrePlot with everything etau
+law run FeaturePlot --version prod_240419_rm --PrePlot-version prod_240419 --config-name ul_2018_ZZ_v12 \
+ --feature-names ZZKinFit_mass_res,dnn_ZZbbtt_kl_1_200,dnn_ZZbbtt_kl_1_300,dnn_ZZbbtt_kl_1_400,dnn_ZZbbtt_kl_1_500,dnn_ZZbbtt_kl_1_600,dnn_ZZbbtt_kl_1_700,\
+dnn_ZZbbtt_kl_1_800,dnn_ZZbbtt_kl_1_900,dnn_ZZbbtt_kl_1_1000,dnn_ZZbbtt_kl_1_1100,dnn_ZZbbtt_kl_1_1200,dnn_ZZbbtt_kl_1_1300,dnn_ZZbbtt_kl_1_1400,dnn_ZZbbtt_kl_1_1500 \
+ --dataset-names ggXZZbbtt_M200,ggXZZbbtt_M300,ggXZZbbtt_M400,ggXZZbbtt_M500,ggXZZbbtt_M600,ggXZZbbtt_M700,ggXZZbbtt_M800,ggXZZbbtt_M900,\
+ggXZZbbtt_M1000,ggXZZbbtt_M1100,ggXZZbbtt_M1200,ggXZZbbtt_M1300,ggXZZbbtt_M1400,ggXZZbbtt_M1500,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_etau_a,data_etau_b,data_etau_c,data_etau_d,data_etau_e \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name etau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True
+# PrePlot with everything mutau
+law run FeaturePlot --version prod_240419_rm --PrePlot-version prod_240419 --config-name ul_2018_ZZ_v12 \
+ --feature-names ZZKinFit_mass_res,dnn_ZZbbtt_kl_1_200,dnn_ZZbbtt_kl_1_300,dnn_ZZbbtt_kl_1_400,dnn_ZZbbtt_kl_1_500,dnn_ZZbbtt_kl_1_600,dnn_ZZbbtt_kl_1_700,\
+dnn_ZZbbtt_kl_1_800,dnn_ZZbbtt_kl_1_900,dnn_ZZbbtt_kl_1_1000,dnn_ZZbbtt_kl_1_1100,dnn_ZZbbtt_kl_1_1200,dnn_ZZbbtt_kl_1_1300,dnn_ZZbbtt_kl_1_1400,dnn_ZZbbtt_kl_1_1500 \
+ --dataset-names ggXZZbbtt_M200,ggXZZbbtt_M300,ggXZZbbtt_M400,ggXZZbbtt_M500,ggXZZbbtt_M600,ggXZZbbtt_M700,ggXZZbbtt_M800,ggXZZbbtt_M900,\
+ggXZZbbtt_M1000,ggXZZbbtt_M1100,ggXZZbbtt_M1200,ggXZZbbtt_M1300,ggXZZbbtt_M1400,ggXZZbbtt_M1500,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d,data_mutau_e \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name mutau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True
+# PrePlot with everything tautau
+law run FeaturePlot --version prod_240419_rm --PrePlot-version prod_240419 --config-name ul_2018_ZZ_v12 \
+ --feature-names ZZKinFit_mass_res,dnn_ZZbbtt_kl_1_200,dnn_ZZbbtt_kl_1_300,dnn_ZZbbtt_kl_1_400,dnn_ZZbbtt_kl_1_500,dnn_ZZbbtt_kl_1_600,dnn_ZZbbtt_kl_1_700,\
+dnn_ZZbbtt_kl_1_800,dnn_ZZbbtt_kl_1_900,dnn_ZZbbtt_kl_1_1000,dnn_ZZbbtt_kl_1_1100,dnn_ZZbbtt_kl_1_1200,dnn_ZZbbtt_kl_1_1300,dnn_ZZbbtt_kl_1_1400,dnn_ZZbbtt_kl_1_1500 \
+ --dataset-names ggXZZbbtt_M200,ggXZZbbtt_M300,ggXZZbbtt_M400,ggXZZbbtt_M500,ggXZZbbtt_M600,ggXZZbbtt_M700,ggXZZbbtt_M800,ggXZZbbtt_M900,\
+ggXZZbbtt_M1000,ggXZZbbtt_M1100,ggXZZbbtt_M1200,ggXZZbbtt_M1300,ggXZZbbtt_M1400,ggXZZbbtt_M1500,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name tautau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True
+
+
+law run FeaturePlot --version prod_240417 --PrePlot-skip-merging --PrePlot-version prod_240417 --config-name ul_${YEAR}_ZZ_v12 \
+ --feature-names ZZKinFit_mass_res \
+ --dataset-names ggXZZbbtt_M400,ggXZZbbtt_M600,ggXZZbbtt_M800,ggXZZbbtt_M1000,ggXZZbbtt_M1200,ggXZZbbtt_M1500,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_etau_a,data_etau_b,data_etau_c,data_etau_d,data_etau_e \
+ --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name etau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True --log-y True --histogram-minimum 0.1
+law run FeaturePlot --version prod_240417 --PrePlot-skip-merging --PrePlot-version prod_240417 --config-name ul_${YEAR}_ZZ_v12 \
+ --feature-names ZZKinFit_mass_res \
+ --dataset-names ggXZZbbtt_M400,ggXZZbbtt_M600,ggXZZbbtt_M800,ggXZZbbtt_M1000,ggXZZbbtt_M1200,ggXZZbbtt_M1500,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d,data_mutau_e \
+ --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name mutau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True --log-y True --histogram-minimum 0.1
+law run FeaturePlot --version prod_240417 --PrePlot-skip-merging --PrePlot-version prod_240417 --config-name ul_${YEAR}_ZZ_v12 \
+ --feature-names ZZKinFit_mass_res \
+ --dataset-names ggXZZbbtt_M400,ggXZZbbtt_M600,ggXZZbbtt_M800,ggXZZbbtt_M1000,ggXZZbbtt_M1200,ggXZZbbtt_M1500,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e \
+ --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name tautau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True --log-y True --histogram-minimum 0.1
+
+law run FeaturePlot --version prod_240418 --PrePlot-skip-merging --PrePlot-version prod_240418 --config-name ul_${YEAR}_ZZ_v12 \
+ --feature-names dnn_ZZbbtt_kl_1_1000 \
+ --dataset-names ggXZZbbtt_M1000,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_etau_a,data_etau_b,data_etau_c,data_etau_d,data_etau_e \
+ --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name dnn_zz_res_1000 --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name etau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True --log-y True --histogram-minimum 0.1
+law run FeaturePlot --version prod_240418 --PrePlot-skip-merging --PrePlot-version prod_240418 --config-name ul_${YEAR}_ZZ_v12 \
+ --feature-names dnn_ZZbbtt_kl_1_1000 \
+ --dataset-names ggXZZbbtt_M1000,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d,data_mutau_e \
+ --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name dnn_zz_res_1000 --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name mutau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True --log-y True --histogram-minimum 0.1
+law run FeaturePlot --version prod_240418 --PrePlot-skip-merging --PrePlot-version prod_240418 --config-name ul_${YEAR}_ZZ_v12 \
+ --feature-names dnn_ZZbbtt_kl_1_1000 \
+ --dataset-names ggXZZbbtt_M1000,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e \
+ --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+ --process-group-name dnn_zz_res_1000 --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name tautau_os_iso \
+ --save-yields --stack --do-qcd --hide-data True --log-y True --histogram-minimum 0.1
+
+
+########################################################################################
+
+for res_mass in 200 300 400 500 600 700 800 900 1000 1100 1200 1300 1400 1500; do
+    law run CreateDatacards --version prod_240419_M$res_mass  --PrePlot-version prod_240419 --MergeCategorization-version prod_240419 --config-name ul_${YEAR}_ZZ_v12 \
+    --feature-names ZZKinFit_mass_res,dnn_ZZbbtt_kl_1_$res_mass \
+    --dataset-names ggXZZbbtt_M$res_mass,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_etau_a,data_etau_b,data_etau_c,data_etau_d,data_etau_e \
+    --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+    --process-group-name datacard_zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name etau_os_iso \
+    --save-yields --stack --do-qcd --hide-data True --propagate-syst-qcd &
+    law run CreateDatacards --version prod_240419_M$res_mass  --PrePlot-version prod_240419 --MergeCategorization-version prod_240419 --config-name ul_${YEAR}_ZZ_v12 \
+    --feature-names ZZKinFit_mass_res,dnn_ZZbbtt_kl_1_$res_mass \
+    --dataset-names ggXZZbbtt_M$res_mass,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d,data_mutau_e \
+    --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+    --process-group-name datacard_zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name mutau_os_iso \
+    --save-yields --stack --do-qcd --hide-data True --propagate-syst-qcd & 
+    law run CreateDatacards --version prod_240419_M$res_mass  --PrePlot-version prod_240419 --MergeCategorization-version prod_240419 --config-name ul_${YEAR}_ZZ_v12 \
+    --feature-names ZZKinFit_mass_res,dnn_ZZbbtt_kl_1_$res_mass \
+    --dataset-names ggXZZbbtt_M$res_mass,\
+zz_bbtt,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
+wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,\
+zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
+zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
+ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e \
+    --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240403 \
+    --process-group-name datacard_zz_res --save-root --save-png --category-name ZZ_elliptical_cut_90 --region-name tautau_os_iso \
+    --save-yields --stack --do-qcd --hide-data True --propagate-syst-qcd &
+done
+
+########################################################################################
+
+python3 RunAsymptoticLimits.py --config ul_2018_ZZ_v12 --category ZZ_elliptical_cut_90 --process-group-name datacard_zz_res \
+    --feat dnn_ZZbbtt_kl_1 --featureDependsOnMass --ver prod_240419 --mass 200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500
+python3 RunAsymptoticLimits.py --config ul_2018_ZZ_v12 --category ZZ_elliptical_cut_90 --process-group-name datacard_zz_res \
+    --feat ZZKinFit_mass_res --ver prod_240419 --mass 200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500
+
+for CHANNEL in etau mutau tautau combination; do
+python3 PlotAsymptoticLimits.py --mass 200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500 --config ul_2018_ZZ_v12  \
+    --feat dnn_ZZbbtt_kl_1 --featureDependsOnMass --ver prod_240419 --ch $CHANNEL
+done
+for CHANNEL in etau mutau tautau combination; do
+python3 PlotAsymptoticLimits.py --mass 200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500 --config ul_2018_ZZ_v12  \
+    --feat ZZKinFit_mass_res --ver prod_240419 --ch $CHANNEL
+done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #################################### TEST SYSTEMATICS
 
 law run CreateDatacards --version prod_240417_syst \

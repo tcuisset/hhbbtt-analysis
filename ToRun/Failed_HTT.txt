@@ -1,0 +1,25 @@
+2017:
+- ZprimeToZH_ZToTauTau_HToBB_M-5500:
+    - 5: "/store/mc/RunIISummer20UL17MiniAODv2/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/7F0BF094-8C82-D447-9806-8569B622703D.root"
+    - 9: "/store/mc/RunIISummer20UL17MiniAODv2/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/49D3532D-71C5-534A-B1C0-452A4AAE8057.root"
+    - 20: "/store/mc/RunIISummer20UL17MiniAODv2/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/EBC650B7-D09B-2F43-83C5-4FE2C01644F7.root"
+    - 21: "/store/mc/RunIISummer20UL17MiniAODv2/ZprimeToZH_ZToTauTau_HToBB_M-5500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/EC2DB370-0D9D-2A40-B898-AE91884744B1.root"
+
+- GluGluToXToZZTo2B2Tau_M-280:
+    - 5: "/store/mc/RunIISummer20UL17MiniAODv2/GluGluToXToZZTo2B2Tau_M-280_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/5BADA919-BB8F-ED4B-B96E-A07FD44EC339.root"
+    - 19: "/store/mc/RunIISummer20UL17MiniAODv2/GluGluToXToZZTo2B2Tau_M-280_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/80C13195-11B2-D543-B911-62C036386A8D.root"
+    - 43: "/store/mc/RunIISummer20UL17MiniAODv2/GluGluToXToZZTo2B2Tau_M-280_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/DF530BF5-0F1B-5748-B66E-47F10BDD4545.root"
+
+- GluGluToXToZZTo2B2Tau_M-1400:
+    - 16: "/store/mc/RunIISummer20UL17MiniAODv2/GluGluToXToZZTo2B2Tau_M-1400_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/2830000/9A48D479-8A1F-BC4A-8B0E-2E737C92CAE0.root"
+
+2016_HIPM:
+- ZprimeToZH_ZToBB_HToTauTau_M-6000:
+    - 4: "/store/mc/RunIISummer20UL16MiniAODAPVv2/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/2830000/4A14A1CF-E9FE-A943-A4D0-B4CAB0153C1A.root"
+    - 6: "/store/mc/RunIISummer20UL16MiniAODAPVv2/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/2830000/5A1ABB56-819F-DD4D-AAC8-08C41E6655E2.root"
+    - 9: "/store/mc/RunIISummer20UL16MiniAODAPVv2/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/2830000/91B85314-BA92-BF4C-8984-98F535FAD50B.root"
+    - 17: "/store/mc/RunIISummer20UL16MiniAODAPVv2/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/2830000/9385D478-9A41-7748-9419-32A95CC1B82F.root"
+
+2016:
+- ZprimeToZH_ZToBB_HToTauTau_M-2000:
+    - 18 (finished): "/store/mc/RunIISummer20UL16MiniAODv2/ZprimeToZH_ZToBB_HToTauTau_M-2000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v17-v2/50000/B663250F-C8D1-7D42-BB28-99F770D18E6A.root"
