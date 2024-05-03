@@ -1,6 +1,5 @@
 source setup.sh
 YEAR=2016_HIPM
-
 DATASETS_ZbbHtt_base=dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,\
 tt_dl,tt_sl,tt_fh,zz_dl,zz_sl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
 zh_zbb_htt_background,zh_hbb,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,\
@@ -18,7 +17,7 @@ zh_ztt_hbb_background,zh_hbb,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf
 ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top
 DATASETS_ZttHbb_nonres=zh_ztt_hbb_signal,$DATASETS_ZttHbb_base
 
-DATASETS_ZttHbb_res_only=ZprimeToZH_ZToTauTau_HToBB_600,ZprimeToZH_ZToTauTau_HToBB_M800,ZprimeToZH_ZToTauTau_HToBB_M1000,ZprimeToZH_ZToTauTau_HToBB_M1200,ZprimeToZH_ZToTauTau_HToBB_M1400,ZprimeToZH_ZToTauTau_HToBB_M1600,ZprimeToZH_ZToTauTau_HToBB_M1800,ZprimeToZH_ZToTauTau_HToBB_M2000,ZprimeToZH_ZToTauTau_HToBB_M2500,ZprimeToZH_ZToTauTau_HToBB_M3000,ZprimeToZH_ZToTauTau_HToBB_M3500,ZprimeToZH_ZToTauTau_HToBB_M4000,ZprimeToZH_ZToTauTau_HToBB_M4500,ZprimeToZH_ZToTauTau_HToBB_M5000,ZprimeToZH_ZToTauTau_HToBB_M5500,ZprimeToZH_ZToTauTau_HToBB_M6000
+DATASETS_ZttHbb_res_only=ZprimeToZH_ZToTauTau_HToBB_M600,ZprimeToZH_ZToTauTau_HToBB_M800,ZprimeToZH_ZToTauTau_HToBB_M1000,ZprimeToZH_ZToTauTau_HToBB_M1200,ZprimeToZH_ZToTauTau_HToBB_M1400,ZprimeToZH_ZToTauTau_HToBB_M1600,ZprimeToZH_ZToTauTau_HToBB_M1800,ZprimeToZH_ZToTauTau_HToBB_M2000,ZprimeToZH_ZToTauTau_HToBB_M2500,ZprimeToZH_ZToTauTau_HToBB_M3000,ZprimeToZH_ZToTauTau_HToBB_M3500,ZprimeToZH_ZToTauTau_HToBB_M4000,ZprimeToZH_ZToTauTau_HToBB_M4500,ZprimeToZH_ZToTauTau_HToBB_M5000,ZprimeToZH_ZToTauTau_HToBB_M5500,ZprimeToZH_ZToTauTau_HToBB_M6000
 DATASETS_ZttHbb_res=$DATASETS_ZttHbb_res_only,$DATASETS_ZttHbb_base,zh_ztt_hbb
 #Zprime_Zh_Ztautauhbb_M3000_v3,Zprime_Zh_Ztautauhbb_M4000_v3
 
@@ -31,10 +30,10 @@ DATASETS_DATA_TAUTAU=data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e
 ############################################################  PREPROCESS  #####################################################################
 ###############################################################################################################################################
 # pilot
-law run PreprocessRDF --version prod_240305 --category-name base_selection --config-name ul_${YEAR}_ZbbHtt_v12 \
- --dataset-name ZprimeToZH_ZToBB_HToTauTau_M600 \
- --PreprocessRDF-modules-file modulesrdf \
- --PreprocessRDF-keep-and-drop-file keep_and_drop_file --workers 1 --branch 0
+# law run PreprocessRDF --version prod_240305 --category-name base_selection --config-name ul_${YEAR}_ZbbHtt_v12 \
+#  --dataset-name ZprimeToZH_ZToBB_HToTauTau_M600 \
+#  --PreprocessRDF-modules-file modulesrdf \
+#  --PreprocessRDF-keep-and-drop-file keep_and_drop_file --workers 1 --branch 0
 
 
 law run PreprocessRDFWrapper --version prod_240305 --category-names base_selection --config-name ul_${YEAR}_ZbbHtt_v12 \
@@ -56,49 +55,64 @@ law run PreprocessRDFWrapper --version prod_240305 --category-names base_selecti
 ############################################################  PRECOUNTER  #####################################################################
 ###############################################################################################################################################
 
-law run MergeCategorizationStatsWrapper --version prod_240305 --config-name ul_2018_ZbbHtt_v12 \
- --dataset-names ZprimeToZH_ZToBB_HToTauTau_600_aux,ZprimeToZH_ZToBB_HToTauTau_M800_aux,ZprimeToZH_ZToBB_HToTauTau_M1000_aux,ZprimeToZH_ZToBB_HToTauTau_M1200_aux,\
-ZprimeToZH_ZToBB_HToTauTau_M1400_aux,ZprimeToZH_ZToBB_HToTauTau_M1600_aux,ZprimeToZH_ZToBB_HToTauTau_M1800_aux,ZprimeToZH_ZToBB_HToTauTau_M2000_aux,\
-ZprimeToZH_ZToBB_HToTauTau_M2500_aux,ZprimeToZH_ZToBB_HToTauTau_M3000_aux,ZprimeToZH_ZToBB_HToTauTau_M3500_aux,ZprimeToZH_ZToBB_HToTauTau_M4000_aux,\
-ZprimeToZH_ZToBB_HToTauTau_M4500_aux,ZprimeToZH_ZToBB_HToTauTau_M5000_aux,ZprimeToZH_ZToBB_HToTauTau_M5500_aux,ZprimeToZH_ZToBB_HToTauTau_M6000_aux \
+law run MergeCategorizationStatsWrapper --version prod_240305 --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --dataset-tags secondary \
  --workers 50 --PreCounter-weights-file weights --systematic-names pu \
  --PreCounter-workflow htcondor --PreCounter-htcondor-scheduler llrt3condor.in2p3.fr --PreCounter-transfer-logs \
- --PreCounter-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7' --PreCounter-tasks-per-job 5
+ --PreCounter-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7' --PreCounter-tasks-per-job 20 
+
+law run MergeCategorizationStatsWrapper --version prod_240305 --config-name ul_${YEAR}_ZttHbb_v12 \
+ --dataset-tags secondary \
+ --workers 50 --PreCounter-weights-file weights --systematic-names pu \
+ --PreCounter-workflow htcondor --PreCounter-htcondor-scheduler llrt3condor.in2p3.fr --PreCounter-transfer-logs \
+ --PreCounter-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7' --PreCounter-tasks-per-job 20 
 
 ###############################################################################################################################################
 ############################################################  CATEGORIZATION  #################################################################
 ###############################################################################################################################################
 
-###############################################################################################################################################
-# ELLIPTICAL MASS CUT
-###############################################################################################################################################
+# ###############################################################################################################################################
+# # ELLIPTICAL MASS CUT
+# ###############################################################################################################################################
 
-law run CategorizationWrapper --version prod_240312 --category-names base --config-name ul_2018_ZbbHtt_v12 \
- --skip-dataset-tags secondary \
+# law run CategorizationWrapper --version prod_240312 --category-names base --config-name ul_2018_ZbbHtt_v12 \
+#  --skip-dataset-tags secondary \
+#  --PreprocessRDF-version prod_240305 \
+#  --Categorization-base-category-name base_selection --Categorization-feature-modules-file modulesrdf_Ellipse --workers 30 \
+#  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
+#  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
+
+# ###############################################################################################################################################
+# # DNN INPUT
+# ###############################################################################################################################################
+# pilot
+law run Categorization --version prod_240312_DNNinput --category-name ZbbHtt_elliptical_cut_90_sr --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --dataset-name ZprimeToZH_ZToBB_HToTauTau_M800 \
  --PreprocessRDF-version prod_240305 \
- --Categorization-base-category-name base_selection --Categorization-feature-modules-file modulesrdf_Ellipse --workers 30 \
- --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
- --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
+ --Categorization-base-category-name base_selection \
+ --Categorization-feature-modules-file modulesrdf_DNN --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 1 --branch 0
 
-###############################################################################################################################################
-# DNN INPUT
-###############################################################################################################################################
-
-law run CategorizationWrapper --version prod_240318 --category-names ZbbHtt_elliptical_cut_90_sr --config-name ul_2018_ZbbHtt_v12 \
- --skip-dataset-tags secondary \
+law run MergeCategorizationWrapper --version prod_240312_DNNinput --category-names ZbbHtt_elliptical_cut_90_sr --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --dataset-names $DATASETS_ZbbHtt_res_only \
  --PreprocessRDF-version prod_240305 \
- --PreprocessRDF-modules-file modulesrdf \
- --PreprocessRDF-keep-and-drop-file keep_and_drop_file \
  --Categorization-base-category-name base_selection \
  --Categorization-feature-modules-file modulesrdf_DNN --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 50 \
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
- --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
+ --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7' --Categorization-tasks-per-job 20
+
+law run MergeCategorizationWrapper --version prod_240312_DNNinput --category-names ZttHbb_elliptical_cut_90_sr --config-name ul_${YEAR}_ZttHbb_v12 \
+ --dataset-names $DATASETS_ZttHbb_res_only \
+ --PreprocessRDF-version prod_240305 \
+ --Categorization-base-category-name base_selection \
+ --Categorization-feature-modules-file modulesrdf_DNN --Categorization-keep-and-drop-file keep_and_drop_file_DNN --workers 100 \
+ --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
+ --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7' --Categorization-tasks-per-job 7
 
 ###############################################################################################################################################
 # RESONANT ANALYSIS ETAU, MUTAU, TAUTAU
 ###############################################################################################################################################
 
-law run CategorizationWrapper --version prod_240419 --config-name ul_2018_ZbbHtt_v12 \
+law run MergeCategorizationWrapper --version prod_240419 --config-name ul_2018_ZbbHtt_v12 \
  --skip-dataset-tags secondary --category-names ZbbHtt_elliptical_cut_90 \
  --PreprocessRDF-version prod_240305 \
  --Categorization-base-category-name base_selection \

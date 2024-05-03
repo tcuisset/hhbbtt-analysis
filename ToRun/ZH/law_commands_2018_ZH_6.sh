@@ -137,6 +137,22 @@ law run CategorizationWrapper --version prod_240318_baseline --config-name ul_20
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,priority=-10' --Categorization-tasks-per-job 5
 
+############################# Control Region ttbar
+#pilot
+law run Categorization --version prod_240417 --config-name ul_2018_ZbbHtt_v12 \
+ --dataset-name tt_sl --category-name ZbbHtt_ttCR \
+ --PreprocessRDF-version prod_240305 \
+ --Categorization-base-category-name base_selection \
+ --Categorization-feature-modules-file modulesrdf_syst --workers 20
+
+law run CategorizationWrapper --version prod_240417 --config-name ul_2018_ZbbHtt_v12 \
+ --skip-dataset-tags secondary --category-names ZbbHtt_ttCR \
+ --PreprocessRDF-version prod_240305 \
+ --Categorization-base-category-name base_selection \
+ --Categorization-feature-modules-file modulesrdf_syst --workers 50 \
+ --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
+ --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
+
 ###############################################################################################################################################
 # ANALYSIS ETAU, MUTAU, TAUTAU
 ###############################################################################################################################################
@@ -313,6 +329,18 @@ Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,
 featurePlotZbbHtt_baseline etau $DATASETS_DATA_ETAU 
 featurePlotZbbHtt_baseline mutau $DATASETS_DATA_MUTAU 
 featurePlotZbbHtt_baseline tautau $DATASETS_DATA_TAUTAU 
+
+
+###############################################################################################################################################
+# Control Region ttbar
+###############################################################################################################################################
+law run FeaturePlot --version prod_240417 --PrePlot-version prod_240417 --config-name ul_2018_ZbbHtt_v12 \
+ --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_chi2,ZHKinFit_mass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,\
+Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
+ --dataset-names $DATASETS_ZbbHtt_nonres,$DATASETS_DATA_ETAU,$DATASETS_DATA_MUTAU,$DATASETS_DATA_TAUTAU \
+ --workers 50 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240417 --MergeCategorization-version prod_240417 \
+ --process-group-name plot --save-root --save-png --category-name ZbbHtt_ttCR --region-name os_iso \
+ --save-yields --stack --do-qcd --hide-data False 
 
 ###############################################################################################################################################
 # ANALYSIS ETAU, MUTAU, TAUTAU
