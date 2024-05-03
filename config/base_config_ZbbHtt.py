@@ -1,6 +1,7 @@
 # Config for ZbbHtt analysis common for all years
 import itertools
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
+from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 
 from config.base_config import get_common_processes, BaseConfig
@@ -22,6 +23,7 @@ class ConfigZbbHtt(BaseConfig):
                     "((pairType == 2) && (isOS == 1) && "
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium))
+        bjets = self.get_bjets_requirements()
         
         categories += ObjectCollection([
 
@@ -43,7 +45,26 @@ class ConfigZbbHtt(BaseConfig):
                 selection="("+elliptical_cut_90+") && (pairType == 1)"),
             Category("ZbbHtt_elliptical_cut_90_tautau", "ZH mass cut E=90%",
                 selection="("+elliptical_cut_90+") && (pairType == 2)"),
+            
+            Category("ZbbHtt_ttCR", "ttbar CR", # inverted elliptical mass cut + 2 resolved b jets
+                selection=f"({elliptical_cut_90_inv}) && !isBoosted &&"
+                f"Jet_btagDeepFlavB.at(bjet1_JetIdx) > {self.btag['medium']} && "
+                f"Jet_btagDeepFlavB.at(bjet2_JetIdx) > {self.btag['medium']}"),
+            
+            # elliptical cut & non boosted
+            # non-boosted = at least one bjet passes medium (res1b&&res2b equivalent)
+            # boosted : needs to be studied (b-tagging for AK8 ?) f"|| (isBoosted == 1 && Jet_btagDeepFlavB.at(bjet1_JetIdx) > {self.btag['loose']} && et_btagDeepFlavB.at(bjet2_JetIdx) > {self.btag['loose']})"
+            Category("ZbbHtt_SR_btag_resolved_etau", "ZH SR with btag res1b,res2b,boosted",
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && pairType == 1"
+                f" && (Jet_btagDeepFlavB.at(bjet1_JetIdx) > {self.btag['medium']} || Jet_btagDeepFlavB.at(bjet2_JetIdx) > {self.btag['medium']})"
+            ),
 
+            Category("ZbbHtt_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_1b})"),
+            Category("ZbbHtt_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_2b})"),
+            Category("ZbbHtt_elliptical_cut_90_boosted", "EC90 & boosted",
+                selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({bjets.req_ll})"),
         ])
 
         return categories
