@@ -20,12 +20,12 @@ from cmt.base_tasks.analysis import CreateDatacards
 
 from plotting_tools import Label
 
-class CombineTaskBase:
+class CombineTaskBaseTheo:
     combine_install = luigi.Parameter(significant=False, description="Path to CMSSW release holding combine installation, ex /home/..../CMSSW_11_3_4/")
     feature = luigi.Parameter(description="Feature name to run Combine on (ex : dnn_ZHbbtt_kl_1)")
 
 
-class RunCombine(ConfigTaskWithCategory, ConfigTaskWithRegion, CombineTaskBase):
+class RunCombineTheo(ConfigTaskWithCategory, ConfigTaskWithRegion, CombineTaskBaseTheo):
     """ Run combine on datacards, on the feature given 
     Combine must have been installed (the path has to be given in argument)
     Usage :
@@ -183,7 +183,7 @@ class RunCombine(ConfigTaskWithCategory, ConfigTaskWithRegion, CombineTaskBase):
                 text_file.write("\n".join(output_log))
         
 
-class RunCombineCombination(ConfigTask, CombineTaskBase):
+class RunCombineCombinationTheo(ConfigTask, CombineTaskBaseTheo):
     """ Run combine on the combination of channels 
     Usage : 
     law run RunCombineCombination --version prod_240226 --config-name ul_2018_ZttHbb_v10 --category-names ZttHbb_elliptical_cut_90_etau,ZttHbb_elliptical_cut_90_mutau,ZttHbb_elliptical_cut_90_tautau  \
