@@ -213,6 +213,7 @@ def get_common_datasets_v12(self):
                 "tautau": 10,
                 "etau": 10,
                 "mutau": 10,
+                "elliptical_cut": 5
             },
             secondary_dataset="dy_aux",
             # categorization_max_events=10000,
@@ -332,6 +333,7 @@ def get_common_datasets_v12(self):
                 "tautau": 20,
                 "mutau": 20,
                 "etau": 40,
+                "elliptical_cut": 20
             },
             # scaling=(0.96639, 0.00863), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_dl_aux",
@@ -346,6 +348,7 @@ def get_common_datasets_v12(self):
                 "tautau": 20,
                 "mutau": 60,
                 "etau": 40,
+                "elliptical_cut": 40
             },
             # scaling=(0.96639, 0.00863), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_sl_aux",
