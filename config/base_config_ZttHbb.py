@@ -4,7 +4,7 @@ from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature
 from plotting_tools import Label
 
 from config.base_config import get_common_processes, BaseConfig
-from config.base_config_ZH import get_ZH_common_features
+from config.base_config_ZH import get_ZH_common_features, resonant_masses_ZH, reduced_resonant_masses_ZH
 
 class ConfigZttHbb(BaseConfig):
     def __init__(self, *args, **kwargs):
@@ -139,7 +139,6 @@ class ConfigZttHbb(BaseConfig):
         colors_res = itertools.cycle([(31, 0, 117), (4, 41, 100), (0, 55, 101), (0, 66, 106), (0, 78, 110), (0, 88, 113), (0, 99, 115), (0, 109, 115), (0, 119, 114), (0, 129, 111), (0, 139, 105), (14, 148, 99), (48, 155, 92), (78, 161, 84), (103, 165, 76), (127, 169, 68), (151, 172, 60), (174, 174, 55)])
         #short version
         colors_res = itertools.cycle([(31, 0, 117), (0, 66, 106), (0, 99, 115), (0, 129, 111), (48, 155, 92), (127, 169, 68), (174, 174, 55)])
-
         processes += ObjectCollection([
             ########### ZttHbb analysis
             # ZH_Hbb_Zll dataset with genfilter Z->tautau,H->bb
@@ -164,14 +163,15 @@ class ConfigZttHbb(BaseConfig):
             # ZH resonant
             *[Process(f"Zprime_Zh_Ztautauhbb_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res),
                     isSigBBTT=True, ProcType="Ztautau_Hbb", isSignal=True, llr_name="ZprimeZttHbb")
-            for mass in [500,600,700,800,1000,1200,1400,1600,1800,2000,2500,3000,3500,4000,4500,5000,5500,6000]],
+            for mass in resonant_masses_ZH],
 
             # background for resonant analysis (zh_ztt_hbb_signal with isSignal=False, dataset is the exact same)
             Process("zh_ztt_hbb", Label("Z_{#tau#tau}H_{bb}"), color=(0, 165, 80), 
                     ProcType="Ztautau_Hbb", isSigBBTT=True, parent_process='higgs'),
         ])
 
-        resonant_dataset_names = [f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in [500, 1000, 2000, 3000, 4000]]
+        resonant_dataset_names = [f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in resonant_masses_ZH]
+        resonant_dataset_names_reduced = [f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in reduced_resonant_masses_ZH]
 
         process_group_names = {
         "Zprime_Zh_Ztautauhbb": resonant_dataset_names,
@@ -208,6 +208,17 @@ class ConfigZttHbb(BaseConfig):
         "plot_res": [
             *resonant_dataset_names,
             "higgs", # includes zh_ztt_hbb & zh_zbb_htt_background
+            "vv_v",
+            "wjets",
+            "dy",
+            "others",
+            "tt",
+            "ttx",
+            "data",
+        ],
+        "plot_res_reduced": [ # smaller number of mass points to avoid cluttering plot
+            *resonant_dataset_names_reduced,
+            "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
             "vv_v",
             "wjets",
             "dy",

@@ -5,7 +5,7 @@ from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 
 from config.base_config import get_common_processes, BaseConfig
-from config.base_config_ZH import get_ZH_common_features
+from config.base_config_ZH import get_ZH_common_features, resonant_masses_ZH, reduced_resonant_masses_ZH
 
 class ConfigZbbHtt(BaseConfig):
     def __init__(self, *args, **kwargs):
@@ -189,14 +189,15 @@ class ConfigZbbHtt(BaseConfig):
             # ZH resonant (old label : Z'#rightarrow Z_{bb}H_{#tau#tau} )
             *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res), 
                     isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZprimeZbbHtt")
-            for mass in [500,600,700,800,1000,1200,1400,1600,1800,2000,2500,3000,3500,4000,4500,5000,5500,6000]],
+            for mass in resonant_masses_ZH],
 
             # background for resonant analysis (zh_zbb_htt_signal with isSignal=False, dataset is the exact same)
             Process("zh_zbb_htt", Label("Z_{bb}H_{#tau#tau}"), color=(0, 165, 80), 
                     ProcType="Zbb_Htautau", isSigBBTT=True, parent_process='zh'),
         ])
 
-        resonant_dataset_names = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in [500, 1000, 2000, 3000, 4000]]
+        resonant_dataset_names = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in resonant_masses_ZH]
+        resonant_dataset_names_reduced = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in reduced_resonant_masses_ZH]
 
         process_group_names = {
         "Zprime_Zh_Zbbhtt": resonant_dataset_names,
@@ -232,6 +233,17 @@ class ConfigZbbHtt(BaseConfig):
         ],
         "plot_res": [
             *resonant_dataset_names,
+            "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
+            "vv_v",
+            "wjets",
+            "dy",
+            "others",
+            "tt",
+            "ttx",
+            "data",
+        ],
+        "plot_res_reduced": [ # smaller number of mass points to avoid cluttering plot
+            *resonant_dataset_names_reduced,
             "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
             "vv_v",
             "wjets",
