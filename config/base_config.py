@@ -260,6 +260,10 @@ class BaseConfig(cmt_config):
         super().__init__(*args, **kwargs)
 
     def join_selection_channels(self, selection):
+        """ Takes a dict channel -> [selection], where the list of selections is first and-ed (with parentheses) 
+        and makes a selection (etau && selection[etau]) || (mutau && selection[mutau]) || (tautau && selection[tautau])
+        Channel selections are taken from self.channels.selection (aka pairType)
+        """
         return jrs([jrs(jrs(selection[ch.name], op="and"), ch.selection, op="and")
             for ch in self.channels], op="or")
 
@@ -329,23 +333,38 @@ class BaseConfig(cmt_config):
             Category("tautau", Label("#tau_{h}#tau_{h}"), selection="pairType == 2"),
         ]
         return ObjectCollection(channels)
+    
+    def get_bjets_requirements(self):
+        """ Compute the requirements for btagging for the different categories.
+        Returns dict with keys req_1b, req_2b, req_ll 
+        Uses self.btag
+        """
+        reqs = DotDict()
+        btag = "Jet_btagDeepFlavB.at(bjet{}_JetIdx)"
+        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag[wp])
+        reqs.req_1b = jrs(jrs(df(1, ">", "medium"), df(2, "<", "medium"), op="and"),
+                jrs(df(1, "<", "medium"), df(2, ">", "medium"), op="and"), op="or")  # exactly one b jet passes medium (for res1b)
+        reqs.req_2b = jrs(df(1, ">", "medium"), df(2, ">", "medium")) # both bjets pass medium (for res2b)
+        reqs.req_ll = jrs(df(1, ">", "loose"), df(2, ">", "loose")) # both bjets pass loose (for boosted) 
+        return reqs
 
     def add_categories(self, **kwargs):
+        """ NOT USEF """
         reject_sel = ["pairType == -31415"]
 
         sel = DotDict()
         btag = kwargs.pop("btag", "Jet_btagDeepFlavB.at(bjet{}_JetIdx)")
         df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag[wp])
         sel["btag"] = DotDict(
-            m_first=[df(1, ">", "medium")],
+            m_first=[df(1, ">", "medium")], # bjet 1 passes medium btag WP
             m_second=[df(2, ">", "medium")],
-            m_any=[jrs(df(1, ">", "medium"), df(2, ">", "medium"), op="or")],
-            l=[df(1, ">", "loose"), df(2, "<", "loose")],
-            ll=[df(1, ">", "loose"), df(2, ">", "loose")],
+            m_any=[jrs(df(1, ">", "medium"), df(2, ">", "medium"), op="or")], # at least one of bjet 1 or 2 passes medium WP
+            l=[df(1, ">", "loose"), df(2, "<", "loose")], # bjet1 passes loose, bjet 2 fails loose
+            ll=[df(1, ">", "loose"), df(2, ">", "loose")], # both bjets pass loose
             m=[jrs(jrs(df(1, ">", "medium"), df(2, "<", "medium"), op="and"),
-                jrs(df(1, "<", "medium"), df(2, ">", "medium"), op="and"), op="or")],
-            mm=[df(1, ">", "medium"), df(2, ">", "medium")],
-            not_mm=[df(1, "<", "medium"), df(2, "<", "medium")],
+                jrs(df(1, "<", "medium"), df(2, ">", "medium"), op="and"), op="or")], # exactly one b jet passes medium
+            mm=[df(1, ">", "medium"), df(2, ">", "medium")], # both bjets pass medium
+            not_mm=[df(1, "<", "medium"), df(2, "<", "medium")], # both bjets fail medium
         )
 
         # If we use {{}} the name of the feature is replaced by the expression we define in the feature object (including syst in case)

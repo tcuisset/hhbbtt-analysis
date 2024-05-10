@@ -1,10 +1,11 @@
 # Config for ZbbHtt analysis common for all years
 import itertools
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
+from analysis_tools.utils import join_root_selection as jrs
 from plotting_tools import Label
 
 from config.base_config import get_common_processes, BaseConfig
-from config.base_config_ZH import get_ZH_common_features
+from config.base_config_ZH import get_ZH_common_features, resonant_masses_ZH, reduced_resonant_masses_ZH
 
 class ConfigZbbHtt(BaseConfig):
     def __init__(self, *args, **kwargs):
@@ -22,6 +23,7 @@ class ConfigZbbHtt(BaseConfig):
                     "((pairType == 2) && (isOS == 1) && "
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium))
+        bjets = self.get_bjets_requirements()
         
         categories += ObjectCollection([
 
@@ -43,7 +45,26 @@ class ConfigZbbHtt(BaseConfig):
                 selection="("+elliptical_cut_90+") && (pairType == 1)"),
             Category("ZbbHtt_elliptical_cut_90_tautau", "ZH mass cut E=90%",
                 selection="("+elliptical_cut_90+") && (pairType == 2)"),
+            
+            Category("ZbbHtt_ttCR", "ttbar CR", # inverted elliptical mass cut + 2 resolved b jets
+                selection=f"({elliptical_cut_90_inv}) && !isBoosted &&"
+                f"Jet_btagDeepFlavB.at(bjet1_JetIdx) > {self.btag['medium']} && "
+                f"Jet_btagDeepFlavB.at(bjet2_JetIdx) > {self.btag['medium']}"),
+            
+            # elliptical cut & non boosted
+            # non-boosted = at least one bjet passes medium (res1b&&res2b equivalent)
+            # boosted : needs to be studied (b-tagging for AK8 ?) f"|| (isBoosted == 1 && Jet_btagDeepFlavB.at(bjet1_JetIdx) > {self.btag['loose']} && et_btagDeepFlavB.at(bjet2_JetIdx) > {self.btag['loose']})"
+            Category("ZbbHtt_SR_btag_resolved_etau", "ZH SR with btag res1b,res2b,boosted",
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && pairType == 1"
+                f" && (Jet_btagDeepFlavB.at(bjet1_JetIdx) > {self.btag['medium']} || Jet_btagDeepFlavB.at(bjet2_JetIdx) > {self.btag['medium']})"
+            ),
 
+            Category("ZbbHtt_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_1b})"),
+            Category("ZbbHtt_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_2b})"),
+            Category("ZbbHtt_elliptical_cut_90_boosted", "EC90 & boosted",
+                selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({bjets.req_ll})"),
         ])
 
         return categories
@@ -168,14 +189,15 @@ class ConfigZbbHtt(BaseConfig):
             # ZH resonant (old label : Z'#rightarrow Z_{bb}H_{#tau#tau} )
             *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res), 
                     isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZprimeZbbHtt")
-            for mass in [500,600,700,800,1000,1200,1400,1600,1800,2000,2500,3000,3500,4000,4500,5000,5500,6000]],
+            for mass in resonant_masses_ZH],
 
             # background for resonant analysis (zh_zbb_htt_signal with isSignal=False, dataset is the exact same)
             Process("zh_zbb_htt", Label("Z_{bb}H_{#tau#tau}"), color=(0, 165, 80), 
                     ProcType="Zbb_Htautau", isSigBBTT=True, parent_process='zh'),
         ])
 
-        resonant_dataset_names = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in [500, 1000, 2000, 3000, 4000]]
+        resonant_dataset_names = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in resonant_masses_ZH]
+        resonant_dataset_names_reduced = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in reduced_resonant_masses_ZH]
 
         process_group_names = {
         "Zprime_Zh_Zbbhtt": resonant_dataset_names,
@@ -211,6 +233,17 @@ class ConfigZbbHtt(BaseConfig):
         ],
         "plot_res": [
             *resonant_dataset_names,
+            "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
+            "vv_v",
+            "wjets",
+            "dy",
+            "others",
+            "tt",
+            "ttx",
+            "data",
+        ],
+        "plot_res_reduced": [ # smaller number of mass points to avoid cluttering plot
+            *resonant_dataset_names_reduced,
             "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
             "vv_v",
             "wjets",
