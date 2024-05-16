@@ -29,6 +29,8 @@ def setupBtagDeeptau(self):
             Tight=6, VTight=7, VVTight=8),
         vsmu=DotDict(VLoose=1, Loose=1, Medium=3, Tight=4),
     )
+    # Working points for ParticleNet-MD XbbVsQCD (legacy training) from AN2021-005 (v10)
+    self.particleNetMD_legacy=DotDict(high=0.9870, medium=0.9714, low=0.9105)
 
 def get_common_datasets_v12(self):
     """ Needs to be called with Config object as self as it needs access to self.processes """

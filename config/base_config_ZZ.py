@@ -16,6 +16,20 @@ class Config(BaseConfig):
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
+        elliptical_cut_90 = ("(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                    " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1)")
+        elliptical_cut_90_inv = ("(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1)")
+        sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 2) && (isOS == 1) && "
+                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
+                    .format(self.deeptau.vsjet.Medium))
+        
+        bjets = self.get_bjets_requirements()
+        # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
+        boosted_pnet_cut = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.particleNetMD_legacy.low})"
+
         categories += ObjectCollection([
             # Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
             #     selection="(({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
@@ -54,12 +68,17 @@ class Config(BaseConfig):
             #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 2)"),
 
             Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
-                selection="(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
-                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1"),
+                selection=elliptical_cut_90),
+            
+            Category("ZZ_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
+                selection=elliptical_cut_90 + " && isBoosted == 0 && " + bjets.req_1b),
+            Category("ZZ_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
+                selection=elliptical_cut_90 + " && isBoosted == 0 && " + bjets.req_2b),
+            Category("ZZ_elliptical_cut_90_boosted", "EC90 & boosted",
+                selection=elliptical_cut_90 + " && isBoosted == 1 && " + boosted_pnet_cut),
 
             Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region",
-                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
-                    " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1) && " + \
+                selection=elliptical_cut_90 + " && " + \
                     "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 2) && (isOS == 1) && "

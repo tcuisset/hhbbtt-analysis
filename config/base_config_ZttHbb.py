@@ -22,6 +22,9 @@ class ConfigZttHbb(BaseConfig):
                     "((pairType == 2) && (isOS == 1) && "
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium))
+        bjets = self.get_bjets_requirements()
+        # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
+        boosted_pnet_cut = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.particleNetMD_legacy.low})"
         
         categories += ObjectCollection([
 
@@ -43,6 +46,16 @@ class ConfigZttHbb(BaseConfig):
                 selection="("+elliptical_cut_90+") && (pairType == 1)"),
             Category("ZttHbb_elliptical_cut_90_tautau", "ZH mass cut E=90%",
                 selection="("+elliptical_cut_90+") && (pairType == 2)"),
+            
+            Category("ZttHbb_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_1b})"),
+            Category("ZttHbb_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_2b})"),
+            Category("ZttHbb_elliptical_cut_90_boosted", "EC90 & boosted",
+                selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+            
+            Category("ZttHbb_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
+                selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
 
         ])
 
