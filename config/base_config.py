@@ -10,16 +10,6 @@ from cmt.base_tasks.base import Task
 
 from config.xs_config import cross_section_dict
 
-def setupBtagDeeptau(self):
-    # https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
-    self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
-    self.deeptau=DotDict(
-        vsjet=DotDict(VVVLoose=1, VVLoose=3, VLoose=7, Loose=15, Medium=31,
-            Tight=63, VTight=127, VVTight=255),
-        vse=DotDict(VVVLoose=1, VVLoose=3, VLoose=7, Loose=15, Medium=31,
-            Tight=63, VTight=127, VVTight=255),
-        vsmu=DotDict(VLoose=1, Loose=3, Medium=7, Tight=15),
-    )
 
 def get_common_processes():
     processes = [
@@ -254,8 +244,6 @@ def get_common_processes():
 
 class BaseConfig(cmt_config):
     def __init__(self, *args, **kwargs):
-        setupBtagDeeptau(self)
-
         self.channels = self.add_channels()
         self.regions = self.add_regions()
         self.categories = self.add_categories()
@@ -352,7 +340,7 @@ class BaseConfig(cmt_config):
         return reqs
 
     def add_categories(self, **kwargs):
-        """ NOT USEF """
+        """ NOT USED """
         reject_sel = ["pairType == -31415"]
 
         sel = DotDict()
