@@ -18,13 +18,20 @@ zzvar:
         met_smear_tag: smeared
         AnalysisType: self.config.get_aux('AnalysisType', False)
 
-zzdnn:
-    name: HHDNNRDF
+zzdnninputs:
+    name: HHDNNInputRDF
     path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
         AnalysisType: self.config.get_aux('AnalysisType', False)
+# zzdnn:
+#     name: HHDNNRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
 
 ######################################################################
 # Tau Energy Scale (tes): HHKinFitRDF + HHVarRDF + ZZDNNRDF
@@ -66,8 +73,8 @@ zzvar_tes_down:
         AnalysisType: self.config.get_aux('AnalysisType', False)
         tau_syst: corr_down
 
-zzdnn_tes_up:
-    name: HHDNNRDF
+zzdnninputs_tes_up:
+    name: HHDNNInputRDF
     path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
@@ -75,8 +82,8 @@ zzdnn_tes_up:
         AnalysisType: self.config.get_aux('AnalysisType', False)
         tau_syst: corr_up
 
-zzdnn_tes_down:
-    name: HHDNNRDF
+zzdnninputs_tes_down:
+    name: HHDNNInputRDF
     path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
@@ -131,8 +138,8 @@ zzvar_JER_down:
         jet_syst: smeared_down
         met_syst: down
 
-zzdnn_JER_up:
-    name: HHDNNRDF
+zzdnninputs_JER_up:
+    name: HHDNNInputRDF
     path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
@@ -141,8 +148,8 @@ zzdnn_JER_up:
         jet_syst: smeared_up
         met_syst: up
 
-zzdnn_JER_down:
-    name: HHDNNRDF
+zzdnninputs_JER_down:
+    name: HHDNNInputRDF
     path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
@@ -193,8 +200,8 @@ zzvar_Total_down:
         jet_syst: Total_down
         met_syst: Total_down
 
-zzdnn_Total_up:
-    name: HHDNNRDF
+zzdnninputs_Total_up:
+    name: HHDNNInputRDF
     path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC
@@ -202,8 +209,8 @@ zzdnn_Total_up:
         AnalysisType: self.config.get_aux('AnalysisType', False)
         jet_syst: Total_up
         met_syst: Total_up
-zzdnn_Total_down:
-    name: HHDNNRDF
+zzdnninputs_Total_down:
+    name: HHDNNInputRDF
     path: Tools.Tools.HHDNN
     parameters:
         isMC: self.dataset.process.isMC

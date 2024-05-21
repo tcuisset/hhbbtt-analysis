@@ -1,5 +1,6 @@
 """ Base configuration for X->ZZ->bbtautau analysis (no specific year). Inherits from base_config.py """
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
+from analysis_tools.utils import DotDict, join_root_selection as jrs
 from plotting_tools import Label
 import itertools
 
@@ -12,6 +13,19 @@ res_mass_ZZ = [ 200, 210, 220, 230, 240, 250, 260, 280, 300, 320, 350, 360, 400,
 class Config(BaseConfig):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.dnn = DotDict(
+            nonresonant=DotDict(
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZZbbtt-0",
+                out_branch="dnn_ZZbbtt_kl_1",
+                systematics=["tes", "jer", "jec"]
+            ),
+            resonant=DotDict(
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ResZZbbtt-0/",
+                resonant_masses=res_mass_ZZ,
+                out_branch="dnn_ZZbbtt_kl_1_{mass}",
+                systematics=["tes", "jer", "jec"]
+            ),
+        )
 
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)

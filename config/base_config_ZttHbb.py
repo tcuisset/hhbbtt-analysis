@@ -1,6 +1,7 @@
 # Config for ZttHbb analysis common for all years
 import itertools
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
+from analysis_tools.utils import DotDict, join_root_selection as jrs
 from plotting_tools import Label
 
 from config.base_config import get_common_processes, BaseConfig
@@ -9,6 +10,19 @@ from config.base_config_ZH import get_ZH_common_features, resonant_masses_ZH, re
 class ConfigZttHbb(BaseConfig):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.dnn = DotDict(
+            nonresonant=DotDict(
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZttHbb-0",
+                out_branch="dnn_ZHbbtt_kl_1",
+                systematics=["tes", "jer", "jec"]
+            ),
+            resonant=DotDict(
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ResZttHbb-0/",
+                resonant_masses=resonant_masses_ZH,
+                out_branch="dnn_ZHbbtt_kl_1_{mass}",
+                systematics=["tes", "jer", "jec"]
+            ),
+        )
 
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
