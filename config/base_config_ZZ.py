@@ -97,6 +97,9 @@ class Config(BaseConfig):
                 selection=elliptical_cut_90 + " && isBoosted == 0 && " + bjets.req_2b),
             Category("ZZ_elliptical_cut_90_boosted", "EC90 & boosted",
                 selection=elliptical_cut_90 + " && isBoosted == 1 && " + boosted_pnet_cut),
+            
+            Category("ZZ_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
+                selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
 
             Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region", # for DNN training
                 selection=elliptical_cut_90 + " && " + \
