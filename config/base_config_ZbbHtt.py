@@ -27,10 +27,15 @@ class ConfigZbbHtt(BaseConfig):
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
-        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
-                " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) < 1)")
-        elliptical_cut_90_inv = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
-                " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) >= 1)")
+        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 125.0,) * ({{Htt_svfit_mass}} - 125.0) / (100.0 * 100.0)"
+                " + ({{Zbb_mass}} - 85.0) * ({{Zbb_mass}} - 85.0) / (131.0 * 131.0)) < 1)")
+        elliptical_cut_90_inv = f"!({elliptical_cut_90})"
+
+        # old elliptical cut pre-21/05/24
+        # elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
+        #         " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) < 1)")
+        # elliptical_cut_90_inv = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
+        #         " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) >= 1)")
         sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 2) && (isOS == 1) && "

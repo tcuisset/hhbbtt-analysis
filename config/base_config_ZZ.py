@@ -30,10 +30,17 @@ class Config(BaseConfig):
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
-        elliptical_cut_90 = ("(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+        # ARCHIVE
+        # old elliptical cut pre-21/05/24
+        elliptical_cut_90_old = ("(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
                     " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1)")
-        elliptical_cut_90_inv = ("(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
+        elliptical_cut_90_inv_old = ("(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
                 " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1)")
+        
+        elliptical_cut_90 = ("(({{Ztt_svfit_mass}} - 95.0) * ({{Ztt_svfit_mass}} - 95.0) / (120 * 120)"
+                    " + ({{Zbb_mass}} - 85.0) * ({{Zbb_mass}} - 85.0) / (165.5 * 165.5)) < 1)")
+        elliptical_cut_90_inv = f"!({elliptical_cut_90})"
+
         sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 2) && (isOS == 1) && "
@@ -91,7 +98,7 @@ class Config(BaseConfig):
             Category("ZZ_elliptical_cut_90_boosted", "EC90 & boosted",
                 selection=elliptical_cut_90 + " && isBoosted == 1 && " + boosted_pnet_cut),
 
-            Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region",
+            Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region", # for DNN training
                 selection=elliptical_cut_90 + " && " + \
                     "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
@@ -99,25 +106,23 @@ class Config(BaseConfig):
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium)),
 
-            Category("ZZ_elliptical_cut_90_CR_mutau", "CR ZZ mass cut E=90%",
-                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
-                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1) && (pairType == 0)"),
-            Category("ZZ_elliptical_cut_90_CR_etau", "CR ZZ mass cut E=90%",
-                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
-                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1) && (pairType == 1)"),
-            Category("ZZ_elliptical_cut_90_CR_tautau", "CR ZZ mass cut E=90%",
-                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
-                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1) && (pairType == 2)"),
+            # Category("ZZ_elliptical_cut_90_CR_mutau", "CR ZZ mass cut E=90%",
+            #     selection=elliptical_cut_90_inv + "&& (pairType == 0)"),
+            # Category("ZZ_elliptical_cut_90_CR_etau", "CR ZZ mass cut E=90%",
+            #     selection=elliptical_cut_90_inv + "&& (pairType == 1)"),
+            # Category("ZZ_elliptical_cut_90_CR_tautau", "CR ZZ mass cut E=90%",
+            #     selection=elliptical_cut_90_inv + "&& (pairType == 2)"),
 
-            Category("ZZ_elliptical_cut_90_mutau", "ZZ mass cut E=90%",
-                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
-                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1) && (pairType == 0)"),
-            Category("ZZ_elliptical_cut_90_etau", "ZZ mass cut E=90%",
-                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
-                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1) && (pairType == 1)"),
-            Category("ZZ_elliptical_cut_90_tautau", "ZZ mass cut E=90%",
-                selection="((({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
-                " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1) && (pairType == 2)"),
+            Category("ZZ_elliptical_cut_90_CR", "CR ZZ mass cut E=90%",
+                selection=elliptical_cut_90_inv),
+
+
+            # Category("ZZ_elliptical_cut_90_mutau", "ZZ mass cut E=90%",
+            #     selection=elliptical_cut_90 + "&& (pairType == 0)"),
+            # Category("ZZ_elliptical_cut_90_etau", "ZZ mass cut E=90%",
+            #     selection=elliptical_cut_90 + "&& (pairType == 1)"),
+            # Category("ZZ_elliptical_cut_90_tautau", "ZZ mass cut E=90%",
+            #     selection=elliptical_cut_90 + "&& (pairType == 2)"),
 
         ])
 
