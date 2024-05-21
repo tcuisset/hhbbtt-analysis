@@ -8,6 +8,8 @@ from collections import OrderedDict
 from cmt.config.base_config import Config as cmt_config
 from cmt.base_tasks.base import Task
 
+from config.xs_config import cross_section_dict
+
 def setupBtagDeeptau(self):
     # https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
     self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
@@ -257,6 +259,7 @@ class BaseConfig(cmt_config):
         self.channels = self.add_channels()
         self.regions = self.add_regions()
         self.categories = self.add_categories()
+        self.cross_section_dict = cross_section_dict
         super().__init__(*args, **kwargs)
 
     def join_selection_channels(self, selection):

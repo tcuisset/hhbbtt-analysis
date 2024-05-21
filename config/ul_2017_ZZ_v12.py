@@ -81,7 +81,7 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
             Dataset("zz_sl_signal",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
-                xs=5.52,
+                xs=self.cross_section_dict["zz_sl"],
                 secondary_dataset="zz_sl_signal_aux",
                 prefix="eoscms.cern.ch//",
                 tags=["ul", "nanoV10"]),
@@ -89,10 +89,7 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
                 process=self.processes.get("zz_sl_signal"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=5.52, # AN
-                # xs=3.676, # XSDB unknown
-                # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
+                xs=self.cross_section_dict["zz_sl"],
                 tags=["ul", "secondary"]),
 
             ###################################### ZZ Background ##########################################
@@ -102,7 +99,7 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
             Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_background"),
-                xs=5.52,
+                xs=self.cross_section_dict["zz_sl"],
                 secondary_dataset="zz_sl_background_aux",
                 # categorization_max_events=10000,
                 prefix="eoscms.cern.ch//",
@@ -111,17 +108,14 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
                 process=self.processes.get("zz"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=5.52, # AN
-                # xs=3.676, # XSDB unknown
-                # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
+                xs=self.cross_section_dict["zz_sl"],
                 tags=["ul", "secondary"]),
             
             #### ZHToTauTau
             Dataset("zh_htt",
                 folder=p + "ZHToTauTau_M125",
                 process=self.processes.get("zh_htt"),
-                xs=0.0554,
+                xs=self.cross_section_dict["zh_htt"],
                 secondary_dataset="zh_htt_aux",
                 # categorization_max_events=10000,
                 prefix="eoscms.cern.ch//",
@@ -130,16 +124,14 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
                 dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8/"
                     "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM",
                 process=self.processes.get("zh_htt"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=0.0554, # AN
-                # xs=0.7891, # XSDB NLO
+                xs=self.cross_section_dict["zh_htt"],
                 tags=["ul", "secondary"]),
 
             #### ZH_Hbb_Zll
             Dataset("zh_hbb_zll",
                 folder=p + "ZH_Hbb_Zll",
                 process=self.processes.get("zh_hbb"),
-                xs=0.052,
+                xs=self.cross_section_dict["zh_hbb_zll"],
                 secondary_dataset="zh_hbb_zll_aux",
                 # categorization_max_events=10000,
                 prefix="eoscms.cern.ch//",
@@ -148,16 +140,14 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
                 dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
                     "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
                 process=self.processes.get("zh_hbb"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=0.052, # AN
-                # xs=0.07977, # XSDB NLO
+                xs=self.cross_section_dict["zh_hbb_zll"],
                 tags=["ul", "secondary"]),
 
             #### ZZ_SL but considered as background for the resonant analysis
             Dataset("zz_bbtt",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_bbtt"),
-                xs=5.52,
+                xs=self.cross_section_dict["zz_sl"],
                 secondary_dataset="zz_bbtt_aux",
                 # categorization_max_events=10000,
                 prefix="eoscms.cern.ch//",
@@ -166,10 +156,7 @@ class Config_ul_2017_ZZ_v12(base_config_ZZ):
                 dataset="/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/"
                     "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
                 process=self.processes.get("zz_bbtt"),
-                # prefix="xrootd-cms.infn.it//",
-                xs=5.52, # AN
-                # xs=3.676, # XSDB unknown
-                # xs=3.22, # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
+                xs=self.cross_section_dict["zz_sl"],
                 tags=["ul", "secondary", "res"]),
 
             ###################################### ZZ Resonant ############################################
