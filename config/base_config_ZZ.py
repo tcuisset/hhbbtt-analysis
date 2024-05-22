@@ -37,7 +37,7 @@ class Config(BaseConfig):
         elliptical_cut_90_inv_old = ("(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
                 " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) >= 1)")
         
-        elliptical_cut_90 = ("(({{Ztt_svfit_mass}} - 95.0) * ({{Ztt_svfit_mass}} - 95.0) / (120 * 120)"
+        elliptical_cut_90 = ("((({{Ztt_svfit_mass}} - 95.0) * ({{Ztt_svfit_mass}} - 95.0) / (120 * 120)"
                     " + ({{Zbb_mass}} - 85.0) * ({{Zbb_mass}} - 85.0) / (165.5 * 165.5)) < 1)")
         elliptical_cut_90_inv = f"!({elliptical_cut_90})"
 
@@ -92,11 +92,11 @@ class Config(BaseConfig):
                 selection=elliptical_cut_90),
             
             Category("ZZ_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
-                selection=elliptical_cut_90 + " && isBoosted == 0 && " + bjets.req_1b),
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_1b})"),
             Category("ZZ_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
-                selection=elliptical_cut_90 + " && isBoosted == 0 && " + bjets.req_2b),
+                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_2b})"),
             Category("ZZ_elliptical_cut_90_boosted", "EC90 & boosted",
-                selection=elliptical_cut_90 + " && isBoosted == 1 && " + boosted_pnet_cut),
+                selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({boosted_pnet_cut})"),
             
             Category("ZZ_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
                 selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
