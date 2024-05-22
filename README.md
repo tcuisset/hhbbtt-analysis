@@ -204,7 +204,10 @@ already included in efficiency scale factors ie trigSF
 
 ### trigSF
 
-### btag SF
+### btag Weight reshape
+We use reshape scale factors (rather than fixed WP SFs) because HHBtag uses raw score as input I think. btagWeightReshape needs to be recomputed for every JES. Framework needs to take into account shifted btagWeight when computing weight for shifted JES (TODO determine how to do this in framework)
+
+### FatJet discriminant SF
 
 The analysis uses two btag : DeepJet (Jet_btagDeepFlavB) for AK4 jets and ParticleNet (FatJet_particleNet_XbbVsQCD) for AK8 jets (boosted category)
 
@@ -250,6 +253,7 @@ Docs :
  - [slides for calibration](https://indico.cern.ch/event/1253794/contributions/5588643/attachments/2746372/4778861/23.11.06_ML4Jets_Boosted_jet_tagging_performance_MM.pdf)
 Analyses using AK8 bb tagging : 
  - HIG-24-003 (VVH(bb)) [AN23-016](http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2023_016_v5.pdf)
+ - [Simona's slides](https://indico.cern.ch/event/1360977/contributions/5953985/attachments/2855831/4994825/ParticleNet_SF_14_05_2024.pdf)
 
 ##### NanoV12 FatJet_particleNet_XbbVsQCD aka ParticleNetFromMiniAODAK8
 MiniAOD : pfParticleNetFromMiniAODAK8DiscriminatorsJetTags:HbbvsQCD
@@ -264,7 +268,7 @@ NanoV12 FatJet_particleNetWithMass_HbbvsQCD, MiniAOD pfParticleNetDiscriminators
 
 ##### ParticleNet-MD
 Mass-decorrelated :
-NanoV9 (particleNetMD_Xbb), NanoV12 (not available), NanoV14 (particleNetLegacy_Xbb), MiniAOD pfMassDecorrelatedParticleNetDiscriminatorsJetTags from pfMassDecorrelatedParticleNetJetTags
+NanoV9 (particleNetMD_Xbb), NanoV12 (particleNetLegacy_Xbb), NanoV14 (particleNetLegacy_Xbb), MiniAOD pfMassDecorrelatedParticleNetDiscriminatorsJetTags from pfMassDecorrelatedParticleNetJetTags
 
 [PR](https://github.com/cms-sw/cmssw/pull/28902)
 [ PR for adding it back to nanoV14](https://github.com/cms-sw/cmssw/pull/44507)
@@ -274,6 +278,13 @@ NanoV9 (particleNetMD_Xbb), NanoV12 (not available), NanoV14 (particleNetLegacy_
 [KLUB ntuplizer ak8jets_particleNetMDJetTags_mass](https://github.com/LLRCMS/LLRHiggsTauTau/blob/429fd9eb6b2c6455a7954abeeef883c68c7a0518/NtupleProducer/plugins/HTauTauNtuplizer.cc#L2741)
 [AN21-005 with SF for ParticleNet-MD](http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2021_005_v10.pdf)
 [AN22-156 with SF](http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2022_156_v20.pdf)
+
+#### Ideas for SFs for background
+##### Drell-Yan
+Go into mumu
+
+##### ttbar
+emu + 1b jet tagged + FatJet
 
 ### DeepTau SF for hadronic taus
 Cmoputed in `CMSSW_12_3_0_pre6/src/Corrections/TAU/python/tauCorrections.py` and then used in `CMSSW_12_3_0_pre6/src/Tools/Tools/python/dauIdIso.py` where it is used to make idAndIsoAndFakeSF
@@ -309,8 +320,12 @@ Specifically for AK8 jets, see <https://cms-talk.web.cern.ch/t/jecs-for-ak8/3652
 See <https://btv-wiki.docs.cern.ch/PerformanceCalibration/shapeCorrectionSFRecommendations/#correlation-across-years-run-2> for correlation recommendations across years
 
 ## Known bugs
+### Installation
 When force reinstalling the software using setup.sh, if the rm calls fail (for example a .nfs file is remaining) then you will be left in a state where the script won't reinstall the software because the software folder exists, but it is mostly empty. You have to remove the folder by hand (`rm -r $CMT_SOFTWARE`), eventually fixing the stale process issue (`/usr/sbin/lsof xxx/.nfsxxx` is useful), then rerun `source setup.sh`
 
+Undefined symbols during `scram b` in framwork setup : many BuildFile.xml are missing various externals, mainly "root" and "rootvecops" (for ROOT::VecOps::RVec)
+
+### Running
 Do not use request_cpus > 1, as some modules are not thread-safe.
 
 RuntimeError: Failed to find qcd_tesUp : you need to add --propagate-syst-qcd option (FeaturePlot option). You might need to clear out FeaturePlot output with `law run CreateDatacards ... --remove-output 1`
@@ -325,6 +340,10 @@ Framework : creating a Dataset from another Dataset copies all properties except
 `Exception: too few leaves (28) for number of requested trees (40)` during MergeCategorization : you should reduce the numbers in Dataset.merging such that it is less than the number of files in the dataset.
 
 "ValueError: Attempted a redefinition of variable weight. If you want to proceed, please rerun with allow_redefinition = True" : this is sometimes reported but is actually not the cause of the error. Usually it's because of a missing variable or something
+
+Using a dataset or feature that odes not exist is silently ignored.
+
+Using `--workers 1` in combination with RDataFrame will lead to a memory leak, as every new RDataFrame creation will use some memory that will never be freed.
 
 ### Notebooks issues
 luigi v2.8.13 wants tornado>=4,<6 but notebook installed in cmssw wants tornado 6 ([issue](https://github.com/jupyter/notebook/issues/5920)). There is also a jinja issue.
