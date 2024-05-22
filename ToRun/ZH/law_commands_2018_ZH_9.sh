@@ -1,4 +1,4 @@
-# Using Preprocess prod_240305, resonant central samples, Categorization with resonant DNN retrained on full run2
+# Using Preprocess prod_240305, resonant central samples, split in categories res1b, res2b, boosted_nopnet
 # for preprocess and precounter use law_commands_2018_ZH_6_res.sh
 
 YEAR=2018
@@ -7,13 +7,14 @@ DATASETS_ZbbHtt_base=dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy
 tt_dl,tt_sl,tt_fh,zz_dl,zz_sl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
 zh_zbb_htt_background,zh_hbb,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,\
 ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top
-# TODO add 500,700 (forgotten) & 1600 1800 (error at Categorization, need re-categorization) & 2500
-RESONANT_MASSES="600 800 1000 1200 1400 2000 3000 3500 4000 4500 5000 5500 6000"
+# TODO add 500,700 (forgotten for DNN training)
+RESONANT_MASSES="600 800 1000 1200 1400 1600 1800 2000 2500 3000 3500 4000 4500 5000 5500 6000"
 
 DATASETS_ZbbHtt_nonres=zh_zbb_htt_signal,$DATASETS_ZbbHtt_base
 # zh_zbb_htt goes at the end to not mess up the legend order
 #RES_MASSES="500 1000 2000"
-DATASETS_ZbbHtt_res_only=ZprimeToZH_ZToBB_HToTauTau_M600,ZprimeToZH_ZToBB_HToTauTau_M800,ZprimeToZH_ZToBB_HToTauTau_M1000,ZprimeToZH_ZToBB_HToTauTau_M1200,ZprimeToZH_ZToBB_HToTauTau_M1400,ZprimeToZH_ZToBB_HToTauTau_M1600,ZprimeToZH_ZToBB_HToTauTau_M1800,ZprimeToZH_ZToBB_HToTauTau_M2000,ZprimeToZH_ZToBB_HToTauTau_M2500,ZprimeToZH_ZToBB_HToTauTau_M3000,ZprimeToZH_ZToBB_HToTauTau_M3500,ZprimeToZH_ZToBB_HToTauTau_M4000,ZprimeToZH_ZToBB_HToTauTau_M4500,ZprimeToZH_ZToBB_HToTauTau_M5000,ZprimeToZH_ZToBB_HToTauTau_M5500,ZprimeToZH_ZToBB_HToTauTau_M6000
+DATASETS_ZbbHtt_res_only=ZprimeToZH_ZToBB_HToTauTau_M600,ZprimeToZH_ZToBB_HToTauTau_M800,ZprimeToZH_ZToBB_HToTauTau_M1000,ZprimeToZH_ZToBB_HToTauTau_M1200,ZprimeToZH_ZToBB_HToTauTau_M1400,ZprimeToZH_ZToBB_HToTauTau_M1600,ZprimeToZH_ZToBB_HToTauTau_M1800,ZprimeToZH_ZToBB_HToTauTau_M2000,ZprimeToZH_ZToBB_HToTauTau_M2500,ZprimeToZH_ZToBB_HToTauTau_M3000,ZprimeToZH_ZToBB_HToTauTau_M3500,ZprimeToZH_ZToBB_HToTauTau_M4000
+#,ZprimeToZH_ZToBB_HToTauTau_M4500,ZprimeToZH_ZToBB_HToTauTau_M5000,ZprimeToZH_ZToBB_HToTauTau_M5500,ZprimeToZH_ZToBB_HToTauTau_M6000
 DATASETS_ZbbHtt_res=$DATASETS_ZbbHtt_res_only,$DATASETS_ZbbHtt_base,zh_zbb_htt
 
 DATASETS_ZttHbb_base=dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,\
@@ -58,28 +59,39 @@ Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,
 ###############################################################################################################################################
 
 # pilot
-law run Categorization --version prod_240430 --category-name ZbbHtt_elliptical_cut_90 --config-name ul_${YEAR}_ZbbHtt_v12 \
+law run MergeCategorization --version prod_240517 --category-name ZbbHtt_elliptical_cut_90_resolved_2b --config-name ul_${YEAR}_ZbbHtt_v12 \
  --dataset-name ZprimeToZH_ZToBB_HToTauTau_M800 \
  --PreprocessRDF-version prod_240305 \
- --Categorization-base-category-name base_selection \
- --Categorization-feature-modules-file modulesrdf_ZHresonant_syst --workers 1 --branch 0
+ --JoinDNNInference-base-category-name base_selection --from-DNN-inference True \
+ --JoinDNNInference-feature-modules-file modulesrdf_syst --workers 20
 
 
-law run MergeCategorizationWrapper --version prod_240430 --config-name ul_${YEAR}_ZbbHtt_v12 \
- --dataset-names zh_zbb_htt_signal,$DATASETS_ZbbHtt_res --category-names ZbbHtt_elliptical_cut_90 \
+law run CategorizationWrapper --version prod_240517 --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --dataset-names $DATASETS_ZbbHtt_res,$DATASETS_ZbbHtt_nonres,$DATASETS_DATA_ETAU,$DATASETS_DATA_MUTAU,$DATASETS_DATA_TAUTAU --category-names ZbbHtt_elliptical_cut_90_resolved_2b,ZbbHtt_elliptical_cut_90_resolved_1b,ZbbHtt_elliptical_cut_90_boosted_noPNet \
  --PreprocessRDF-version prod_240305 \
  --Categorization-base-category-name base_selection \
- --Categorization-feature-modules-file modulesrdf_ZHresonant_syst --workers 20 --Categorization-retries 1 --Categorization-poll-interval 5 --Categorization-tasks-per-job 1 \
+ --Categorization-feature-modules-file modulesrdf_syst \
+ --workers 50 --Categorization-retries 1 --Categorization-poll-interval 5 --Categorization-tasks-per-job 1 \
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
- --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=long,WNTag=el7,request_memory=3G'
+ --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=2G'
 
-law run MergeCategorizationWrapper --version prod_240430 --config-name ul_${YEAR}_ZttHbb_v12 \
- --dataset-names zh_ztt_hbb_signal,$DATASETS_ZttHbb_res --category-names ZttHbb_elliptical_cut_90 \
+law run MergeCategorizationWrapper --version prod_240517 --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --dataset-names $DATASETS_ZbbHtt_res,$DATASETS_ZbbHtt_nonres,$DATASETS_DATA_ETAU,$DATASETS_DATA_MUTAU,$DATASETS_DATA_TAUTAU --category-names ZbbHtt_elliptical_cut_90_resolved_2b,ZbbHtt_elliptical_cut_90_resolved_1b,ZbbHtt_elliptical_cut_90_boosted_noPNet \
  --PreprocessRDF-version prod_240305 \
- --Categorization-base-category-name base_selection \
- --Categorization-feature-modules-file modulesrdf_ZHresonant_syst --workers 20 --Categorization-retries 1 --Categorization-poll-interval 5 --Categorization-tasks-per-job 1 \
+ --JoinDNNInference-base-category-name base_selection --MergeCategorization-from-DNN-inference True \
+ --JoinDNNInference-feature-modules-file modulesrdf_syst \
+ --workers 30 --Categorization-retries 1 --Categorization-poll-interval 5 --Categorization-tasks-per-job 2 \
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
- --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=long,WNTag=el7,priority=-2,request_memory=2.5G'
+ --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=300M'
+
+law run MergeCategorizationWrapper --version prod_240517 --config-name ul_${YEAR}_ZttHbb_v12 \
+ --dataset-names $DATASETS_ZttHbb_res,$DATASETS_ZttHbb_nonres --category-names ZttHbb_elliptical_cut_90_resolved_2b,ZttHbb_elliptical_cut_90_resolved_1b,ZttHbb_elliptical_cut_90_boosted_noPNet \
+ --PreprocessRDF-version prod_240305 \
+ --JoinDNNInference-base-category-name base_selection --MergeCategorization-from-DNN-inference True \
+ --JoinDNNInference-feature-modules-file modulesrdf_syst \
+ --workers 100 --Categorization-retries 1 --Categorization-poll-interval 5 --Categorization-tasks-per-job 30 \
+ --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
+ --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=300M,priority=-5'
 
 
 
@@ -95,6 +107,53 @@ law run MergeCategorizationWrapper --version prod_240430 --config-name ul_${YEAR
 ###############################################################################################################################################
 # ANALYSIS ETAU, MUTAU, TAUTAU
 ###############################################################################################################################################
+
+############ Non-resonant plots
+function featurePlotZbbHtt_SR_nonres {
+    CATEGORY=$1
+    REGION_NAME=$2
+    DATASETS_DATA=$3
+
+    law run FeaturePlot --version prod_240517_nonres --PrePlot-version prod_240517 --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --feature-names $ALL_FEATURES \
+ --dataset-names $DATASETS_ZbbHtt_nonres,$DATASETS_DATA \
+ --workers 30 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240517 \
+ --process-group-name plot --save-root --save-png --category-name ZbbHtt_elliptical_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
+ --save-yields --stack --do-qcd --hide-data True "${@:4}"
+}
+declare -a logCommands=("--multiply-signals-normalization 1000." "--log-y True --histogram-minimum 0.1")
+for logParams in "${logCommands[@]}"; do
+for category in resolved_2b resolved_1b boosted_noPNet; do
+featurePlotZbbHtt_SR_nonres $category etau $DATASETS_DATA_ETAU $logParams & 
+featurePlotZbbHtt_SR_nonres $category mutau $DATASETS_DATA_MUTAU $logParams & 
+featurePlotZbbHtt_SR_nonres $category tautau $DATASETS_DATA_TAUTAU $logParams & 
+done
+wait
+done
+
+
+function featurePlotZttHbb_SR_nonres {
+    CATEGORY=$1
+    REGION_NAME=$2
+    DATASETS_DATA=$3
+
+    law run FeaturePlot --version prod_240417_nonres --PrePlot-version prod_240417 --config-name ul_${YEAR}_ZttHbb_v12 \
+ --feature-names $ALL_FEATURES \
+ --dataset-names $DATASETS_ZttHbb_nonres,$DATASETS_DATA \
+ --workers 15 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240327 --MergeCategorization-version prod_240327 \
+ --process-group-name plot --save-root --save-png --category-name ZttHbb_elliptical_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
+ --save-yields --stack --do-qcd --hide-data True $LOG_PARAMS "${@:4}"
+}
+declare -a logCommands=("--multiply-signals-normalization 1000." "--log-y True --histogram-minimum 0.1")
+for logParams in "${logCommands[@]}"; do
+for category in resolved_2b resolved_1b boosted_noPNet; do
+featurePlotZttHbb_SR_nonres $category etau $DATASETS_DATA_ETAU $logParams &
+featurePlotZttHbb_SR_nonres $category mutau $DATASETS_DATA_MUTAU $logParams  & 
+featurePlotZttHbb_SR_nonres $category tautau $DATASETS_DATA_TAUTAU $logParams  & 
+done
+wait
+done
+
 
 ########### Resonant plots
 function featurePlotZbbHtt_SR_res {

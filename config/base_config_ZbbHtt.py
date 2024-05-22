@@ -1,7 +1,7 @@
 # Config for ZbbHtt analysis common for all years
 import itertools
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
-from analysis_tools.utils import join_root_selection as jrs
+from analysis_tools.utils import DotDict, join_root_selection as jrs
 from plotting_tools import Label
 
 from config.base_config import get_common_processes, BaseConfig
@@ -10,20 +10,40 @@ from config.base_config_ZH import get_ZH_common_features, resonant_masses_ZH, re
 class ConfigZbbHtt(BaseConfig):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.dnn = DotDict(
+            nonresonant=DotDict(
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZbbHtt-0",
+                out_branch="dnn_ZHbbtt_kl_1",
+                systematics=["tes", "jer", "jec"]
+            ),
+            resonant=DotDict(
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ResZbbHtt-0/",
+                resonant_masses=resonant_masses_ZH,
+                out_branch="dnn_ZHbbtt_kl_1_{mass}",
+                systematics=["tes", "jer", "jec"]
+            ),
+        )
 
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
-        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
-                " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) < 1)")
-        elliptical_cut_90_inv = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
-                " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) >= 1)")
+        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 125.0,) * ({{Htt_svfit_mass}} - 125.0) / (100.0 * 100.0)"
+                " + ({{Zbb_mass}} - 85.0) * ({{Zbb_mass}} - 85.0) / (131.0 * 131.0)) < 1)")
+        elliptical_cut_90_inv = f"!({elliptical_cut_90})"
+
+        # old elliptical cut pre-21/05/24
+        # elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
+        #         " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) < 1)")
+        # elliptical_cut_90_inv = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
+        #         " + ({{Zbb_mass}} - 80.) * ({{Zbb_mass}} - 80.) / (93. * 93.)) >= 1)")
         sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
                     "((pairType == 2) && (isOS == 1) && "
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium))
         bjets = self.get_bjets_requirements()
+        # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
+        boosted_pnet_cut = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.particleNetMD_legacy.low})"
         
         categories += ObjectCollection([
 
@@ -64,7 +84,10 @@ class ConfigZbbHtt(BaseConfig):
             Category("ZbbHtt_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
                 selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_2b})"),
             Category("ZbbHtt_elliptical_cut_90_boosted", "EC90 & boosted",
-                selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({bjets.req_ll})"),
+                selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+            
+            Category("ZbbHtt_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
+                selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
         ])
 
         return categories

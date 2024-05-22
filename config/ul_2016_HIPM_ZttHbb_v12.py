@@ -10,8 +10,8 @@ from config.ul_2016_HIPM_v12 import setupBtagDeeptau, get_common_datasets_v12, g
 
 class Config_ul_2016_HIPM_ZH_v12(base_config_ZttHbb):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         setupBtagDeeptau(self)
+        super().__init__(*args, **kwargs)
 
         self.regions = self.add_regions()
         self.categories = self.add_categories()
