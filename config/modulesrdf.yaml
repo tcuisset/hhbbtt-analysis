@@ -252,7 +252,7 @@ muSF:
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
 
-eleSD:
+eleSF:
     name: eleSFRDF
     path: Corrections.EGM.eleCorrections
     parameters:
