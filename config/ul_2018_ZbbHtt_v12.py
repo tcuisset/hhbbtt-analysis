@@ -39,6 +39,7 @@ class Config_ul_2018_ZH_v12(base_config_ZbbHtt):
         weights.ZbbHtt_elliptical_cut_90_resolved_1b = weights.mutau
         weights.ZbbHtt_elliptical_cut_90_resolved_2b = weights.mutau
         weights.ZbbHtt_elliptical_cut_90_boosted = weights.mutau
+        weights.ZbbHtt_elliptical_cut_90_boosted_noPNet = weights.mutau
         
 
         return weights

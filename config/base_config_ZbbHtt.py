@@ -27,7 +27,7 @@ class ConfigZbbHtt(BaseConfig):
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
-        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 125.0,) * ({{Htt_svfit_mass}} - 125.0) / (100.0 * 100.0)"
+        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 125.0) * ({{Htt_svfit_mass}} - 125.0) / (100.0 * 100.0)"
                 " + ({{Zbb_mass}} - 85.0) * ({{Zbb_mass}} - 85.0) / (131.0 * 131.0)) < 1)")
         elliptical_cut_90_inv = f"!({elliptical_cut_90})"
 
