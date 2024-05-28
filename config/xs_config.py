@@ -4,7 +4,7 @@ cross_section_dict = {
     # "zz_sl":          3.676,                    # XSDB unknown
     # "zz_sl":          5.52,                     # AN
 
-    "zh_htt":           0.07977,                  # XSDB NLO
+    "zh_htt":           0.7891,                  # XSDB NLO
     # "zh_htt":         0.0554,                   # AN
 
     "zh_hbb_zll":       0.07977,                  # XSDB NLO
@@ -157,4 +157,7 @@ cross_section_dict = {
 
     # "vbf_sm":         0.001726,
 
+    # Cross-sections for resonant ZH signal. Assuming cross-section of Z'->ZH is one.
+    "ZprimeToZH_ZToBB_HToTauTau" : 1 * 0.009 * 0.876, # sigma(Z'->ZH) * BR(Z->bb, H->tautau) * BR(tautau->mutau,etau,tautau)
+    
 }
