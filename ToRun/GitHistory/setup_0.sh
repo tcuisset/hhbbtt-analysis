@@ -1,0 +1,44 @@
+hhbbtt-analysis : commit ba90590e7360550d80f25f01c217d99193e5e80a
+
+nanoaod_base_analysis : commit 554c2dd71b89e474b4e7416bbc235b86720e100a
+
+InferenceTools : commit ff773b62dbe9aeb0c0ef0ed7dffb43162fcc6399
+
+cmt-base-modules : commit 40585dfdad914ce6357f00e31c611bbe85779249
+
+cms_hh_proc_interface : commit 7a3b27afcc0bd1b67391b83a8da6e1647cfc724a
+
+cms_hh_tf_inference : commit 070c6e67531d16f8639b85e2f9e5219512142afa
+
+cms_runII_dnn_models : commit d368626549a2f652333388d3c5b252283e58997a
+
+Corrections/BTV : commit fbb98e118f352cfe703ef1923b31d1d6ede07019
+
+Corrections/EGM : commit 30aa076138a810b38cbbe122077d04caef0d537b
+
+Corrections/JME : commit e5d08c90452e8a1c8c584290d796a47831469dc6
+
+Corrections/LUM : commit 7f6552d92b93ad78257c16e4ef820b6f7e99b5d8
+
+Corrections/MUO : commit c7dbefb46f50b2c98b27573123dc2adfe3dd8faf
+
+Corrections/TAU : commit eec936f565780ac46aded2db34672917db1c4b76
+
+Corrections/Wrapper : commit eed9e9467e0a3614c5019cd8580eb48cb22e80c6
+
+HHKinFit2 : commit cb3c1e1e3922e90517da87fe3c889ab65e720ef5
+
+HHTools/HHbtag : commit 1dc426053418e1cab2aec021802faf31ddf3c5cd
+
+HTT-utilities : commit 8ad9a668ac65263952fc9db7cd7d5b79156e24c7
+
+PhysicsTools/NanoAODTools : commit 65359982275c476834ad4b37363d658166881f12
+
+TauAnalysis/ClassicSVfit : commit f30cc2f83a348fd16643800b614338699c18f615
+
+TauAnalysis/SVfitTF : commit bed6a16955d882e8a875df1f892f71a36d382412
+
+TauAnalysisTools/TauTriggerSFs : commit 9a09bf2796457e060ffdf5a6ddbfe23a2c24d7a8
+
+RunCombineZZbbtautau : commit 353142435c99e8a11dcd2cc19b9f74d526cc2446
+

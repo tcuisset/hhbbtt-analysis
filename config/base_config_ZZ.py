@@ -6,7 +6,7 @@ import itertools
 
 from config.base_config import get_common_processes, BaseConfig
 
-res_mass_ZZ = [ 200, 210, 220, 230, 240, 250, 260, 280, 300, 320, 350, 360, 400, 450, 500, 550, # [FIXME] add 270 mass point
+res_mass_ZZ = [ 200, 210, 220, 230, 240, 250, 260, 270, 280, 300, 320, 350, 360, 400, 450, 500, 550,
                 600, 650, 700, 750, 800, 850, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700,
                 1800, 1900, 2000, 2200, 2400, 2500, 2600, 2800, 3000, 3500, 4000, 4500, 5000]
 
@@ -119,6 +119,23 @@ class Config(BaseConfig):
             Category("ZZ_elliptical_cut_90_CR", "CR ZZ mass cut E=90%",
                 selection=elliptical_cut_90_inv),
 
+            Category("ZZ_elliptical_cut_90_CR_resolved_1b", "CR & resolved 1b",
+                selection=f"({elliptical_cut_90_inv}) && isBoosted == 0 && ({bjets.req_1b})"),
+            Category("ZZ_elliptical_cut_90_CR_resolved_2b", "CR & resolved 2b",
+                selection=f"({elliptical_cut_90_inv}) && isBoosted == 0 && ({bjets.req_2b})"),
+            Category("ZZ_elliptical_cut_90_CR_boosted", "CR & boosted",
+                selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+            
+            Category("ZZ_elliptical_cut_90_CR_boosted_noPNet", "CR & boosted (no PNet cut)",
+                selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 "),
+
+            Category("ZZ_elliptical_cut_90_CR_sr", "CR",
+                selection=elliptical_cut_90_inv + " && " + \
+                    "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+                    "((pairType == 2) && (isOS == 1) && "
+                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
+                    .format(self.deeptau.vsjet.Medium)),
 
             # Category("ZZ_elliptical_cut_90_mutau", "ZZ mass cut E=90%",
             #     selection=elliptical_cut_90 + "&& (pairType == 0)"),
@@ -324,6 +341,11 @@ class Config(BaseConfig):
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                              # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
             
+            Feature("dnn_ZZbbtt_kl_1_CR", "dnn_ZZbbtt_kl_1", binning=(30, 0, 1),
+                x_title=Label("DNN ZZ"),
+                systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+
             Feature("dnn_ZZbbtt_kl_1", "dnn_ZZbbtt_kl_1", binning=(10, 0, 1),
                 x_title=Label("DNN ZZ"),
                 systematics=["tes", "jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 

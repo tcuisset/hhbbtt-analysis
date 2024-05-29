@@ -409,11 +409,11 @@ class BaseConfig(cmt_config):
         sel["vbf_combined"] = self.join_selection_channels(sel.vbf)
 
         categories = [
-            Category("base", "base category", selection="event >= 0"),
+            Category("base", "base", selection="event >= 0"),
             Category("base_fixedGenWeight", "base with genWeight (fixed)", selection="1"),
             Category("base_oldGenWeight", "base with old genWeight (no fix)", selection="1"),
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
-            Category("base_selection", "base category",
+            Category("base_selection", "base",
                 nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
                     " && ((Sum$(Muon_pt->fElements > 17) > 0"
                     " || Sum$(Electron_pt->fElements > 17) > 0)"
