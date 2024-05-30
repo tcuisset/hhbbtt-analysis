@@ -33,7 +33,7 @@ class Config_ul_2018_ZZ_v12(base_config_ZZ):
         weights.ZZ_elliptical_cut_90_CR_resolved_1b = weights.mutau
         weights.ZZ_elliptical_cut_90_CR_resolved_2b = weights.mutau
         weights.ZZ_elliptical_cut_90_CR_boosted_noPNet = weights.mutau
-        weights.ZZ_elliptical_cut_90_CR_sr = weights.mutau
+        weights.ZZ_elliptical_cut_90_CR = weights.mutau
 
         return weights
 

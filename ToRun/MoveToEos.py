@@ -9,6 +9,9 @@ python3 MoveToEos.py --region CR --ver ul_2016_ZZ_v12,ul_2016_HIPM_ZZ_v12,ul_201
 python3 MoveToEos.py --region SR --type NonRes --ver ul_2016_ZZ_v12,ul_2016_HIPM_ZZ_v12,ul_2017_ZZ_v12,ul_2018_ZZ_v12 \
     --cat cat_ZZ_elliptical_cut_90_resolved_1b,cat_ZZ_elliptical_cut_90_resolved_2b,cat_ZZ_elliptical_cut_90_boosted_noPNet \
     --prd prod_240522 --grp zz
+python3 MoveToEos.py --region SR --type NonRes --ver ul_2016_ZZ_v12,ul_2016_HIPM_ZZ_v12,ul_2017_ZZ_v12,ul_2018_ZZ_v12 \
+    --cat cat_ZZ_elliptical_cut_90_resolved_1b,cat_ZZ_elliptical_cut_90_resolved_2b,cat_ZZ_elliptical_cut_90_boosted_noPNet \
+    --prd prod_240523 --grp zz
 python3 MoveToEos.py --region SR --type Res --ver ul_2016_ZZ_v12,ul_2016_HIPM_ZZ_v12,ul_2017_ZZ_v12,ul_2018_ZZ_v12 \
     --cat cat_ZZ_elliptical_cut_90_resolved_1b,cat_ZZ_elliptical_cut_90_resolved_2b,cat_ZZ_elliptical_cut_90_boosted_noPNet \
     --prd prod_240528 --grp zz_res

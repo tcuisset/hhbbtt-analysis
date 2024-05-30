@@ -129,14 +129,6 @@ class Config(BaseConfig):
             Category("ZZ_elliptical_cut_90_CR_boosted_noPNet", "CR & boosted (no PNet cut)",
                 selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 "),
 
-            Category("ZZ_elliptical_cut_90_CR_sr", "CR",
-                selection=elliptical_cut_90_inv + " && " + \
-                    "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 2) && (isOS == 1) && "
-                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
-                    .format(self.deeptau.vsjet.Medium)),
-
             # Category("ZZ_elliptical_cut_90_mutau", "ZZ mass cut E=90%",
             #     selection=elliptical_cut_90 + "&& (pairType == 0)"),
             # Category("ZZ_elliptical_cut_90_etau", "ZZ mass cut E=90%",

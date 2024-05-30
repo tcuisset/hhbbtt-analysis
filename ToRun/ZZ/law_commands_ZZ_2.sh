@@ -75,15 +75,7 @@ law run CategorizationWrapper --version prod_240326 --config-name ul_${YEAR}_ZZ_
 ###############################################################################################################################################
 
 law run CategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZZ_v12 \
- --skip-dataset-tags secondary --category-names ZZ_elliptical_cut_90_CR_resolved_1b,ZZ_elliptical_cut_90_CR_resolved_2b,ZZ_elliptical_cut_90_CR_boosted_noPNet \
- --PreprocessRDF-version prod_240305 \
- --Categorization-base-category-name base_selection \
- --Categorization-feature-modules-file modulesrdf_syst --workers 20 --Categorization-tasks-per-job 5 --Categorization-poll-interval 5 \
- --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
- --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
-
-law run CategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZZ_v12 \
- --skip-dataset-tags secondary --category-names ZZ_elliptical_cut_90_CR_sr \
+ --skip-dataset-tags secondary --category-names ZZ_elliptical_cut_90_CR_resolved_1b,ZZ_elliptical_cut_90_CR_resolved_2b,ZZ_elliptical_cut_90_CR_boosted_noPNet,ZZ_elliptical_cut_90_CR \
  --PreprocessRDF-version prod_240305 \
  --Categorization-base-category-name base_selection \
  --Categorization-feature-modules-file modulesrdf_syst --workers 20 --Categorization-tasks-per-job 5 --Categorization-poll-interval 5 \
@@ -91,7 +83,14 @@ law run CategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZZ_
  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7'
 
 law run MergeCategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZZ_v12 \
- --skip-dataset-tags secondary --category-names ZZ_elliptical_cut_90_CR_resolved_1b,ZZ_elliptical_cut_90_CR_resolved_2b,ZZ_elliptical_cut_90_CR_boosted_noPNet,ZZ_elliptical_cut_90_CR_sr \
+ --skip-dataset-tags secondary --category-names ZZ_elliptical_cut_90_CR_resolved_1b,ZZ_elliptical_cut_90_CR_resolved_2b,ZZ_elliptical_cut_90_CR_boosted_noPNet,ZZ_elliptical_cut_90_CR \
+ --PreprocessRDF-version prod_240305 --Categorization-version prod_240522 \
+ --JoinDNNInference-base-category-name base_selection \
+ --JoinDNNInference-feature-modules-file modulesrdf_syst \
+ --MergeCategorization-from-DNN-inference True --workers 10
+
+law run MergeCategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZZ_v12 \
+ --skip-dataset-tags secondary --category-names ZZ_elliptical_cut_90_CR \
  --PreprocessRDF-version prod_240305 --Categorization-version prod_240522 \
  --JoinDNNInference-base-category-name base_selection \
  --JoinDNNInference-feature-modules-file modulesrdf_syst \
@@ -183,14 +182,13 @@ data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e \
  --process-group-name zz --save-png --category-name base --region-name tautau_os_iso --stack --do-qcd --hide-data False --log-y --histogram-minimum 0.1
 
 python3 ToRun/MoveToEos.py --region CR --ver ul_2016_ZZ_v12,ul_2016_HIPM_ZZ_v12,ul_2017_ZZ_v12,ul_2018_ZZ_v12 \
-    --cat cat_ZZ_elliptical_cut_90_CR_resolved_1b,cat_ZZ_elliptical_cut_90_CR_resolved_2b,cat_ZZ_elliptical_cut_90_CR_boosted_noPNet,cat_ZZ_elliptical_cut_90_CR_sr \
-    --prd prod_240522 --grp zz
+    --cat cat_base --prd prod_240527 --grp zz
 
 ###############################################################################################################################################
 # ANALYSIS ETAU, MUTAU, TAUTAU - AN CR (WITH AND WITHOUT CATEGORIES) PLOTS
 ###############################################################################################################################################
 
-for cat in ZZ_elliptical_cut_90_CR_resolved_1b ZZ_elliptical_cut_90_CR_resolved_2b ZZ_elliptical_cut_90_CR_boosted_noPNet ZZ_elliptical_cut_90_CR_sr; do
+for cat in ZZ_elliptical_cut_90_CR_resolved_1b ZZ_elliptical_cut_90_CR_resolved_2b ZZ_elliptical_cut_90_CR_boosted_noPNet ZZ_elliptical_cut_90_CR; do
 law run FeaturePlot --version prod_240522 --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZZ_v12 \
  --feature-names dnn_ZZbbtt_kl_1_CR,dnn_ZZbbtt_kl_1,ZZKinFit_mass,ZZKinFit_mass_fit_1,ZZKinFit_mass_fit_2,ZZ_svfit_pt,ZZ_svfit_eta,ZZ_svfit_phi,ZZ_svfit_mass,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,\
 Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt \
@@ -223,7 +221,7 @@ ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_tau_a,
  --process-group-name zz --save-png --category-name ${cat} --region-name tautau_os_iso --stack --do-qcd --hide-data False ; 
 done
 
-for cat in ZZ_elliptical_cut_90_CR_resolved_1b ZZ_elliptical_cut_90_CR_resolved_2b ZZ_elliptical_cut_90_CR_boosted_noPNet ZZ_elliptical_cut_90_CR_sr; do
+for cat in ZZ_elliptical_cut_90_CR_resolved_1b ZZ_elliptical_cut_90_CR_resolved_2b ZZ_elliptical_cut_90_CR_boosted_noPNet ZZ_elliptical_cut_90_CR; do
 law run FeaturePlot --version prod_240522 --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZZ_v12 \
  --feature-names dnn_ZZbbtt_kl_1_CR,dnn_ZZbbtt_kl_1 \
  --dataset-names zz_sl_signal,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
@@ -254,7 +252,8 @@ ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_tau_a,
 done
 
 python3 ToRun/MoveToEos.py --region CR --ver ul_2016_ZZ_v12,ul_2016_HIPM_ZZ_v12,ul_2017_ZZ_v12,ul_2018_ZZ_v12 \
-    --cat cat_base --prd prod_240527 --grp zz
+    --cat cat_ZZ_elliptical_cut_90_CR_resolved_1b,cat_ZZ_elliptical_cut_90_CR_resolved_2b,cat_ZZ_elliptical_cut_90_CR_boosted_noPNet,cat_ZZ_elliptical_cut_90_CR \
+    --prd prod_240522 --grp zz
 
 ###############################################################################################################################################
 # ANALYSIS ETAU, MUTAU, TAUTAU - AN SR PLOTS NON RES
@@ -314,8 +313,8 @@ zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,
 zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
 ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d,data_mutau_e \
  --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240522 \
- --process-group-name zz --save-root --save-png --category-name ${cat} --region-name mutau_os_iso \
- --save-yields --stack --do-qcd --hide-data True --log-y --histogram-minimum 0.1
+ --process-group-name zz --save-png --category-name ${cat} --region-name mutau_os_iso \
+ --stack --do-qcd --hide-data True --log-y --histogram-minimum 0.1
 law run FeaturePlot --version prod_240523 --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZZ_v12 \
  --feature-names dnn_ZZbbtt_kl_1 \
  --dataset-names zz_sl_signal,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,\
@@ -324,8 +323,8 @@ zz_sl_background,zz_dl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,
 zh_htt,zh_hbb_zll,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,\
 ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e \
  --workers 20 --MergeCategorizationStats-version prod_240305 --Categorization-version prod_240522 \
- --process-group-name zz --save-root --save-png --category-name ${cat} --region-name tautau_os_iso \
- --save-yields --stack --do-qcd --hide-data True --log-y --histogram-minimum 0.1 ; 
+ --process-group-name zz --save-png --category-name ${cat} --region-name tautau_os_iso \
+ --stack --do-qcd --hide-data True --log-y --histogram-minimum 0.1 ; 
 done
 
 for cat in ZZ_elliptical_cut_90_resolved_1b ZZ_elliptical_cut_90_resolved_2b ZZ_elliptical_cut_90_boosted_noPNet; do
@@ -617,7 +616,7 @@ python3 RunNonResLimits.py --ver ul_2016_ZZ_v12,ul_2016_HIPM_ZZ_v12,ul_2017_ZZ_v
 # DATACARDS RES
 ###############################################################################################################################################
 
-for cat in ZZ_elliptical_cut_90_resolved_1b ZZ_elliptical_cut_90_resolved_2b; do
+for cat in ZZ_elliptical_cut_90_resolved_1b; do
     for res_mass in 200 210 220 230 240 250 260 270 280 300 320 350 360 400 450 500 550 600 650 700 750 800 850 900 1000 \
                     1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2200 2400 2500 2600 2800 3000 3500 4000 4500 5000; do
         law run CreateDatacards --version prod_240528_M${res_mass} --FeatureHistogram-version prod_240528 --PrePlot-version prod_240528 --config-name ul_${YEAR}_ZZ_v12 \
@@ -656,7 +655,7 @@ ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,data_tau_a,
     done ;
 done
 
-for cat in ZZ_elliptical_cut_90_boosted_noPNet; do
+for cat in ZZ_elliptical_cut_90_resolved_2b ZZ_elliptical_cut_90_boosted_noPNet; do
     for res_mass in 200 210 220 230 240 250 260 270 280 300 320 350 360 400 450 500 550 600 650 700 750 800 850 900 1000\
                     1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2200 2400 2500 2600 2800 3000 3500 4000 4500 5000; do
         law run CreateDatacards --version prod_240528_M${res_mass} --FeatureHistogram-version prod_240528 --PrePlot-version prod_240528 --config-name ul_${YEAR}_ZZ_v12 \
