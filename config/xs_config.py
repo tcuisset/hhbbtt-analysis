@@ -159,5 +159,5 @@ cross_section_dict = {
 
     # Cross-sections for resonant ZH signal. Assuming cross-section of Z'->ZH is one.
     "ZprimeToZH_ZToBB_HToTauTau" : 1 * 0.009 * 0.876, # sigma(Z'->ZH) * BR(Z->bb, H->tautau) * BR(tautau->mutau,etau,tautau)
-    
+    "ZprimeToZH_ZToTauTau_HToBB" : 1 * 0.019 * 0.876, # sigma(Z'->ZH) * BR(Z->tautau, H->bb) * BR(tautau->mutau,etau,tautau)
 }
