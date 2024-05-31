@@ -1,4 +1,5 @@
 # Using Preprocess prod_240305, resonant central samples, split in categories res1b, res2b, boosted_nopnet
+# prod_240517 (old elliptical cut)
 # for preprocess and precounter use law_commands_2018_ZH_6_res.sh
 
 YEAR=2018
@@ -78,10 +79,10 @@ law run CategorizationWrapper --version prod_240517 --config-name ul_${YEAR}_Zbb
  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=2G'
 
 # prod_240517 : old elliptical cut,  prod_240522 : new cut + orthogonality
-# ZbbHtt_orthogonal_cut_90_resolved_2b,ZbbHtt_orthogonal_cut_90_resolved_1b,ZbbHtt_orthogonal_cut_90_boosted_noPNet
-law run MergeCategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
+# 
+law run MergeCategorizationWrapper --version prod_240517 --config-name ul_${YEAR}_ZbbHtt_v12 \
  --dataset-names $DATASETS_ZbbHtt_res,$DATASETS_ZbbHtt_nonres,$DATASETS_DATA_ETAU,$DATASETS_DATA_MUTAU,$DATASETS_DATA_TAUTAU \
- --category-names ZbbHtt_elliptical_cut_90_resolved_2b,ZbbHtt_elliptical_cut_90_resolved_1b,ZbbHtt_elliptical_cut_90_boosted_noPNet \
+ --category-names ZbbHtt_elliptical_cut_90_resolved_2b,ZbbHtt_elliptical_cut_90_resolved_1b,ZbbHtt_elliptical_cut_90_boosted_noPNet,ZbbHtt_orthogonal_cut_90_resolved_2b,ZbbHtt_orthogonal_cut_90_resolved_1b,ZbbHtt_orthogonal_cut_90_boosted_noPNet \
  --PreprocessRDF-version prod_240305 \
  --JoinDNNInference-base-category-name base_selection --MergeCategorization-from-DNN-inference True \
  --JoinDNNInference-feature-modules-file modulesrdf_syst \
@@ -89,7 +90,8 @@ law run MergeCategorizationWrapper --version prod_240522 --config-name ul_${YEAR
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=500M'
 
-law run MergeCategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
+# was never run with orthogonal cuts
+law run MergeCategorizationWrapper --version prod_240517 --config-name ul_${YEAR}_ZttHbb_v12 \
  --dataset-names $DATASETS_ZttHbb_res,$DATASETS_ZttHbb_nonres,$DATASETS_DATA_ETAU,$DATASETS_DATA_MUTAU,$DATASETS_DATA_TAUTAU \
  --category-names ZttHbb_elliptical_cut_90_resolved_2b,ZttHbb_elliptical_cut_90_resolved_1b,ZttHbb_elliptical_cut_90_boosted_noPNet \
  --PreprocessRDF-version prod_240305 \

@@ -315,6 +315,9 @@ Put in idAndIsoAndFakeSF
 
 ### Tau energy scale corrections (TES)
 
+### Jet faking taus
+**TODO** We need to compute SFs for Jet faking taus in DeepTau. We should compute them ourselves (using gen info in MC ?) apparently.
+
 ## SYstematics
 <https://twiki.cern.ch/twiki/bin/viewauth/CMS/DoubleHiggsToBBTauTauWorkingLegacyRun2>
 ### idAndIsoAndFakeSF
