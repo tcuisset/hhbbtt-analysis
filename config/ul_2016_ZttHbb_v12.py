@@ -38,6 +38,12 @@ class Config_ul_2016_ZH_v12(ConfigZttHbb):
         weights.ZttHbb_orthogonal_cut_90_boosted = weights.mutau
         weights.ZttHbb_orthogonal_cut_90_boosted_noPNet = weights.mutau
 
+        weights.ZttHbb_orthogonal_cut_90_CR = weights.mutau
+        weights.ZttHbb_orthogonal_cut_90_CR_resolved_1b = weights.mutau
+        weights.ZttHbb_orthogonal_cut_90_CR_resolved_2b = weights.mutau
+        weights.ZttHbb_orthogonal_cut_90_CR_boosted = weights.mutau
+        weights.ZttHbb_orthogonal_cut_90_CR_boosted_noPNet = weights.mutau
+
         return weights
 
     #@override

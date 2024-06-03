@@ -37,6 +37,12 @@ class Config_ul_2016_HIPM_ZH_v12(ConfigZbbHtt):
         weights.ZbbHtt_orthogonal_cut_90_resolved_2b = weights.mutau
         weights.ZbbHtt_orthogonal_cut_90_boosted = weights.mutau
         weights.ZbbHtt_orthogonal_cut_90_boosted_noPNet = weights.mutau
+
+        weights.ZbbHtt_orthogonal_cut_90_CR = weights.mutau
+        weights.ZbbHtt_orthogonal_cut_90_CR_resolved_1b = weights.mutau
+        weights.ZbbHtt_orthogonal_cut_90_CR_resolved_2b = weights.mutau
+        weights.ZbbHtt_orthogonal_cut_90_CR_boosted = weights.mutau
+        weights.ZbbHtt_orthogonal_cut_90_CR_boosted_noPNet = weights.mutau
         
         return weights
 
