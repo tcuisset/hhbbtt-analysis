@@ -158,6 +158,7 @@ cross_section_dict = {
     # "vbf_sm":         0.001726,
 
     # Cross-sections for resonant ZH signal. Assuming cross-section of Z'->ZH is one.
+    # TODO remove * 0.876 as I think that should not be there (taken into account by norm using aux dataset ???)
     "ZprimeToZH_ZToBB_HToTauTau" : 1 * 0.009 * 0.876, # sigma(Z'->ZH) * BR(Z->bb, H->tautau) * BR(tautau->mutau,etau,tautau)
     "ZprimeToZH_ZToTauTau_HToBB" : 1 * 0.019 * 0.876, # sigma(Z'->ZH) * BR(Z->tautau, H->bb) * BR(tautau->mutau,etau,tautau)
 }
