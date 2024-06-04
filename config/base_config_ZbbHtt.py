@@ -227,7 +227,8 @@ class ConfigZbbHtt(BaseConfig):
             "data",
         ],
         "plot_res": [
-            *resonant_dataset_names,
+            *[f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in resonant_masses_ZH],
+            *[f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in resonant_masses_ZH],
             "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
             "vv_v",
             "wjets",
@@ -238,7 +239,8 @@ class ConfigZbbHtt(BaseConfig):
             "data",
         ],
         "plot_res_reduced": [ # smaller number of mass points to avoid cluttering plot
-            *resonant_dataset_names_reduced,
+            *[f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in reduced_resonant_masses_ZH],
+            *[f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in reduced_resonant_masses_ZH],
             "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
             "vv_v",
             "wjets",
