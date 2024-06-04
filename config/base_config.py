@@ -570,10 +570,10 @@ class BaseConfig(cmt_config):
                 units="GeV",
                 systematics=["tes"]),
 
-            Feature("dR_tautau", "sqrt(({{dau1_eta}} - {{dau2_eta}})*({{dau1_eta}} - {{dau2_eta}}) " \ 
-                " + ({{dau1_phi}} - {{dau2_phi}})*({{dau1_phi}} - {{dau2_phi}}))",
+            Feature("dR_tautau", "sqrt((dau1_eta - dau2_eta)*(dau1_eta - dau2_eta) "
+                " + (dau1_phi - dau2_phi)*(dau1_phi - dau2_phi))",
                 binning=(30, 0, 5),
-                x_title=Lable("#Delta R (#tau_{1}, #tau_{2})"))
+                x_title=Label("#Delta R (#tau_{1}, #tau_{2})")),
 
             # MET
             Feature("met_pt", "MET_pt", binning=(10, 50, 150),
