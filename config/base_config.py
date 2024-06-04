@@ -570,9 +570,14 @@ class BaseConfig(cmt_config):
                 units="GeV",
                 systematics=["tes"]),
 
+            Feature("dR_tautau", "sqrt(({{dau1_eta}} - {{dau2_eta}})*({{dau1_eta}} - {{dau2_eta}}) " \ 
+                " + ({{dau1_phi}} - {{dau2_phi}})*({{dau1_phi}} - {{dau2_phi}}))",
+                binning=(30, 0, 5),
+                x_title=Lable("#Delta R (#tau_{1}, #tau_{2})"))
+
             # MET
             Feature("met_pt", "MET_pt", binning=(10, 50, 150),
-                x_title=Label("MET p_t"),
+                x_title=Label("MET p_{T}"),
                 units="GeV",
                 central="met_smearing",
                 systematics=["jer_MET", "tes_MET", "jec_MET"]), # "jec_MET_1", "jec_MET_2", "jec_MET_3", 
@@ -584,6 +589,9 @@ class BaseConfig(cmt_config):
                 systematics=["jer_MET", "tes_MET", "jec_MET_1"]), # "jec_MET_2", "jec_MET_3", 
                             #  "jec_MET_4", "jec_MET_5", "jec_MET_6", "jec_MET_7", "jec_MET_8",
                             #  "jec_MET_9", "jec_MET_10", "jec_MET_11"]),
+            
+            Feature("btagging", "Jet_btagDeepFlavB", binning=(30,0,1),
+                x_title=Label("b-tagging score")),
 
             # # Hbb
             # Feature("Hbb_pt", "Hbb_pt", binning=(10, 50, 150),
