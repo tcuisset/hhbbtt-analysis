@@ -5,7 +5,7 @@ from analysis_tools.utils import DotDict, join_root_selection as jrs
 from plotting_tools import Label
 
 from config.base_config import get_common_processes, BaseConfig
-from config.base_config_ZH import get_ZH_common_features, resonant_masses_ZH, reduced_resonant_masses_ZH
+from config.base_config_ZH import get_ZH_common_features, get_ZH_common_processes, resonant_masses_ZH, reduced_resonant_masses_ZH
 
 class ConfigZbbHtt(BaseConfig):
     def __init__(self, *args, **kwargs):
@@ -27,9 +27,12 @@ class ConfigZbbHtt(BaseConfig):
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
 
-        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 125.0,) * ({{Htt_svfit_mass}} - 125.0) / (100.0 * 100.0)"
+        elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 125.0) * ({{Htt_svfit_mass}} - 125.0) / (100.0 * 100.0)"
                 " + ({{Zbb_mass}} - 85.0) * ({{Zbb_mass}} - 85.0) / (131.0 * 131.0)) < 1)")
         elliptical_cut_90_inv = f"!({elliptical_cut_90})"
+
+        # orthogonality condition between ZbbHtt & ZttHbb
+        orthogonality = "({{Zbb_mass}} <= 1.33*{{Htt_svfit_mass}} - 40)"
 
         # old elliptical cut pre-21/05/24
         # elliptical_cut_90 = ("((({{Htt_svfit_mass}} - 129.) * ({{Htt_svfit_mass}} - 129.) / (113. * 113.)"
@@ -85,9 +88,29 @@ class ConfigZbbHtt(BaseConfig):
                 selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_2b})"),
             Category("ZbbHtt_elliptical_cut_90_boosted", "EC90 & boosted",
                 selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({boosted_pnet_cut})"),
-            
             Category("ZbbHtt_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
                 selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
+            
+            Category("ZbbHtt_orthogonal_cut_90_resolved_1b", "EC90 orthogonal & resolved 1b",
+                selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 0 && ({bjets.req_1b})"),
+            Category("ZbbHtt_orthogonal_cut_90_resolved_2b", "EC90 orthogonal & resolved 2b",
+                selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 0 && ({bjets.req_2b})"),
+            Category("ZbbHtt_orthogonal_cut_90_boosted", "EC90 orthogonal & boosted",
+                selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+            Category("ZbbHtt_orthogonal_cut_90_boosted_noPNet", "EC90 orthogonal & boosted (no PNet cut)",
+                selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 1 "),
+            
+            Category("ZbbHtt_orthogonal_cut_90_CR", "CR orthogonal",
+                selection=f"({elliptical_cut_90_inv}) && ({orthogonality})"),
+            
+            Category("ZbbHtt_orthogonal_cut_90_CR_resolved_1b", "CR orthogonal & resolved 1b",
+                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 0 && ({bjets.req_1b})"),
+            Category("ZbbHtt_orthogonal_cut_90_CR_resolved_2b", "CR orthogonal & resolved 2b",
+                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 0 && ({bjets.req_2b})"),
+            Category("ZbbHtt_orthogonal_cut_90_CR_boosted", "CR orthogonal & boosted",
+                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+            Category("ZbbHtt_orthogonal_cut_90_CR_boosted_noPNet", "CR orthogonal & boosted (no PNet cut)",
+                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 1 "),
         ])
 
         return categories
@@ -182,67 +205,16 @@ class ConfigZbbHtt(BaseConfig):
     #@override
     def add_processes(self):
         processes, process_group_names, process_training_names = get_common_processes()
-        # https://leonardocolor.io/scales.html#
-        # long version
-        colors_res = itertools.cycle([(31, 0, 117), (4, 41, 100), (0, 55, 101), (0, 66, 106), (0, 78, 110), (0, 88, 113), (0, 99, 115), (0, 109, 115), (0, 119, 114), (0, 129, 111), (0, 139, 105), (14, 148, 99), (48, 155, 92), (78, 161, 84), (103, 165, 76), (127, 169, 68), (151, 172, 60), (174, 174, 55)])
-        #short version
-        colors_res = itertools.cycle([(31, 0, 117), (0, 66, 106), (0, 99, 115), (0, 129, 111), (48, 155, 92), (127, 169, 68), (174, 174, 55)])
-        
-        processes += ObjectCollection([
-            ########### ZbbHtt analysis
-            # ZHToTauTau_M125 dataset with genfilter Z->bb,H->tautau
-            Process("zh_zbb_htt_signal", Label("Z_{bb}H_{#tau#tau}"),
-                    ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(0, 165, 80), llr_name="ZbbHtt"),
-            # same as above but with reversed genfilter (everything except Z->bb,H->tautau)
-            Process("zh_zbb_htt_background", Label("ZH (H#rightarrow#tau#tau) bkg"), parent_process='zh',
-                    ProcType="Zbb_Htautau", isBkgBBTT=True, color=(224, 190, 79)),
-
-            # includes ZH_HToBB_ZToTT as background of ZbbHtt analysis
-            Process("zh_hbb", Label("ZH (H#rightarrow bb, Z#rightarrow ll)"), parent_process='zh',
-                    color=(1, 99, 24)),
-            # ZH includes all the processes BUT THE ZBBHTT SIGNAL
-            Process("zh", Label("ZH"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH"),
-            
-            ######### Common
-            # ZZ_SL
-            Process("zz_sl", Label("zz_sl"), color=(130, 39, 197), parent_process="zz"),
-            Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(28, 130, 145), parent_process="zh"),
-
-            ######## Resonant
-            # ZH resonant (old label : Z'#rightarrow Z_{bb}H_{#tau#tau} )
-            *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res), 
-                    isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZprimeZbbHtt")
-            for mass in resonant_masses_ZH],
-
-            # background for resonant analysis (zh_zbb_htt_signal with isSignal=False, dataset is the exact same)
-            Process("zh_zbb_htt", Label("Z_{bb}H_{#tau#tau}"), color=(0, 165, 80), 
-                    ProcType="Zbb_Htautau", isSigBBTT=True, parent_process='zh'),
-        ])
+        zh_processes, zh_process_group_names, zh_process_training_names = get_ZH_common_processes()
+        processes += zh_processes
+        process_group_names.update(zh_process_group_names)
+        process_training_names.update(zh_process_training_names)
 
         resonant_dataset_names = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in resonant_masses_ZH]
         resonant_dataset_names_reduced = [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in reduced_resonant_masses_ZH]
 
-        process_group_names = {
+        process_group_names.update({
         "Zprime_Zh_Zbbhtt": resonant_dataset_names,
-        "datacard_ZbbHtt": [
-            "zh_zbb_htt_signal",
-            "ttH",
-            "dy",
-            "vvv",
-            "vbf_htt",
-            "ggH_ZZ",
-            "ttx",
-            "vv", # this includes zz which in turn includes zz_sl
-            "wh",
-            "zh", # this is actually zh_background ie ZH processes not part of signal
-            "tw",
-            "singlet",
-            "ewk",
-            "wjets",
-            "tt",
-            "ggf_sm",
-            "data",
-        ],
         "plot": [
             "zh_zbb_htt_signal",
             "higgs", # includes zh_zbb_htt_background
@@ -255,7 +227,8 @@ class ConfigZbbHtt(BaseConfig):
             "data",
         ],
         "plot_res": [
-            *resonant_dataset_names,
+            *[f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in resonant_masses_ZH],
+            *[f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in resonant_masses_ZH],
             "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
             "vv_v",
             "wjets",
@@ -266,7 +239,8 @@ class ConfigZbbHtt(BaseConfig):
             "data",
         ],
         "plot_res_reduced": [ # smaller number of mass points to avoid cluttering plot
-            *resonant_dataset_names_reduced,
+            *[f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in reduced_resonant_masses_ZH],
+            *[f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in reduced_resonant_masses_ZH],
             "higgs", # includes zh_zbb_htt and zh_zbb_htt_background
             "vv_v",
             "wjets",
@@ -274,29 +248,6 @@ class ConfigZbbHtt(BaseConfig):
             "others",
             "tt",
             "ttx",
-            "data",
-        ],
-        "datacard_ZbbHtt_res": [
-            *resonant_dataset_names,
-            "zh_zbb_htt", # ZbbHtt as background for resonant analysis
-            "zh_zbb_htt_background", # remainder of ZHToTauTau dataset (TODO probably put this under some more general category (in ZZ analysis it is under vv))
-            "ttH",
-            "dy",
-            "vvv",
-            "vbf_htt",
-            "ggH_ZZ",
-            "ttx",
-            "vv", # this includes zz
-            "wh",
-            #"zh", # this is actually zh_background ie ZH processes not part of signal
-            "zh_hbb_zqq",
-            "zh_hbb",
-            "tw",
-            "singlet",
-            "ewk",
-            "wjets",
-            "tt",
-            "ggf_sm",
             "data",
         ],
         "zh_split_signal": [
@@ -307,5 +258,5 @@ class ConfigZbbHtt(BaseConfig):
             "all_background",
             "zh_zbb_htt_signal",
         ],
-        }        
+        })
         return processes, process_group_names, process_training_names

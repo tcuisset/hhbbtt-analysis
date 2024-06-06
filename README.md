@@ -101,6 +101,18 @@ The systematics shift are loaded in FeaturePlot by calling config.get_norm_syste
  - Looking at category.sleection, look at all features in double brackets ({{feature_name}}) and add their systematics
  - Same for region.selection
 
+
+### Disabling fully systematics
+Add : 
+~~~yaml
+        jet_syst: ''
+        jet_central: ''
+        tau_central: ''
+        tau_syst: ''
+        met_smear_tag: ''
+~~~
+to the configs in modulesrdf.yaml (as by default smearing is applied)
+
 ## Weights
 Preplot weight :
 $ w^P_i = \text{gen}_i * \text{PU}_i * \text{St}_i * X_i$
@@ -182,6 +194,15 @@ Processes for ZH analysis:
  - zh : all ZH production except bbtautau(or tautaubb) final states
  - zz : all ZZ production 
  - zz_background : this is actually all backgrounds for the ZH analysis (the name is misleading)
+
+## Triggers
+### SingleMu
+ - 2018 : HLT_IsoMu24
+ - 2017 : HLT_IsoMu27 (HLT_IsoMu24 is prescaled, recommendation is to use 27)
+ - 2016 : HLT_IsoMu24
+
+Cuts : offline = trig + 2 GeV in pt (Muon HLT recommendation for 2016, also what HH res uses). Eta < 2.4 (Used to be 2.3, Muon POG recommends 2.4). 
+Trigger matching : Muon recommends DeltaR<0.1, we use 0.5 : **TODO** check this
 
 ## Monte Carlo corrections
 ### PUweight
@@ -293,6 +314,9 @@ Cmoputed in `CMSSW_12_3_0_pre6/src/Corrections/TAU/python/tauCorrections.py` and
 Put in idAndIsoAndFakeSF
 
 ### Tau energy scale corrections (TES)
+
+### Jet faking taus
+**TODO** We need to compute SFs for Jet faking taus in DeepTau. We should compute them ourselves (using gen info in MC ?) apparently.
 
 ## SYstematics
 <https://twiki.cern.ch/twiki/bin/viewauth/CMS/DoubleHiggsToBBTauTauWorkingLegacyRun2>

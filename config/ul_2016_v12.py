@@ -753,6 +753,7 @@ def get_common_datasets_v12(self):
             tags=["ul", "nanoV10"]),
         Dataset("data_etau_b",
             folder=p + "SingleElectron_Run2016G",
+            selection="pairType == 1",
             process=self.processes.get("data_etau"),
             runEra="G",
             splitting=-1,

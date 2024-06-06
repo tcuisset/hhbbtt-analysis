@@ -4,10 +4,10 @@ cross_section_dict = {
     # "zz_sl":          3.676,                    # XSDB unknown
     # "zz_sl":          5.52,                     # AN
 
-    "zh_htt":           0.07977,                  # XSDB NLO
+    "zh_htt":           0.053034, # = 0.8839*0.06 (sigma(pp->ZH) from theory) * BR(H->tautau) #0.7891 (XSDB NLO)  --> WHy are they different ? TODO
     # "zh_htt":         0.0554,                   # AN
 
-    "zh_hbb_zll":       0.07977,                  # XSDB NLO
+    "zh_hbb_zll":       0.01573871102, # = 0.8839*0.0335962*0.53 (sigma(pp->ZH) from theory) * BR(Z->ll)*BR(H->bb)  #0.07977 ( XSDB NLO) TODO
     # "zh_hbb_zll":     0.052,                    # AN
 
     "wjets_FXFX":       61526.7,                  # XSDB
@@ -157,4 +157,8 @@ cross_section_dict = {
 
     # "vbf_sm":         0.001726,
 
+    # Cross-sections for resonant ZH signal. Assuming cross-section of Z'->ZH is one.
+    # TODO remove * 0.876 as I think that should not be there (taken into account by norm using aux dataset ???)
+    "ZprimeToZH_ZToBB_HToTauTau" : 1 * 0.009 * 0.876, # sigma(Z'->ZH) * BR(Z->bb, H->tautau) * BR(tautau->mutau,etau,tautau)
+    "ZprimeToZH_ZToTauTau_HToBB" : 1 * 0.019 * 0.876, # sigma(Z'->ZH) * BR(Z->tautau, H->bb) * BR(tautau->mutau,etau,tautau)
 }

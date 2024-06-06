@@ -777,6 +777,7 @@ def get_common_datasets_v12(self):
             tags=["ul", "nanoV10"]),
         Dataset("data_etau_b",
             folder=p + "EGamma_Run2018B",
+            selection="pairType == 1",
             process=self.processes.get("data_etau"),
             runEra="B",
             splitting=-1,
