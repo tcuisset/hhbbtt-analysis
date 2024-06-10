@@ -8,7 +8,7 @@ def get_2018_v10_weights():
     # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
     weights.total_events_weights = ["genWeightFixed", "puWeight"]
 
-    weights.mutau = ["genWeightFixed", "puWeight", "prescaleWeight", 
+    weights.mutau = ["genWeightFixed", "puWeight",
         "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF",
         "bTagweightReshape"] # removed L1PreFiringWeight for 2018
     
