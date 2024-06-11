@@ -151,6 +151,7 @@ hhjets:
         isUL: self.dataset.has_tag('ul')
         met_smear_tag: smeared
         filter: True
+        model_version: 2
 
 bjet1var:
     name: VarFromVectorRDF
