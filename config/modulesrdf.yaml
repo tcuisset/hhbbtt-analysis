@@ -267,6 +267,8 @@ idAndIsoSF:
     path: Tools.Tools.dauIdIso
     parameters:
         isMC: self.dataset.process.isMC
+        muon_iso_syst_directions: ["_syst_up", "_syst_down", "_stat_up", "_stat_down"]
+        muon_id_syst_directions: ["_syst_up", "_syst_down", "_stat_up", "_stat_down"]
 
 btag:
     name: btag_SFRDF

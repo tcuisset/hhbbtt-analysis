@@ -831,7 +831,7 @@ class BaseConfig(cmt_config):
                 systematics=["PUjetID"]),
             Feature("idAndIsoAndFakeSF", "idAndIsoAndFakeSF", binning=(20, 0, 2),
                 x_title=Label("idAndIsoAndFakeSF"),
-                systematics=["jetTauFakes", "etauFR", "mutauFR", "eleIso", "muIso", "muId"]),
+                systematics=["jetTauFakes", "etauFR", "mutauFR", "eleIso", "muIso_stat", "muIso_syst", "muId_stat", "muId_syst"]),
 
             Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
                 x_title=Label("LHE PtZ"), units="GeV"),
@@ -901,12 +901,16 @@ class BaseConfig(cmt_config):
             Systematic("prefiring_central", "_Nom"),
             Systematic("prefiring", "", up="_Up", down="_Dn", decorrelate="year"),
 
+            # event weights systematics, from idAndIsoAndFakeSF
             Systematic("jetTauFakes", "", up="_tau_vsjet_up", down="_tau_vsjet_down", decorrelate="year"),
             Systematic("etauFR", "", up="_tau_vse_up", down="_tau_vse_down", decorrelate="year"),
             Systematic("mutauFR", "", up="_tau_vsmu_up", down="_tau_vsmu_down", decorrelate="year"),
-            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down", decorrelate="year"),
-            Systematic("muIso", "", up="_muon_iso_up", down="_muon_iso_down", decorrelate="year"),
-            Systematic("muId", "", up="_muon_id_up", down="_muon_id_down", decorrelate="year"),
+            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down"), # actually electron MVA ID SFs, correlated https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys
+            # https://twiki.cern.ch/twiki/bin/view/CMS/MuonUL2018
+            Systematic("muIso_syst", "", up="_muon_iso_syst_up", down="_muon_iso_syst_down"),
+            Systematic("muIso_stat", "", up="_muon_iso_stat_up", down="_muon_iso_stat_down", decorrelate="year"),
+            Systematic("muId_syst", "", up="_muon_id_syst_up", down="_muon_id_syst_down"),
+            Systematic("muId_stat", "", up="_muon_id_stat_up", down="_muon_id_stat_down", decorrelate="year"),
 
             Systematic("trigSFele", "", up="_eleUp", down="_eleDown", decorrelate="year"),
             Systematic("trigSFmu", "", up="_muUp", down="_muDown", decorrelate="year"),
@@ -917,7 +921,17 @@ class BaseConfig(cmt_config):
 
             Systematic("PUjetID", "", up="_up", down="_down", decorrelate="year"),
             Systematic("pu", "", up="Up", down="Down", decorrelate="year"),
-            Systematic("empty", "", up="", down="")
+            Systematic("empty", "", up="", down=""),
+
+            # Systematic("cferr1"),
+            # Systematic("cferr2"),
+            # Systematic("hf"),
+            # Systematic("hfstats1", decorrelate="year"),
+            # Systematic("hfstats2", decorrelate="year"),
+            # Systematic("lf"),
+            # Systematic("lfstats1", decorrelate="year"),
+            # Systematic("lfstats2", decorrelate="year"),
+            # Systematic("jes"), # 
         ]
         return ObjectCollection(systematics)
 
