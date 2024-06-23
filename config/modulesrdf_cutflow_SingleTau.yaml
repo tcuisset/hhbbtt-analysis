@@ -1,0 +1,91 @@
+# This configuration is used for PreProcess step
+# It is common to all analyses: ZZ, ZH x 2
+
+lumifilter:
+    name: lumiFilterRDF
+    path: Base.Modules.lumiFilter
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+# UL only
+puweightCor:
+    name: puWeightRDF
+    path: Corrections.LUM.puWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+bbtautau_sig_bkg:
+    name: BBTauTauFilterRDF
+    path: Tools.Tools.ZZ_ZH_Analysis
+    parameters:
+        ProcType: self.dataset.process.get_aux('ProcType', False)
+        isSigBBTT: self.dataset.process.get_aux('isSigBBTT', False)
+        isBkgBBTT: self.dataset.process.get_aux('isBkgBBTT', False)
+
+metfilter:
+    name: MetFilterRDF
+    path: Base.Modules.METfilters
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+# also comutes TES
+tauSF:
+    name: tauSFRDF
+    path: Corrections.TAU.tauCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+
+# cutflow mutau
+
+hhlepton_skip_btautau_tau_off:
+    name: HHLeptonRDF
+    path: Tools.Tools.HHLeptonSingleTau
+    parameters:
+        isMC: self.dataset.process.isMC
+        isV10: self.dataset.has_tag("nanoV10")
+        year: self.config.year
+        runEra: self.dataset.runEra
+        vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
+        vl_vse: self.config.deeptau.vse.VLoose
+        vvl_vse: self.config.deeptau.vse.VVLoose
+        t_vsmu: self.config.deeptau.vsmu.Tight
+        vl_vsmu: self.config.deeptau.vsmu.VLoose
+        skip_btautau_trg: 1
+        skip_btautau_tau_off: 1
+
+hhlepton_skip_mutau_tau_off:
+    name: HHLeptonRDF
+    path: Tools.Tools.HHLeptonSingleTau
+    parameters:
+        isMC: self.dataset.process.isMC
+        isV10: self.dataset.has_tag("nanoV10")
+        year: self.config.year
+        runEra: self.dataset.runEra
+        vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
+        vl_vse: self.config.deeptau.vse.VLoose
+        vvl_vse: self.config.deeptau.vse.VVLoose
+        t_vsmu: self.config.deeptau.vsmu.Tight
+        vl_vsmu: self.config.deeptau.vsmu.VLoose
+        skip_btautau_trg: 1
+
+hhlepton:
+    name: HHLeptonRDF
+    path: Tools.Tools.HHLeptonSingleTau
+    parameters:
+        isMC: self.dataset.process.isMC
+        isV10: self.dataset.has_tag("nanoV10")
+        year: self.config.year
+        runEra: self.dataset.runEra
+        vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
+        vl_vse: self.config.deeptau.vse.VLoose
+        vvl_vse: self.config.deeptau.vse.VVLoose
+        t_vsmu: self.config.deeptau.vsmu.Tight
+        vl_vsmu: self.config.deeptau.vsmu.VLoose
+    
