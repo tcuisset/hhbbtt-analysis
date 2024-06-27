@@ -4,6 +4,7 @@
 
 YEAR=2018
 source setup.sh
+
 # New ZH combination datasets
 DATASETS_ZH_base=dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,\
 tt_dl,tt_sl,tt_fh,zz_dl,zz_sl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,\
@@ -13,7 +14,8 @@ ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,ewk_z,ewk_wplus,ewk_wm
 DATASETS_ZH_nonres=zh_zbb_htt_signal,zh_ztt_hbb_signal,$DATASETS_ZH_base
 
 # removed 4500 5000 5500 6000
-RESONANT_MASSES="600 800 1000 1200 1400 1600 1800 2000 2500 3000 3500 4000"
+# missing DNN : 500,700, dnn_ZHbbtt_kl_1_1600,dnn_ZHbbtt_kl_1_1800,dnn_ZHbbtt_kl_1_2500, + 800 (2018 only)
+RESONANT_MASSES="600 1000 1200 1400 1600 1800 2000 2500 3000 3500 4000"
 # TODO figure out what masses we want to use
 DATASETS_ZbbHtt_res_only=ZprimeToZH_ZToBB_HToTauTau_M600,ZprimeToZH_ZToBB_HToTauTau_M800,ZprimeToZH_ZToBB_HToTauTau_M1000,ZprimeToZH_ZToBB_HToTauTau_M1200,ZprimeToZH_ZToBB_HToTauTau_M1400,ZprimeToZH_ZToBB_HToTauTau_M1600,ZprimeToZH_ZToBB_HToTauTau_M1800,ZprimeToZH_ZToBB_HToTauTau_M2000,ZprimeToZH_ZToBB_HToTauTau_M2500,ZprimeToZH_ZToBB_HToTauTau_M3000,ZprimeToZH_ZToBB_HToTauTau_M3500,ZprimeToZH_ZToBB_HToTauTau_M4000
 DATASETS_ZttHbb_res_only=ZprimeToZH_ZToTauTau_HToBB_M600,ZprimeToZH_ZToTauTau_HToBB_M800,ZprimeToZH_ZToTauTau_HToBB_M1000,ZprimeToZH_ZToTauTau_HToBB_M1200,ZprimeToZH_ZToTauTau_HToBB_M1400,ZprimeToZH_ZToTauTau_HToBB_M1600,ZprimeToZH_ZToTauTau_HToBB_M1800,ZprimeToZH_ZToTauTau_HToBB_M2000,ZprimeToZH_ZToTauTau_HToBB_M2500,ZprimeToZH_ZToTauTau_HToBB_M3000,ZprimeToZH_ZToTauTau_HToBB_M3500,ZprimeToZH_ZToTauTau_HToBB_M4000,ZprimeToZH_ZToTauTau_HToBB_M4500,ZprimeToZH_ZToTauTau_HToBB_M5000,ZprimeToZH_ZToTauTau_HToBB_M5500,ZprimeToZH_ZToTauTau_HToBB_M6000
@@ -51,10 +53,16 @@ DATASETS_DATA_MUTAU=data_mutau_a,data_mutau_b,data_mutau_c,data_mutau_d,data_mut
 DATASETS_DATA_TAUTAU=data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e
 
 # TODO remember to add missing DNN mass points 500,700, dnn_ZHbbtt_kl_1_1600,dnn_ZHbbtt_kl_1_1800,dnn_ZHbbtt_kl_1_2500
-ALL_FEATURES_ZbbHtt=dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_600,dnn_ZHbbtt_kl_1_800,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_1200,dnn_ZHbbtt_kl_1_1400,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,dnn_ZHbbtt_kl_1_3500,dnn_ZHbbtt_kl_1_4000,dnn_ZHbbtt_kl_1_4500,dnn_ZHbbtt_kl_1_5000,dnn_ZHbbtt_kl_1_5500,dnn_ZHbbtt_kl_1_6000,ZHKinFit_chi2,ZHKinFit_mass,ZHKinFit_highmass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt
+# TODO add dnn_ZHbbtt_kl_1_CR , MET_pt, met_phi, btagging
+ALL_FEATURES_COMMON=dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_CR,dnn_ZHbbtt_kl_1_600,dnn_ZHbbtt_kl_1_800,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_1200,dnn_ZHbbtt_kl_1_1400,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,dnn_ZHbbtt_kl_1_3500,dnn_ZHbbtt_kl_1_4000,dnn_ZHbbtt_kl_1_4500,dnn_ZHbbtt_kl_1_5000,dnn_ZHbbtt_kl_1_5500,dnn_ZHbbtt_kl_1_6000,ZHKinFit_chi2,ZHKinFit_mass,ZHKinFit_highmass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt,dR_tautau,met_pt,met_phi,btagging
+ALL_FEATURES_ZbbHtt=$ALL_FEATURES_COMMON,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass
+ALL_FEATURES_ZttHbb=$ALL_FEATURES_COMMON,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Hbb_pt,Hbb_eta,Hbb_phi,Hbb_mass
+
+ALL_FEATURES_COMMON_old=dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_600,dnn_ZHbbtt_kl_1_800,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_1200,dnn_ZHbbtt_kl_1_1400,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,dnn_ZHbbtt_kl_1_3500,dnn_ZHbbtt_kl_1_4000,dnn_ZHbbtt_kl_1_4500,dnn_ZHbbtt_kl_1_5000,dnn_ZHbbtt_kl_1_5500,dnn_ZHbbtt_kl_1_6000,ZHKinFit_chi2,ZHKinFit_mass,ZHKinFit_highmass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt
+ALL_FEATURES_ZbbHtt_old=$ALL_FEATURES_COMMON_old,Htt_svfit_pt,Htt_svfit_eta,Htt_svfit_phi,Htt_svfit_mass,Htt_met_pt,Htt_met_eta,Htt_met_phi,Htt_met_mass,Zbb_pt,Zbb_eta,Zbb_phi,Zbb_mass
+ALL_FEATURES_ZttHbb_old=$ALL_FEATURES_COMMON_old,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Hbb_pt,Hbb_eta,Hbb_phi,Hbb_mass
 
 
-ALL_FEATURES_ZttHbb=dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_600,dnn_ZHbbtt_kl_1_800,dnn_ZHbbtt_kl_1_1000,dnn_ZHbbtt_kl_1_1200,dnn_ZHbbtt_kl_1_1400,dnn_ZHbbtt_kl_1_2000,dnn_ZHbbtt_kl_1_3000,dnn_ZHbbtt_kl_1_3500,dnn_ZHbbtt_kl_1_4000,dnn_ZHbbtt_kl_1_4500,dnn_ZHbbtt_kl_1_5000,dnn_ZHbbtt_kl_1_5500,dnn_ZHbbtt_kl_1_6000,ZHKinFit_chi2,ZHKinFit_mass,ZHKinFit_highmass,ZH_svfit_pt,ZH_svfit_eta,ZH_svfit_phi,ZH_svfit_mass,Ztt_svfit_pt,Ztt_svfit_eta,Ztt_svfit_phi,Ztt_svfit_mass,Ztt_met_pt,Ztt_met_eta,Ztt_met_phi,Ztt_met_mass,Hbb_pt,Hbb_eta,Hbb_phi,Hbb_mass,lep1_pt,lep1_eta,lep1_phi,lep2_pt,lep2_eta,lep2_phi,bjet1_eta,bjet1_phi,bjet1_pt,bjet2_eta,bjet2_phi,bjet2_pt
 
 ###############################################################################################################################################
 ############################################################  CATEGORIZATION  #################################################################
@@ -68,23 +76,23 @@ ALL_FEATURES_ZttHbb=dnn_ZHbbtt_kl_1,dnn_ZHbbtt_kl_1_600,dnn_ZHbbtt_kl_1_800,dnn_
 
 law run MergeCategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
  --skip-dataset-tags secondary,res \
- --category-names ZbbHtt_orthogonal_cut_90_CR,ZbbHtt_orthogonal_cut_90_CR_resolved_1b,ZbbHtt_orthogonal_cut_90_CR_resolved_1b,ZbbHtt_orthogonal_cut_90_CR_boosted_noPNet \
+ --category-names ZbbHtt_orthogonal_cut_90_CR,ZbbHtt_orthogonal_cut_90_CR_resolved_1b,ZbbHtt_orthogonal_cut_90_CR_resolved_2b,ZbbHtt_orthogonal_cut_90_CR_boosted_noPNet \
  --PreprocessRDF-version prod_240305 \
  --JoinDNNInference-base-category-name base_selection --MergeCategorization-from-DNN-inference True --JoinDNNInference-feature-modules-file modulesrdf_syst \
- --DNNInference-workflow htcondor --DNNInference-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=500M' --DNNInference-retries 1 --DNNInference-poll-interval 3 --DNNInference-tasks-per-job 10 --DNNInference-htcondor-scheduler llrt3condor.in2p3.fr --DNNInference-transfer-logs \
- --JoinDNNInference-workflow htcondor --JoinDNNInference-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=300M' --JoinDNNInference-retries 1 --JoinDNNInference-poll-interval 3 --JoinDNNInference-tasks-per-job 10 --JoinDNNInference-htcondor-scheduler llrt3condor.in2p3.fr --JoinDNNInference-transfer-logs \
- --workers 50 --Categorization-retries 1 --Categorization-poll-interval 3 --Categorization-tasks-per-job 5 \
+ --DNNInference-workflow htcondor --DNNInference-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=500M' --DNNInference-retries 1 --DNNInference-poll-interval 3 --DNNInference-tasks-per-job 15 --DNNInference-htcondor-scheduler llrt3condor.in2p3.fr --DNNInference-transfer-logs \
+ --JoinDNNInference-workflow htcondor --JoinDNNInference-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=500M' --JoinDNNInference-retries 1 --JoinDNNInference-poll-interval 3 --JoinDNNInference-tasks-per-job 15 --JoinDNNInference-htcondor-scheduler llrt3condor.in2p3.fr --JoinDNNInference-transfer-logs \
+ --workers 50 --Categorization-retries 1 --Categorization-poll-interval 3 --Categorization-tasks-per-job 7 \
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=1G'
 
 law run MergeCategorizationWrapper --version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
  --skip-dataset-tags secondary,res \
- --category-names ZttHbb_orthogonal_cut_90_CR,ZttHbb_orthogonal_cut_90_CR_resolved_1b,ZttHbb_orthogonal_cut_90_CR_resolved_1b,ZttHbb_orthogonal_cut_90_CR_boosted_noPNet \
+ --category-names ZttHbb_orthogonal_cut_90_CR,ZttHbb_orthogonal_cut_90_CR_resolved_1b,ZttHbb_orthogonal_cut_90_CR_resolved_2b,ZttHbb_orthogonal_cut_90_CR_boosted_noPNet \
  --PreprocessRDF-version prod_240305 \
  --JoinDNNInference-base-category-name base_selection --MergeCategorization-from-DNN-inference True --JoinDNNInference-feature-modules-file modulesrdf_syst \
- --DNNInference-workflow htcondor --DNNInference-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=500M' --DNNInference-retries 1 --DNNInference-poll-interval 3 --DNNInference-tasks-per-job 10 --DNNInference-htcondor-scheduler llrt3condor.in2p3.fr --DNNInference-transfer-logs \
- --JoinDNNInference-workflow htcondor --JoinDNNInference-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=300M' --JoinDNNInference-retries 1 --JoinDNNInference-poll-interval 3 --JoinDNNInference-tasks-per-job 10 --JoinDNNInference-htcondor-scheduler llrt3condor.in2p3.fr --JoinDNNInference-transfer-logs \
- --workers 100 --Categorization-retries 1 --Categorization-poll-interval 3 --Categorization-tasks-per-job 5 \
+ --DNNInference-workflow htcondor --DNNInference-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=500M' --DNNInference-retries 1 --DNNInference-poll-interval 3 --DNNInference-tasks-per-job 15 --DNNInference-htcondor-scheduler llrt3condor.in2p3.fr --DNNInference-transfer-logs \
+ --JoinDNNInference-workflow htcondor --JoinDNNInference-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=300M' --JoinDNNInference-retries 1 --JoinDNNInference-poll-interval 3 --JoinDNNInference-tasks-per-job 15 --JoinDNNInference-htcondor-scheduler llrt3condor.in2p3.fr --JoinDNNInference-transfer-logs \
+ --workers 50 --Categorization-retries 1 --Categorization-poll-interval 3 --Categorization-tasks-per-job 7 \
  --Categorization-workflow htcondor --Categorization-htcondor-scheduler llrt3condor.in2p3.fr --Categorization-transfer-logs \
  --Categorization-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el7,request_memory=1G'
 
@@ -151,19 +159,43 @@ function featurePlotZbbHtt_CR_nonres {
     REGION_NAME=$2
     DATASETS_DATA=$3
 
-    law run FeaturePlot --version prod_240528_nonres --FeatureHistogram-version prod_240528_nonres --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
- --feature-names dnn_ZHbbtt_kl_1_CR,$ALL_FEATURES_ZbbHtt \
+    law run FeaturePlot --version prod_240604_nonres --FeatureHistogram-version prod_240604_nonres --PrePlot-version prod_240604 --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --feature-names $ALL_FEATURES_ZbbHtt \
  --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
- --workers 5 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
- --process-group-name plot --save-png --category-name ZbbHtt_orthogonal_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
- --stack --do-qcd --hide-data True "${@:4}"
+ --workers 20 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
+ --process-group-name plot --save-png --category-name ZbbHtt_orthogonal_cut_90_CR$CATEGORY --region-name ${REGION_NAME}_os_iso \
+ --stack --do-qcd --hide-data False "${@:4}"
 }
-declare -a logCommands=("--FeaturePlot-multiply-signals-normalization 1000." "--FeaturePlot-log-y True --FeaturePlot-histogram-minimum 0.1")
+declare -a logCommands=("" "--log-y True --histogram-minimum 0.1")
 for logParams in "${logCommands[@]}"; do
-for category in resolved_2b resolved_1b boosted_noPNet; do
-featurePlotZbbHtt_SR_nonres $category etau $DATASETS_DATA_ETAU $logParams & 
-featurePlotZbbHtt_SR_nonres $category mutau $DATASETS_DATA_MUTAU $logParams & 
-featurePlotZbbHtt_SR_nonres $category tautau $DATASETS_DATA_TAUTAU $logParams & 
+for category in "" _resolved_2b _resolved_1b _boosted_noPNet; do
+# quotes in "$category" are important to pass an empty parameter rather than shifting everything
+featurePlotZbbHtt_CR_nonres "$category" etau $DATASETS_DATA_ETAU $logParams 
+featurePlotZbbHtt_CR_nonres "$category" mutau $DATASETS_DATA_MUTAU $logParams 
+featurePlotZbbHtt_CR_nonres "$category" tautau $DATASETS_DATA_TAUTAU $logParams 
+done
+#wait
+done
+
+
+function featurePlotZttHbb_CR_nonres {
+    CATEGORY=$1
+    REGION_NAME=$2
+    DATASETS_DATA=$3
+
+    law run FeaturePlot --version prod_240604_nonres --FeatureHistogram-version prod_240604_nonres --PrePlot-version prod_240604 --config-name ul_${YEAR}_ZttHbb_v12 \
+ --feature-names $ALL_FEATURES_ZttHbb \
+ --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
+ --workers 10 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
+ --process-group-name plot --save-png --category-name ZttHbb_orthogonal_cut_90_CR$CATEGORY --region-name ${REGION_NAME}_os_iso \
+ --stack --do-qcd --hide-data False "${@:4}"
+}
+declare -a logCommands=("" "--log-y True --histogram-minimum 0.1")
+for logParams in "${logCommands[@]}"; do
+for category in "" _resolved_2b _resolved_1b _boosted_noPNet; do
+featurePlotZttHbb_CR_nonres "$category" etau $DATASETS_DATA_ETAU $logParams 
+featurePlotZttHbb_CR_nonres "$category" mutau $DATASETS_DATA_MUTAU $logParams 
+featurePlotZttHbb_CR_nonres "$category" tautau $DATASETS_DATA_TAUTAU $logParams 
 done
 wait
 done
@@ -173,13 +205,33 @@ done
 ###############################################################################################################################################
 
 ############ Non-resonant plots
+### triggering plots
+# function featureHistogramZbbHtt_SR_nonres {
+#     CATEGORY=$1
+#     REGION_NAME=$2
+#     DATASETS_DATA=$3
+
+#     law run FeatureHistogram --version prod_240528_nonres_test --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
+#  --feature-names $ALL_FEATURES_ZbbHtt_old \
+#  --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
+#  --workers 5 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
+#  --process-group-name plot --category-name ZbbHtt_orthogonal_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
+#  --do-qcd --hide-data True "${@:4}"
+# }
+# for category in resolved_2b resolved_1b boosted_noPNet; do
+# featureHistogramZbbHtt_SR_nonres $category etau $DATASETS_DATA_ETAU  & 
+# featureHistogramZbbHtt_SR_nonres $category mutau $DATASETS_DATA_MUTAU  & 
+# featureHistogramZbbHtt_SR_nonres $category tautau $DATASETS_DATA_TAUTAU  & 
+# done
+
+### actual plotting
 function featurePlotZbbHtt_SR_nonres {
     CATEGORY=$1
     REGION_NAME=$2
     DATASETS_DATA=$3
 
     law run FeaturePlot --version prod_240528_nonres --FeatureHistogram-version prod_240528_nonres --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
- --feature-names $ALL_FEATURES_ZbbHtt \
+ --feature-names $ALL_FEATURES_ZbbHtt_old \
  --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
  --workers 5 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
  --process-group-name plot --save-png --category-name ZbbHtt_orthogonal_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
@@ -235,7 +287,7 @@ function featurePlotZttHbb_SR_nonres {
     law run FeaturePlot --version prod_240528_nonres --FeatureHistogram-version prod_240528_nonres  --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
  --feature-names $ALL_FEATURES_ZttHbb \
  --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
- --workers 10 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
+ --workers 5 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
  --process-group-name plot --save-png --category-name ZttHbb_orthogonal_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
  --stack --do-qcd --hide-data True $LOG_PARAMS "${@:4}"
 }
@@ -283,15 +335,79 @@ function featurePlotZttHbb_res_dummy {
     law run FeatureHistogram --version prod_240528_res_dummy --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
  --feature-names $ALL_FEATURES_ZttHbb \
  --dataset-names $DATASETS_ZH_res,$DATASETS_DATA \
- --workers 2 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
+ --workers 15 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
  --process-group-name datacard_res --category-name ZttHbb_orthogonal_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
- --do-qcd --hide-data True  "${@:4}"
+ --do-qcd --hide-data True --remove-output 0,a,True "${@:4}"
 }
 for category in resolved_2b resolved_1b boosted_noPNet; do
-featurePlotZttHbb_res_dummy $category etau $DATASETS_DATA_ETAU  &
+featurePlotZttHbb_res_dummy $category etau $DATASETS_DATA_ETAU &
 featurePlotZttHbb_res_dummy $category mutau $DATASETS_DATA_MUTAU  &
 featurePlotZttHbb_res_dummy $category tautau $DATASETS_DATA_TAUTAU &
 done
+
+
+############### resonant individual masses
+function featurePlotZbbHtt_SR_res_individualMasses {
+    CATEGORY=$1
+    REGION_NAME=$2
+    DATASETS_DATA=$3
+
+    #for mass in $RES_MASSES; do
+    for mass in 800; do
+    law run FeaturePlot --version prod_240528_res_DNN --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --feature-names dnn_ZHbbtt_kl_1_$mass,ZHKinFit_mass,ZHKinFit_highmass \
+ --dataset-names ZprimeToZH_ZToBB_HToTauTau_M${mass},ZprimeToZH_ZToTauTau_HToBB_M${mass},$DATASETS_ZH_base,zh_zbb_htt,zh_ztt_hbb,$DATASETS_DATA \
+ --workers 1 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
+ --process-group-name plot_res --category-name ZbbHtt_orthogonal_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
+ --save-png --stack --do-qcd --hide-data True  "${@:4}" 
+ done
+}
+declare -a logCommands=("--multiply-signals-normalization 1000." "--log-y True --histogram-minimum 0.1 --multiply-signals-normalization 1000.")
+for logParams in "${logCommands[@]}"; do
+for category in resolved_2b resolved_1b boosted_noPNet; do
+featurePlotZbbHtt_SR_res_individualMasses $category etau $DATASETS_DATA_ETAU $logParams &
+featurePlotZbbHtt_SR_res_individualMasses $category mutau $DATASETS_DATA_MUTAU $logParams &
+featurePlotZbbHtt_SR_res_individualMasses $category tautau $DATASETS_DATA_TAUTAU $logParams &
+done
+wait
+done
+
+function featurePlotZttHbb_SR_res_individualMasses {
+    CATEGORY=$1
+    REGION_NAME=$2
+    DATASETS_DATA=$3
+
+    #for mass in $RES_MASSES; do
+    for mass in 800; do
+    law run FeaturePlot --version prod_240528_res_DNN --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
+ --feature-names dnn_ZHbbtt_kl_1_$mass,ZHKinFit_mass,ZHKinFit_highmass \
+ --dataset-names ZprimeToZH_ZToTauTau_HToBB_M${mass},ZprimeToZH_ZToBB_HToTauTau_M${mass},$DATASETS_ZH_base,zh_zbb_htt,zh_ztt_hbb,$DATASETS_DATA \
+ --workers 3 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
+ --process-group-name plot_res --category-name ZttHbb_orthogonal_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
+ --save-png --stack --do-qcd --hide-data True "${@:4}"  &
+ done
+}
+declare -a logCommands=("--multiply-signals-normalization 1000." "--log-y True --histogram-minimum 0.1 --multiply-signals-normalization 1000.")
+for logParams in "${logCommands[@]}"; do
+for category in resolved_2b resolved_1b boosted_noPNet; do
+featurePlotZttHbb_SR_res_individualMasses $category etau $DATASETS_DATA_ETAU $logParams 
+featurePlotZttHbb_SR_res_individualMasses $category mutau $DATASETS_DATA_MUTAU $logParams 
+featurePlotZttHbb_SR_res_individualMasses $category tautau $DATASETS_DATA_TAUTAU $logParams 
+done
+wait
+done
+
+# testing
+mass=800
+CATEGORY=resolved_2b
+REGION_NAME=etau
+
+python3 -m cProfile -o featureHistogram.profile $(which law) run FeatureHistogram --version prod_test_profile --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
+ --feature-names $ALL_FEATURES_ZttHbb \
+ --dataset-names $DATASETS_ZH_base,$DATASETS_DATA \
+ --workers 1 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522 \
+ --process-group-name datacard_res --category-name ZttHbb_orthogonal_cut_90_$CATEGORY --region-name ${REGION_NAME}_os_iso \
+ --hide-data True
 
 ###############################################################################################################################################
 ############################################################  Datacards  #################################################################
@@ -302,14 +418,14 @@ function makeNonResonantDatacards_ZbbHtt(){
     CATEGORY=$1
     REGION_NAME=$2
     DATASETS_DATA=$3
-
-    law run FeatureHistogram --version prod_240528_nonres --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
- --feature-names $ALL_FEATURES_ZbbHtt --workers 5 --MergeCategorizationStats-version prod_240305 \
+    # CHECK features : $ALL_FEATURES_ZbbHtt_old or dnn_ZHbbtt_kl_1,ZHKinFit_mass
+    law run FeatureHistogram --version prod_240528_nonres_fixXS --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
+ --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_mass --workers 5 --MergeCategorizationStats-version prod_240305 \
  --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
  --process-group-name datacard --hide-data True  --category-name ZbbHtt_orthogonal_cut_90_$CATEGORY \
  --region-name ${REGION_NAME}_os_iso "${@:4}" \
 && \
-    law run CreateDatacards --version prod_240528_nonres --FeaturePlot-version prod_240528_nonres --FeatureHistogram-version prod_240528_nonres --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
+    law run CreateDatacards --version prod_240528_nonres_fixXS --FeaturePlot-version prod_240528_nonres_fixXS --FeatureHistogram-version prod_240528_nonres_fixXS --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
  --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_mass --workers 5 --MergeCategorizationStats-version prod_240305 \
  --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
  --process-group-name datacard --hide-data True  --category-name ZbbHtt_orthogonal_cut_90_$CATEGORY \
@@ -333,13 +449,14 @@ function makeNonResonantDatacards_ZttHbb(){
     CATEGORY=$1
     REGION_NAME=$2
     DATASETS_DATA=$3
-    law run FeatureHistogram --version prod_240528_nonres --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
- --feature-names $ALL_FEATURES_ZttHbb --workers 7 --MergeCategorizationStats-version prod_240305 \
+    # CHECK features : $ALL_FEATURES_ZttHbb or dnn_ZHbbtt_kl_1,ZHKinFit_mass
+    law run FeatureHistogram --version prod_240528_nonres_fixXS --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
+ --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_mass --workers 7 --MergeCategorizationStats-version prod_240305 \
  --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
  --process-group-name datacard --hide-data True  --category-name ZttHbb_orthogonal_cut_90_$CATEGORY \
  --region-name ${REGION_NAME}_os_iso "${@:4}" \
 && \
-    law run CreateDatacards --version prod_240528_nonres --FeaturePlot-version prod_240528_nonres --FeatureHistogram-version prod_240528_nonres --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
+    law run CreateDatacards --version prod_240528_nonres_fixXS --FeaturePlot-version prod_240528_nonres_fixXS --FeatureHistogram-version prod_240528_nonres_fixXS --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
  --feature-names dnn_ZHbbtt_kl_1,ZHKinFit_mass --PrePlot-feature-names $ALL_FEATURES_ZttHbb --workers 5 --MergeCategorizationStats-version prod_240305  \
  --dataset-names $DATASETS_ZH_nonres,$DATASETS_DATA \
  --process-group-name datacard --hide-data True  --category-name ZttHbb_orthogonal_cut_90_$CATEGORY \
@@ -367,10 +484,11 @@ function makeResonantDatacards_ZbbHtt {
 
     # make datacards for both the parametrized an non-parametrized DNN
     law run CreateDatacards --version prod_240528_M$RES_MASS --FeatureHistogram-version prod_240528_M$RES_MASS --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZbbHtt_v12 \
- --feature-names dnn_ZHbbtt_kl_1_$RES_MASS,dnn_ZHbbtt_kl_1,ZHKinFit_highmass --workers 5 --MergeCategorizationStats-version prod_240305 \
+ --feature-names dnn_ZHbbtt_kl_1_$RES_MASS,dnn_ZHbbtt_kl_1,ZHKinFit_highmass --PrePlot-feature-names $ALL_FEATURES_ZbbHtt \
+ --workers 3 --MergeCategorizationStats-version prod_240305 \
  --dataset-names "ZprimeToZH_ZToBB_HToTauTau_M${RES_MASS},ZprimeToZH_ZToTauTau_HToBB_M${RES_MASS},$DATASETS_ZH_base,zh_zbb_htt,zh_ztt_hbb,$DATASETS_DATA" \
  --process-group-name datacard_res  --category-name ZbbHtt_orthogonal_cut_90_$CATEGORY \
- --region-name ${REGION_NAME}_os_iso  --hide-data True "${@:5}"
+ --region-name ${REGION_NAME}_os_iso  --hide-data True "${@:5}" --remove-output 0,a,True &
 }
 
 for res_mass in $RESONANT_MASSES; do
@@ -394,10 +512,10 @@ function makeResonantDatacards_ZttHbb {
     DATASETS_DATA=$4
 
     law run CreateDatacards --version prod_240528_M$RES_MASS --FeatureHistogram-version prod_240528_M$RES_MASS --PrePlot-version prod_240522 --config-name ul_${YEAR}_ZttHbb_v12 \
- --feature-names dnn_ZHbbtt_kl_1_$RES_MASS,dnn_ZHbbtt_kl_1,ZHKinFit_highmass --workers 5 --MergeCategorizationStats-version prod_240305  \
+ --feature-names dnn_ZHbbtt_kl_1_$RES_MASS,dnn_ZHbbtt_kl_1,ZHKinFit_highmass --workers 1 --MergeCategorizationStats-version prod_240305  \
  --dataset-names "ZprimeToZH_ZToTauTau_HToBB_M${RES_MASS},ZprimeToZH_ZToBB_HToTauTau_M${RES_MASS},$DATASETS_ZH_base,zh_zbb_htt,zh_ztt_hbb,$DATASETS_DATA" \
  --process-group-name datacard_res --category-name ZttHbb_orthogonal_cut_90_$CATEGORY \
- --region-name ${REGION_NAME}_os_iso --hide-data True --remove-output 0,a,True  "${@:5}" &
+ --region-name ${REGION_NAME}_os_iso --hide-data True "${@:5}" &
 }
 
 for res_mass in $RESONANT_MASSES; do
@@ -412,7 +530,10 @@ for res_mass in $RESONANT_MASSES; do
     makeResonantDatacards_ZttHbb $res_mass boosted_noPNet etau $DATASETS_DATA_ETAU 
     makeResonantDatacards_ZttHbb $res_mass boosted_noPNet mutau $DATASETS_DATA_MUTAU 
     makeResonantDatacards_ZttHbb $res_mass boosted_noPNet tautau $DATASETS_DATA_TAUTAU --do-qcd --propagate-syst-qcd 
+    
 done
 
 
 
+## debug
+law run FeatureHistogram --version prod_240528_res_dummy_test --PrePlot-version prod_240522 --config-name ul_2016_HIPM_ZbbHtt_v12  --feature-names dnn_ZHbbtt_kl_1_1200 --dataset-names ZprimeToZH_ZToBB_HToTauTau_M600,ZprimeToZH_ZToBB_HToTauTau_M800,ZprimeToZH_ZToBB_HToTauTau_M1000,ZprimeToZH_ZToBB_HToTauTau_M1200,ZprimeToZH_ZToBB_HToTauTau_M1400,ZprimeToZH_ZToBB_HToTauTau_M1600,ZprimeToZH_ZToBB_HToTauTau_M1800,ZprimeToZH_ZToBB_HToTauTau_M2000,ZprimeToZH_ZToBB_HToTauTau_M2500,ZprimeToZH_ZToBB_HToTauTau_M3000,ZprimeToZH_ZToBB_HToTauTau_M3500,ZprimeToZH_ZToBB_HToTauTau_M4000,ZprimeToZH_ZToTauTau_HToBB_M600,ZprimeToZH_ZToTauTau_HToBB_M800,ZprimeToZH_ZToTauTau_HToBB_M1000,ZprimeToZH_ZToTauTau_HToBB_M1200,ZprimeToZH_ZToTauTau_HToBB_M1400,ZprimeToZH_ZToTauTau_HToBB_M1600,ZprimeToZH_ZToTauTau_HToBB_M1800,ZprimeToZH_ZToTauTau_HToBB_M2000,ZprimeToZH_ZToTauTau_HToBB_M2500,ZprimeToZH_ZToTauTau_HToBB_M3000,ZprimeToZH_ZToTauTau_HToBB_M3500,ZprimeToZH_ZToTauTau_HToBB_M4000,ZprimeToZH_ZToTauTau_HToBB_M4500,ZprimeToZH_ZToTauTau_HToBB_M5000,ZprimeToZH_ZToTauTau_HToBB_M5500,ZprimeToZH_ZToTauTau_HToBB_M6000,dy,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6,dy_0j,dy_1j,dy_2j,wjets_ht1,wjets_ht2,wjets_ht3,wjets_ht4,wjets_ht5,wjets_ht6,wjets_ht7,wjets_ht8,tt_dl,tt_sl,tt_fh,zz_dl,zz_sl,zz_fh,zz_lnu,zz_qnu,wz_lllnu,wz_lnuqq,wz_lnununu,wz_llqq,ww_llnunu,ww_lnuqq,ww_qqqq,zzz,wzz,www,wwz,zh_zbb_htt_background,zh_ztt_hbb_background,zh_hbb,wminush_htt,wplush_htt,tth_bb,tth_tautau,ggH_ZZ,ggf_sm,ttw_lnu,ttw_qq,ttww,ttwz,ttwh,ttzh,ttz_llnunu,ttz_qq,ttzz,ewk_z,ewk_wplus,ewk_wminus,st_tw_antitop,st_tw_top,st_antitop,st_top,zh_zbb_htt,zh_ztt_hbb,data_tau_a,data_tau_b,data_tau_c,data_tau_d,data_tau_e --workers 1 --MergeCategorizationStats-version prod_240305 --MergeCategorization-version prod_240522  --process-group-name datacard_res --category-name ZbbHtt_orthogonal_cut_90_boosted_noPNet --region-name tautau_os_iso --do-qcd --hide-data True --propagate-syst-qcd
