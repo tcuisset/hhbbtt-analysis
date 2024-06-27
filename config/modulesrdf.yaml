@@ -285,6 +285,18 @@ btag:
         lep_phi: "{dau1_phi, dau2_phi}"
         lep_mass: "{dau1_mass, dau2_mass}"
 
+# JES not split in 11
+# "down_jes", "up_jes",
+
+MET_XYCorrections:
+    name: MET_XYCorrections_RDF
+    path: Tools.Tools.met_xy
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runEra: self.dataset.runEra
+
+
 svfit_ZZ:
     name: SVFitRDF
     path: Tools.Tools.svfit

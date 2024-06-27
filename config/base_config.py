@@ -590,6 +590,20 @@ class BaseConfig(cmt_config):
                             #  "jec_MET_4", "jec_MET_5", "jec_MET_6", "jec_MET_7", "jec_MET_8",
                             #  "jec_MET_9", "jec_MET_10", "jec_MET_11"]),
             
+            Feature("met_pt_corr", "MET_pt_corr", binning=(10, 50, 150),
+                x_title=Label("MET p_{T} (XY corrected)"),
+                units="GeV",
+                central="met_smearing",
+                systematics=["jer_MET", "tes_MET", "jec_MET"]), # "jec_MET_1", "jec_MET_2", "jec_MET_3", 
+                            #  "jec_MET_4", "jec_MET_5", "jec_MET_6", "jec_MET_7", "jec_MET_8",
+                            #  "jec_MET_9", "jec_MET_10", "jec_MET_11"]),
+            Feature("met_phi_corr", "MET_phi_corr", binning=(20, -3.2, 3.2),
+                x_title=Label("MET #phi (XY corrected)"),
+                central="met_smearing",
+                systematics=["jer_MET", "tes_MET", "jec_MET_1"]), # "jec_MET_2", "jec_MET_3", 
+                            #  "jec_MET_4", "jec_MET_5", "jec_MET_6", "jec_MET_7", "jec_MET_8",
+                            #  "jec_MET_9", "jec_MET_10", "jec_MET_11"]),
+            
             Feature("btagging", "Jet_btagDeepFlavB", binning=(30,0,1),
                 x_title=Label("b-tagging score")),
 
