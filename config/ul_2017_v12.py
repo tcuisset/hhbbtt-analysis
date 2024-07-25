@@ -21,7 +21,7 @@ def get_2017_v12_weights():
     return weights
 
 def setupBtagDeeptau(self):
-    self.btag=DotDict(tight=0.7476, medium=0.3040, loose=0.0532)
+#    self.btag=DotDict(tight=0.7476, medium=0.3040, loose=0.0532)
     self.deeptau=DotDict(
         vsjet=DotDict(VVVLoose=1, VVLoose=2, VLoose=3, Loose=4, Medium=5,
             Tight=6, VTight=7, VVTight=8),

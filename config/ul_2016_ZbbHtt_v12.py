@@ -50,5 +50,5 @@ class Config_ul_2016_ZH_v12(ConfigZbbHtt):
     def add_datasets(self):
         return get_datasets_ZH_2016(self)
 
-config = Config_ul_2016_ZH_v12("ul_2016_ZbbHtt_v12", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Htautau", ispreVFP=False)
+config = Config_ul_2016_ZH_v12("ul_2016_ZbbHtt_v12", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Htautau", ispreVFP=False, runPeriod="postVFP")
 # https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_ETau_UL2016.cfg#L3C8-L3C13

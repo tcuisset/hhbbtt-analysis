@@ -244,6 +244,8 @@ def get_common_processes():
 
 class BaseConfig(cmt_config):
     def __init__(self, *args, **kwargs):
+        self.tauId_algo = "idDeepTau2017v2p1"
+        self.add_bjet_id(kwargs["year"], kwargs.get("runPeriod", None), "DeepFlavB")
         self.channels = self.add_channels()
         self.regions = self.add_regions()
         self.categories = self.add_categories()
@@ -364,7 +366,7 @@ class BaseConfig(cmt_config):
 
         sel = DotDict()
         btag = kwargs.pop("btag", "Jet_btagDeepFlavB.at(bjet{}_JetIdx)")
-        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag[wp])
+        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag_algo_wps[wp])
         sel["btag"] = DotDict(
             m_first=[df(1, ">", "medium")], # bjet 1 passes medium btag WP
             m_second=[df(2, ">", "medium")],
