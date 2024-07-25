@@ -204,6 +204,9 @@ def get_common_datasets_v12(self):
                 "tautau": 10,
                 "etau": 10,
                 "mutau": 10,
+                "resolved_1b": 2,
+                "resolved_2b": 2,
+                "boosted" : 1,
                 "elliptical_cut": 5
             },
             secondary_dataset="dy_aux",
@@ -321,10 +324,13 @@ def get_common_datasets_v12(self):
             process=self.processes.get("tt_dl"),
             xs=self.cross_section_dict["tt_dl"],
             merging={
-                "tautau": 10,
-                "mutau": 10,
-                "etau": 20,
-                "elliptical_cut": 20
+                "tautau": 20,
+                "mutau": 20,
+                "etau": 40,
+                "resolved_1b": 15,
+                "resolved_2b": 10,
+                "boosted" : 1,
+                "elliptical_cut": 10,
             },
             # scaling=(0.908, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_dl_aux",
@@ -337,9 +343,12 @@ def get_common_datasets_v12(self):
             xs=self.cross_section_dict["tt_sl"],
             merging={
                 "tautau": 20,
-                "mutau": 60,
+                "mutau": 20,
                 "etau": 40,
-                "elliptical_cut": 40
+                "resolved_1b": 15,
+                "resolved_2b": 10,
+                "boosted" : 1,
+                "elliptical_cut": 10,
             },
             # scaling=(0.908, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_sl_aux",

@@ -205,6 +205,9 @@ def get_common_datasets_v12(self):
                 "tautau": 10,
                 "etau": 10,
                 "mutau": 10,
+                "resolved_1b": 2,
+                "resolved_2b": 2,
+                "boosted" : 1,
                 "elliptical_cut": 5
             },
             secondary_dataset="dy_aux",
@@ -325,7 +328,10 @@ def get_common_datasets_v12(self):
                 "tautau": 20,
                 "mutau": 20,
                 "etau": 40,
-                "elliptical_cut": 20
+                "resolved_1b": 30,
+                "resolved_2b": 20,
+                "boosted" : 1,
+                "elliptical_cut": 20,
             },
             # scaling=(0.988, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_dl_aux",
@@ -340,6 +346,9 @@ def get_common_datasets_v12(self):
                 "tautau": 20,
                 "mutau": 60,
                 "etau": 40,
+                "resolved_1b": 30,
+                "resolved_2b": 20,
+                "boosted" : 1,
                 "elliptical_cut": 40
             },
             # scaling=(0.988, 0.006), # temporaily disabled until we compute our ou SF
