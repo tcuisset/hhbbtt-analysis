@@ -328,15 +328,34 @@ class BaseConfig(cmt_config):
     def get_bjets_requirements(self):
         """ Compute the requirements for btagging for the different categories.
         Returns dict with keys req_1b, req_2b, req_ll 
-        Uses self.btag
+        Uses self.btag_algo_wps
         """
         reqs = DotDict()
         btag = "Jet_btagDeepFlavB.at(bjet{}_JetIdx)"
-        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag[wp])
+        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag_algo_wps[wp])
         reqs.req_1b = jrs(jrs(df(1, ">", "medium"), df(2, "<", "medium"), op="and"),
                 jrs(df(1, "<", "medium"), df(2, ">", "medium"), op="and"), op="or")  # exactly one b jet passes medium (for res1b)
         reqs.req_2b = jrs(df(1, ">", "medium"), df(2, ">", "medium")) # both bjets pass medium (for res2b)
-        reqs.req_ll = jrs(df(1, ">", "loose"), df(2, ">", "loose")) # both bjets pass loose (for boosted) 
+        reqs.req_1or2b = jrs(df(1, ">", "medium"), df(2, ">", "medium"), op="or") # at least one b jets passes medium (res1b | res2b), for orthogonality of boosted with resolved
+        reqs.req_ll = jrs(df(1, ">", "loose"), df(2, ">", "loose")) # both bjets pass loose (for old boosted, not used now) 
+
+        # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
+        reqs.boosted_pnet = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.particleNetMD_legacy.low})"
+        return reqs
+    
+    def get_categories_requirements(self):
+        """ Requirements for selecting res1b, res2b & boosted categories """
+        reqs = DotDict()
+        bjets = self.get_bjets_requirements()
+        # req_2jets = "(bjet1_JetIdx >= 0)" # requires that we have 2 AK4 jets selected by hhbtag, prerequisite for resolved (if bjet1_JetIdx is there then bjet2_JetIdx is also there)
+        reqs.resolved_1b = f"(isBoosted == 0 && ({bjets.req_1b}))"
+        reqs.resolved_2b = f"(isBoosted == 0  && ({bjets.req_2b}))"
+        # Following not needed since orthogonalization done at HHJets level
+        ## need to orthogonalize boosted to resolved. -> need isBoosted = 1 (ie there is an AK8 jet passing selection), and :
+        ## - either we have <2 AK4 jets passing the first selections (before hhbtag and btag, ie pt, PUid, deltaR) 
+        ## - or we have >= 2 AK4 jets but the 2 hhbtag-selected jets both fail the medium btag WP
+        ## note the order of evaluation, important to not access Jet collections with -1 index
+        reqs.boosted = f"(isBoosted == 1)"
         return reqs
 
     def add_categories(self, **kwargs):

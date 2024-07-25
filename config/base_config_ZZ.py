@@ -48,8 +48,7 @@ class Config(BaseConfig):
                     .format(self.deeptau.vsjet.Medium))
         
         bjets = self.get_bjets_requirements()
-        # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
-        boosted_pnet_cut = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.particleNetMD_legacy.low})"
+        cat_reqs = self.get_categories_requirements()
 
         categories += ObjectCollection([
             # Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
@@ -92,22 +91,22 @@ class Config(BaseConfig):
                 selection=elliptical_cut_90),
             
             Category("ZZ_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
-                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_1b})"),
+                selection=f"({elliptical_cut_90}) && ({cat_reqs.resolved_1b})"),
             Category("ZZ_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
-                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_2b})"),
+                selection=f"({elliptical_cut_90}) && ({cat_reqs.resolved_2b})"),
             Category("ZZ_elliptical_cut_90_boosted", "EC90 & boosted",
-                selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+                selection=f"({elliptical_cut_90}) && ({cat_reqs.boosted})"),
             
-            Category("ZZ_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
-                selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
+            # Category("ZZ_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
+            #     selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
 
-            Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region", # for DNN training
-                selection=elliptical_cut_90 + " && " + \
-                    "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 2) && (isOS == 1) && "
-                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
-                    .format(self.deeptau.vsjet.Medium)),
+            # Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region", # for DNN training
+            #     selection=elliptical_cut_90 + " && " + \
+            #         "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+            #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+            #         "((pairType == 2) && (isOS == 1) && "
+            #         "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
+            #         .format(self.deeptau.vsjet.Medium)),
 
             # Category("ZZ_elliptical_cut_90_CR_mutau", "CR ZZ mass cut E=90%",
             #     selection=elliptical_cut_90_inv + "&& (pairType == 0)"),
@@ -120,14 +119,14 @@ class Config(BaseConfig):
                 selection=elliptical_cut_90_inv),
 
             Category("ZZ_elliptical_cut_90_CR_resolved_1b", "CR & resolved 1b",
-                selection=f"({elliptical_cut_90_inv}) && isBoosted == 0 && ({bjets.req_1b})"),
+                selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_1b})"),
             Category("ZZ_elliptical_cut_90_CR_resolved_2b", "CR & resolved 2b",
-                selection=f"({elliptical_cut_90_inv}) && isBoosted == 0 && ({bjets.req_2b})"),
+                selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_2b})"),
             Category("ZZ_elliptical_cut_90_CR_boosted", "CR & boosted",
-                selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+                selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.boosted})"),
             
-            Category("ZZ_elliptical_cut_90_CR_boosted_noPNet", "CR & boosted (no PNet cut)",
-                selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 "),
+            # Category("ZZ_elliptical_cut_90_CR_boosted_noPNet", "CR & boosted (no PNet cut)",
+            #     selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 "),
 
             # Category("ZZ_elliptical_cut_90_mutau", "ZZ mass cut E=90%",
             #     selection=elliptical_cut_90 + "&& (pairType == 0)"),

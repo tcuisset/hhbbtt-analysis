@@ -46,8 +46,7 @@ class ConfigZttHbb(BaseConfig):
                     "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
                     .format(self.deeptau.vsjet.Medium))
         bjets = self.get_bjets_requirements()
-        # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
-        boosted_pnet_cut = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.particleNetMD_legacy.low})"
+        cat_reqs = self.get_categories_requirements()
         
         categories += ObjectCollection([
 
@@ -71,21 +70,21 @@ class ConfigZttHbb(BaseConfig):
                 selection="("+elliptical_cut_90+") && (pairType == 2)"),
             
             Category("ZttHbb_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
-                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_1b})"),
+                selection=f"({elliptical_cut_90}) && {cat_reqs.resolved_1b}"),
             Category("ZttHbb_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
-                selection=f"({elliptical_cut_90}) && isBoosted == 0 && ({bjets.req_2b})"),
+                selection=f"({elliptical_cut_90}) && {cat_reqs.resolved_2b}"),
             Category("ZttHbb_elliptical_cut_90_boosted", "EC90 & boosted",
-                selection=f"({elliptical_cut_90}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+                selection=f"({elliptical_cut_90}) && {cat_reqs.boosted}"),
             
             Category("ZttHbb_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
                 selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
             
             Category("ZttHbb_orthogonal_cut_90_resolved_1b", "EC90 orthogonal & resolved 1b",
-                selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 0 && ({bjets.req_1b})"),
+                selection=f"({elliptical_cut_90}) && ({orthogonality}) && {cat_reqs.resolved_1b}"),
             Category("ZttHbb_orthogonal_cut_90_resolved_2b", "EC90 orthogonal & resolved 2b",
-                selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 0 && ({bjets.req_2b})"),
+                selection=f"({elliptical_cut_90}) && ({orthogonality}) && {cat_reqs.resolved_2b}"),
             Category("ZttHbb_orthogonal_cut_90_boosted", "EC90 orthogonal & boosted",
-                selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+                selection=f"({elliptical_cut_90}) && ({orthogonality}) && {cat_reqs.boosted}"),
             Category("ZttHbb_orthogonal_cut_90_boosted_noPNet", "EC90 orthogonal & boosted (no PNet cut)",
                 selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 1 "),
             
@@ -93,11 +92,11 @@ class ConfigZttHbb(BaseConfig):
                 selection=f"({elliptical_cut_90_inv}) && ({orthogonality})"),
             
             Category("ZttHbb_orthogonal_cut_90_CR_resolved_1b", "CR orthogonal & resolved 1b",
-                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 0 && ({bjets.req_1b})"),
+                selection=f"({elliptical_cut_90_inv}) && ({orthogonality})&& {cat_reqs.resolved_1b}"),
             Category("ZttHbb_orthogonal_cut_90_CR_resolved_2b", "CR orthogonal & resolved 2b",
-                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 0 && ({bjets.req_2b})"),
+                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && {cat_reqs.resolved_2b}"),
             Category("ZttHbb_orthogonal_cut_90_CR_boosted", "CR orthogonal & boosted",
-                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 1 && ({boosted_pnet_cut})"),
+                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && {cat_reqs.boosted}"),
             Category("ZttHbb_orthogonal_cut_90_CR_boosted_noPNet", "CR orthogonal & boosted (no PNet cut)",
                 selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 1 "),
         ])
