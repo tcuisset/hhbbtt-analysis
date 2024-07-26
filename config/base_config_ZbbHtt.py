@@ -14,13 +14,13 @@ class ConfigZbbHtt(BaseConfig):
             nonresonant=DotDict(
                 model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZbbHtt-0",
                 out_branch="dnn_ZHbbtt_kl_1",
-                systematics=["tes", "jer", "jec"]
+                #systematics=["tes", "jer", "jec"]
             ),
             resonant=DotDict(
                 model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ResZbbHtt-0/",
                 resonant_masses=resonant_masses_ZH,
                 out_branch="dnn_ZHbbtt_kl_1_{mass}",
-                systematics=["tes", "jer", "jec"]
+                #systematics=["tes", "jer", "jec"]
             ),
         )
 
@@ -46,7 +46,7 @@ class ConfigZbbHtt(BaseConfig):
                     .format(self.deeptau.vsjet.Medium))
         bjets = self.get_bjets_requirements()
         cat_reqs = self.get_categories_requirements()
-        
+
         categories += ObjectCollection([
 
             Category("ZbbHtt_elliptical_cut_90", "Elliptical cut E=90%",
@@ -111,85 +111,74 @@ class ConfigZbbHtt(BaseConfig):
         """ Add features specific to ZH, in addition to the common ones defined in base_config.py 
         There are features for both ZbbHtt and ZttHbb analyses. TODO split them
         """
-        base_features = super().add_features() + get_ZH_common_features()
+        base_features = super().add_features() + get_ZH_common_features(self)
         zbttHtt_features = [
             # Zbb
             Feature("Zbb_pt", "Zbb_pt", binning=(15, 50, 200),
                 x_title=Label("Z(b#bar{b}) p_{T}"),
-                units="GeV",
-                systematics=["jer","jec", #"jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             #"jec_7", "jec_8", "jec_9", "jec_10", "jec_11"
-                            ]),
+                units="GeV", tags=["cat"],
+                **self.jet_systs_params),
             Feature("Zbb_eta", "Zbb_eta", binning=(20, -5., 5.),
-                x_title=Label("Z(b#bar{b}) #eta"),
-                systematics=["jer","jec", #"jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             #"jec_7", "jec_8", "jec_9", "jec_10", "jec_11"
-                            ]),
+                x_title=Label("Z(b#bar{b}) #eta"), tags=["cat"]),
             Feature("Zbb_phi", "Zbb_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("Z(b#bar{b}) #phi"),
-                systematics=["jer","jec", #"jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             #"jec_7", "jec_8", "jec_9", "jec_10", "jec_11"
-                            ]),
+                x_title=Label("Z(b#bar{b}) #phi"), tags=["cat"]),
             Feature("Zbb_mass", "Zbb_mass", binning=(30, 0, 250),
                 x_title=Label("Z(b#bar{b}) mass"),
-                units="GeV",
-                systematics=["jer","jec", #"jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             #"jec_7", "jec_8", "jec_9", "jec_10", "jec_11"
-                            ]),
+                units="GeV", tags=["cat"],
+                **self.jet_systs_params),
             Feature("Zbb_mass_ellipse", "Zbb_mass", binning=(50, 0, 500),
-                x_title=Label("Z(b#bar{b}) mass"),
-                units="GeV"),
+                x_title=Label("Z(b#bar{b}) mass"), central="jet_smearing",
+                units="GeV", tags=["cat", "extra"]), # no systematics here (for 2D plot)
             
             # Htt
             Feature("Htt_pt", "Htt_pt", binning=(10, 50, 150),
                 x_title=Label("H(#tau^{+}#tau^{-}) p_{T}"),
-                units="GeV",
-                systematics=["tes"]),
+                units="GeV", tags=["cat"],
+                **self.didau_systs_params),
             Feature("Htt_eta", "Htt_eta", binning=(20, -5., 5.),
-                x_title=Label("H(#tau^{+}#tau^{-}) #eta"),
-                systematics=["tes"]),
+                x_title=Label("H(#tau^{+}#tau^{-}) #eta"), tags=["cat"]),
             Feature("Htt_phi", "Htt_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("H(#tau^{+}#tau^{-}) #phi"),
-                systematics=["tes"]),
+                x_title=Label("H(#tau^{+}#tau^{-}) #phi"), tags=["cat"]),
             Feature("Htt_mass", "Htt_mass", binning=(30, 0, 150),
-                x_title=Label("H(#tau^{+}#tau^{-}) mass"),
+                x_title=Label("H(#tau^{+}#tau^{-}) mass"), tags=["cat"],
                 units="GeV",
-                systematics=["tes"]),
+                **self.didau_systs_params),
             
             # Htt + met
             Feature("Htt_met_pt", "Htt_met_pt", binning=(15, 50, 200),
                 x_title=Label("H(#tau^{+}#tau^{-}+MET) p_{T}"),
-                units="GeV",
-                systematics=["tes"]),
+                units="GeV", tags=["cat"],
+                systematics=self.all_systs),
             Feature("Htt_met_eta", "Htt_met_eta", binning=(20, -5., 5.),
-                x_title=Label("H(#tau^{+}#tau^{-}+MET) #eta"),
-                systematics=["tes"]),
+                x_title=Label("H(#tau^{+}#tau^{-}+MET) #eta"), tags=["cat"],
+                systematics=self.all_systs),
             Feature("Htt_met_phi", "Htt_met_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("H(#tau^{+}#tau^{-}+MET) #phi"),
-                systematics=["tes"]),
+                x_title=Label("H(#tau^{+}#tau^{-}+MET) #phi"), tags=["cat"],
+                systematics=self.all_systs),
             Feature("Htt_met_mass", "Htt_met_mass", binning=(25, 0, 500),
-                x_title=Label("H(#tau^{+}#tau^{-}+MET) mass"),
+                x_title=Label("H(#tau^{+}#tau^{-}+MET) mass"), tags=["cat"],
                 units="GeV",
-                systematics=["tes"]),
+                systematics=self.all_systs),
             
             # Htt (SVFit)
             Feature("Htt_svfit_pt", "Xtt_svfit_pt", binning=(15, 50, 200),
                 x_title=Label("H(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
-                units="GeV",
-                systematics=["tes"]),
+                units="GeV", tags=["cat"],
+                systematics=self.all_systs),
             Feature("Htt_svfit_eta", "Xtt_svfit_eta", binning=(20, -5., 5.),
-                x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"),
-                systematics=["tes"]),
+                x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"), tags=["cat"],
+                systematics=self.all_systs),
             Feature("Htt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("H(#tau^{+}#tau^{-}) #phi (SVFit)"),
-                systematics=["tes"]),
+                x_title=Label("H(#tau^{+}#tau^{-}) #phi (SVFit)"), tags=["cat"],
+                systematics=self.all_systs),
             Feature("Htt_svfit_mass", "Xtt_svfit_mass", binning=(25, 1, 501),
                 x_title=Label("H(#tau^{+}#tau^{-}) mass (SVFit)"),
-                units="GeV",
-                systematics=["tes"]),
+                units="GeV", tags=["cat"],
+                systematics=self.all_systs),
             Feature("Htt_svfit_mass_ellipse", "Xtt_svfit_mass", binning=(35, 0, 350),
                 x_title=Label("H(#tau^{+}#tau^{-}) mass (SVFit)"),
-                units="GeV"),
+                units="GeV", tags=["cat", "extra"],
+                systematics=self.all_systs),
         ]
         return base_features + ObjectCollection(zbttHtt_features)
 
