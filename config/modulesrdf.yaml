@@ -3,7 +3,7 @@
 
 lumifilter:
     name: lumiFilterRDF
-    path: Base.Modules.lumiFilter
+    path: Base.Filters.lumiFilter
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
@@ -36,16 +36,28 @@ genWeightLOFix:
     name: GenWeightLOFixRDF
     path: Tools.Tools.genWeightLOFix
     parameters:
+        isMC: self.dataset.process.isMC
         setGenWeightToOne: self.dataset.get_aux('setGenWeightToOne', False)
 
 metfilter:
     name: MetFilterRDF
-    path: Base.Modules.METfilters
+    path: Base.Filters.METfilters
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
-# also comutes TES
+# Electron_pt_smear_up/down & Electron_pt_scale_up/down for MC
+eleScaleUncertainties:
+    name: eleScaleUncertaintiesRDF
+    path: Corrections.EGM.eleCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+
+# Computes DeepTau SFs (event weights) and TES (tau energy scale) : *per-object variations*
+# we use the single template up/down
 tauSF:
     name: tauSFRDF
     path: Corrections.TAU.tauCorrections
@@ -53,8 +65,13 @@ tauSF:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
-        ispreVFP: self.config.get_aux('ispreVFP', False)
+        runPeriod: self.config.runPeriod
+        tauId_algo: self.config.tauId_algo
+        vsjet_wps: [VVVLoose, Medium]
+        vse_wps: [VVLoose]
+        vsmu_wps: [VLoose, Tight]
 
+# Trigger & lepton selections. Depends on TES (&electron scale ?)
 hhlepton:
     name: HHLeptonRDF
     path: Tools.Tools.HHLepton
@@ -64,56 +81,94 @@ hhlepton:
         year: self.config.year
         runEra: self.dataset.runEra
         vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
-        vl_vse: self.config.deeptau.vse.VLoose
+# for VsEle, we need to use either VVLoose or Tight in order to apply SFs for genuine taus for VsJet discriminant
+# so put VVLosse in vl_vse variable (this should be better named...)
+        vl_vse: self.config.deeptau.vse.VVLoose
         vvl_vse: self.config.deeptau.vse.VVLoose
         t_vsmu: self.config.deeptau.vsmu.Tight
         vl_vsmu: self.config.deeptau.vsmu.VLoose
         pairType_filter: True
 
+# TODO maybe we also want to keep the uncorrected tau variables ?
 hhleptonVar:
     name: HHLeptonVarRDF
     path: Tools.Tools.HHLepton
     parameters:
         isMC: self.dataset.process.isMC
+        year: self.config.year
 
-hhleptonVarTESup:
-    name: HHLeptonVarRDF
-    path: Tools.Tools.HHLepton
-    parameters:
-        isMC: self.dataset.process.isMC
-        tau_syst: corr_up
+# hhleptonVarTESup:
+#     name: HHLeptonVarRDF
+#     path: Tools.Tools.HHLepton
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         tau_syst: corr_up
 
-hhleptonVarTESdown:
-    name: HHLeptonVarRDF
-    path: Tools.Tools.HHLepton
-    parameters:
-        isMC: self.dataset.process.isMC
-        tau_syst: corr_down
+# hhleptonVarTESdown:
+#     name: HHLeptonVarRDF
+#     path: Tools.Tools.HHLepton
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         tau_syst: corr_down
 
-smearing_SFs:
+############### JME corrections
+# JEC is already done in NanoAOD normally. So only variations need to be computed
+# (otherwise JEC nominal would need to be computed here)
+
+### JER (only one single uncertainty, fine as long as we don't constrain it)
+# Smear jets in MC. Outputs : jet_smear_factor (_up/_down) & jet_pt_resolution
+jet_smearing:
     name: jetSmearerRDF
     path: Corrections.JME.smearing
     parameters:
         year: self.config.year
+        runPeriod: self.config.runPeriod
         isMC: self.dataset.process.isMC
-        jerTag: self.config.year
         isUL: self.dataset.has_tag('ul')
-        ispreVFP: self.config.get_aux('ispreVFP', False)
-
+# Create Jet_pt_nom & Jet_mass_nom & Jet_pt_smeared_up/down & Jet_mass_smeared_up/down
 jer_jet:
     name: jetVarRDF
     path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
 
-# also computes up and down variations
-jet_tes_smeared_met:
-    name: metJetTauSmearerRDF
+# FatJet smearing. Outputs : fatjet_smear_factor (_up/_down) & fatjet_pt_resolution
+fatjet_smearing:
+    name: jetSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        year: self.config.year
+        runPeriod: self.config.runPeriod
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        type: fatjerc
+# Create FatJet_pt_nom & FatJet_mass_nom & FatJet_pt_smeared_up/down & FatJet_mass_smeared_up/down
+jer_fatjet:
+    name: jetVarRDF
     path: Corrections.JME.smearing
     parameters:
         isMC: self.dataset.process.isMC
+        type: fatjerc
 
-jec_SFs:
+# # also computes up and down variations
+# jet_tes_smeared_met:
+#     name: metJetTauSmearerRDF
+#     path: Corrections.JME.smearing
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+
+
+### JEC
+# not specifying jec_sources will lead to the default being picked up which is the reduced set of 11 (names are year-dependent) + "Total".
+# *Either* "Total" or the 11 must be used, not all 12 of them !
+        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
+            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+
+# Computes jec_factor_{jecSource}_up/down which is an array for every jet
+jec_factors:
     name: jecProviderRDF
     path: Corrections.JME.jec
     parameters:
@@ -121,27 +176,66 @@ jec_SFs:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
-        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
-            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
-
-jec_jet:
+        jet_collection: Jet
+# Creates Jet_pt_{jecSource}_up/down branches
+jec_jet_corrections:
     name: jecVarRDF
     path: Corrections.JME.jec
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
-        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
-            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
-
-jec_met:
-    name: jecMETRDF
+# same but for FatJet. Actually uses the same correction sources as AK4, but we still need to compute the variations for each AK8 jet
+jec_factors_fatjet:
+    name: jecProviderRDF
     path: Corrections.JME.jec
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
-        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
-            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+        isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+        jet_collection: FatJet
+jec_fatjet_corrections:
+    name: jecVarRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        jet_collection: FatJet
 
+# jec_met:
+#     name: jecMETRDF
+#     path: Corrections.JME.jec
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
+#             # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+
+
+#################### MET
+met_shift:
+    name: metShifterRDF
+    path: Corrections.JME.met
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        met_smear_tag: "tes"
+        jet_syst: "" # do not smear MET. Will be overriden for JEC & JER
+        propagate_jer_smearing: False # prevent JER variations from being propagated to MET
+
+# MET XY corrections. Produces MET_smeared_xycorr_pt_{met_syst} & MET_smeared_xycorr_phi_{met_syst}
+MET_XYCorrections:
+    name: MET_XYCorrections_RDF
+    path: Corrections.JME.met
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runEra: self.dataset.runEra
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+        met_smear_tag: "tes"
+
+
+##### HHJets
 hhjets:
     name: HHJetsRDF
     path: Tools.Tools.HHJets
@@ -149,15 +243,16 @@ hhjets:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
-        met_smear_tag: smeared
+        met_smear_tag: "tes"
         filter: True
         model_version: 2
+        btag_wp: self.config.btag_algo_wps.medium
 
 bjet1var:
     name: VarFromVectorRDF
     path: Base.Modules.baseModules
     parameters:
-        variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
+        variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom] # use smeared values
         index: bjet1_JetIdx
         input_prefix: Jet
         output_prefix: bjet1
@@ -177,13 +272,13 @@ fatjetvar:
     name: VarFromVectorRDF
     path: Base.Modules.baseModules
     parameters:
-        variables: [FatJet_pt, FatJet_eta, FatJet_mass]
+        variables: [FatJet_pt_nom, FatJet_eta, FatJet_mass_nom]
         index: fatjet_JetIdx
         input_prefix: FatJet
         output_prefix: fatjet
         condition: self.dataset.process.isMC
 
-# probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
+# Here we compute a second time the JEC variations for the selected bjets. We could probably reuse the already-computed ones in jec_jet_corrections in some way, should be identitcal
 jecb1:
     name: jecProviderRDF
     path: Corrections.JME.jec
@@ -194,8 +289,7 @@ jecb1:
         pt: bjet1_pt_nom
         eta: bjet1_eta
         mass: bjet1_mass_nom
-
-# probably not needed if we can apply the SFs to all jets (so that we also have the corrected met!)
+        
 jecb2:
     name: jecProviderRDF
     path: Corrections.JME.jec
@@ -206,6 +300,19 @@ jecb2:
         pt: bjet2_pt_nom
         eta: bjet2_eta
         mass: bjet2_mass_nom
+        
+# same jec variations for fatjet as for AK4
+jecfatjet:
+    name: jecProviderRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        pt: fatjet_pt_nom
+        eta: fatjet_eta
+        mass: fatjet_mass_nom
+        
 
 trigSF:
     name: Htt_trigSFRDF
@@ -216,6 +323,7 @@ trigSF:
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
 
+# Computes ['PUjetID_SF', 'PUjetID_SF_up', 'PUjetID_SF_down']
 PUjetID_SF:
     name: PUjetID_SFRDF
     path: Corrections.JME.PUjetID_SF
@@ -224,26 +332,10 @@ PUjetID_SF:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
-        lep_pt: "{dau1_pt, dau2_pt}"
+        lep_pt: "{dau1_pt{lep_syst}, dau2_pt{lep_syst}}"
         lep_eta: "{dau1_eta, dau2_eta}"
         lep_phi: "{dau1_phi, dau2_phi}"
-        lep_mass: "{dau1_mass, dau2_mass}"
-
-# for VBF triggers only
-# 3_w2:
-#     name: prescaleWeightRDF
-#     path: Tools.Tools.weight
-#     parameters:
-#         isMC: self.dataset.process.isMC
-#         year: self.config.year
-
-# Only applies to non UL samples
-# 4_w2:
-#     name: prefiringWeightRDF
-#     path: Base.Modules.prefiringWeight
-#     parameters:
-#         isMC: self.dataset.process.isMC
-#         isUL: self.dataset.has_tag('ul')
+        lep_mass: "{dau1_mass{lep_syst}, dau2_mass{lep_syst}}"
 
 muSF:
     name: muSFRDF
@@ -252,7 +344,8 @@ muSF:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
-        ispreVFP: self.config.get_aux('ispreVFP', False)
+        runPeriod: self.config.runPeriod
+        wps: ["tight_id", "tight_reliso"]
 
 eleSF:
     name: eleSFRDF
@@ -261,15 +354,17 @@ eleSF:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
-        ispreVFP: self.config.get_aux('ispreVFP', False)
+        runPeriod: self.config.runPeriod
+        wps: [wp80iso, RecoAbove20]
 
 idAndIsoSF:
     name: dauIdIsoSFRDF
     path: Tools.Tools.dauIdIso
     parameters:
         isMC: self.dataset.process.isMC
-        muon_iso_syst_directions: ["_syst_up", "_syst_down", "_stat_up", "_stat_down"]
-        muon_id_syst_directions: ["_syst_up", "_syst_down", "_stat_up", "_stat_down"]
+        year: self.config.year
+        # muon_iso_syst_directions: ["_syst_up", "_syst_down"] # syst actually includes stat as well....
+        # muon_id_syst_directions: ["_syst_up", "_syst_down"]
 
 btag:
     name: btag_SFRDF
@@ -279,91 +374,27 @@ btag:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
-        uncertainties: ["central", "down_hfstats2"]
-        lep_pt: "{dau1_pt, dau2_pt}"
+        reshape_uncertainties: ["central", # BTV uncertainties
+        "down_cferr1", "down_cferr2", "down_hf", "down_hfstats1", "down_hfstats2",  "down_lf", "down_lfstats1", "down_lfstats2", 
+        "up_cferr1", "up_cferr2", "up_hf", "up_hfstats1", "up_hfstats2",  "up_lf", "up_lfstats1", "up_lfstats2", 
+        # SFs to be applied on top of the JES variations (reduced set of 11 uncertainties)
+        "down_jesAbsolute", "down_jesFlavorQCD", "down_jesAbsolute_{year}", "down_jesBBEC1", "down_jesBBEC1_{year}", "down_jesEC2", "down_jesEC2_{year}", "down_jesHF", "down_jesHF_{year}", "down_jesRelativeBal", "down_jesRelativeSample", "down_jesRelativeSample_{year}",
+        "up_jesAbsolute", "up_jesFlavorQCD", "up_jesAbsolute_{year}", "up_jesBBEC1", "up_jesBBEC1_{year}", "up_jesEC2", "up_jesEC2_{year}", "up_jesHF", "up_jesHF_{year}", "up_jesRelativeBal", "up_jesRelativeSample", "up_jesRelativeSample_{year}",
+        # one total uncertainty for JES
+        "up_jes", "down_jes"]
+        lep_pt: "{dau1_pt{lep_syst}, dau2_pt{lep_syst}}"
         lep_eta: "{dau1_eta, dau2_eta}"
         lep_phi: "{dau1_phi, dau2_phi}"
-        lep_mass: "{dau1_mass, dau2_mass}"
-
-# JES not split in 11
-# "down_jes", "up_jes",
-
-MET_XYCorrections:
-    name: MET_XYCorrections_RDF
-    path: Tools.Tools.met_xy
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        runEra: self.dataset.runEra
+        lep_mass: "{dau1_mass{lep_syst}, dau2_mass{lep_syst}}"
 
 
+###########
 svfit_ZZ:
     name: SVFitRDF
     path: Tools.Tools.svfit
     parameters:
-        isMC: self.dataset.process.isMC
-        met_smear_tag: smeared
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-
-######################################################################
-# Tau Energy Scale (tes): SVFitRDF
-######################################################################
-
-svfit_tes_up:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
+        year: self.config.year
         isMC: self.dataset.process.isMC
         AnalysisType: self.config.get_aux('AnalysisType', False)
-        tau_syst: corr_up
-
-svfit_tes_down:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        tau_syst: corr_down
-
-######################################################################
-# Jet Energy Resolution (JER) : SVFitRDF
-######################################################################
-
-svfit_JER_up:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        jet_syst: smeared_up
-        met_syst: up
-
-svfit_JER_down:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        jet_syst: smeared_down
-        met_syst: down
-
-######################################################################
-# Jet Energy Scale (JES) : SVFitRDF
-######################################################################
-
-svfit_Total_up:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        jet_syst: Total_up
-        met_syst: Total_up
-svfit_Total_down:
-    name: SVFitRDF
-    path: Tools.Tools.svfit
-    parameters:
-        isMC: self.dataset.process.isMC
-        AnalysisType: self.config.get_aux('AnalysisType', False)
-        jet_syst: Total_down
-        met_syst: Total_down
+        met_smear_tag: tes_xycorr
+        

@@ -1,0 +1,208 @@
+# keep_and_drop file for PreprocessRDF for systematic variations enabled (ie everything except nominal)
+drop HLT.*
+drop L1.*
+# keep only Nom
+drop L1PreFiringWeight.*
+keep L1PreFiringWeight_Nom
+drop HTXS.*
+drop Flag.*
+drop nTrigObj
+drop TrigObj.*
+drop LowPtElectron.*
+drop nLowPtElectron.*
+drop .*Photon.*
+drop Photon.*
+drop IsoTrack.*
+drop nIsoTrack.*
+drop nLHEPart
+drop LHE.*
+# keep LHE_Vpt
+# keep LHE_HT
+# keep LHE_Njets
+# keep LHE_NpLO
+# keep LHE_NpNLO
+# keep LHE_Nb
+
+drop boostedTau.*
+drop nboostedTau
+drop .*cleanmask
+
+drop SV.*
+drop nSV
+drop nOtherPV
+drop OtherPV_z
+drop RefitPV.*
+drop SoftActivityJet.*
+drop nSoftActivityJet
+drop FsrPhoton.*
+drop nFsrPhoton
+# drop gen
+drop GenPart.*
+drop GenDressedLepton.*
+drop nGenDressedLepton
+drop GenIsolatedPhoton.*
+drop nGenIsolatedPhoton
+drop GenProton.*
+drop nGenProton
+drop Proton.*
+drop nProton
+drop BeamSpot.*
+drop CaloMET.*
+drop ChsMET.*
+drop nCorrT1METJet
+drop CorrT1METJet.*
+drop DeepMETResolutionTune.*
+drop DeepMETResponseTune.*
+drop FatJet.*
+keep FatJet_pt.*
+drop FatJet_pt_.*_(up|down)
+keep FatJet_pt{systs}
+keep FatJet_eta
+keep FatJet_phi
+keep FatJet_mass.*
+drop FatJet_mass_.*_(up|down)
+keep FatJet_mass{systs}
+keep FatJet_msoftdrop
+# keep FatJet_genJetAK8Idx
+# keep FatJet_hadronFlavour
+# keep FatJet_nBHadrons
+# keep FatJet_btagDDBvLV2
+# keep FatJet_btagDeepB
+# keep FatJet_btagHbb
+# keep FatJet_deepTag_ZvsQCD
+keep FatJet_particleNet_XbbVsQCD
+# keep FatJet_particleNet_QCD
+# keep FatJet_particleNet_massCorr
+# keep FatJet_particleNetLegacy_Xbb
+# keep FatJet_particleNetLegacy_QCD
+# keep FatJet_particleNetLegacy_mass
+# keep FatJet_particleNetWithMass_HbbvsQCD
+# keep FatJet_particleNetWithMass_ZvsQCD
+# keep FatJet_particleNetWithMass_QCD
+# n-subjettiness (jet substructure variables) :
+# keep FatJet_tau.*
+
+drop nGenJetAK8
+# keep GenJetAK8.*
+
+drop nGenJet
+drop GenJet.*
+drop nSubGenJetAK8
+drop SubGenJetAK8.*
+drop Generator.*
+drop GenVtx.*
+drop nGenVisTau
+drop GenVisTau.*
+# drop genmet
+drop GenMET.*
+drop Pileup.*
+drop PuppiMET.*
+drop RawMET.*
+drop RawPuppiMET.*
+drop Rho.*
+drop nSubJet
+drop SubJet.*
+drop TkMET.*
+drop genTtbarId
+drop PV.*
+
+drop Electron.*
+keep Electron_pt.*
+drop Electron_pt_.*_(up|down)
+keep Electron_pt{systs}
+keep Electron_eta
+keep Electron_phi
+keep Electron_mass.*
+drop Electron_mass_.*_(up|down)
+keep Electron_mass{systs}
+drop Jet.*
+keep Jet_pt.*
+drop Jet_pt_.*_(up|down)
+keep Jet_pt{systs}
+# eta/phi probably not needed 
+keep Jet_eta
+keep Jet_phi
+# keep btag as that needs JEC
+keep Jet_btagDeepFlavB
+keep Jet_btagDeepFlavCvB
+keep Jet_btagDeepFlavCvL
+keep Jet_btagDeepFlavQG
+keep Jet_mass.*
+drop Jet_mass_.*_(up|down)
+keep Jet_mass{systs}
+# hhbtag depends on JEC
+keep Jet_HHbtag
+keep MET.*
+drop MET.*_(up|down)
+keep MET_.*{systs}
+# keep MET_cov.*
+# # we need to keep also uncorrected MET as for ex JER is not propgataed to MET
+# keep MET_.*_(pt|phi)
+drop MET_fiducial.*
+drop MET_significance.*
+drop MET_sum.*
+drop Muon.*
+keep Muon_pt
+keep Muon_eta
+keep Muon_phi
+keep Muon_mass
+drop Tau.*
+keep Tau_pt.*
+drop Tau_pt_.*_(up|down)
+keep Tau_pt{systs}
+keep Tau_eta
+keep Tau_phi
+keep Tau_decayMode
+keep Tau_mass.*
+drop Tau_mass_.*_(up|down)
+keep Tau_mass{systs}
+# due to the drop Tau* we need to add back framework-computed branches
+# keep Tau_mass_corr
+# keep Tau_mass_corr_up
+# keep Tau_mass_corr_down
+# keep Tau_pt_corr
+# keep Tau_pt_corr_up
+# keep Tau_pt_corr_down
+
+######## framework branches
+# we need to keep bjet1 raw in case the syst is a lepton one 
+# drop bjet1_.*_(up|down)
+# keep bjet1_.*{systs}
+# drop bjet2_.*_(up|down)
+# keep bjet2_.*{systs}
+# drop fatjet_.*_(up|down)
+# keep fatjet_.*{systs}
+
+
+# this is not needed as it is only computed for one systematic
+# drop [XHZ](bb||tt)_.*
+# keep [XHZ](bb|tt)_.*{systs}
+
+# # match ZZ_pt_*
+# drop (ZZ|ZH|HH)_.*
+# keep (ZZ|ZH|HH)_.*{systs}
+
+# # match Ztt_svfit*/Htt_/ZH_
+# drop ([XHZ]tt|ZZ|ZH|HH)_svfit_.*
+# keep ([XHZ]tt|ZZ|ZH|HH)_svfit_.*{systs}
+
+# drop hh_kinfit_.*
+# keep hh_kinfit_.*{systs}
+
+# drop sv_mass_.*
+# keep sv_mass_.*{systs}
+
+
+drop trigSF_.*
+
+# these are included in idAndIsoAndFakeSF
+drop musf_.*
+drop elesf_.*
+
+# no need for systematic variations as these are only weight variations
+drop idAndIsoAndFakeSF_.*
+drop bTagweightReshape_.*
+# except for btag as that is needed for JEC....
+keep bTagweightReshape{systs}
+
+

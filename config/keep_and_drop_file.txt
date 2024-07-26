@@ -1,3 +1,4 @@
+# keep_and_drop_file for PreprocessRDF for nominal (no systematic variation that changes event)
 drop HLT.*
 keep HLT_IsoTkMu24
 keep HLT_IsoMu24
@@ -15,6 +16,13 @@ keep HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg
 keep HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg
 keep HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg
 keep HLT_DoubleMediumDeepTauPFTauHPS35_L2NN_eta2p1
+keep HLT_.*Mu50
+keep HLT_.*Mu100
+keep HLT_Ele115_CaloIdVT_GsfTrkIdT
+keep HLT_Photon175
+keep HLT_Photon200
+keep HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50
+keep HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165
 drop L1.*
 keep L1PreFiringWeight.*
 drop HTXS.*
@@ -65,12 +73,14 @@ drop CorrT1METJet.*
 drop DeepMETResolutionTune.*
 drop DeepMETResponseTune.*
 drop FatJet.*
-keep FatJet_pt
+keep FatJet_pt.*
 keep FatJet_eta
 keep FatJet_phi
-keep FatJet_mass
+keep FatJet_mass.*
+keep FatJet_msoftdrop
 keep FatJet_genJetAK8Idx
 keep FatJet_hadronFlavour
+keep FatJet_nBHadrons
 keep FatJet_btagDDBvLV2
 keep FatJet_btagDeepB
 keep FatJet_btagHbb
@@ -84,14 +94,11 @@ keep FatJet_particleNetLegacy_mass
 keep FatJet_particleNetWithMass_HbbvsQCD
 keep FatJet_particleNetWithMass_ZvsQCD
 keep FatJet_particleNetWithMass_QCD
+# n-subjettiness (jet substructure variables) :
+keep FatJet_tau.*
 
 drop nGenJetAK8
-drop GenJetAK8.*
-keep GenJetAK8_pt
-keep GenJetAK8_phi
-keep GenJetAK8_partonFlavour
-keep GenJetAK8_eta
-keep GenJetAK8_hadronFlavour
+keep GenJetAK8.*
 
 drop nGenJet
 drop GenJet.*
@@ -101,7 +108,7 @@ drop Generator.*
 drop GenVtx.*
 drop nGenVisTau
 drop GenVisTau.*
-drop GenMET.*
+# drop GenMET.*
 drop Pileup.*
 drop PuppiMET.*
 drop RawMET.*
@@ -114,10 +121,10 @@ drop genTtbarId
 drop PV.*
 
 drop Electron.*
-keep Electron_pt
+keep Electron_pt.*
 keep Electron_eta
 keep Electron_phi
-keep Electron_mass
+keep Electron_mass.*
 drop Jet.*
 keep Jet_pt.*
 keep Jet_eta
@@ -128,13 +135,9 @@ keep Jet_btagDeepFlavCvL
 keep Jet_btagDeepFlavQG
 keep Jet_mass.*
 keep Jet_HHbtag
-drop MET.*
-keep MET_pt
-keep MET_phi
-keep MET_covXX
-keep MET_covXY
-keep MET_covYY
-keep MET_smeared.*
+drop MET_fiducial.*
+drop MET_significance.*
+drop MET_sum.*
 drop Muon.*
 keep Muon_pt
 keep Muon_eta
@@ -146,6 +149,7 @@ keep Tau_eta
 keep Tau_phi
 keep Tau_decayMode
 keep Tau_mass
+# due to the drop Tau* we need to add back framework-computed branches
 keep Tau_mass_corr
 keep Tau_mass_corr_up
 keep Tau_mass_corr_down
