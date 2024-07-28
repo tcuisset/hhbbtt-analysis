@@ -833,8 +833,6 @@ class BaseConfig(cmt_config):
               x_title=Label("LHE Nb of partons at LO"), tags=["lhe"]),
             Feature("LHE_NpNLO", "LHE_NpNLO", binning=(5, 0, 5), noData=True,
               x_title=Label("LHE Nb of partons at NLO"), tags=["lhe"]),
-            Feature("LHE_Njets", "LHE_Njets", binning=(5, 0, 5), noData=True,
-              x_title=Label("LHE Njets"), tags=["lhe"]),
         ]
         return ObjectCollection(features)
     
