@@ -35,7 +35,6 @@ drop .*Photon.*
 drop Photon.*
 drop IsoTrack.*
 drop nIsoTrack.*
-drop (|n)LHEPart.*
 keep LHE.*
 #keep LHE_Vpt
 #keep LHE_HT
@@ -43,6 +42,9 @@ keep LHE.*
 #keep LHE_NpLO
 #keep LHE_NpNLO
 #keep LHE_Nb
+
+# needs to be after keep LHE
+drop (|n)LHEPart.*
 
 drop boostedTau.*
 drop nboostedTau
