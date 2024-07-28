@@ -36,13 +36,13 @@ drop Photon.*
 drop IsoTrack.*
 drop nIsoTrack.*
 drop nLHEPart
-drop LHE.*
-keep LHE_Vpt
-keep LHE_HT
-keep LHE_Njets
-keep LHE_NpLO
-keep LHE_NpNLO
-keep LHE_Nb
+keep LHE.*
+#keep LHE_Vpt
+#keep LHE_HT
+#keep LHE_Njets
+#keep LHE_NpLO
+#keep LHE_NpNLO
+#keep LHE_Nb
 
 drop boostedTau.*
 drop nboostedTau
