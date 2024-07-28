@@ -111,7 +111,7 @@ class ConfigZttHbb(BaseConfig):
         base_features = super().add_features() + get_ZH_common_features(self)
         zttHbb_features = [
             # Hbb
-            Feature("Hbb_pt", "Hbb_pt", binning=(15, 50, 200),
+            Feature("Hbb_pt", "Hbb_pt", binning=(40, 0, 200),
                 x_title=Label("H(b#bar{b}) p_{T}"),
                 units="GeV", tags=["cat"],
                 **self.jet_systs_params),
@@ -119,7 +119,7 @@ class ConfigZttHbb(BaseConfig):
                 x_title=Label("H(b#bar{b}) #eta"), tags=["cat"]),
             Feature("Hbb_phi", "Hbb_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("H(b#bar{b}) #phi"), tags=["cat"]),
-            Feature("Hbb_mass", "Hbb_mass", binning=(30, 0, 250),
+            Feature("Hbb_mass", "Hbb_mass", binning=(40, 0, 200),
                 x_title=Label("H(b#bar{b}) mass"),
                 units="GeV", tags=["cat"],
                 **self.jet_systs_params),
@@ -168,7 +168,7 @@ class ConfigZttHbb(BaseConfig):
             Feature("Ztt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}) #phi (SVFit)"), tags=["cat"],
                 systematics=self.all_systs),
-            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(25, 1, 501),
+            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(25, 0, 250),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), tags=["cat"],
                 units="GeV",
                 systematics=self.all_systs),

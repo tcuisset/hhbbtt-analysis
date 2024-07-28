@@ -163,7 +163,7 @@ class Config(BaseConfig):
             #     x_title=Label("Pair Type")),
 
             # Zbb
-            Feature("Zbb_pt", "Zbb_pt", binning=(15, 50, 200),
+            Feature("Zbb_pt", "Zbb_pt", binning=(40, 0, 200),
                 x_title=Label("Z(b#bar{b}) p_{T}"),
                 units="GeV", tags=["cat"],
                 **self.jet_systs_params),
@@ -181,7 +181,7 @@ class Config(BaseConfig):
                 units="GeV", tags=["cat"]),
 
             # Ztt
-            Feature("Ztt_pt", "Ztt_pt", binning=(10, 50, 150),
+            Feature("Ztt_pt", "Ztt_pt", binning=(40, 0, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}) p_{T}"),
                 units="GeV", tags=["cat"],
                 **self.didau_systs_params),
@@ -189,13 +189,13 @@ class Config(BaseConfig):
                 x_title=Label("Z(#tau^{+}#tau^{-}) #eta"), tags=["cat"]),
             Feature("Ztt_phi", "Ztt_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}) #phi"), tags=["cat"]),
-            Feature("Ztt_mass", "Ztt_mass", binning=(30, 0, 150),
+            Feature("Ztt_mass", "Ztt_mass", binning=(40, 0, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass"),
                 units="GeV", tags=["cat"],
                 **self.didau_systs_params),
 
             # Ztt + met
-            Feature("Ztt_met_pt", "Ztt_met_pt", binning=(15, 50, 200),
+            Feature("Ztt_met_pt", "Ztt_met_pt", binning=(40, 0, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}+MET) p_{T}"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
@@ -211,7 +211,7 @@ class Config(BaseConfig):
                 systematics=self.all_systs),
 
             # Ztt (SVFit)
-            Feature("Ztt_svfit_pt", "Xtt_svfit_pt", binning=(15, 50, 200),
+            Feature("Ztt_svfit_pt", "Xtt_svfit_pt", binning=(40, 0, 200),
                 x_title=Label("Z(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
@@ -221,7 +221,7 @@ class Config(BaseConfig):
             Feature("Ztt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("Z(#tau^{+}#tau^{-}) #phi (SVFit)"), tags=["cat"],
                 systematics=self.all_systs),
-            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(25, 1, 501),
+            Feature("Ztt_svfit_mass", "Xtt_svfit_mass", binning=(25, 0, 250),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), tags=["cat"],
                 units="GeV",
                 systematics=self.all_systs),
@@ -230,7 +230,7 @@ class Config(BaseConfig):
                 units="GeV"),
 
             # ZZ
-            Feature("ZZ_pt", "ZZ_pt", binning=(10, 50, 150),
+            Feature("ZZ_pt", "ZZ_pt", binning=(30, 0, 300),
                 x_title=Label("ZZ p_{T}"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
@@ -258,7 +258,7 @@ class Config(BaseConfig):
                 systematics=self.all_systs),
 
             # ZZ (SVFit)
-            Feature("ZZ_svfit_pt", "ZZ_svfit_pt", binning=(20, 30, 330),
+            Feature("ZZ_svfit_pt", "ZZ_svfit_pt", binning=(30, 0, 330),
                 x_title=Label("ZZ p_{T} (SVFit)"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
@@ -307,14 +307,14 @@ class Config(BaseConfig):
                 systematics=self.all_systs),
             
             Feature("dnn_ZZbbtt_kl_1_CR", "dnn_ZZbbtt_kl_1", binning=(30, 0, 1),
-                x_title=Label("DNN ZZ"), tags=["cat"],
+                x_title=Label("DNN ZZ"), tags=["cat", "blind"],
                 systematics=self.all_systs),
 
             Feature("dnn_ZZbbtt_kl_1", "dnn_ZZbbtt_kl_1", binning=(10, 0, 1),
-                x_title=Label("DNN ZZ"), tags=["cat"],
+                x_title=Label("DNN ZZ"), tags=["cat", "blind"],
                 systematics=self.all_systs),
             
-            *[Feature(f"dnn_ZZbbtt_kl_1_{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(10, 0, 1), tags=["cat"],
+            *[Feature(f"dnn_ZZbbtt_kl_1_{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(10, 0, 1), tags=["cat", "blind"],
                 x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),
                 systematics=self.all_systs)
             for mass in res_mass_ZZ]

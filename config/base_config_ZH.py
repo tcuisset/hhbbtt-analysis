@@ -14,7 +14,7 @@ def get_ZH_common_features(self):
     """ Returns the features that are common to both ZH analyses"""
     return ObjectCollection([
         # ZH
-        Feature("ZH_pt", "ZH_pt", binning=(10, 50, 150),
+        Feature("ZH_pt", "ZH_pt", binning=(25, 0, 250),
             x_title=Label("ZH p_{T}"),
             units="GeV", tags=["cat"],
             systematics=self.all_systs),
@@ -34,7 +34,7 @@ def get_ZH_common_features(self):
             systematics=self.all_systs),
 
         # ZH (SVFit)
-        Feature("ZH_svfit_pt", "ZH_svfit_pt", binning=(20, 30, 330),
+        Feature("ZH_svfit_pt", "ZH_svfit_pt", binning=(30, 0, 330),
             x_title=Label("ZH p_{T} (SVFit)"),
             units="GeV", tags=["cat"],
             systematics=self.all_systs),
@@ -81,15 +81,15 @@ def get_ZH_common_features(self):
             systematics=self.all_systs),
         
         Feature("dnn_ZHbbtt_kl_1", "dnn_ZHbbtt_kl_1", binning=(10, 0, 1),
-                x_title=Label("DNN ZH"), tags=["cat"],
+                x_title=Label("DNN ZH"), tags=["cat", "blind"],
                 systematics=self.all_systs),
         
         Feature("dnn_ZHbbtt_kl_1_CR", "dnn_ZHbbtt_kl_1", binning=(30, 0, 1),
-                x_title=Label("DNN ZH"), tags=["cat"],
+                x_title=Label("DNN ZH"), tags=["cat", "blind"],
                 systematics=self.all_systs),
         
         *[Feature(f"dnn_ZHbbtt_kl_1_{mass}", f"dnn_ZHbbtt_kl_1_{mass}", binning=(10, 0, 1),
-                x_title=Label(f"DNN ZH resonant {mass}"), tags=["cat"],
+                x_title=Label(f"DNN ZH resonant {mass}"), tags=["cat", "blind"],
                 systematics=self.all_systs)
         for mass in resonant_masses_ZH]
     ])

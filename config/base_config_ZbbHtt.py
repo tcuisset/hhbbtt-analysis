@@ -114,7 +114,7 @@ class ConfigZbbHtt(BaseConfig):
         base_features = super().add_features() + get_ZH_common_features(self)
         zbttHtt_features = [
             # Zbb
-            Feature("Zbb_pt", "Zbb_pt", binning=(15, 50, 200),
+            Feature("Zbb_pt", "Zbb_pt", binning=(40, 0, 200),
                 x_title=Label("Z(b#bar{b}) p_{T}"),
                 units="GeV", tags=["cat"],
                 **self.jet_systs_params),
@@ -131,7 +131,7 @@ class ConfigZbbHtt(BaseConfig):
                 units="GeV", tags=["cat", "extra"]), # no systematics here (for 2D plot)
             
             # Htt
-            Feature("Htt_pt", "Htt_pt", binning=(10, 50, 150),
+            Feature("Htt_pt", "Htt_pt", binning=(40, 0, 200),
                 x_title=Label("H(#tau^{+}#tau^{-}) p_{T}"),
                 units="GeV", tags=["cat"],
                 **self.didau_systs_params),
@@ -139,13 +139,13 @@ class ConfigZbbHtt(BaseConfig):
                 x_title=Label("H(#tau^{+}#tau^{-}) #eta"), tags=["cat"]),
             Feature("Htt_phi", "Htt_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("H(#tau^{+}#tau^{-}) #phi"), tags=["cat"]),
-            Feature("Htt_mass", "Htt_mass", binning=(30, 0, 150),
+            Feature("Htt_mass", "Htt_mass", binning=(40, 0, 200),
                 x_title=Label("H(#tau^{+}#tau^{-}) mass"), tags=["cat"],
                 units="GeV",
                 **self.didau_systs_params),
             
             # Htt + met
-            Feature("Htt_met_pt", "Htt_met_pt", binning=(15, 50, 200),
+            Feature("Htt_met_pt", "Htt_met_pt", binning=(40, 0, 200),
                 x_title=Label("H(#tau^{+}#tau^{-}+MET) p_{T}"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
@@ -161,7 +161,7 @@ class ConfigZbbHtt(BaseConfig):
                 systematics=self.all_systs),
             
             # Htt (SVFit)
-            Feature("Htt_svfit_pt", "Xtt_svfit_pt", binning=(15, 50, 200),
+            Feature("Htt_svfit_pt", "Xtt_svfit_pt", binning=(40, 0, 200),
                 x_title=Label("H(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
@@ -171,7 +171,7 @@ class ConfigZbbHtt(BaseConfig):
             Feature("Htt_svfit_phi", "Xtt_svfit_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("H(#tau^{+}#tau^{-}) #phi (SVFit)"), tags=["cat"],
                 systematics=self.all_systs),
-            Feature("Htt_svfit_mass", "Xtt_svfit_mass", binning=(25, 1, 501),
+            Feature("Htt_svfit_mass", "Xtt_svfit_mass", binning=(25, 0, 250),
                 x_title=Label("H(#tau^{+}#tau^{-}) mass (SVFit)"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
