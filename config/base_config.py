@@ -473,6 +473,7 @@ class BaseConfig(cmt_config):
         return ObjectCollection(categories)
     
     def add_features(self):
+        # important : for Categorization with --syetmatic  it is important that systematics are enabled here
         if False: # reduced systematics
             self.jec_systs = ["jec_1", "jec_2"]
             self.jme_systs = [] + self.jec_systs
@@ -481,7 +482,7 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=[]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = ["jec_1", "jec_2"]
+            self.met_systs = dict(central="met_tes_xycorr", systematics=self.jec_systs + ["tes"]) 
 
             self.all_systs = [] + self.jme_systs
         elif False: # full systs
@@ -493,10 +494,10 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=["ele_scale", "ele_resolution", "tes"]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = self.jec_systs + ["tes"]
+            self.met_systs = dict(central="met_tes_xycorr", systematics=self.jec_systs + ["tes"]) 
 
             self.all_systs = ["ele_scale", "ele_resolution", "tes"] + self.jme_systs
-        elif False: # reduced JEC
+        elif True: # reduced JEC
             self.jec_systs = ["jec"] #### TODO change this to jec
             self.jme_systs = ["jer"] + self.jec_systs
             self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
@@ -504,7 +505,7 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=["ele_scale", "ele_resolution", "tes"]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = self.jec_systs + ["tes"]
+            self.met_systs = dict(central="met_tes_xycorr", systematics=self.jec_systs + ["tes"]) 
 
             self.all_systs = ["ele_scale", "ele_resolution", "tes"] + self.jme_systs
         else: # no systs
@@ -515,7 +516,7 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=[]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = self.jec_systs + []
+            self.met_systs = dict(central="met_tes_xycorr", systematics=self.jec_systs + []) 
 
             self.all_systs = [] + self.jme_systs
 
@@ -544,7 +545,7 @@ class BaseConfig(cmt_config):
                 x_title=Label("b_{1} #eta"), selection="bjet1_JetIdx>=0", tags=["base"]),
             Feature("bjet1_phi", "Jet_phi.at(bjet1_JetIdx)", binning=(20, -5, 5),
                 x_title=Label("b_{1} #phi"), selection="bjet1_JetIdx>=0", tags=["base"]),
-            Feature("bjet1_mass", "Jet_mass.at(bjet1_JetIdx)", binning=(20, 0, 100),
+            Feature("bjet1_mass", "Jet_mass.at(bjet1_JetIdx)", binning=(20, 0, 60),
                 x_title=Label("b_{1} m"), selection="bjet1_JetIdx>=0",
                 units="GeV", tags=["base"],
                 **self.jet_systs_params),
@@ -560,7 +561,7 @@ class BaseConfig(cmt_config):
                 x_title=Label("b_{2} #eta"), selection="bjet2_JetIdx>=0", tags=["base"]),
             Feature("bjet2_phi", "Jet_phi.at(bjet2_JetIdx)", binning=(20, -5, 5),
                 x_title=Label("b_{2} #phi"), selection="bjet2_JetIdx>=0", tags=["base"]),
-            Feature("bjet2_mass", "Jet_mass.at(bjet2_JetIdx)", binning=(20, 0, 100),
+            Feature("bjet2_mass", "Jet_mass.at(bjet2_JetIdx)", binning=(20, 0, 60),
                 x_title=Label("b_{2} m"), selection="bjet2_JetIdx>=0",
                 units="GeV", tags=["base"],
                 **self.jet_systs_params),
@@ -658,17 +659,17 @@ class BaseConfig(cmt_config):
                 #systematics=self.met_systs # not computed usually
                 ),
             
-            # Feature("met_pt_corr", "MET_tes_xycorr_pt", binning=(20, 0, 100),
-            #     x_title=Label("MET p_{T} (TES, XY-corr)"),
-            #     units="GeV", tags=["base"],
-            #     systematics=self.met_systs),
-            # Feature("met_pt_corr_high", "MET_tes_xycorr_pt", binning=(30, 0, 300),
-            #     x_title=Label("MET p_{T} (TES, XY-corr)"),
-            #     units="GeV", tags=["base"],
-            #     systematics=self.met_systs),
-            # Feature("met_phi_corr", "MET_tes_xycorr_phi", binning=(20, -3.2, 3.2),
-            #     x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
-            #     systematics=self.met_systs),
+            Feature("met_pt_corr", "MET_pt", binning=(20, 0, 200),
+                x_title=Label("MET p_{T} (TES, XY-corr)"),
+                units="GeV", tags=["base"],
+                **self.met_systs),
+            Feature("met_pt_corr_high", "MET_pt", binning=(50, 0, 500),
+                x_title=Label("MET p_{T} (TES, XY-corr)"),
+                units="GeV", tags=["base"],
+                **self.met_systs),
+            Feature("met_phi_corr", "MET_phi", binning=(20, -3.2, 3.2),
+                x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
+                **self.met_systs),
             # here : could add MET smeared&noXY, and nosmear&XY
             
             Feature("btagging", "Jet_btagDeepFlavB", binning=(30,0,1),
