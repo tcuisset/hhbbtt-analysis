@@ -29,6 +29,7 @@ genWeightLOFix:
     path: Tools.Tools.genWeightLOFix
     parameters:
         setGenWeightToOne: self.dataset.get_aux('setGenWeightToOne', False)
+        isMC: self.dataset.process.isMC
 
 filter_bbtt:
     name: BBTauTauFilterRDF
