@@ -127,8 +127,9 @@ class ConfigZbbHtt(BaseConfig):
                 units="GeV", tags=["cat"],
                 **self.jet_systs_params),
             Feature("Zbb_mass_ellipse", "Zbb_mass", binning=(50, 0, 500),
-                x_title=Label("Z(b#bar{b}) mass"), central="jet_smearing",
-                units="GeV", tags=["cat", "extra"]), # no systematics here (for 2D plot)
+                x_title=Label("Z(b#bar{b}) mass"),
+                units="GeV", tags=["cat", "extra"],
+                **self.jet_systs_params),
             
             # Htt
             Feature("Htt_pt", "Htt_pt", binning=(40, 0, 200),

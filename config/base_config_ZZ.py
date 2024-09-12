@@ -177,8 +177,8 @@ class Config(BaseConfig):
                 **self.jet_systs_params),
             Feature("Zbb_mass_ellipse", "Zbb_mass", binning=(50, 0, 500),
                 x_title=Label("Z(b#bar{b}) mass"),
-                central="jet_smearing",
-                units="GeV", tags=["cat"]),
+                units="GeV", tags=["cat"],
+                **self.jet_systs_params),
 
             # Ztt
             Feature("Ztt_pt", "Ztt_pt", binning=(40, 0, 200),
@@ -227,7 +227,8 @@ class Config(BaseConfig):
                 systematics=self.all_systs),
             Feature("Ztt_svfit_mass_ellipse", "Xtt_svfit_mass", binning=(35, 0, 350),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), tags=["cat"],
-                units="GeV"),
+                units="GeV",
+                systematics=self.all_systs),
 
             # ZZ
             Feature("ZZ_pt", "ZZ_pt", binning=(30, 0, 300),

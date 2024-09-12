@@ -482,7 +482,7 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=[]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = dict(central="met_tes_xycorr", systematics=self.jec_systs + ["tes"]) 
+            self.met_systs = dict(central="met_tes_xycorr", systematics=["jec_MET_1", "jec_MET_2"] + ["tes_MET"]) 
 
             self.all_systs = [] + self.jme_systs
         elif False: # full systs
@@ -494,18 +494,19 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=["ele_scale", "ele_resolution", "tes"]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = dict(central="met_tes_xycorr", systematics=self.jec_systs + ["tes"]) 
+            self.met_systs = dict(central="met_tes_xycorr", systematics=map(lambda s:s.replace("_", "_MET_"), self.jec_systs) + ["tes_MET"]) 
 
             self.all_systs = ["ele_scale", "ele_resolution", "tes"] + self.jme_systs
-        elif True: # reduced JEC
-            self.jec_systs = ["jec"] #### TODO change this to jec
+        elif False: # reduced JEC
+            self.jec_systs = ["jec"]
             self.jme_systs = ["jer"] + self.jec_systs
             self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
             self.tau_systs_params = dict(central="tes", systematics=["tes"])
             self.lepton_systs_params =  dict(systematics=["ele_scale", "ele_resolution", "tes"]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = dict(central="met_tes_xycorr", systematics=self.jec_systs + ["tes"]) 
+            ## TODO Fix this need to find a way for the framweork to handle this
+            self.met_systs = dict(central="met_tes_xycorr", systematics=[]) # ["jec_MET"] + ["tes"] 
 
             self.all_systs = ["ele_scale", "ele_resolution", "tes"] + self.jme_systs
         else: # no systs
@@ -516,7 +517,7 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=[]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = dict(central="met_tes_xycorr", systematics=self.jec_systs + []) 
+            self.met_systs = dict(central="met_tes_xycorr", systematics=[]) 
 
             self.all_systs = [] + self.jme_systs
 
@@ -658,18 +659,19 @@ class BaseConfig(cmt_config):
                 central="",
                 #systematics=self.met_systs # not computed usually
                 ),
-            
-            Feature("met_pt_corr", "MET_pt", binning=(20, 0, 200),
-                x_title=Label("MET p_{T} (TES, XY-corr)"),
-                units="GeV", tags=["base"],
-                **self.met_systs),
-            Feature("met_pt_corr_high", "MET_pt", binning=(50, 0, 500),
-                x_title=Label("MET p_{T} (TES, XY-corr)"),
-                units="GeV", tags=["base"],
-                **self.met_systs),
-            Feature("met_phi_corr", "MET_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
-                **self.met_systs),
+
+            # TODO add this back            
+            # Feature("met_pt_corr", "MET_pt", binning=(20, 0, 200),
+            #     x_title=Label("MET p_{T} (TES, XY-corr)"),
+            #     units="GeV", tags=["base"],
+            #     **self.met_systs),
+            # Feature("met_pt_corr_high", "MET_pt", binning=(50, 0, 500),
+            #     x_title=Label("MET p_{T} (TES, XY-corr)"),
+            #     units="GeV", tags=["base"],
+            #     **self.met_systs),
+            # Feature("met_phi_corr", "MET_phi", binning=(20, -3.2, 3.2),
+            #     x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
+            #     **self.met_systs),
             # here : could add MET smeared&noXY, and nosmear&XY
             
             Feature("btagging", "Jet_btagDeepFlavB", binning=(30,0,1),
@@ -901,21 +903,21 @@ class BaseConfig(cmt_config):
             Systematic("met_smearing_xycorr", ("MET", "MET_smeared_xycorr")),
             Systematic("met_tes_xycorr", ("MET", "MET_tes_xycorr")),
 
-            # not used : (just use the jec_i)
-            # Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'),
-            # Systematic("tes_MET", ("MET", "MET_smeared"), up="_corr_up", down='_corr_down'),
-            # Systematic("jec_MET_1", ("MET", "MET_smeared"), up="_FlavorQCD_up", down='_FlavorQCD_down'),
-            # Systematic("jec_MET_2", ("MET", "MET_smeared"), up="_RelativeBal_up", down='_RelativeBal_down'),
-            # Systematic("jec_MET_3", ("MET", "MET_smeared"), up="_HF_up", down='_HF_down'),
-            # Systematic("jec_MET_4", ("MET", "MET_smeared"), up="_BBEC1_up", down='_BBEC1_down'),
-            # Systematic("jec_MET_5", ("MET", "MET_smeared"), up="_EC2_up", down='_EC2_down'),
-            # Systematic("jec_MET_6", ("MET", "MET_smeared"), up="_Absolute_up", down='_Absolute_down'),
-            # Systematic("jec_MET_7", ("MET", "MET_smeared"), up=f"_BBEC1_{self.year}_up", down=f'_BBEC1_{self.year}_down'),
-            # Systematic("jec_MET_8", ("MET", "MET_smeared"), up=f"_EC2_{self.year}_up", down=f'_EC2_{self.year}_down'),
-            # Systematic("jec_MET_9", ("MET", "MET_smeared"), up=f"_Absolute_{self.year}_up", down=f'_Absolute_{self.year}_down'),
-            # Systematic("jec_MET_10", ("MET", "MET_smeared"), up=f"_HF_{self.year}_up", down=f'_HF_{self.year}_down'),
-            # Systematic("jec_MET_11", ("MET", "MET_smeared"), up=f"_RelativeSample_{self.year}_up", down=f'_RelativeSample_{self.year}_down'),
-            # Systematic("jec_MET", ("MET", "MET_smeared"), up="_Total_up", down='_Total_down'),
+            # used only to plot MET corrected variables with systematics. NOT TO BE RUN AS AN ACTUAL SYSTEMATIC IN PREPROCESS
+            # Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'), # no MET smearing
+            Systematic("tes_MET", ("MET", "MET_tes_xycorr"), up="_corr_up", down='_corr_down'),
+            Systematic("jec_MET_1", ("MET", "MET_tes_xycorr"), up="_FlavorQCD_up", down='_FlavorQCD_down'),
+            Systematic("jec_MET_2", ("MET", "MET_tes_xycorr"), up="_RelativeBal_up", down='_RelativeBal_down'),
+            Systematic("jec_MET_3", ("MET", "MET_tes_xycorr"), up="_HF_up", down='_HF_down'),
+            Systematic("jec_MET_4", ("MET", "MET_tes_xycorr"), up="_BBEC1_up", down='_BBEC1_down'),
+            Systematic("jec_MET_5", ("MET", "MET_tes_xycorr"), up="_EC2_up", down='_EC2_down'),
+            Systematic("jec_MET_6", ("MET", "MET_tes_xycorr"), up="_Absolute_up", down='_Absolute_down'),
+            Systematic("jec_MET_7", ("MET", "MET_tes_xycorr"), up=f"_BBEC1_{self.year}_up", down=f'_BBEC1_{self.year}_down'),
+            Systematic("jec_MET_8", ("MET", "MET_tes_xycorr"), up=f"_EC2_{self.year}_up", down=f'_EC2_{self.year}_down'),
+            Systematic("jec_MET_9", ("MET", "MET_tes_xycorr"), up=f"_Absolute_{self.year}_up", down=f'_Absolute_{self.year}_down'),
+            Systematic("jec_MET_10", ("MET", "MET_tes_xycorr"), up=f"_HF_{self.year}_up", down=f'_HF_{self.year}_down'),
+            Systematic("jec_MET_11", ("MET", "MET_tes_xycorr"), up=f"_RelativeSample_{self.year}_up", down=f'_RelativeSample_{self.year}_down'),
+            Systematic("jec_MET", ("MET", "MET_tes_xycorr"), up="_Total_up", down='_Total_down'),
 
             # Electrons (see https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys for correlation instructions)
             # note : no leading underscore in up/down, due to framework bug (basically if central="" then no underscore in up/down)

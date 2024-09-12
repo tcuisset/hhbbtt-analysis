@@ -124,8 +124,9 @@ class ConfigZttHbb(BaseConfig):
                 units="GeV", tags=["cat"],
                 **self.jet_systs_params),
             Feature("Hbb_mass_ellipse", "Hbb_mass", binning=(50, 0, 500),
-                x_title=Label("H(b#bar{b}) mass"), central="jet_smearing",
-                units="GeV", tags=["cat", "extra"]),
+                x_title=Label("H(b#bar{b}) mass"),
+                units="GeV", tags=["cat", "extra"],
+                **self.jet_systs_params),
 
             # Ztt
             Feature("Ztt_pt", "Ztt_pt", binning=(10, 50, 150),
@@ -174,7 +175,8 @@ class ConfigZttHbb(BaseConfig):
                 systematics=self.all_systs),
             Feature("Ztt_svfit_mass_ellipse", "Xtt_svfit_mass", binning=(35, 0, 350),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), tags=["cat", "extra"],
-                units="GeV"),
+                units="GeV",
+                systematics=self.all_systs),
         ]
         return base_features + ObjectCollection(zttHbb_features)
 
