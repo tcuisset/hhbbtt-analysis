@@ -17,11 +17,12 @@ puweight:
         # year: self.config.year
         # isUL: self.dataset.has_tag('ul')
 
-dystitching:
-    name: DYstitchingEasyRDF
-    path: Tools.Tools.dyreweighting
-    parameters:
-        isDY: self.dataset.process.get_aux('isDY', False)
+# we don't apply stitching weights for normalization
+# dystitching:
+#     name: DYstitchingEasyRDF
+#     path: Tools.Tools.dyreweighting
+#     parameters:
+#         isDY: self.dataset.process.get_aux('isDY', False)
 
 # set genWeight to one for some bugged LO madgraph datasets (https://twiki.cern.ch/twiki/bin/view/CMS/MCKnownIssues#Different_weights_at_LHE_level_f)
 genWeightLOFix:
