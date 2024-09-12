@@ -60,7 +60,7 @@ def get_datasets_ZH_2018(self):
             xs=self.cross_section_dict["zh_htt"],
             secondary_dataset="zh_zbb_htt_signal_aux",
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10", "nonres_only"]),
+            tags=["ul", "nanoV10", "nonres_only", "limited"]),
         Dataset("zh_zbb_htt_signal_aux",
             dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -76,7 +76,7 @@ def get_datasets_ZH_2018(self):
             xs=self.cross_section_dict["zh_hbb_zll"],
             secondary_dataset="zh_ztt_hbb_signal_aux",
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10", "nonres_only"]),
+            tags=["ul", "nanoV10", "nonres_only", "limited"]),
         Dataset("zh_ztt_hbb_signal_aux",
             dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
@@ -95,7 +95,7 @@ def get_datasets_ZH_2018(self):
             secondary_dataset="zh_zbb_htt_background_aux",
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+            tags=["ul", "nanoV10", "limited"]),
         Dataset("zh_zbb_htt_background_aux",
             dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -111,7 +111,7 @@ def get_datasets_ZH_2018(self):
             xs=self.cross_section_dict["zh_htt"],
             secondary_dataset="zh_zbb_htt_aux",
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("zh_zbb_htt_aux",
             dataset="/ZHToTauTau_M125_CP5_13TeV-powheg-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -128,7 +128,7 @@ def get_datasets_ZH_2018(self):
             secondary_dataset="zh_ztt_hbb_background_aux",
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+            tags=["ul", "nanoV10", "limited"]),
         Dataset("zh_ztt_hbb_background_aux",
             dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
@@ -161,7 +161,7 @@ def get_datasets_ZH_2018(self):
             xs=self.cross_section_dict["zh_hbb_zll"],
             secondary_dataset="zh_ztt_hbb_aux",
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("zh_ztt_hbb_aux",
             dataset="/ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM",
@@ -200,7 +200,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToBB_HToTauTau"],
             secondary_dataset="ZprimeToZH_ZToBB_HToTauTau_M500_aux",
-            tags=["ul", "nanoV10", "res", "buggy"]), # TODO
+            tags=["ul", "nanoV10", "res", "buggy", "limited"]), # TODO
         Dataset("ZprimeToZH_ZToBB_HToTauTau_M500_aux",
             dataset="/ZprimeToZH_ZToBB_HToTauTau_M-500_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -256,7 +256,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToBB_HToTauTau"],
             secondary_dataset="ZprimeToZH_ZToBB_HToTauTau_M1000_aux",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("ZprimeToZH_ZToBB_HToTauTau_M1000_aux",
             dataset="/ZprimeToZH_ZToBB_HToTauTau_M-1000_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -326,7 +326,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToBB_HToTauTau"],
             secondary_dataset="ZprimeToZH_ZToBB_HToTauTau_M2000_aux",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("ZprimeToZH_ZToBB_HToTauTau_M2000_aux",
             dataset="/ZprimeToZH_ZToBB_HToTauTau_M-2000_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -382,7 +382,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToBB_HToTauTau"],
             secondary_dataset="ZprimeToZH_ZToBB_HToTauTau_M4000_aux",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("ZprimeToZH_ZToBB_HToTauTau_M4000_aux",
             dataset="/ZprimeToZH_ZToBB_HToTauTau_M-4000_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -438,7 +438,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToBB_HToTauTau"],
             secondary_dataset="ZprimeToZH_ZToBB_HToTauTau_M6000_aux",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("ZprimeToZH_ZToBB_HToTauTau_M6000_aux",
             dataset="/ZprimeToZH_ZToBB_HToTauTau_M-6000_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -455,7 +455,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToTauTau_HToBB"],
             secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M500_aux",
-            tags=["ul", "nanoV10", "res", "buggy"]), # TODO]),
+            tags=["ul", "nanoV10", "res", "buggy", "limited"]), # TODO]),
         Dataset("ZprimeToZH_ZToTauTau_HToBB_M500_aux",
             dataset="/ZprimeToZH_ZToTauTau_HToBB_M-500_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -511,7 +511,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToTauTau_HToBB"],
             secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M1000_aux",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("ZprimeToZH_ZToTauTau_HToBB_M1000_aux",
             dataset="/ZprimeToZH_ZToTauTau_HToBB_M-1000_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -581,7 +581,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToTauTau_HToBB"],
             secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M2000_aux",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("ZprimeToZH_ZToTauTau_HToBB_M2000_aux",
             dataset="/ZprimeToZH_ZToTauTau_HToBB_M-2000_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -637,7 +637,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToTauTau_HToBB"],
             secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M4000_aux",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("ZprimeToZH_ZToTauTau_HToBB_M4000_aux",
             dataset="/ZprimeToZH_ZToTauTau_HToBB_M-4000_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",
@@ -693,7 +693,7 @@ def get_datasets_ZH_2018(self):
             prefix="eos.grif.fr//",
             xs=self.cross_section_dict["ZprimeToZH_ZToTauTau_HToBB"],
             secondary_dataset="ZprimeToZH_ZToTauTau_HToBB_M6000_aux",
-            tags=["ul", "nanoV10", "res"]),
+            tags=["ul", "nanoV10", "res", "limited"]),
         Dataset("ZprimeToZH_ZToTauTau_HToBB_M6000_aux",
             dataset="/ZprimeToZH_ZToTauTau_HToBB_M-6000_TuneCP5_13TeV-madgraph-pythia8/"
                 "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM",

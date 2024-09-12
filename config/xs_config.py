@@ -7,6 +7,16 @@
 
 cross_section_dict = {
 
+    # ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8
+    # infos : https://indico.cern.ch/event/439995/contributions/1094416/attachments/1143460/1638648/diboson_final.pdf
+    # https://cms-talk.web.cern.ch/t/question-about-cross-sections-of-zz-samples/18780/2
+    # branching ratios : Z->ee=0.0336, Z->bb=0.151, Z->qq=0.699
+    # Theory : 
+    # - 0.0349 (Z->mumu, Z->ee, NLO, mll>1) from https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV
+    #      s(ZZ) = 0.0349 / (0.0336*0.0336*2) = 15.46
+    # - 16.523 (inclusive, NLO, MCFM) from https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
+    #    though it points to ZZ incl XSDB which says 10.16
+    # - 16.91 +3.2% -2.4% from https://arxiv.org/pdf/1405.2219 (NNLO)
     "zz_sl":            3.22,                     # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
     # "zz_sl":          3.676,                    # XSDB unknown (ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8), probaly should use this one ?
     # "zz_sl":          5.52,                     # AN
