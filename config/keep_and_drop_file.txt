@@ -52,8 +52,7 @@ drop .*cleanmask
 
 drop SV.*
 drop nSV
-drop nOtherPV
-drop OtherPV_z
+drop (n|)OtherPV.*
 drop RefitPV.*
 drop SoftActivityJet.*
 drop nSoftActivityJet
