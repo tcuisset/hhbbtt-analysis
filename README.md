@@ -371,7 +371,7 @@ Analyses using AK8 bb tagging :
  - HIG-24-003 (VVH(bb)) [AN23-016](http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2023_016_v5.pdf)
  - [Simona's slides](https://indico.cern.ch/event/1360977/contributions/5953985/attachments/2855831/4994825/ParticleNet_SF_14_05_2024.pdf)
 
-##### NanoV12 FatJet_particleNet_XbbVsQCD aka ParticleNetFromMiniAODAK8
+##### NanoV12 FatJet_particleNet_XbbVsQCD aka ParticleNetFromMiniAODAK8 ie retrained UL18 ParticleNet
 [Nano def in CMSSW](https://github.com/cms-sw/cmssw/blame/e503e2d7de40839e0b64ef78c91530f9357a4b6b/PhysicsTools/NanoAOD/python/jetsAK8_cff.py#L118) : `bDiscriminator('pfParticleNetFromMiniAODAK8DiscriminatorsJetTags:HbbvsQCD')`
 
 MiniAOD : pfParticleNetFromMiniAODAK8DiscriminatorsJetTags:HbbvsQCD

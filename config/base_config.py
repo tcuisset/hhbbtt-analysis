@@ -342,7 +342,8 @@ class BaseConfig(cmt_config):
         reqs.req_ll = jrs(df(1, ">", "loose"), df(2, ">", "loose")) # both bjets pass loose (for old boosted, not used now) 
 
         # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
-        reqs.boosted_pnet = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.particleNetMD_legacy.low})"
+        self.boosted_bb_tagging_wp = self.particleNetMD_legacy.low
+        reqs.boosted_pnet = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.boosted_bb_tagging_wp})"
         return reqs
     
     def get_categories_requirements(self):
@@ -357,7 +358,7 @@ class BaseConfig(cmt_config):
         ## - either we have <2 AK4 jets passing the first selections (before hhbtag and btag, ie pt, PUid, deltaR) 
         ## - or we have >= 2 AK4 jets but the 2 hhbtag-selected jets both fail the medium btag WP
         ## note the order of evaluation, important to not access Jet collections with -1 index
-        reqs.boosted = f"(isBoosted == 1)"
+        reqs.boosted = f"(isBoosted == 1) && ({bjets.boosted_pnet})"
         return reqs
 
     def add_categories(self, **kwargs):

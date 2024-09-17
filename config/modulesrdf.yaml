@@ -235,7 +235,7 @@ MET_XYCorrections:
         met_smear_tag: "tes"
 
 
-##### HHJets
+#### HHJets
 hhjets:
     name: HHJetsRDF
     path: Tools.Tools.HHJets
@@ -247,6 +247,7 @@ hhjets:
         filter: True
         model_version: 2
         btag_wp: self.config.btag_algo_wps.medium
+        fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
 
 bjet1var:
     name: VarFromVectorRDF
@@ -357,6 +358,7 @@ eleSF:
         runPeriod: self.config.runPeriod
         wps: [wp80iso, RecoAbove20]
 
+# Combine electron, muon and tau scale factors. Produces idAndIsoAndFakeSF branches
 idAndIsoSF:
     name: dauIdIsoSFRDF
     path: Tools.Tools.dauIdIso
