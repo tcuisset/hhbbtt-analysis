@@ -804,6 +804,14 @@ class Config_ul_2018_ZZ_v12(base_config_ZZ):
                 xs=1,
                 tags=["ul", "secondary", "res"]),
 
+            Dataset("GluGluToXToZZTo2B2Tau_M5000_BT",
+                folder="/eos/grif/cms/llr/store/user/tcuisset/GluGluToXToZZTo2B2Tau_M-5000_TuneCP5_13TeV-powheg-pythia8/crab_test_2/240912_102034/0000/",
+                process=self.processes.get("ggXZZbbtt_M5000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                #secondary_dataset="GluGluToXToZZTo2B2Tau_M5000_aux",
+                tags=["ul", "nanoV10", "res", "BT"]),
+
             # Old datasets ULv9 produced privately
             
             # Dataset("ggXZZbbtt_M200",

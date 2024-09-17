@@ -87,6 +87,10 @@ hhlepton:
         vvl_vse: self.config.deeptau.vse.VVLoose
         t_vsmu: self.config.deeptau.vsmu.Tight
         vl_vsmu: self.config.deeptau.vsmu.VLoose
+        useBoostedTaus: true
+        boostedTau_VsMu_threshold: 3 # medium (random choice here)
+        boostedTau_VsE_threshold: 5 # medium (same)
+        boostedTau_VsJet_threshold: 3 #medium (same)
         pairType_filter: True
 
 # TODO maybe we also want to keep the uncorrected tau variables ?
@@ -213,6 +217,7 @@ jec_fatjet_corrections:
 
 
 #################### MET
+# TODO boostedTau systematics propagation to MET ???? (probably should deal with overlap with HPS taus ?)
 met_shift:
     name: metShifterRDF
     path: Corrections.JME.met
