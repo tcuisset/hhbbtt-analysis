@@ -343,7 +343,7 @@ class BaseConfig(cmt_config):
 
         # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
         self.boosted_bb_tagging_wp = self.particleNetMD_legacy.low
-        reqs.boosted_pnet = f"(FatJet_particleNetLegacy_Xbb/(FatJet_particleNetLegacy_Xbb+FatJet_particleNetLegacy_QCD) >= {self.boosted_bb_tagging_wp})"
+        reqs.boosted_pnet = f"(FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)/(FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)+FatJet_particleNetLegacy_QCD.at(fatjet_JetIdx)) >= {self.boosted_bb_tagging_wp})"
         return reqs
     
     def get_categories_requirements(self):
@@ -454,7 +454,7 @@ class BaseConfig(cmt_config):
                     .format(self.deeptau.vsjet.Medium)),
             # Category("dum", "dummy category", selection="event == 220524669"),
             Category("dum", "dummy category", selection="event == 74472670"),
-            Category("debug", "debug category", selection="(event >= 31122668) && (event <= 31185105)"),
+            Category("debug", "debug category", selection="luminosityBlock == 315421 && event == 315420434"),
             Category("mutau", "#mu#tau channel", selection="pairType == 0"),
             Category("etau", "e#tau channel", selection="pairType == 1"),
             Category("tautau", "#tau#tau channel", selection="pairType == 2"),
@@ -646,6 +646,10 @@ class BaseConfig(cmt_config):
                 " + (dau1_phi - dau2_phi)*(dau1_phi - dau2_phi))",
                 binning=(50, 0, 6),
                 x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
+            Feature("dR_tautau_low", "sqrt((dau1_eta - dau2_eta)*(dau1_eta - dau2_eta) "
+                " + (dau1_phi - dau2_phi)*(dau1_phi - dau2_phi))",
+                binning=(50, 0, 0.5),
+                x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
 
             # MET (not all of the features are usually computed, might need to add metShifterRDF to modulesrdf.yaml)
             Feature("met_pt_raw", "MET_pt", binning=(20, 0, 200),
@@ -683,9 +687,11 @@ class BaseConfig(cmt_config):
             # DNN features FullFeatSet: no systematics since the DNN cannot hadle them and we don't want to save theme for plotting
             Feature("zz_kinfit_chi2", "hh_kinfit_chi2", binning=(30, 0, 50),
                 x_title=Label("ZZ #chi^{2} (Kin. Fit)"), tags=["dnn"],
+                selection="!isBoosted",
                 systematics=[]),
             Feature("zz_kinfit_m", "hh_kinfit_m", binning=(50, 0, 1000),
                 x_title=Label("ZZ mass (Kin. Fit)"), units="GeV", tags=["dnn"],
+                selection="!isBoosted",
                 systematics=[]),
             Feature("sv_mass", "sv_mass", binning=(20, 30, 230),
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), units="GeV", tags=["dnn"],
