@@ -91,7 +91,7 @@ hhlepton:
         boostedTau_VsMu_threshold: 3 # medium (random choice here)
         boostedTau_VsE_threshold: 5 # medium (same)
         boostedTau_VsJet_threshold: 3 #medium (same)
-        pairType_filter: self.dataset.process.isSignal
+        pairType_filter: not self.dataset.process.isSignal
 
 # TODO maybe we also want to keep the uncorrected tau variables ?
 hhleptonVar:
