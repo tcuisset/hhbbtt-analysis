@@ -81,15 +81,15 @@ def get_ZH_common_features(self):
             systematics=self.all_systs),
         
         Feature("dnn_ZHbbtt_kl_1", "dnn_ZHbbtt_kl_1", binning=(10, 0, 1),
-                x_title=Label("DNN ZH"), tags=["cat", "blind"],
+                x_title=Label("DNN ZH"), tags=["dnn", "blind"],
                 systematics=self.all_systs),
         
         Feature("dnn_ZHbbtt_kl_1_CR", "dnn_ZHbbtt_kl_1", binning=(30, 0, 1),
-                x_title=Label("DNN ZH"), tags=["cat", "blind"],
+                x_title=Label("DNN ZH"), tags=["dnn", "blind"],
                 systematics=self.all_systs),
         
         *[Feature(f"dnn_ZHbbtt_kl_1_{mass}", f"dnn_ZHbbtt_kl_1_{mass}", binning=(10, 0, 1),
-                x_title=Label(f"DNN ZH resonant {mass}"), tags=["cat", "blind"],
+                x_title=Label(f"DNN ZH resonant {mass}"), tags=["dnn", "blind"],
                 systematics=self.all_systs)
         for mass in resonant_masses_ZH]
     ])

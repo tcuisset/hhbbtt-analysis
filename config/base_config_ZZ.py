@@ -308,14 +308,14 @@ class Config(BaseConfig):
                 systematics=self.all_systs),
             
             Feature("dnn_ZZbbtt_kl_1_CR", "dnn_ZZbbtt_kl_1", binning=(30, 0, 1),
-                x_title=Label("DNN ZZ"), tags=["cat", "blind"],
+                x_title=Label("DNN ZZ"), tags=["dnn", "blind"],
                 systematics=self.all_systs),
 
             Feature("dnn_ZZbbtt_kl_1", "dnn_ZZbbtt_kl_1", binning=(10, 0, 1),
-                x_title=Label("DNN ZZ"), tags=["cat", "blind"],
+                x_title=Label("DNN ZZ"), tags=["dnn", "blind"],
                 systematics=self.all_systs),
             
-            *[Feature(f"dnn_ZZbbtt_kl_1_{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(10, 0, 1), tags=["cat", "blind"],
+            *[Feature(f"dnn_ZZbbtt_kl_1_{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(10, 0, 1), tags=["dnn", "blind"],
                 x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),
                 systematics=self.all_systs)
             for mass in res_mass_ZZ]
