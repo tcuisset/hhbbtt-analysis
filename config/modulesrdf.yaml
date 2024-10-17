@@ -405,4 +405,5 @@ svfit_ZZ:
         isMC: self.dataset.process.isMC
         AnalysisType: self.config.get_aux('AnalysisType', False)
         met_smear_tag: tes_xycorr
+        algo: FastMTT
         
