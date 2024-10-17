@@ -131,8 +131,8 @@ drop nSubGenJetAK8
 drop SubGenJetAK8.*
 drop Generator.*
 drop GenVtx.*
-drop nGenVisTau
-drop GenVisTau.*
+keep nGenVisTau
+keep GenVisTau.*
 # drop GenMET.*
 drop Pileup.*
 drop PuppiMET.*
@@ -150,6 +150,7 @@ keep Electron_pt.*
 keep Electron_eta
 keep Electron_phi
 keep Electron_mass.*
+keep Electron_genPart.*
 drop Jet.*
 keep Jet_pt.*
 keep Jet_eta
@@ -168,6 +169,7 @@ keep Muon_pt
 keep Muon_eta
 keep Muon_phi
 keep Muon_mass
+keep Muon_genPart.*
 drop Tau.*
 keep Tau_pt
 keep Tau_eta

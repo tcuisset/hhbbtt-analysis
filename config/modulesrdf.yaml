@@ -77,6 +77,7 @@ hhlepton:
     path: Tools.Tools.HHLepton
     parameters:
         isMC: self.dataset.process.isMC
+        doGenCutFlow: self.dataset.process.isSignal
         isV10: self.dataset.has_tag("nanoV10")
         year: self.config.year
         runEra: self.dataset.runEra
@@ -249,7 +250,7 @@ hhjets:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
         met_smear_tag: "tes"
-        filter: True
+        filter: not self.dataset.process.isSignal
         model_version: 2
         btag_wp: self.config.btag_algo_wps.medium
         fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
