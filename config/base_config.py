@@ -270,43 +270,44 @@ class BaseConfig(cmt_config):
     def add_regions(self):
         selection = OrderedDict()
         region_names = ["Signal region", "OS inv. iso", "SS iso", "SS inv. iso"]
+
+        dau1_iso = f"isBoostedTau ? dau1_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+        """ Medium isolation of dau1 (for tautau channel) """
+        dau2_iso = f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+        """ Medium isolation of dau2 """
+
+        dau2_loosenedIso = [
+            f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLoose} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
+            f"isBoostedTau ? dau2_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}"]
+        """ Loosened isolation for QCD reduced isolation control region """
+
         selection["os_iso"] = {
-            "mutau": ["isOS == 1",
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
-            "etau": ["isOS == 1",
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+            "mutau": ["isOS == 1", dau2_iso],
+            "etau": ["isOS == 1", dau2_iso],
             "tautau": ["isOS == 1",
-                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+                dau1_iso,
+                dau2_iso],
         }
         selection["os_inviso"] = {
-            "mutau": ["isOS == 1", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
-            "etau": ["isOS == 1", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+            "mutau": ["isOS == 1", *dau2_loosenedIso],
+            "etau": ["isOS == 1", *dau2_loosenedIso],
             "tautau": ["isOS == 1",
-                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
-                "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+                dau1_iso,
+                *dau2_loosenedIso],
         }
         selection["ss_iso"] = {
-            "mutau": ["isOS == 0",
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
-            "etau": ["isOS == 0",
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+            "mutau": ["isOS == 0", dau2_iso],
+            "etau": ["isOS == 0", dau2_iso],
             "tautau": ["isOS == 0",
-                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+                dau1_iso,
+                dau2_iso],
         }
         selection["ss_inviso"] = {
-            "mutau": ["isOS == 0", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
-            "etau": ["isOS == 0", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+            "mutau": ["isOS == 0", *dau2_loosenedIso],
+            "etau": ["isOS == 0", *dau2_loosenedIso],
             "tautau": ["isOS == 0",
-                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
-                "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+                dau1_iso,
+                *dau2_loosenedIso],
         }
         regions = []
         for ikey, key in enumerate(selection):
@@ -351,14 +352,19 @@ class BaseConfig(cmt_config):
         reqs = DotDict()
         bjets = self.get_bjets_requirements()
         # req_2jets = "(bjet1_JetIdx >= 0)" # requires that we have 2 AK4 jets selected by hhbtag, prerequisite for resolved (if bjet1_JetIdx is there then bjet2_JetIdx is also there)
-        reqs.resolved_1b = f"(isBoosted == 0 && ({bjets.req_1b}))"
-        reqs.resolved_2b = f"(isBoosted == 0  && ({bjets.req_2b}))"
+        reqs.resolved_1b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
+        reqs.resolved_2b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))"
         # Following not needed since orthogonalization done at HHJets level
         ## need to orthogonalize boosted to resolved. -> need isBoosted = 1 (ie there is an AK8 jet passing selection), and :
         ## - either we have <2 AK4 jets passing the first selections (before hhbtag and btag, ie pt, PUid, deltaR) 
         ## - or we have >= 2 AK4 jets but the 2 hhbtag-selected jets both fail the medium btag WP
         ## note the order of evaluation, important to not access Jet collections with -1 index
-        reqs.boosted = f"(isBoosted == 1) && ({bjets.boosted_pnet})"
+        reqs.boosted_bb = f"(isBoosted == 1) && fatjet_JetIdx>=0 && ({bjets.boosted_pnet})"
+        reqs.boosted = reqs.boosted_bb # for backwards compatibility
+
+        # Taus categories
+        reqs.HPSTau = "(isBoostedTau == false)"
+        reqs.boostedTau = "(isBoostedTau == true)"
         return reqs
 
     def add_categories(self, **kwargs):

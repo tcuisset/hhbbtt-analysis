@@ -151,6 +151,13 @@ keep Electron_eta
 keep Electron_phi
 keep Electron_mass.*
 keep Electron_genPart.*
+keep Electron_vidNestedWPBitmap
+keep Electron_mvaNoIso
+keep Electron_mvaIso
+keep Electron_miniPFRelIso.*
+keep Electron_cutBased
+keep Electron_pfRelIso.*
+keep Electron_miniPFRelIso.*
 drop Jet.*
 keep Jet_pt.*
 keep Jet_eta
@@ -170,6 +177,9 @@ keep Muon_eta
 keep Muon_phi
 keep Muon_mass
 keep Muon_genPart.*
+keep Muon_tightId
+keep Muon_looseId
+keep Muon_mediumId
 drop Tau.*
 keep Tau_pt
 keep Tau_eta

@@ -51,13 +51,6 @@ class Config(BaseConfig):
         cat_reqs = self.get_categories_requirements()
 
         categories += ObjectCollection([
-            # Category("ZZ_elliptical_cut_80", "ZZ mass cut E=80%",
-            #     selection="(({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1"),
-            # Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
-            #     selection="(({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
-            #     " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1"),
-            
             # Category("ZZ_elliptical_cut_80_sr", "ZZ mass cut E=80% && Signal region",
             #     selection="((({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
             #         " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1) && " + \
@@ -66,36 +59,15 @@ class Config(BaseConfig):
             #         "((pairType == 2) && (isOS == 1) && "
             #         "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
             #         .format(self.deeptau.vsjet.Medium)),
-
-            # Category("ZZ_elliptical_cut_80_mutau", "ZZ mass cut E=80%",
-            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 0)"),
-            # Category("ZZ_elliptical_cut_80_etau", "ZZ mass cut E=80%",
-            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 1)"),
-            # Category("ZZ_elliptical_cut_80_tautau", "ZZ mass cut E=80%",
-            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) < 1) && (pairType == 2)"),
-
-            # Category("ZZ_elliptical_cut_80_CR_mutau", "CR ZZ mass cut E=80%",
-            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 0)"),
-            # Category("ZZ_elliptical_cut_80_CR_etau", "CR ZZ mass cut E=80%",
-            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 1)"),
-            # Category("ZZ_elliptical_cut_80_CR_tautau", "CR ZZ mass cut E=80%",
-            #     selection="((({{Ztt_svfit_mass}} - 105.) * ({{Ztt_svfit_mass}} - 105.) / (51. * 51.)"
-            #     " + ({{Zbb_mass}} - 118.) * ({{Zbb_mass}} - 118.) / (113. * 113.)) >= 1) && (pairType == 2)"),
-
             Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
                 selection=elliptical_cut_90),
             
-            Category("ZZ_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
-                selection=f"({elliptical_cut_90}) && ({cat_reqs.resolved_1b})"),
-            Category("ZZ_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
-                selection=f"({elliptical_cut_90}) && ({cat_reqs.resolved_2b})"),
-            Category("ZZ_elliptical_cut_90_boosted", "EC90 & boosted",
-                selection=f"({elliptical_cut_90}) && ({cat_reqs.boosted})"),
+            # Category("ZZ_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
+            #     selection=f"({elliptical_cut_90}) && ({cat_reqs.resolved_1b})"),
+            # Category("ZZ_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
+            #     selection=f"({elliptical_cut_90}) && ({cat_reqs.resolved_2b})"),
+            # Category("ZZ_elliptical_cut_90_boosted", "EC90 & boosted",
+            #     selection=f"({elliptical_cut_90}) && ({cat_reqs.boosted})"),
             
             # Category("ZZ_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
             #     selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
@@ -127,15 +99,17 @@ class Config(BaseConfig):
             
             # Category("ZZ_elliptical_cut_90_CR_boosted_noPNet", "CR & boosted (no PNet cut)",
             #     selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 "),
-
-            # Category("ZZ_elliptical_cut_90_mutau", "ZZ mass cut E=90%",
-            #     selection=elliptical_cut_90 + "&& (pairType == 0)"),
-            # Category("ZZ_elliptical_cut_90_etau", "ZZ mass cut E=90%",
-            #     selection=elliptical_cut_90 + "&& (pairType == 1)"),
-            # Category("ZZ_elliptical_cut_90_tautau", "ZZ mass cut E=90%",
-            #     selection=elliptical_cut_90 + "&& (pairType == 2)"),
-
         ])
+
+        for jet_category in ["resolved_1b", "resolved_2b", "boosted_bb"]:
+            for tau_category in ["HPSTau", "boostedTau"]:
+
+                categories.append(Category(
+                    f"ZZ_EC90_{jet_category}_{tau_category}",
+                    f"EC90 {jet_category} {tau_category}",
+                    selection=f"({elliptical_cut_90}) && ({cat_reqs[jet_category]}) && ({cat_reqs[tau_category]})"
+                ))
+
 
         return categories
     

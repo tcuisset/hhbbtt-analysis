@@ -89,9 +89,10 @@ hhlepton:
         t_vsmu: self.config.deeptau.vsmu.Tight
         vl_vsmu: self.config.deeptau.vsmu.VLoose
         useBoostedTaus: true
-        boostedTau_VsMu_threshold: 3 # medium (random choice here)
-        boostedTau_VsE_threshold: 5 # medium (same)
-        boostedTau_VsJet_threshold: 3 #medium (same)
+        tau_priority: HPS
+        boostedTau_VsMu_threshold: 0 # not used
+        boostedTau_VsE_threshold: 0 # not used
+        boostedTau_VsJet_threshold: 0.85 # raw score threshold, as used by Wisconsin analysis (quite loose)
         pairType_filter: not self.dataset.process.isSignal
 
 # TODO maybe we also want to keep the uncorrected tau variables ?
