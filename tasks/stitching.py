@@ -219,6 +219,14 @@ class StichWeights(DatasetWrapperTask):
                 ]
             )
         )
+
+        cset = cs.CorrectionSet(
+            schema_version=2,
+            description=f"Drell-Yan stitching weights for {self.config_name} (computed from {', '.join(self.dataset_names)})",
+            corrections=[corr],
+        )
         
-        self.output().dump(corr.json(exclude_unset=True), formatter="json")
+        with open(create_file_dir(self.output().path), "w+") as fout:
+            fout.write(cset.json(exclude_unset=True))
+        #self.output().dump(cset.json(exclude_unset=True), formatter="json")
 

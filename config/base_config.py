@@ -856,11 +856,13 @@ class BaseConfig(cmt_config):
         weights.default = "1"
 
         # These weights are used for PreCounter
-        weights.total_events_weights = ["genWeightFixed", "puWeight", "DYstitchWeight"]
+        weights.total_events_weights = ["genWeightFixed", "puWeight"] # DYstitchWeight
 
         weights.mutau = ["genWeightFixed", "puWeight", "prescaleWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
-            "bTagweightReshape"]
+            "bTagweightReshape",
+            "DYstitchWeight"
+            ]
             
         weights.etau = weights.mutau
         weights.tautau = weights.mutau
