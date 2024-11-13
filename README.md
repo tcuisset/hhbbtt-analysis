@@ -96,6 +96,36 @@ dl : dilepton, sl : semileptonic, fh:fully hadronic
 ### Fast datasets (no long queue needed)
 ewk_wminus, ewk_z, ggH_ZZ, GluGluToXToZZ, st_top, st_antitop, ttwh, ttwz, ttzh, ww_llnunu, ww_qqqq, wwz, wz_llqq, wzz, zz_bbtt, zz_dl, zz_lnu, zz_qnu, zz_sl_signal, zz_sl_background, zzz
 
+### Generator filter
+#### Doc
+[TAU POG presentation about DY gen filter](https://indico.cern.ch/event/1170879/contributions/4917733/attachments/2460890/4219167/TauPOG_DYJetsToMuTauh_20220611.pdf)
+[Madgraph doc on cards params](https://answers.launchpad.net/mg5amcnlo/+faq/2014)
+
+#### Madgraph on-shell
+        bwcutoff
+        The run_card parameter bwcutoff defines what is considered to be on-shell s-channel resonances: The resonance if considered to be on-shell if the invariant mass of an s-channel resonance is within M +/- bwcutoff*Gamma, and will then be included as a comment particle in the LHE event file (with status code 2). The value of bwcutoff does not affect the cross section of any processes, except if
+        1) you use the decay chain formalism: [a b > c d , c > e f, d > g h] Decay chain processes are strictly valid only in the narrow width limit, and we have therefore chosen to allow only production of on-shell particles. This means that the cross section will get smaller as bwcutoff gets smaller, since more of the tails of the Breit Wigner distributions are cut off.
+        2) If you forbid s-channel particles to be on shell ($ symbol)[a b> e f g h $ c d]. This is the exact complementary of the previous case. Where the a b > c d , c > e f, d > g h is not contributing of the mass of the c or the d is on-shell (i,e again M +/- bwcutoff*Gamma).
+
+#### ZZTo2L2Q sample
+Madgraph NLO (FXFX) +up to 1 jet, [cards](https://github.com/cms-sw/genproductions/tree/master/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/ZZTo2L2Q01j_5f_NLO_FXFX)
+`p p > Z l+ l-` (NLO QCD) with Madspin `z > qq`
+
+Parameters:
+~~~
+15  = bwcutoff
+4  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
+~~~
+[Madgraph forum](https://answers.launchpad.net/mg5amcnlo/+question/696360)
+
+#### ZHToTauTau
+Powheg producing H on shell + Z->anything, Pythia force decay H->tautau
+[card](https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/production/2017/13TeV/Higgs/HZJ_HanythingJ_NNPDF31_13TeV/HZJ_HanythingJ_NNPDF31_13TeV_M125_Vinclusive.input)
+
+#### ZH_HToBB_ZToLL
+Powheg producing H on shell + Z->ll, Pythia force decay H->bb
+[card](https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/production/2017/13TeV/Higgs/HZJ_HanythingJ_NNPDF31_13TeV/HZJ_HanythingJ_NNPDF31_13TeV_M125_Vleptonic.input)
+
 ## Categories
  - base-selection : removes the events where the object has low pt that have no way to be selected for speed (should maybe be cross checked for ZH)
 

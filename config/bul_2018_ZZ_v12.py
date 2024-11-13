@@ -66,7 +66,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 xs=self.cross_section_dict["zz_sl"],
                 #secondary_dataset="zz_sl_signal_aux",
                 prefix="eos.grif.fr//",
-                tags=["ul", "nanoV10", "bul"]),
+                tags=["ul", "nanoV10", "bul", "genfilter"]),
 
             ###################################### ZZ Background ##########################################
             ###############################################################################################
@@ -79,7 +79,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 #secondary_dataset="zz_sl_background_aux",
                 # categorization_max_events=10000,
                 prefix="eos.grif.fr//",
-                tags=["ul", "nanoV10", "bul"]),
+                tags=["ul", "nanoV10", "bul", "genfilter"]),
             
             #### ZHToTauTau
             Dataset("zh_htt",
@@ -109,7 +109,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 #secondary_dataset="zz_bbtt_aux",
                 # categorization_max_events=10000,
                 prefix="eos.grif.fr//",
-                tags=["ul", "nanoV10", "bul", "res"]),
+                tags=["ul", "nanoV10", "bul", "res", "genfilter"]),
 
             ###################################### ZZ Resonant ############################################
             ###############################################################################################
