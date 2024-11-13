@@ -18,6 +18,7 @@ class Config_ul_2018_ZZ_v12(base_config_ZZ):
 
     def add_weights(self):
         weights = get_2018_v12_weights()
+        assert False
         weights.ZZ_elliptical_cut_90 = weights.mutau
         weights.ZZ_elliptical_cut_90_sr = weights.mutau
         weights.ZZ_elliptical_cut_90_etau = weights.mutau

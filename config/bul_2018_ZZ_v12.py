@@ -20,6 +20,8 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
         print(self.categories)
         for category in self.categories:
             weights[category.name] = weights.mutau
+        
+        weights.base_noWeights = ["genWeight", "DYstitchWeight"]
         # weights.ZZ_elliptical_cut_90 = weights.mutau
         # weights.ZZ_elliptical_cut_90_sr = weights.mutau
         # weights.ZZ_elliptical_cut_90_etau = weights.mutau

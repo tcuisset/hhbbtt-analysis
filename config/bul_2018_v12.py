@@ -8,7 +8,7 @@ def get_2018_v12_weights():
     # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
     weights.total_events_weights = ["genWeight", "puWeight"]
 
-    weights.mutau = ["genWeight", "puWeight", # "DYstitchEasyWeight",  # TODO reanble DYstitchEasyWeight
+    weights.mutau = ["genWeight", "puWeight",  "DYstitchWeight", 
         "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF", "L1PreFiringWeight",
         "bTagweightReshape"]
     weights.etau = weights.mutau
@@ -17,6 +17,7 @@ def get_2018_v12_weights():
     weights.base = weights.mutau
     weights.base_fixedGenWeight = ["genWeightFixed", "puWeight"]
     weights.base_oldGenWeight = ["genWeight", "puWeight"]
+    weights.base_noWeights = ["genWeight"]
 
     # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
         # for channel in weights.channels}
