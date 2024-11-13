@@ -87,7 +87,7 @@ tauSF:
         isUL: self.dataset.has_tag('ul')
         runPeriod: self.config.runPeriod
         tauId_algo: self.config.tauId_algo
-        vsjet_wps: [VVVLoose, Medium]
+        vsjet_wps: [Medium] # we use also VVVLoose for QCD but no SFs are available (only Loose, Medium, Tight, VTight )
         vse_wps: [VVLoose]
         vsmu_wps: [VLoose, Tight]
 
