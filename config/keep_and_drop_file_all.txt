@@ -1,0 +1,76 @@
+# keep_and_drop_file for PreprocessRDF for nominal (no systematic variation that changes event)
+drop HLT.*
+# Muon triggers
+keep HLT_IsoTkMu.*
+keep HLT_IsoMu.*
+# noniso muon
+keep HLT_.*Mu50
+keep HLT_.*Mu100
+
+# Electron triggers
+keep HLT_Ele25_eta2p1_WPTight_Gsf
+keep HLT_Ele32_WPTight_Gsf.*
+keep HLT_Ele24_eta2p1_.*
+# noniso electron
+keep HLT_Ele115_CaloIdVT_GsfTrkIdT
+keep HLT_Photon175
+keep HLT_Photon200
+keep HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50
+keep HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165
+
+# Tau triggers
+keep HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg
+keep HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg
+keep HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg
+keep HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg
+keep HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg
+keep HLT_DoubleMediumDeepTauPFTauHPS35_L2NN_eta2p1
+#singleTau
+keep HLT_MediumChargedIsoPFTau180HighPtRelaxedIso*
+keep HLT_MediumChargedIsoPFTau50_Trk30_eta2p1_1pr_MET110
+
+# Jet triggers
+keep HLT_AK8PFHT*
+keep HLT_AK8PFJet*
+keep HLT_PFJet*
+# MET/HT triggers
+keep HLT_PFHT1050
+keep HLT_PFHT500_PFMET100_PFMHT100_IDTight
+keep HLT_PFMET120_PFMHT120_IDTight
+# MET triggers
+keep HLT_PFMETNoMu120_PFMHTNoMu120_IDTight
+keep HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight
+keep HLT_PFMET120_PFMHT120_IDTight
+
+drop L1.*
+keep L1PreFiringWeight.*
+drop HTXS.*
+drop LowPtElectron.*
+drop nLowPtElectron.*
+drop .*Photon.*
+drop Photon.*
+#drop IsoTrack.*
+#drop nIsoTrack.*
+
+
+drop (n|)OtherPV.*
+drop RefitPV.*
+drop SoftActivityJet.*
+drop nSoftActivityJet
+drop FsrPhoton.*
+drop nFsrPhoton
+drop GenDressedLepton.*
+drop nGenDressedLepton
+drop GenIsolatedPhoton.*
+drop nGenIsolatedPhoton
+drop GenProton.*
+drop nGenProton
+drop Proton.*
+drop nProton
+
+
+drop Jet_btag.*
+keep Jet_btagDeepFlavB
+keep Jet_btagDeepFlavCvB
+keep Jet_btagDeepFlavCvL
+keep Jet_btagDeepFlavQG

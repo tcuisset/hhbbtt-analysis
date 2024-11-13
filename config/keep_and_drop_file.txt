@@ -13,7 +13,7 @@ keep HLT_.*Mu100
 
 # Electron triggers
 keep HLT_Ele25_eta2p1_WPTight_Gsf
-keep HLT_Ele32_WPTight_Gsf_L1DoubleEG
+keep HLT_Ele32_WPTight_Gsf.*
 keep HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1
 keep HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1
 # noniso electron
@@ -193,3 +193,8 @@ keep Tau_mass_corr_down
 keep Tau_pt_corr
 keep Tau_pt_corr_up
 keep Tau_pt_corr_down
+keep Tau_idDeepTau2017v2p1VS.*
+keep Tau_charge
+keep Tau_dz
+keep Tau_genPartFlav
+
