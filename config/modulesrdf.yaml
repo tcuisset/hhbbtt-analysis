@@ -108,7 +108,7 @@ hhlepton:
         vvl_vse: self.config.deeptau.vse.VVLoose
         t_vsmu: self.config.deeptau.vsmu.Tight
         vl_vsmu: self.config.deeptau.vsmu.VLoose
-        useBoostedTaus: true
+        useBoostedTaus: self.dataset.process.isMC or self.dataset.name.startswith("data_met")
         tau_priority: HPS
         boostedTau_VsMu_threshold: 0 # not used
         boostedTau_VsE_threshold: 0 # not used

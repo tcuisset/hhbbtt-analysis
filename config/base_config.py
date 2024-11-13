@@ -141,6 +141,7 @@ def get_common_processes():
         Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
         Process("data_etau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
         Process("data_mutau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
+        Process("data_met", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
 
         # unused currently for ZZ/ZH analysis
         Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH",
@@ -439,6 +440,7 @@ class BaseConfig(cmt_config):
 
         categories = [
             Category("base", "base", selection="event >= 0"),
+            Category("base_noWeights", "no selection, no weights", selection="1"),
             Category("base_fixedGenWeight", "base with genWeight (fixed)", selection="1"),
             Category("base_oldGenWeight", "base with old genWeight (no fix)", selection="1"),
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
