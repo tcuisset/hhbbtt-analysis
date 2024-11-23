@@ -9,6 +9,7 @@ from config.bul_2018_v12 import setupBtagDeeptau, get_common_datasets_v12, get_2
 
 class Config_bul_2018_ZZ_v12(base_config_ZZ):
     def __init__(self, *args, **kwargs):
+        self.useBoostedTaus = True
         setupBtagDeeptau(self)
         super().__init__(*args, **kwargs)
 

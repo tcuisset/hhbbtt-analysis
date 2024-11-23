@@ -273,15 +273,25 @@ class BaseConfig(cmt_config):
         selection = OrderedDict()
         region_names = ["Signal region", "OS inv. iso", "SS iso", "SS inv. iso"]
 
-        dau1_iso = f"isBoostedTau ? dau1_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
-        """ Medium isolation of dau1 (for tautau channel) """
-        dau2_iso = f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
-        """ Medium isolation of dau2 """
-
-        dau2_loosenedIso = [
-            f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLoose} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
-            f"isBoostedTau ? dau2_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}"]
-        """ Loosened isolation for QCD reduced isolation control region """
+        if self.useBoostedTaus:
+            dau1_iso = f"isBoostedTau ? dau1_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+            """ Medium isolation of dau1 (for tautau channel) """
+            dau2_iso = f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+            """ Medium isolation of dau2 """
+            dau2_loosenedIso = [
+                f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLoose} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
+                f"isBoostedTau ? dau2_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}"]
+            """ Loosened isolation for QCD reduced isolation control region """
+            
+        else:
+            dau1_iso = f"dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+            """ Medium isolation of dau1 (for tautau channel) """
+            dau2_iso = f"dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+            """ Medium isolation of dau2 """
+            dau2_loosenedIso = [
+                f"dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
+                f"dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}"]
+            """ Loosened isolation for QCD reduced isolation control region """
 
         selection["os_iso"] = {
             "mutau": ["isOS == 1", dau2_iso],
@@ -312,7 +322,7 @@ class BaseConfig(cmt_config):
                 *dau2_loosenedIso],
         }
         regions = []
-        for ikey, key in enumerate(selection):
+        for ikey, key in enumerate(selection): # os_iso, os_inviso, etc
             regions.append(Category(key, label=Label(region_names[ikey]),
                 selection=self.join_selection_channels(selection[key])))
             for channel in self.channels:
@@ -365,8 +375,10 @@ class BaseConfig(cmt_config):
         reqs.boosted = reqs.boosted_bb # for backwards compatibility
 
         # Taus categories
-        reqs.HPSTau = "(isBoostedTau == false)"
-        reqs.boostedTau = "(isBoostedTau == true)"
+        reqs.HPSTau = "(isBoostedTau == false && pairType >= 0)"
+        reqs.boostedTau = "(isBoostedTau == true && pairType >= 0)"
+
+        reqs.all_categories = f"(pairType >= 0 && (({reqs.boosted_bb}) || ({reqs.resolved_1b}) || ({reqs.resolved_2b})))" # ALl categories (for DNN training)
         return reqs
 
     def add_categories(self, **kwargs):
@@ -675,13 +687,15 @@ class BaseConfig(cmt_config):
             Feature("lep1_rawIdDeepTauVSjet", "dau1_rawIdDeepTauVSjet", binning=(30, 0, 1),
                 x_title=Label("#tau_{1} raw DeepTau2017v2p1VSjet (tautau HPS)"), selection="!isBoostedTau && pairType == 2",
                 tags=["base"]),
-            Feature("lep1_rawIdDeepBoostedTauVSjet", "dau1_rawIdDeepTauVSjet", binning=(50, 0, 1),
+            *( # features only for boostedTaus
+            (Feature("lep1_rawIdDeepBoostedTauVSjet", "dau1_rawIdDeepTauVSjet", binning=(50, 0, 1),
                 x_title=Label("#tau_{1} raw DeepBoostedTau VSjet (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
                 tags=["base"]),
             Feature("lep1_rawIdDeepBoostedTauVSjet_nearOne", "dau1_rawIdDeepTauVSjet", binning=(80, self.deepboostedtau.vsjet.LooseWisc, 1),
                 x_title=Label("#tau_{1} raw DeepBoostedTau VSjet (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
-                tags=["base"]),
-
+                tags=["base"]))
+            if self.useBoostedTaus else ()
+            ),
             Feature("lep2_pt", "dau2_pt", binning=(20, 20, 220),
                 x_title=Label("#tau_{2} p_{T}"),
                 units="GeV", tags=["base"],
@@ -704,13 +718,15 @@ class BaseConfig(cmt_config):
             Feature("lep2_rawIdDeepTauVSjet", "dau2_rawIdDeepTauVSjet", binning=(50, 0, 1),
                 x_title=Label("#tau_{2} raw DeepTau2017v2p1VSjet (HPS taus)"), selection="!isBoostedTau",
                 tags=["base"]),
-            Feature("lep2_rawIdDeepBoostedTauVSjet", "dau2_rawIdDeepTauVSjet", binning=(50, 0, 1),
+            *( # features only for boostedTaus
+            (Feature("lep2_rawIdDeepBoostedTauVSjet", "dau2_rawIdDeepTauVSjet", binning=(50, 0, 1),
                 x_title=Label("#tau_{2} raw DeepBoostedTau VSjet (boostedTaus)"), selection="isBoostedTau",
                 tags=["base"]),
             Feature("lep2_rawIdDeepBoostedTauVSjet_nearOne", "dau2_rawIdDeepTauVSjet", binning=(80, self.deepboostedtau.vsjet.LooseWisc, 1),
                 x_title=Label("#tau_{2} raw DeepBoostedTau VSjet (boostedTaus)"), selection="isBoostedTau",
-                tags=["base"]),
-
+                tags=["base"])
+            ) if self.useBoostedTaus else ()
+            ),
             Feature("dR_tautau", "deltaR(dau1_eta, dau1_phi, dau2_eta, dau2_phi)" # from cmssw/DataFormats/Math/interface/deltaR.h, imported in cmt.base_tasks.base
                     #"sqrt((dau1_eta - dau2_eta)*(dau1_eta - dau2_eta) "
                 #" + (dau1_phi - dau2_phi)*(dau1_phi - dau2_phi))"
