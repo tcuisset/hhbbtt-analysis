@@ -15,12 +15,14 @@ class Config(BaseConfig):
         super().__init__(*args, **kwargs)
         self.dnn = DotDict(
             nonresonant=DotDict(
-                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZZbbtt-0",
+                # model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZZbbtt-0",
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZZbbtt-0-newFeatureNames",
                 out_branch="dnn_ZZbbtt_kl_1",
                 # systematics=["tes", "jer", "jec"]
             ),
             resonant=DotDict(
-                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ResZZbbtt-0/",
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-11-16/ResZZbbtt-0/",
+                #model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ResZZbbtt-0/",
                 resonant_masses=res_mass_ZZ,
                 out_branch="dnn_ZZbbtt_kl_1_{mass}",
                 # systematics=["tes", "jer", "jec"]
@@ -97,6 +99,8 @@ class Config(BaseConfig):
             Category("ZZ_elliptical_cut_90_CR_boosted", "CR & boosted",
                 selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.boosted})"),
             
+            
+            
             # Category("ZZ_elliptical_cut_90_CR_boosted_noPNet", "CR & boosted (no PNet cut)",
             #     selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 "),
         ])
@@ -109,7 +113,12 @@ class Config(BaseConfig):
                     f"EC90 {jet_category} {tau_category}",
                     selection=f"({elliptical_cut_90}) && ({cat_reqs[jet_category]}) && ({cat_reqs[tau_category]})"
                 ))
-
+        
+        categories.append(
+        Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region", # for DNN training
+                selection=jrs([elliptical_cut_90, cat_reqs["all_categories"], jrs([self.regions.get("etau_os_iso").selection, self.regions.get("mutau_os_iso").selection, self.regions.get("tautau_os_iso").selection], op="or")], op="and")
+                )
+        )
 
         return categories
     
