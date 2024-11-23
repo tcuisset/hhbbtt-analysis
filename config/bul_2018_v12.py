@@ -343,6 +343,10 @@ def get_common_datasets_v12(self):
             xs=self.cross_section_dict["st_antitop"],
             #secondary_dataset="st_antitop_aux",
             # categorization_max_events=10000,
+            merging={ 
+                "resolved_2b_HPSTau": 2,
+                "resolved_1b_HPSTau": 5,
+            },
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul"]),
         Dataset("st_top",
@@ -491,6 +495,10 @@ def get_common_datasets_v12(self):
             xs=self.cross_section_dict["ttw_lnu"],
             #secondary_dataset="ttw_lnu_aux",
             # categorization_max_events=10000,
+            merging={ 
+                "resolved_2b_HPSTau": 4,
+                "resolved_1b_HPSTau": 7,
+            },
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul"]),
         Dataset("ttw_qq",
@@ -539,6 +547,10 @@ def get_common_datasets_v12(self):
             xs=self.cross_section_dict["ttz_llnunu"],
             #secondary_dataset="ttz_llnunu_aux",
             # categorization_max_events=10000,
+            merging={ 
+                "resolved_2b_HPSTau": 4,
+                "resolved_1b_HPSTau": 7,
+            },
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul"]),
         Dataset("ttz_qq",
@@ -547,6 +559,10 @@ def get_common_datasets_v12(self):
             xs=self.cross_section_dict["ttz_qq"],
             #secondary_dataset="ttz_qq_aux",
             # categorization_max_events=10000,
+            merging={ 
+                "resolved_2b_HPSTau": 7,
+                "resolved_1b_HPSTau": 10,
+            },
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul"]),
         Dataset("ttzz",
@@ -622,6 +638,11 @@ def get_common_datasets_v12(self):
             xs=self.cross_section_dict["tth_tautau"],
             #secondary_dataset="tth_tautau_aux",
             # categorization_max_events=10000,
+            merging={
+                "resolved_1b_HPSTau" : 30,
+                "resolved_2b_HPSTau" : 30,
+                "boosted_bb_HPSTau" : 5
+            },
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul"]),
         # ttH_hnonbb (removed cause it takes very long and it's not in the datacard for HHbbtt) 
