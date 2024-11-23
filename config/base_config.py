@@ -913,7 +913,7 @@ class BaseConfig(cmt_config):
             #     x_title=Label("prescaleWeight")),
             Feature("trigSF", "trigSF", binning=(30, 0.5, 1.5),
                 x_title=Label("trigSF"), tags=["base"], noData=True,
-                systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11"]),
+                systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11", "trigSFmet"]),
             Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(30, 0.5, 1.5),
                 x_title=Label("L1PreFiringWeight"), tags=["base"], noData=True,
                 central="prefiring_central",
@@ -1131,6 +1131,7 @@ class BaseConfig(cmt_config):
             Systematic("trigSFDM1", "", up="_DM1Up", down="_DM1Down", decorrelate="year"),
             Systematic("trigSFDM10", "", up="_DM10Up", down="_DM10Down", decorrelate="year"),
             Systematic("trigSFDM11", "", up="_DM11Up", down="_DM11Down", decorrelate="year"),
+            Systematic("trigSFmet", "", up="_met_statup", down="_met_statdown", decorrelate="year"),
 
             Systematic("PUjetID", "", up="_up", down="_down", decorrelate="year"),
             Systematic("pu", "", up="Up", down="Down", decorrelate="year"),

@@ -351,6 +351,7 @@ trigSF:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
+        met_smear_tag: tes
 
 # Computes ['PUjetID_SF', 'PUjetID_SF_up', 'PUjetID_SF_down']
 PUjetID_SF:
