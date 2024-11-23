@@ -1244,7 +1244,7 @@ class BaseConfig(cmt_config):
                         systVal = syst.SystValues[isy][iproc]
                         if syst_name not in systematics:
                             systematics[syst_name] = {}
-                        systematics[syst_name][original_process.name] = eval(systVal)
+                        systematics[syst_name][original_process.name] = systVal #eval(systVal)
                         break
                     elif process.parent_process:
                         process=self.processes.get(process.parent_process)
