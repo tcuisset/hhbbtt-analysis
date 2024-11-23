@@ -342,8 +342,11 @@ class Config(BaseConfig):
         processes += ObjectCollection([
 
             # ZZ SL (signal and background)
+            # zz_sl_signal : removes everything not decaying to bbtautau, removes ZH contribution (ZH is included with ZHToTauTau dataset)
+            # (includes : Z->bb,Z->tautau / Z->bb,Z/gamma->tautau)
             Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ZZbbtt"),
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True, isSignal=True, llr_name="ZZbbtt"),
+            # zz_sl_background : ZZ / ZZ/gamma decaying to 2L2Q except bbtautau
             Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", 
                     isBkgBBTT=True, ProcType="Zbb_Ztautau"),
 

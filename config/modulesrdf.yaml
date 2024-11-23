@@ -17,14 +17,15 @@ puweightCor:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
 
-# old version, to be phased out, only for filter
-# bbtautau_sig_bkg:
-#     name: BBTauTauFilterRDF
-#     path: Tools.Tools.gen_information
-#     parameters:
-#         ProcType: self.dataset.process.get_aux('ProcType', False)
-#         isSigBBTT: self.dataset.process.get_aux('isSigBBTT', False)
-#         isBkgBBTT: self.dataset.process.get_aux('isBkgBBTT', False)
+# filter bbtautau for datasets used as SM signal
+bbtautau_sig_bkg:
+    name: BBTauTauFilterRDF
+    path: Tools.Tools.gen_information
+    parameters:
+        ProcType: self.dataset.process.get_aux('ProcType', False)
+        isSigBBTT: self.dataset.process.get_aux('isSigBBTT', False)
+        isBkgBBTT: self.dataset.process.get_aux('isBkgBBTT', False)
+        removeZH: self.dataset.process.get_aux('removeZH', False)
 
 gen_jets:
     name: GenJetsRDF
