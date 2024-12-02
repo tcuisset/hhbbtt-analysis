@@ -478,6 +478,16 @@ Choice of WPs : vsMu we can choose anyrtging. VsEle we have to pick either VVLoo
 #### Jet faking taus
 **TODO** We need to compute SFs for Jet faking taus in DeepTau. We should compute them ourselves (using gen info in MC ?) apparently.
 
+### boostedTaus
+[CMSSW boostedTau reco config](https://github.com/cms-sw/cmssw/blob/f47281314cbae103289999806846b692264a09a4/RecoTauTag/Configuration/python/boostedHPSPFTaus_cfi.py)
+[CMSSW boostedTaus nano config](https://github.com/cms-sw/cmssw/blob/edf3ebde7ff8fa704fd6f6918360b84cf1a795f7/PhysicsTools/NanoAOD/python/boostedTaus_cff.py#L56)
+
+#### anti-electron discriminator
+"againstElectronMVA6Raw" / "againstElectronMVA6category" in MiniAODv1 (againstElectronMVA6Raw2018/againstElectronMVA6category2018 in v2)
+See [here](https://github.com/cms-sw/cmssw/blob/3be60c77df03988f0c0936911c48eeb6635116be/RecoTauTag/RecoTau/python/tools/runTauIdMVA.py#L1092) for definition
+Known as "patTauDiscriminationByElectronRejectionMVA62018"
+Uses a PATTauDiscriminantCutMultiplexer as the anti-ele MVA needs to choose what cut to apply on MVA output depending on what the category (DM) is. 
+The actual MVA is computed [here](https://github.com/cms-sw/cmssw/blob/3be60c77df03988f0c0936911c48eeb6635116be/RecoTauTag/RecoTau/src/AntiElectronIDMVA6.cc).
 
 ## DNNs
 ### HHbtag
