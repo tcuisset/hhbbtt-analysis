@@ -574,6 +574,18 @@ class Config(BaseConfig):
             "ggf_sm",
             "data",
         ],
+        "datacard_zz_res_reduced": [
+            *[f"ggXZZbbtt_M{mass}" for mass in res_mass_ZZ],
+            "zz_bbtt",
+            "tt",
+            "dy",
+            "wjets",
+            "vv_v",
+            "ttx",
+            "higgs", # include wh, vbf_htt, ggH_ZZ, ttH, zh, ggf_sm
+            "others", #inlucde ewk, tw, singlet
+            "data",
+        ],
         "ggXZZbbtt": [
             *[f"ggXZZbbtt_M{mass}" for mass in res_mass_ZZ],
         ],
