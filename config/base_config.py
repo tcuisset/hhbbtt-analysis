@@ -330,6 +330,15 @@ class BaseConfig(cmt_config):
                     label=Label(", ".join([channel.label.root, region_names[ikey]])),
                     selection=jrs(channel.selection,
                         jrs(selection[key][channel.name], op="and"), op="and")))
+        for channel in self.channels:
+            regions.append(Category(f"{channel.name}_os",
+                label=f"{channel.label.root}, OS no iso cut",
+                selection=jrs(channel.selection,
+                    "isOS == 1")))
+            regions.append(Category(f"{channel.name}_ss",
+                label=f"{channel.label.root}, SS no iso cut",
+                selection=jrs(channel.selection,
+                    "isOS == 0", op="and")))
         return ObjectCollection(regions)
 
     def add_channels(self):
