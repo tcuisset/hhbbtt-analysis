@@ -615,7 +615,7 @@ class BaseConfig(cmt_config):
 
             Feature("bjet_difpt", "abs({{bjet1_pt}} - {{bjet2_pt}})", binning=(10, 50, 150),
                 x_title=Label("bb #Delta p_t"), selection="bjet1_JetIdx>=0 && bjet2_JetIdx>=0",
-                units="GeV",
+                units="GeV", # TODO add tags here
                 **self.jet_systs_params),
             
             # fatjet features

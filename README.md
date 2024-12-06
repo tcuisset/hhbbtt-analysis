@@ -486,8 +486,43 @@ Choice of WPs : vsMu we can choose anyrtging. VsEle we have to pick either VVLoo
 "againstElectronMVA6Raw" / "againstElectronMVA6category" in MiniAODv1 (againstElectronMVA6Raw2018/againstElectronMVA6category2018 in v2)
 See [here](https://github.com/cms-sw/cmssw/blob/3be60c77df03988f0c0936911c48eeb6635116be/RecoTauTag/RecoTau/python/tools/runTauIdMVA.py#L1092) for definition
 Known as "patTauDiscriminationByElectronRejectionMVA62018"
-Uses a PATTauDiscriminantCutMultiplexer as the anti-ele MVA needs to choose what cut to apply on MVA output depending on what the category (DM) is. 
-The actual MVA is computed [here](https://github.com/cms-sw/cmssw/blob/3be60c77df03988f0c0936911c48eeb6635116be/RecoTauTag/RecoTau/src/AntiElectronIDMVA6.cc).
+Uses a PATTauDiscriminantCutMultiplexer as the anti-ele MVA needs to choose what cut to apply on MVA output depending on what the category (DM) is. Values for the working points are loaded from CondDB, from the `cut` parameter ([example](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/RecoTauTag_antiElectronMVA6v3_noeveto_gbr_NoEleMatch_wGwoGSF_BL_WPeff98))
+The actual MVA is called from [here](https://github.com/cms-sw/cmssw/blob/41a8d658382a5824fd1a58d6d76af98447b0974a/RecoTauTag/RecoTau/plugins/TauDiscriminationAgainstElectronMVA6.cc#L31) and computed [here](https://github.com/cms-sw/cmssw/blob/3be60c77df03988f0c0936911c48eeb6635116be/RecoTauTag/RecoTau/src/AntiElectronIDMVA6.cc).
+
+##### algorithm
+Values from TauDiscriminationAgainstElectronMVA6:
+ - numSignalGammaCandsInSigCone : nb of PFGammas in cone of 0.05 from lead charged hadron (` std::clamp(3.0 / std::max(1.0, theTauRef->pt()), 0.05, 0.10)`)
+ - hasGsfTrack : there is a Electron with deltaR < 0.3
+ - electrons in cone 0.3 from tau
+ - category : special categories in case hasGsfTrack (5, 7, 13, 15, 14, 16), depend on barrel/endcal & nb of gammas
+
+Values from TauVars in AntiElectronIDMVA6
+ - hasGsf : PFtau has a GsfTrack inside, float but 0 or 1 always
+ - visMassIn : mass of (pgGamma+pfCharged) in cone of 0.05 (same as above with clamp) from tau 
+ - 
+
+The value will be the minimum MVA values for all the gsf electrons in cone. If there are no electrons in cone, then the no-electron-match mva value is used.
+
+List of -99 MVA value reasons : 
+ - tau in ECAL crack (disabled actually in [config](https://github.com/cms-sw/cmssw/blob/bc0f2a126c3642a94849bd03023dcb0e03b1b23d/RecoTauTag/Configuration/python/HPSPFTaus_cff.py#L221))
+ - if has elecvars: fail if nogsf && dR<0.3 (probably impossible)
+ - if has no elecvars: probably cannot fail as dR>0.3 always as eta elec=9.9
+
+[Measured electron to tau fake rates for Run2](https://twiki.cern.ch/twiki/bin/view/CMS/TauIDRecommendation13TeV#Electron_to_tau_fake_rate)
+
+#### anti-muon discriminator
+"againstMuonX3" where X is loose or tight. Matches muons with deltaR<0.3 (HPS) or <0.1 (boostedTaus, [modified here](https://github.com/cms-sw/cmssw/blob/41a8d658382a5824fd1a58d6d76af98447b0974a/RecoTauTag/Configuration/python/boostedHPSPFTaus_cfi.py#L37))
+[HPS definition](https://github.com/cms-sw/cmssw/blob/41a8d658382a5824fd1a58d6d76af98447b0974a/RecoTauTag/Configuration/python/HPSPFTaus_cff.py#L172)
+[Actual class : PFRecoTauDiscriminationAgainstMuon2Container](https://github.com/cms-sw/cmssw/blob/41a8d658382a5824fd1a58d6d76af98447b0974a/RecoTauTag/RecoTau/plugins/PFRecoTauDiscriminationAgainstMuon2Container.cc#L37)
+[Helper class with actual logic](https://github.com/cms-sw/cmssw/blob/41a8d658382a5824fd1a58d6d76af98447b0974a/RecoTauTag/RecoTau/plugins/PFRecoTauDiscriminationAgainstMuon2Helper.cc)
+
+Finds all the muons from "muons" collection (dR<0.1), count the number of muon chamber hits from those
+Cuts : 
+ - num of stations from all matched muons >1 -> fail
+ - number of hits in 3rd and 4th stations : no cut for loose
+ - if DM=0 & (E_ECAL + E_HCAL)/p < 0.2 -> fail
+
+There is also a MVA but it seems it is never used.
 
 ## DNNs
 ### HHbtag

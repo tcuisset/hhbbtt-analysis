@@ -40,3 +40,8 @@ callgrind_control -i on
 ## Performance bottlnecks
 ### PrePlot
 Main bottleneck is task creation time. Comes from `fnmatch` calls from "exclude_params" checks on `Task.vreq` calls, and from luigi config parser.
+
+## Proper error handling
+It is important to properly handle errors that can happen in a task, so that an output is **not** created when a task crashes. If an output is created, it will likely be corrupted but law/luigi will not notice and consider the task as done.
+In a `Task.run`method wrapped in `localize` decorator, raising any subclass of `Exception` (or ̀ KeyboardInterrupt`) will correctly recognize the failure and not move the tmp file to the final location (see `localize_file_targets` in `law.target.file`).
+Doing `sys.exit(1)` will not work as it raises `SystemExit` which only derives from `BaseException`.
