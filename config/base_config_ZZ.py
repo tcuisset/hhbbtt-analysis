@@ -366,7 +366,7 @@ class Config(BaseConfig):
 
             # ZZ resonant
             *[Process(f"ggXZZbbtt_M{mass}", Label(f"ggX {mass} GeV" if mass < 1000 else f"ggX {mass/1000:g} TeV"), color=next(colors_res), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt")
+                    isSignal=True, llr_name="ggXZZbbtt", fatjet_bb_type="HHlike")
             for mass in [ 200, 210, 220, 230, 240, 250, 260, 270, 280, 300, 320, 350, 360, 400, 450, 500, 550,
                 600, 650, 700, 750, 800, 850, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700,
                 1800, 1900, 2000, 2200, 2400, 2500, 2600, 2800, 3000, 3500, 4000, 4500, 5000]],
