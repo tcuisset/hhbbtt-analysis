@@ -3,6 +3,7 @@ from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature
 from analysis_tools.utils import DotDict, join_root_selection as jrs
 from plotting_tools import Label
 import itertools
+import numpy as np
 
 from config.base_config import get_common_processes, BaseConfig
 
@@ -284,7 +285,11 @@ class Config(BaseConfig):
                 x_title=Label("ZZ_{bb#tau#tau}^{SVFit} mass"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
-            Feature("ZZ_svfit_mass_res_veryHigh", "ZZ_svfit_mass", binning=(30, 1500, 5500),
+            Feature("ZZ_svfit_mass_res_veryHigh", "ZZ_svfit_mass", binning=(30, 150, 5500),
+                x_title=Label("ZZ_{bb#tau#tau}^{SVFit} mass"),
+                units="GeV", tags=["cat"],
+                systematics=self.all_systs),
+            Feature("ZZ_svfit_mass_res_veryHigh_varBin", "ZZ_svfit_mass", binning=[0., 700., 900., 1100., 1400., 1800., 2500., 5000.],
                 x_title=Label("ZZ_{bb#tau#tau}^{SVFit} mass"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
@@ -318,18 +323,21 @@ class Config(BaseConfig):
                 x_title=Label("ZZ #chi^{2} (Kin. Fit)"), tags=["cat"],
                 systematics=self.all_systs),
             
-            Feature("dnn_ZZbbtt_kl_1_CR", "dnn_ZZbbtt_kl_1", binning=(30, 0, 1),
+            *[Feature(f"dnn_ZZbbtt_{nbins}b", "dnn_ZZbbtt_kl_1", binning=(nbins, 0, 1),
                 x_title=Label("DNN ZZ"), tags=["dnn", "blind"],
-                systematics=self.all_systs),
-
-            Feature("dnn_ZZbbtt_kl_1", "dnn_ZZbbtt_kl_1", binning=(10, 0, 1),
-                x_title=Label("DNN ZZ"), tags=["dnn", "blind"],
-                systematics=self.all_systs),
+                systematics=self.all_systs)
+            for nbins in [10, 30, 100, 500]],
             
-            *[Feature(f"dnn_ZZbbtt_kl_1_{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(10, 0, 1), tags=["dnn", "blind"],
+            *[Feature(f"dnn_ZZbbtt_{nbins}b_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(nbins, 0, 1), tags=["dnn", "blind"],
                 x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),
                 systematics=self.all_systs)
-            for mass in res_mass_ZZ]
+            for mass in res_mass_ZZ for nbins in [10, 100]],
+
+            *[Feature(f"dnn_ZZbbtt_{nbins}bv_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}",
+                binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(2./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(3/10*nbins), endpoint=False), np.linspace(0.9, 1., int(4/10*nbins), endpoint=True)]),
+                x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),  tags=["dnn", "blind"],
+                systematics=self.all_systs)
+            for mass in res_mass_ZZ for nbins in [500]],
 
         ]
         return base_features + ObjectCollection(zz_features)
