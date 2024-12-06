@@ -14,8 +14,8 @@ import math
 
 def get_common_processes():
     processes = [
-        # W
-        Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="all_background", llr_name="WJets"),
+        # W. Process type is DY-like (not sure why, but doing same as HH resonant analysis)
+        Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="all_background", llr_name="WJets", fatjet_bb_type="DYlike"),
 
         Process("wjets_ht1", Label("Wjets HT1"), color=(5, 87, 92), 
                 parent_process="wjets"),
@@ -54,7 +54,7 @@ def get_common_processes():
                 parent_process="wjets"),
 
         # DY
-        Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DY", isDY=True),
+        Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DY", isDY=True, fatjet_bb_type="DYlike"),
 
         Process("dy_incl", Label("DY Incl"), color=(0, 165, 80), 
                 parent_process="dy", isDY=True),
@@ -78,7 +78,7 @@ def get_common_processes():
                 parent_process="dy", isDY=True),
 
         # EWK
-        Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk"),
+        Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk", fatjet_bb_type="DYlike"),
         Process("ewk_wplus",  Label("EWK W^{+}"), color=(255, 230, 0), parent_process="ewk"),
         Process("ewk_wminus", Label("EWK W^{-}"), color=(255, 230, 0), parent_process="ewk"),
         Process("ewk", Label("EWK"), color=(255, 230, 0), parent_process="others", llr_name="EWK"),
@@ -87,11 +87,11 @@ def get_common_processes():
         Process("tt_dl", Label("t#bar{t} DL"), color=(40, 194, 255), parent_process="tt"),
         Process("tt_sl", Label("t#bar{t} SL"), color=(40, 194, 255), parent_process="tt"),
         Process("tt_fh", Label("t#bar{t} FH"), color=(40, 194, 255), parent_process="tt"),
-        Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="all_background", llr_name="TT"),
+        Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="all_background", llr_name="TT", fatjet_bb_type="TTlike"),
         # TW
-        Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="others", llr_name="TW"),
+        Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="others", llr_name="TW", fatjet_bb_type="TTlike"),
         # singleT
-        Process("singlet", Label("st"), color=(255, 230, 0), parent_process="others", llr_name="singleT"),
+        Process("singlet", Label("st"), color=(255, 230, 0), parent_process="others", llr_name="singleT", fatjet_bb_type="TTlike"),
 
         # VV
         Process("zz", Label("ZZ"), color=(20, 60, 255), parent_process="vv"),
@@ -102,9 +102,9 @@ def get_common_processes():
         Process("zzz", Label("ZZZ"), color=(20, 60, 255), parent_process="vvv"),
         Process("wzz", Label("WZZ"), color=(20, 60, 255), parent_process="vvv"),
         Process("www", Label("WWW"), color=(20, 60, 255), parent_process="vvv"),
-        Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"),
+        Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"), 
         Process("vvv", Label("VVV"), color=(20, 60, 255), parent_process="vv_v", llr_name="VVV"),
-        Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="all_background"),
+        Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="all_background", fatjet_bb_type="DYlike"), # will apply DY PNet SFs except where there is a Z->bb at gen level
 
         # TTX
         Process("ttw", Label("TTW"), color=(4, 240, 106), parent_process="ttx"),
@@ -114,23 +114,23 @@ def get_common_processes():
         Process("ttwh", Label("TTWH"), color=(4, 240, 106), parent_process="ttx"),
         Process("ttzh", Label("TTZH"), color=(4, 240, 106), parent_process="ttx"),
         Process("ttzz", Label("TTZZ"), color=(4, 240, 106), parent_process="ttx"),
-        Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="all_background", llr_name="TTX"),
+        Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="all_background", llr_name="TTX", fatjet_bb_type="TTlike"),
         
         # zh_hbb_zqq : is defined in ZZ and ZH configs
         # WH_htt
         Process("wh_htt", Label("wh_htt"), color=(130, 39, 197), parent_process="wh"),
-        Process("wh", Label("WH"), color=(130, 39, 197), parent_process="higgs", llr_name="WH"),
+        Process("wh", Label("WH"), color=(130, 39, 197), parent_process="higgs", llr_name="WH", fatjet_bb_type="DYlike"),
         # VBF_htt
         Process("vbf_htt", Label("vbf_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="qqH"),
         # ggHZZ
-        Process("ggH_ZZ", Label("ggH_ZZ"), color=(130, 39, 197), parent_process="higgs", llr_name="ggH"),
+        Process("ggH_ZZ", Label("ggH_ZZ"), color=(130, 39, 197), parent_process="higgs", llr_name="ggH", fatjet_bb_type="HHlike"),
         # ttH_hbb
         Process("tth_bb", Label("t#bar{t}H bb"), color=(130, 39, 197), parent_process="ttH"),
         Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(130, 39, 197), parent_process="ttH"),
         Process("tth_nonbb", Label("t#bar{t}H nonbb"), color=(130, 39, 197), parent_process="ttH"),
-        Process("ttH", Label("t#bar{t}H"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH"),
+        Process("ttH", Label("t#bar{t}H"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH", fatjet_bb_type="TTlike"),
         # ggHH
-        Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, parent_process="higgs", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
+        Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, parent_process="higgs", llr_name="ggHH_kl_1_kt_1_hbbhtt", fatjet_bb_type="HHlike"),
         Process("higgs", Label("Higgs"), color=(130, 39, 197), parent_process="all_background", llr_name="Higgs"),
 
         Process("others", Label("Others"), color=(255, 230, 0),
@@ -144,7 +144,7 @@ def get_common_processes():
         Process("data_met", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
 
         # unused currently for ZZ/ZH analysis
-        Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH",
+        Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH", fatjet_bb_type="HHlike",
             parent_process="all_background"),
         Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=False,
             parent_process="ggf"),
@@ -154,7 +154,7 @@ def get_common_processes():
             parent_process="ggf"),
 
         # unused currently for ZZ/ZH analysis
-        Process("vbf", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, llr_name="qqH"),
+        Process("vbf", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, llr_name="qqH", fatjet_bb_type="HHlike"),
         Process("vbf_sm", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, parent_process="vbf"),
         Process("vbf_0p5_1_1", Label("HH_{VBF}^{(0.5,1,1)}"), color=(0, 0, 0),
             isSignal=False, parent_process="vbf"),
@@ -253,6 +253,15 @@ class BaseConfig(cmt_config):
         self.categories = self.add_categories()
         self.cross_section_dict = cross_section_dict
         super().__init__(*args, **kwargs)
+        # propagating fatjet_bb_type to every process. If a process does not have it, take it from a parent process
+        for process in self.processes:
+            upper_process = process
+            fatjet_bb_type = None
+            while fatjet_bb_type is None and upper_process.parent_process is not None:
+                fatjet_bb_type = upper_process.get_aux("fatjet_bb_type")
+                upper_process = self.processes.get(upper_process.parent_process)
+            if fatjet_bb_type is not None:
+                process.aux["fatjet_bb_type"] = fatjet_bb_type
 
     def join_selection_channels(self, selection):
         """ Takes a dict channel -> [selection], where the list of selections is first and-ed (with parentheses) 
@@ -935,7 +944,10 @@ class BaseConfig(cmt_config):
                 systematics=["jetTauFakes", "etauFR", "mutauFR", "eleReco", "eleIso", "muIso", "muId"]),
             Feature("bTagweightReshape", "bTagweightReshape", binning=(30, 0, 2),
                 x_title=Label("b-tag reshaping weight"), tags=["base"], noData=True,
-                systematics=["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
+                systematics=self.jme_systs + ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
+            Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 1),
+                x_title=Label("FatJet ParticleNet SF"), tags=["base"], noData=True,
+                systematics=self.jme_systs + ["fatjet_pnet"]),
             ############## TODO TODO self.jec_systs+
 
             # LHE variables (MC only)
@@ -1042,8 +1054,8 @@ class BaseConfig(cmt_config):
 
         weights.mutau = ["genWeightFixed", "puWeight", "prescaleWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
-            "bTagweightReshape",
-            "DYstitchWeight"
+            "bTagweightReshape", "fatjet_pnet_SF",
+            "DYstitchWeight",
             ]
             
         weights.etau = weights.mutau
@@ -1155,6 +1167,8 @@ class BaseConfig(cmt_config):
             Systematic("CMS_btag_lf", "_lf"),
             Systematic("CMS_btag_lfstats1", "_lfstats1", decorrelate="year"),
             Systematic("CMS_btag_lfstats2", "_lfstats2", decorrelate="year"),
+
+            Systematic("fatjet_pnet", "", decorrelate="year"), # FatJet ParticleNet XbbVsQCD scale factors 
 
             # Systematic("jes"), # 
         ]

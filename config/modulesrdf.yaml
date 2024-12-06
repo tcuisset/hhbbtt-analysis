@@ -342,6 +342,22 @@ jecfatjet:
         eta: fatjet_eta
         mass: fatjet_mass_nom
         
+# FatJet X->bb tagging scale factors
+AK8GenRDF:
+    name: AK8GenRDF
+    path: Tools.Tools.gen_information
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+
+FatJetParticleNetSFProducer:
+    name: FatJetParticleNetSFProducerRDF
+    path: Tools.Tools.fatjet_pnet_sf
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        dataset: self.dataset.name
+        fatjet_bb_type: self.dataset.process.get_aux("fatjet_bb_type")
 
 trigSF:
     name: Htt_trigSFRDF

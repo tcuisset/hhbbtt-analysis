@@ -353,7 +353,7 @@ class Config(BaseConfig):
             # zz_sl_signal : removes everything not decaying to bbtautau, removes ZH contribution (ZH is included with ZHToTauTau dataset)
             # (includes : Z->bb,Z->tautau / Z->bb,Z/gamma->tautau)
             Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True, isSignal=True, llr_name="ZZbbtt"),
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True, isSignal=True, llr_name="ZZbbtt", fatjet_bb_type="HHlike"),
             # zz_sl_background : ZZ / ZZ/gamma decaying to 2L2Q except bbtautau
             Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", 
                     isBkgBBTT=True, ProcType="Zbb_Ztautau"),
@@ -362,7 +362,7 @@ class Config(BaseConfig):
             Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(130, 39, 197), parent_process="zh_hbb"),
             Process("zh_hbb", Label("zh_hbb"), color=(130, 39, 197), parent_process="zh"),
             Process("zh_htt", Label("zh_htt"), color=(130, 39, 197), parent_process="zh"),
-            Process("zh", Label("ZH"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH"),
+            Process("zh", Label("ZH"), color=(130, 39, 197), parent_process="higgs", llr_name="ZH", fatjet_bb_type="DYlike"),
 
             # ZZ resonant
             *[Process(f"ggXZZbbtt_M{mass}", Label(f"ggX {mass} GeV" if mass < 1000 else f"ggX {mass/1000:g} TeV"), color=next(colors_res), 
@@ -408,7 +408,7 @@ class Config(BaseConfig):
             
             # background for resonant analysis 
             Process("zz_bbtt", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", llr_name="ZZbbtt"),
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", llr_name="ZZbbtt", fatjet_bb_type="DYlike"),
             
         ])
 
