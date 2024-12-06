@@ -718,7 +718,14 @@ class BaseConfig(cmt_config):
                 tags=["base"]),
             Feature("lep1_rawIdDeepBoostedTauVSjet_nearOne", "dau1_rawIdDeepTauVSjet", binning=(80, self.deepboostedtau.vsjet.LooseWisc, 1),
                 x_title=Label("#tau_{1} raw DeepBoostedTau VSjet (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
-                tags=["base"]))
+                tags=["base"]),
+            Feature("lep1_rawAntiEle2018", "boostedTau_rawAntiEle2018[dau1_idx]", binning=(50, -1, 1),
+                x_title=Label("#tau_{1} raw AntiEle2018 score (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
+                tags=["study"]),
+            Feature("lep1_idAntiMu", "boostedTau_idAntiMu[dau1_idx]", binning=(3, 0, 3),
+                x_title=Label("#tau_{1} anti-muon discriminator (1=loose, 2=tight) (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
+                tags=["study"])
+            )
             if self.useBoostedTaus else ()
             ),
             Feature("lep2_pt", "dau2_pt", binning=(20, 20, 220),
@@ -749,7 +756,13 @@ class BaseConfig(cmt_config):
                 tags=["base"]),
             Feature("lep2_rawIdDeepBoostedTauVSjet_nearOne", "dau2_rawIdDeepTauVSjet", binning=(80, self.deepboostedtau.vsjet.LooseWisc, 1),
                 x_title=Label("#tau_{2} raw DeepBoostedTau VSjet (boostedTaus)"), selection="isBoostedTau",
-                tags=["base"])
+                tags=["base"]),
+            Feature("lep2_rawAntiEle2018", "boostedTau_rawAntiEle2018[dau2_idx]", binning=(50, -1, 1),
+                x_title=Label("#tau_{2} raw AntiEle2018 score (boostedTaus)"), selection="isBoostedTau",
+                tags=["study"]),
+            Feature("lepe_idAntiMu", "boostedTau_idAntiMu[daue_idx]", binning=(3, 0, 3),
+                x_title=Label("#tau_{2} anti-muon discriminator (1=loose, 2=tight) (boostedTaus)"), selection="isBoostedTau",
+                tags=["study"])
             ) if self.useBoostedTaus else ()
             ),
             Feature("dR_tautau", "deltaR(dau1_eta, dau1_phi, dau2_eta, dau2_phi)" # from cmssw/DataFormats/Math/interface/deltaR.h, imported in cmt.base_tasks.base
