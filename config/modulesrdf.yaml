@@ -238,6 +238,12 @@ jec_fatjet_corrections:
 #         # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
 #             # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
 
+hemIssue:
+    name: hemIssueRDF
+    path: Corrections.JME.HEM_issue
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
 
 #################### MET
 # TODO boostedTau systematics propagation to MET ???? (probably should deal with overlap with HPS taus ?)

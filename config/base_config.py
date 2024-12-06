@@ -566,12 +566,19 @@ class BaseConfig(cmt_config):
         features = [
             Feature("jet_pt", "Jet_pt", binning=(30, 0, 300),
                 x_title=Label("jet p_{T} (no corrections)"),
-                units="GeV", tags=["base"]),
+                units="GeV", tags=["jet"]),
             Feature("jet_pt_smeared", "Jet_pt", binning=(30, 0, 300),
                 x_title=Label("jet p_{T} (smeared)"), **self.jet_systs_params,
-                units="GeV", tags=["base"]),
+                units="GeV", tags=["jet"]),
+            # For jet veto maps. jets_hem_preselection is a RVec<bool> computed in hemIssueRDF
+            Feature("jet_eta_hem", "Jet_eta[jets_hem_preselection]", binning=(20, -5., 5.),
+                x_title=Label("jet #eta (all jets with ID)"),
+                tags=["jet"]),
+            Feature("jet_phi_hem", "Jet_phi[jets_hem_preselection]", binning=phi_binning,
+                x_title=Label("jet #phi (all jets with ID)"),
+                tags=["jet"]),
             Feature("nJet", "nJet", binning=(20, 0, 20),
-                x_title=Label("nJet"), tags=["base"]),
+                x_title=Label("nJet"), tags=["jet"]),
             Feature("btagging", "Jet_btagDeepFlavB", binning=(30,0,1),
                 x_title=Label("b-tagging score"), tags=["base"]),
 
@@ -1055,7 +1062,7 @@ class BaseConfig(cmt_config):
         weights.mutau = ["genWeightFixed", "puWeight", "prescaleWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
             "bTagweightReshape", "fatjet_pnet_SF",
-            "DYstitchWeight",
+            "DYstitchWeight", "HEM_weight"
             ]
             
         weights.etau = weights.mutau
