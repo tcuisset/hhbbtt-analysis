@@ -269,6 +269,13 @@ MET_XYCorrections:
         ispreVFP: self.config.get_aux('ispreVFP', False)
         met_smear_tag: "tes"
 
+MET_unclusteredEnergy:
+    name: MET_UnclusteredEnergy_RDF
+    path: Corrections.JME.met
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        met_smear_tag: "tes_xycorr"
 
 #### HHJets
 hhjets:

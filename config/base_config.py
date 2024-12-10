@@ -1158,6 +1158,8 @@ class BaseConfig(cmt_config):
             Systematic("met_smearing", ("MET", "MET_smeared")),
             Systematic("met_smearing_xycorr", ("MET", "MET_smeared_xycorr")),
             Systematic("met_tes_xycorr", ("MET", "MET_tes_xycorr")),
+            # MET uncertainties
+            Systematic("met_unclustered", "_unclustered", label="Unclustered energy", module_syst_type=["met_syst"], affected_categories=cats_jet_systs),
 
             # used only to plot MET corrected variables with systematics. NOT TO BE RUN AS AN ACTUAL SYSTEMATIC IN PREPROCESS
             # Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'), # no MET smearing
