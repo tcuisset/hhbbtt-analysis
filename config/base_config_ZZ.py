@@ -384,7 +384,7 @@ class Config(BaseConfig):
             
         ])
 
-        process_group_names = {
+        process_group_names |= {
         "dy_split": [
             "dy_incl",
             "dy_ptz1",

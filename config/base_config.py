@@ -186,6 +186,10 @@ def get_common_processes():
         "signal": [
             "ggf_sm",
         ],
+        "data_bkg": [ # mostly used for FeaturePlot2D (ie plotting jet veto maps)
+            "data",
+            "all_background"
+        ],
         "etau": [
             "tt_dl",
             "tt_sl",
@@ -581,6 +585,7 @@ class BaseConfig(cmt_config):
 
         # event weight systs only need to be included in the feature that is used in config.weights
         phi_binning = (20, -math.pi, math.pi)
+        phi_binning_50 = (50, -math.pi, math.pi)
         features = [
             Feature("jet_pt", "Jet_pt", binning=(30, 0, 300),
                 x_title=Label("jet p_{T} (no corrections)"),
@@ -588,11 +593,17 @@ class BaseConfig(cmt_config):
             Feature("jet_pt_smeared", "Jet_pt", binning=(30, 0, 300),
                 x_title=Label("jet p_{T} (smeared)"), **self.jet_systs_params,
                 units="GeV", tags=["jet"]),
+            Feature("jet_eta", "Jet_eta", binning=(50, -5., 5.),
+                x_title=Label("jet #eta (all jets)"),
+                tags=["jet"]),
+            Feature("jet_phi", "Jet_phi", binning=phi_binning_50,
+                x_title=Label("jet #phi (all jets)"),
+                tags=["jet"]),
             # For jet veto maps. jets_hem_preselection is a RVec<bool> computed in hemIssueRDF
-            Feature("jet_eta_hem", "Jet_eta[jets_hem_preselection]", binning=(20, -5., 5.),
+            Feature("jet_eta_hem", "Jet_eta[jets_hem_preselection]", binning=(50, -5., 5.),
                 x_title=Label("jet #eta (all jets with ID)"),
                 tags=["jet"]),
-            Feature("jet_phi_hem", "Jet_phi[jets_hem_preselection]", binning=phi_binning,
+            Feature("jet_phi_hem", "Jet_phi[jets_hem_preselection]", binning=phi_binning_50,
                 x_title=Label("jet #phi (all jets with ID)"),
                 tags=["jet"]),
             Feature("nJet", "nJet", binning=(20, 0, 20),
