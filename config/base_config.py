@@ -288,7 +288,7 @@ class BaseConfig(cmt_config):
             dau2_iso = f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
             """ Medium isolation of dau2 """
             dau2_loosenedIso = [
-                f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLoose} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
+                f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
                 f"isBoostedTau ? dau2_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}"]
             """ Loosened isolation for QCD reduced isolation control region """
             

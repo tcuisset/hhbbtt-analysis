@@ -113,7 +113,8 @@ hhlepton:
         tau_priority: HPS
         boostedTau_VsMu_threshold: 0 # not used
         boostedTau_VsE_threshold: 0 # not used
-        boostedTau_VsJet_threshold: 0.85 # raw score threshold, as used by Wisconsin analysis (quite loose)
+        boostedTau_VsJet_threshold: self.config.deepboostedtau.vsjet.VVLooseForPreprocess # something very loose here for QCD estimation
+        #boostedTau_VsJet_threshold: 0.85 # raw score threshold, as used by Wisconsin analysis (quite loose)
         pairType_filter: not self.dataset.process.isSignal
 
 # TODO maybe we also want to keep the uncorrected tau variables ?

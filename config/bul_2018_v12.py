@@ -38,7 +38,8 @@ def setupBtagDeeptau(self):
     self.deepboostedtau=DotDict(
         vsjet=DotDict(
             LooseWisc=0.85, # what Wisconsin is using
-            VLoose=0.6 # some made up number for QCD estimation
+            VVLooseForPreprocess=-1., # the threshold to use for Preprocess (can always be tightened later)
+            VLooseQCD=-1. # threshold used as lower bound for inviso QCD region 
         )
     )
 
