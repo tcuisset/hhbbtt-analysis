@@ -341,13 +341,19 @@ class BaseConfig(cmt_config):
                         jrs(selection[key][channel.name], op="and"), op="and")))
         for channel in self.channels:
             regions.append(Category(f"{channel.name}_os",
-                label=f"{channel.label.root}, OS no iso cut",
+                label=f"{channel.label.root}, OS (no QCD isolation cut)",
                 selection=jrs(channel.selection,
                     "isOS == 1")))
             regions.append(Category(f"{channel.name}_ss",
-                label=f"{channel.label.root}, SS no iso cut",
+                label=f"{channel.label.root}, SS (no QCD isolation cut)",
                 selection=jrs(channel.selection,
                     "isOS == 0", op="and")))
+        regions.append(Category(f"baseline_region",
+            label="baseline etau+mutau+tautau",
+            selection="pairType>=0 && pairType <= 2"))
+        regions.append(Category(f"baseline_hem_affected",
+            label="EraCD - baseline etau+mutau+tautau",
+            selection="pairType>=0 && pairType <= 2 && hem_affected_run"))
         return ObjectCollection(regions)
 
     def add_channels(self):
@@ -379,24 +385,36 @@ class BaseConfig(cmt_config):
     
     def get_categories_requirements(self):
         """ Requirements for selecting res1b, res2b & boosted categories """
-        reqs = DotDict()
+        
         bjets = self.get_bjets_requirements()
         # req_2jets = "(bjet1_JetIdx >= 0)" # requires that we have 2 AK4 jets selected by hhbtag, prerequisite for resolved (if bjet1_JetIdx is there then bjet2_JetIdx is also there)
-        reqs.resolved_1b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
-        reqs.resolved_2b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))"
-        # Following not needed since orthogonalization done at HHJets level
-        ## need to orthogonalize boosted to resolved. -> need isBoosted = 1 (ie there is an AK8 jet passing selection), and :
-        ## - either we have <2 AK4 jets passing the first selections (before hhbtag and btag, ie pt, PUid, deltaR) 
-        ## - or we have >= 2 AK4 jets but the 2 hhbtag-selected jets both fail the medium btag WP
-        ## note the order of evaluation, important to not access Jet collections with -1 index
-        reqs.boosted_bb = f"(isBoosted == 1) && fatjet_JetIdx>=0 && ({bjets.boosted_pnet})"
-        reqs.boosted = reqs.boosted_bb # for backwards compatibility
+        reqs = DotDict()
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail = DotDict() # priority to res2b, for HPSTaus category
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_2b = f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))" # res2b has priority
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.boosted_bb = f"(!({reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_2b}) && fatjet_JetIdx>=0 && ({bjets.boosted_pnet}))" # fatjet passing pnet & not res2b
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_1b = f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}) && !(fatjet_JetIdx>=0 && ({bjets.boosted_pnet})))" # 2 jets & exactly one b-tag (->orthogonal res2b) & no fatjet passing pnet (orthogonalize boosted)
+
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail = DotDict() # priority to boosted, for boostedTaus category
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb = f"(fatjet_JetIdx>=0 && ({bjets.boosted_pnet}))" # priority boosted
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.resolved_2b = f"(!{reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb} && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))"
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.resolved_1b = f"(!{reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb} && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
+
+        # old code giving priority to boosted
+            # reqs.resolved_1b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
+            # reqs.resolved_2b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))"
+            # # Following not needed since orthogonalization done at HHJets level
+            # ## need to orthogonalize boosted to resolved. -> need isBoosted = 1 (ie there is an AK8 jet passing selection), and :
+            # ## - either we have <2 AK4 jets passing the first selections (before hhbtag and btag, ie pt, PUid, deltaR) 
+            # ## - or we have >= 2 AK4 jets but the 2 hhbtag-selected jets both fail the medium btag WP
+            # ## note the order of evaluation, important to not access Jet collections with -1 index
+            # reqs.boosted_bb = f"(isBoosted == 1) && fatjet_JetIdx>=0 && ({bjets.boosted_pnet})"
+            # reqs.boosted = reqs.boosted_bb # for backwards compatibility
 
         # Taus categories
         reqs.HPSTau = "(isBoostedTau == false && pairType >= 0)"
         reqs.boostedTau = "(isBoostedTau == true && pairType >= 0)"
 
-        reqs.all_categories = f"(pairType >= 0 && (({reqs.boosted_bb}) || ({reqs.resolved_1b}) || ({reqs.resolved_2b})))" # ALl categories (for DNN training)
+        # reqs.all_categories = f"(pairType >= 0 && (({reqs.boosted_bb}) || ({reqs.resolved_1b}) || ({reqs.resolved_2b})))" # ALl categories (for DNN training)
         return reqs
 
     def add_categories(self, **kwargs):

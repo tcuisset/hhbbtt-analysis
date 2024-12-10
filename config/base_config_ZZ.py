@@ -34,6 +34,9 @@ class Config(BaseConfig):
         categories = super().add_categories(**kwargs)
 
         # ARCHIVE
+        # 80% elliptical cut
+        #({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
+            #         " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1)
         # old elliptical cut pre-21/05/24
         elliptical_cut_90_old = ("(({{Ztt_svfit_mass}} - 100.) * ({{Ztt_svfit_mass}} - 100.) / (126. * 126.)"
                     " + ({{Zbb_mass}} - 81.) * ({{Zbb_mass}} - 81.) / (142. * 142.)) < 1)")
@@ -43,81 +46,50 @@ class Config(BaseConfig):
         elliptical_cut_90 = ("((({{Ztt_svfit_mass}} - 95.0) * ({{Ztt_svfit_mass}} - 95.0) / (120 * 120)"
                     " + ({{Zbb_mass}} - 85.0) * ({{Zbb_mass}} - 85.0) / (165.5 * 165.5)) < 1)")
         elliptical_cut_90_inv = f"!({elliptical_cut_90})"
-
-        sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 2) && (isOS == 1) && "
-                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
-                    .format(self.deeptau.vsjet.Medium))
         
         bjets = self.get_bjets_requirements()
         cat_reqs = self.get_categories_requirements()
 
         categories += ObjectCollection([
-            # Category("ZZ_elliptical_cut_80_sr", "ZZ mass cut E=80% && Signal region",
-            #     selection="((({{Ztt_svfit_mass}} - 121.) * ({{Ztt_svfit_mass}} - 121.) / (82. * 82.)"
-            #         " + ({{Zbb_mass}} - 177.) * ({{Zbb_mass}} - 177.) / (173. * 173.)) < 1) && " + \
-            #         "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-            #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-            #         "((pairType == 2) && (isOS == 1) && "
-            #         "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
-            #         .format(self.deeptau.vsjet.Medium)),
             Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
                 selection=elliptical_cut_90),
-            
-            # Category("ZZ_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
-            #     selection=f"({elliptical_cut_90}) && ({cat_reqs.resolved_1b})"),
-            # Category("ZZ_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
-            #     selection=f"({elliptical_cut_90}) && ({cat_reqs.resolved_2b})"),
-            # Category("ZZ_elliptical_cut_90_boosted", "EC90 & boosted",
-            #     selection=f"({elliptical_cut_90}) && ({cat_reqs.boosted})"),
-            
-            # Category("ZZ_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
-            #     selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
-
-            # Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region", # for DNN training
-            #     selection=elliptical_cut_90 + " && " + \
-            #         "(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-            #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-            #         "((pairType == 2) && (isOS == 1) && "
-            #         "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
-            #         .format(self.deeptau.vsjet.Medium)),
-
-            # Category("ZZ_elliptical_cut_90_CR_mutau", "CR ZZ mass cut E=90%",
-            #     selection=elliptical_cut_90_inv + "&& (pairType == 0)"),
-            # Category("ZZ_elliptical_cut_90_CR_etau", "CR ZZ mass cut E=90%",
-            #     selection=elliptical_cut_90_inv + "&& (pairType == 1)"),
-            # Category("ZZ_elliptical_cut_90_CR_tautau", "CR ZZ mass cut E=90%",
-            #     selection=elliptical_cut_90_inv + "&& (pairType == 2)"),
 
             Category("ZZ_elliptical_cut_90_CR", "CR ZZ mass cut E=90%",
                 selection=elliptical_cut_90_inv),
 
-            Category("ZZ_elliptical_cut_90_CR_resolved_1b", "CR & resolved 1b",
-                selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_1b})"),
-            Category("ZZ_elliptical_cut_90_CR_resolved_2b", "CR & resolved 2b",
-                selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_2b})"),
-            Category("ZZ_elliptical_cut_90_CR_boosted", "CR & boosted",
-                selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.boosted})"),
-            
-            
-            
-            # Category("ZZ_elliptical_cut_90_CR_boosted_noPNet", "CR & boosted (no PNet cut)",
-            #     selection=f"({elliptical_cut_90_inv}) && isBoosted == 1 "),
+            # Category("ZZ_elliptical_cut_90_CR_resolved_1b", "CR & resolved 1b",
+            #     selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_1b})"),
+            # Category("ZZ_elliptical_cut_90_CR_resolved_2b", "CR & resolved 2b",
+            #     selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_2b})"),
+            # Category("ZZ_elliptical_cut_90_CR_boosted", "CR & boosted",
+            #     selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.boosted})"),
         ])
 
+        all_categories_selections = []
         for jet_category in ["resolved_1b", "resolved_2b", "boosted_bb"]:
-            for tau_category in ["HPSTau", "boostedTau"]:
+            #for tau_category in ["HPSTau", "boostedTau"]:
+            tau_category = "HPSTau"
+            categories.append(Category(
+                f"ZZ_EC90_{jet_category}_{tau_category}",
+                f"EC90 {jet_category} {tau_category}",
+                selection=f"({elliptical_cut_90}) && ({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})",
+                jet_category="boosted" if jet_category == "boosted_bb" else "resolved"
+            ))
+            all_categories_selections.append(f"({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})")
 
-                categories.append(Category(
-                    f"ZZ_EC90_{jet_category}_{tau_category}",
-                    f"EC90 {jet_category} {tau_category}",
-                    selection=f"({elliptical_cut_90}) && ({cat_reqs[jet_category]}) && ({cat_reqs[tau_category]})"
-                ))
+            tau_category = "boostedTau"
+            categories.append(Category(
+                f"ZZ_EC90_{jet_category}_{tau_category}",
+                f"EC90 {jet_category} {tau_category}",
+                selection=f"({elliptical_cut_90}) && ({cat_reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})",
+                jet_category="boosted" if jet_category == "boosted_bb" else "resolved"
+            ))
+            all_categories_selections.append(f"({cat_reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})")
+        
         
         categories.append(
         Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region", # for DNN training
-                selection=jrs([elliptical_cut_90, cat_reqs["all_categories"], jrs([self.regions.get("etau_os_iso").selection, self.regions.get("mutau_os_iso").selection, self.regions.get("tautau_os_iso").selection], op="or")], op="and")
+                selection=jrs([elliptical_cut_90, jrs(all_categories_selections, op="or"), jrs([self.regions.get("etau_os_iso").selection, self.regions.get("mutau_os_iso").selection, self.regions.get("tautau_os_iso").selection], op="or")], op="and")
                 )
         )
 
