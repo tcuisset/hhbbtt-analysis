@@ -93,7 +93,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 #secondary_dataset="zz_bbtt_aux",
                 # categorization_max_events=10000,
                 prefix="eos.grif.fr//",
-                tags=["ul", "nanoV10", "bul", "res", "genfilter", "resOnly"]),
+                tags=["ul", "nanoV10", "bul", "res", "genfilter", "resOnly", "limitedBoostedTau"]),
 
             ###################################### ZZ Resonant ############################################
             ###############################################################################################
@@ -106,7 +106,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 process=self.processes.get(f"ggXZZbbtt_M{mass}"),
                 prefix="eos.grif.fr//",
                 xs=1,
-                tags=["ul", "nanoV10", "bul", "res"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else []))
+                tags=["ul", "nanoV10", "bul", "res"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
             
             for mass in res_mass_ZZ
             )
