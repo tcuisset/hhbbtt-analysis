@@ -496,70 +496,68 @@ class BaseConfig(cmt_config):
             Category("base_fixedGenWeight", "base with genWeight (fixed)", selection="1"),
             Category("base_oldGenWeight", "base with old genWeight (no fix)", selection="1"),
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
-            Category("base_selection", "base",
-                nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
-                    " && ((Sum$(Muon_pt->fElements > 17) > 0"
-                    " || Sum$(Electron_pt->fElements > 17) > 0)"
-                    " || Sum$(Tau_pt->fElements > 17) > 1)"
-                    " && Sum$(Jet_pt->fElements > 17) > 1)",
-                selection="Tau_pt[Tau_pt > 17].size() > 0 "
-                    "&& ((Muon_pt[Muon_pt > 17].size() > 0"
-                    "|| Electron_pt[Electron_pt > 17].size() > 0)"
-                    "|| Tau_pt[Tau_pt > 17].size() > 1)"
-                    "&& Jet_pt[Jet_pt > 17].size() > 0"),
-            Category("baseline_sr", "baseline Signal region",
-                selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 2) && (isOS == 1) && "
-                    "(dau2_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0})) "
-                    .format(self.deeptau.vsjet.Medium)),
+            # Category("base_selection", "base",
+            #     nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
+            #         " && ((Sum$(Muon_pt->fElements > 17) > 0"
+            #         " || Sum$(Electron_pt->fElements > 17) > 0)"
+            #         " || Sum$(Tau_pt->fElements > 17) > 1)"
+            #         " && Sum$(Jet_pt->fElements > 17) > 1)",
+            #     selection="Tau_pt[Tau_pt > 17].size() > 0 "
+            #         "&& ((Muon_pt[Muon_pt > 17].size() > 0"
+            #         "|| Electron_pt[Electron_pt > 17].size() > 0)"
+            #         "|| Tau_pt[Tau_pt > 17].size() > 1)"
+            #         "&& Jet_pt[Jet_pt > 17].size() > 0"),
+            # Category("baseline_sr", "baseline Signal region",
+            #     selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+            #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+            #         "((pairType == 2) && (isOS == 1) && "
+            #         "(dau2_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0})) "
+            #         .format(self.deeptau.vsjet.Medium)),
             # Category("dum", "dummy category", selection="event == 220524669"),
             Category("dum", "dummy category", selection="event == 74472670"),
             Category("debug", "debug category", selection="luminosityBlock == 315421 && event == 315420434"),
             Category("mutau", "#mu#tau channel", selection="pairType == 0"),
             Category("etau", "e#tau channel", selection="pairType == 1"),
             Category("tautau", "#tau#tau channel", selection="pairType == 2"),
-            Category("resolved_1b", label="Resolved 1b category",
-                selection=sel["resolved_1b_combined"]),
-            Category("resolved_2b", label="Resolved 2b category",
-                selection=sel["resolved_2b_combined"]),
-            Category("boosted", label="Boosted category",
-                selection=sel["boosted_combined"]),
-            Category("vbf_loose", label="VBF (loose) category",
-                selection=sel["vbf_loose_combined"]),
-            Category("vbf_tight", label="VBF (tight) category",
-                selection=sel["vbf_tight_combined"]),
-            Category("vbf", label="VBF category",
-                selection=sel["vbf_combined"]),
+            # Category("resolved_1b", label="Resolved 1b category",
+            #     selection=sel["resolved_1b_combined"]),
+            # Category("resolved_2b", label="Resolved 2b category",
+            #     selection=sel["resolved_2b_combined"]),
+            # Category("boosted", label="Boosted category",
+            #     selection=sel["boosted_combined"]),
+            # Category("vbf_loose", label="VBF (loose) category",
+            #     selection=sel["vbf_loose_combined"]),
+            # Category("vbf_tight", label="VBF (tight) category",
+            #     selection=sel["vbf_tight_combined"]),
+            # Category("vbf", label="VBF category",
+            #     selection=sel["vbf_combined"]),
         ]
         return ObjectCollection(categories)
     
     def add_features(self):
         # important : for Categorization with --syetmatic  it is important that systematics are enabled here
-        if False: # reduced systematics
-            self.jec_systs = ["jec_1", "jec_2"]
-            self.jme_systs = [] + self.jec_systs
-            self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
-            self.tau_systs_params = dict(central="tes")
-            self.lepton_systs_params =  dict(systematics=[]) # you may need to add central="tes", 
-            self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
-
-            self.met_systs = dict(central="met_tes_xycorr", systematics=["jec_MET_1", "jec_MET_2"] + ["tes_MET"]) 
-
-            self.all_systs = [] + self.jme_systs
-        elif False: # full systs
-            self.jec_systs = ["jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+        systematics_mode = "reduced"
+        if systematics_mode == "reduced" or systematics_mode == "full": # reduced systematics
+            if systematics_mode == "reduced":
+                self.jec_systs = ["jec_1"] # jec_2
+            else:
+                self.jec_systs = ["jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
                                 "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
             self.jme_systs = ["jer"] + self.jec_systs
             self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
             self.tau_systs_params = dict(central="tes", systematics=["tes"])
-            self.lepton_systs_params =  dict(systematics=["ele_scale", "ele_resolution", "tes"]) # you may need to add central="tes", 
-            self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
+            if systematics_mode == "reduced":
+                self.lepton_systs_params =  dict(systematics=["tes"]) # you may need to add central="tes", 
+            else:
+                self.lepton_systs_params =  dict(systematics=["ele_scale", "ele_resolution", "tes"]) # you may need to add central="tes", 
+            self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time (+MET)
 
-            self.met_systs = dict(central="met_tes_xycorr", systematics=map(lambda s:s.replace("_", "_MET_"), self.jec_systs) + ["tes_MET"]) 
+            # met systs are special systematics to allow plotting of met variables without PrePlot crashing
+            #self.met_systs = dict(central="met_tes_xycorr", systematics=list(map(lambda s:s.replace("_", "_MET_"), self.jec_systs)) + ["tes_MET", "met_unclustered_MET"]) 
+            self.met_systs = dict(systematics=self.jec_systs+self.lepton_systs_params["systematics"]+["met_unclustered"])
 
-            self.all_systs = ["ele_scale", "ele_resolution", "tes"] + self.jme_systs
-        elif False: # reduced JEC
+            self.all_systs = self.lepton_systs_params["systematics"] + ["met_unclustered"] + self.jme_systs
+        elif systematics_mode == "one_jec": # reduced JEC
             self.jec_systs = ["jec"]
             self.jme_systs = ["jer"] + self.jec_systs
             self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
@@ -571,7 +569,7 @@ class BaseConfig(cmt_config):
             self.met_systs = dict(central="met_tes_xycorr", systematics=[]) # ["jec_MET"] + ["tes"] 
 
             self.all_systs = ["ele_scale", "ele_resolution", "tes"] + self.jme_systs
-        else: # no systs
+        elif systematics_mode == "no_systs": # no systs
             self.jec_systs = []
             self.jme_systs = []
             self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
@@ -582,6 +580,8 @@ class BaseConfig(cmt_config):
             self.met_systs = dict(central="met_tes_xycorr", systematics=[]) 
 
             self.all_systs = [] + self.jme_systs
+        else:
+            raise ValueError()
 
         # event weight systs only need to be included in the feature that is used in config.weights
         phi_binning = (20, -math.pi, math.pi)
@@ -789,7 +789,7 @@ class BaseConfig(cmt_config):
             Feature("lep2_rawAntiEle2018", "boostedTau_rawAntiEle2018[dau2_idx]", binning=(50, -1, 1),
                 x_title=Label("#tau_{2} raw AntiEle2018 score (boostedTaus)"), selection="isBoostedTau",
                 tags=["study"]),
-            Feature("lepe_idAntiMu", "boostedTau_idAntiMu[daue_idx]", binning=(3, 0, 3),
+            Feature("lep2_idAntiMu", "boostedTau_idAntiMu[daue_idx]", binning=(3, 0, 3),
                 x_title=Label("#tau_{2} anti-muon discriminator (1=loose, 2=tight) (boostedTaus)"), selection="isBoostedTau",
                 tags=["study"])
             ) if self.useBoostedTaus else ()
@@ -803,47 +803,43 @@ class BaseConfig(cmt_config):
             Feature("dR_tautau_low", "deltaR(dau1_eta, dau1_phi, dau2_eta, dau2_phi)", 
                 binning=(50, 0, 0.5),
                 x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
-
-            # MET (not all of the features are usually computed, might need to add metShifterRDF to modulesrdf.yaml)
-            *[
+        ]
+        # MET (not all of the features are usually computed, might need to add metShifterRDF to modulesrdf.yaml)
+        for binning, suffix in (((20, 0, 200), ""), ((30, 150, 800), "_highRange")):
+            features.extend([
             Feature(f"met_pt{suffix}_raw", "MET_pt", binning=binning,
                 x_title=Label("MET p_{T} (no smearing, no XY)"),
                 units="GeV", tags=["base"],
                 central="",
                 #systematics=self.met_systs # not computed usually
-                )
-            # TODO add this back            
-            # Feature("met_pt_corr", "MET_pt", binning=(20, 0, 200),
-            #     x_title=Label("MET p_{T} (TES, XY-corr)"),
-            #     units="GeV", tags=["base"],
-            #     **self.met_systs),
-            # Feature("met_pt_corr_high", "MET_pt", binning=(50, 0, 500),
-            #     x_title=Label("MET p_{T} (TES, XY-corr)"),
-            #     units="GeV", tags=["base"],
-            #     **self.met_systs),
+                ),          
+            Feature(f"met_pt{suffix}_corr", "MET_tes_xycorr_pt", binning=binning,
+                x_title=Label("MET p_{T} (TES, XY-corr)"),
+                units="GeV", tags=["base"],
+                **self.met_systs),
             # here : could add MET smeared&noXY, and nosmear&XY
+            ])
             
-            for binning, suffix in (((20, 0, 200), ""), ((30, 150, 800), "_highRange"))],
-
+        features += [
             Feature("met_phi_raw", "MET_phi", binning=phi_binning,
                 x_title=Label("MET #phi (no smearing, no XY)"),
                 units="GeV", tags=["base"],
                 central="",
                 #systematics=self.met_systs # not computed usually
                 ),
-            # Feature("met_phi_corr", "MET_phi", binning=(20, -3.2, 3.2),
-            #     x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
-            #     **self.met_systs),
+            Feature("met_phi_corr", "MET_tes_xycorr_phi", binning=(20, -3.2, 3.2),
+                x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
+                **self.met_systs),
 
             Feature("pairType", "pairType", binning=(5, -1, 3), 
                 x_title=Label("pairType"), tags=["base"]),
             Feature("pairType_HPSTaus", "pairType_HPSTaus", binning=(5, -1, 3), 
                 x_title=Label("pairType HPS taus"), tags=["base"]),
             Feature("pairType_boostedTaus", "pairType_boostedTaus", binning=(5, -1, 3), 
-                x_title=Label("pairType boostedTaus"), tags=["base"], noData=True),
+                x_title=Label("pairType boostedTaus"), tags=["base"]),
             
-            Feature("isBoosted_bb", "isBoosted", binning=(2, 0, 2), 
-                x_title=Label("is boosted-bb"), tags=["base"]),
+            Feature("hasBoosted", "fatjet_JetIdx>=0", binning=(2, 0, 2), 
+                x_title=Label("Has AK8 candidate (no PNet cut)"), tags=["base"]),
             Feature("isBoostedTau", "isBoostedTau", binning=(2, 0, 2), 
                 x_title=Label("is boostedTau"), tags=["base"]),
 
@@ -980,7 +976,7 @@ class BaseConfig(cmt_config):
             #     x_title=Label("prescaleWeight")),
             Feature("trigSF", "trigSF", binning=(30, 0.5, 1.5),
                 x_title=Label("trigSF"), tags=["base"], noData=True,
-                systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11", "trigSFmet"]),
+                systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11", "trigSFmet"]), 
             Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(30, 0.5, 1.5),
                 x_title=Label("L1PreFiringWeight"), tags=["base"], noData=True,
                 central="prefiring_central",
@@ -993,10 +989,10 @@ class BaseConfig(cmt_config):
                 systematics=["jetTauFakes", "etauFR", "mutauFR", "eleReco", "eleIso", "muIso", "muId"]),
             Feature("bTagweightReshape", "bTagweightReshape", binning=(30, 0, 2),
                 x_title=Label("b-tag reshaping weight"), tags=["base"], noData=True,
-                systematics=self.jme_systs + ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
-            Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 1),
+                systematics=self.jec_systs + ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
+            Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 2.),
                 x_title=Label("FatJet ParticleNet SF"), tags=["base"], noData=True,
-                systematics=self.jme_systs + ["fatjet_pnet"]),
+                systematics=["fatjet_pnet"]),
             ############## TODO TODO self.jec_systs+
 
             # LHE variables (MC only)
