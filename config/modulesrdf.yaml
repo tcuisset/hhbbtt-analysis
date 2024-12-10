@@ -282,7 +282,7 @@ hhjets:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
-        met_smear_tag: "tes"
+        met_smear_tag: "tes_xycorr"
         filter: not self.dataset.process.isSignal
         model_version: 2
         btag_wp: self.config.btag_algo_wps.medium
@@ -379,7 +379,7 @@ trigSF:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
-        met_smear_tag: tes
+        met_smear_tag: tes_xycorr
 
 # Computes ['PUjetID_SF', 'PUjetID_SF_up', 'PUjetID_SF_down']
 PUjetID_SF:
