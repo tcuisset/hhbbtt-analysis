@@ -283,6 +283,7 @@ hhjets:
         model_version: 2
         btag_wp: self.config.btag_algo_wps.medium
         fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
+        doGenCutFlow: self.dataset.process.isSignal
 
 bjet1var:
     name: VarFromVectorRDF
