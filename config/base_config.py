@@ -1162,20 +1162,22 @@ class BaseConfig(cmt_config):
             Systematic("met_unclustered", "_unclustered", label="Unclustered energy", module_syst_type=["met_syst"], affected_categories=cats_jet_systs),
 
             # used only to plot MET corrected variables with systematics. NOT TO BE RUN AS AN ACTUAL SYSTEMATIC IN PREPROCESS
+            # actually does not work as PrePlot does not use the systematic input, but the central one, because the syst name is not the same...
             # Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'), # no MET smearing
-            Systematic("tes_MET", ("MET", "MET_tes_xycorr"), up="_corr_up", down='_corr_down'),
-            Systematic("jec_MET_1", ("MET", "MET_tes_xycorr"), up="_FlavorQCD_up", down='_FlavorQCD_down'),
-            Systematic("jec_MET_2", ("MET", "MET_tes_xycorr"), up="_RelativeBal_up", down='_RelativeBal_down'),
-            Systematic("jec_MET_3", ("MET", "MET_tes_xycorr"), up="_HF_up", down='_HF_down'),
-            Systematic("jec_MET_4", ("MET", "MET_tes_xycorr"), up="_BBEC1_up", down='_BBEC1_down'),
-            Systematic("jec_MET_5", ("MET", "MET_tes_xycorr"), up="_EC2_up", down='_EC2_down'),
-            Systematic("jec_MET_6", ("MET", "MET_tes_xycorr"), up="_Absolute_up", down='_Absolute_down'),
-            Systematic("jec_MET_7", ("MET", "MET_tes_xycorr"), up=f"_BBEC1_{self.year}_up", down=f'_BBEC1_{self.year}_down'),
-            Systematic("jec_MET_8", ("MET", "MET_tes_xycorr"), up=f"_EC2_{self.year}_up", down=f'_EC2_{self.year}_down'),
-            Systematic("jec_MET_9", ("MET", "MET_tes_xycorr"), up=f"_Absolute_{self.year}_up", down=f'_Absolute_{self.year}_down'),
-            Systematic("jec_MET_10", ("MET", "MET_tes_xycorr"), up=f"_HF_{self.year}_up", down=f'_HF_{self.year}_down'),
-            Systematic("jec_MET_11", ("MET", "MET_tes_xycorr"), up=f"_RelativeSample_{self.year}_up", down=f'_RelativeSample_{self.year}_down'),
-            Systematic("jec_MET", ("MET", "MET_tes_xycorr"), up="_Total_up", down='_Total_down'),
+            # Systematic("tes_MET", ("MET", "MET_tes_xycorr"), up="_corr_up", down='_corr_down'),
+            # Systematic("jec_MET_1", ("MET", "MET_tes_xycorr"), up="_FlavorQCD_up", down='_FlavorQCD_down'),
+            # Systematic("jec_MET_2", ("MET", "MET_tes_xycorr"), up="_RelativeBal_up", down='_RelativeBal_down'),
+            # Systematic("jec_MET_3", ("MET", "MET_tes_xycorr"), up="_HF_up", down='_HF_down'),
+            # Systematic("jec_MET_4", ("MET", "MET_tes_xycorr"), up="_BBEC1_up", down='_BBEC1_down'),
+            # Systematic("jec_MET_5", ("MET", "MET_tes_xycorr"), up="_EC2_up", down='_EC2_down'),
+            # Systematic("jec_MET_6", ("MET", "MET_tes_xycorr"), up="_Absolute_up", down='_Absolute_down'),
+            # Systematic("jec_MET_7", ("MET", "MET_tes_xycorr"), up=f"_BBEC1_{self.year}_up", down=f'_BBEC1_{self.year}_down'),
+            # Systematic("jec_MET_8", ("MET", "MET_tes_xycorr"), up=f"_EC2_{self.year}_up", down=f'_EC2_{self.year}_down'),
+            # Systematic("jec_MET_9", ("MET", "MET_tes_xycorr"), up=f"_Absolute_{self.year}_up", down=f'_Absolute_{self.year}_down'),
+            # Systematic("jec_MET_10", ("MET", "MET_tes_xycorr"), up=f"_HF_{self.year}_up", down=f'_HF_{self.year}_down'),
+            # Systematic("jec_MET_11", ("MET", "MET_tes_xycorr"), up=f"_RelativeSample_{self.year}_up", down=f'_RelativeSample_{self.year}_down'),
+            # Systematic("jec_MET", ("MET", "MET_tes_xycorr"), up="_Total_up", down='_Total_down'),
+            # Systematic("met_unclustered_MET", ("MET", "MET_tes_xycorr"), up="_unclustered_up", down="_unclustered_down", label="Unclustered energy"),
 
             # Electrons (see https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys for correlation instructions)
             # note : no leading underscore in up/down, due to framework bug (basically if central="" then no underscore in up/down)

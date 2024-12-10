@@ -142,7 +142,11 @@ hhleptonVar:
 #         tau_syst: corr_down
 
 ############### JME corrections
+# TODO JEC should be first then JER on top of JEC nominal/variations (https://cms-talk.web.cern.ch/t/jer-and-jec-variation-question/46184/3)
+
 # JEC is already done in NanoAOD normally. So only variations need to be computed
+# 2018 MC : GT used 123X_upgrade2018_realistic_v2,  CondDB https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/123X_upgrade2018_realistic_v2  - JetCorrectionsRecord is JetCorrectorParametersCollection_Summer19UL18_V5_MC_AK4PFchs
+# 2016APV MC : JetCorrectorParametersCollection_Summer19UL16APV_V7_MC_AK4PFchs
 # (otherwise JEC nominal would need to be computed here)
 
 ### JER (only one single uncertainty, fine as long as we don't constrain it)
@@ -179,14 +183,6 @@ jer_fatjet:
     parameters:
         isMC: self.dataset.process.isMC
         type: fatjerc
-
-# # also computes up and down variations
-# jet_tes_smeared_met:
-#     name: metJetTauSmearerRDF
-#     path: Corrections.JME.smearing
-#     parameters:
-#         year: self.config.year
-#         isMC: self.dataset.process.isMC
 
 
 ### JEC
@@ -247,6 +243,7 @@ hemIssue:
         isMC: self.dataset.process.isMC
 
 #################### MET
+# HHJets uses MET for hhbtag, so compute MET before
 # TODO boostedTau systematics propagation to MET ???? (probably should deal with overlap with HPS taus ?)
 met_shift:
     name: metShifterRDF
