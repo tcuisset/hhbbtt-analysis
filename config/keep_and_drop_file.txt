@@ -68,7 +68,7 @@ keep LHE.*
 #keep LHE_Nb
 
 # needs to be after keep LHE
-drop (|n)LHEPart.*
+#drop (|n)LHEPart.*
 
 keep (n|)boostedTau.*
 
