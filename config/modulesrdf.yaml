@@ -409,7 +409,7 @@ eleSF:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
         runPeriod: self.config.runPeriod
-        wps: [wp80iso, RecoAbove20]
+        wps: [wp80iso, Loose, RecoAbove20] # wp80iso for HPSTaus electrons, Loose cut-based for boostedTaus-electrons, Reco for everyone
 
 # Combine electron, muon and tau scale factors. Produces idAndIsoAndFakeSF branches
 idAndIsoSF:
