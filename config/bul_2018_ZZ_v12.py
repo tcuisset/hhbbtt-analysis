@@ -5,7 +5,7 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from config.base_config_ZZ import Config as base_config_ZZ, res_mass_ZZ
-from config.bul_2018_v12 import setupBtagDeeptau, get_common_datasets_v12, get_2018_v12_weights 
+from config.bul_2018_v12 import setupBtagDeeptau, get_common_datasets_v12 #,get_2018_v12_weights
 
 class Config_bul_2018_ZZ_v12(base_config_ZZ):
     def __init__(self, *args, **kwargs):
@@ -16,32 +16,15 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
         self.regions = self.add_regions()
         self.categories = self.add_categories()
 
-    def add_weights(self):
-        weights = get_2018_v12_weights()
-        print(self.categories)
-        for category in self.categories:
-            weights[category.name] = weights.mutau
+    # def add_weights(self):
+    #     weights = get_2018_v12_weights()
+    #     print(self.categories)
+    #     for category in self.categories:
+    #         weights[category.name] = weights.mutau
         
-        weights.base_noWeights = ["genWeight", "DYstitchWeight"]
-        # weights.ZZ_elliptical_cut_90 = weights.mutau
-        # weights.ZZ_elliptical_cut_90_sr = weights.mutau
-        # weights.ZZ_elliptical_cut_90_etau = weights.mutau
-        # weights.ZZ_elliptical_cut_90_mutau = weights.mutau
-        # weights.ZZ_elliptical_cut_90_tautau = weights.mutau
-        # weights.ZZ_elliptical_cut_90_CR_etau = weights.mutau
-        # weights.ZZ_elliptical_cut_90_CR_mutau = weights.mutau
-        # weights.ZZ_elliptical_cut_90_CR_tautau = weights.mutau
-        # weights.ZZ_elliptical_cut_80_CR_etau = weights.mutau
-        # weights.ZZ_elliptical_cut_90_resolved_1b = weights.mutau
-        # weights.ZZ_elliptical_cut_90_resolved_2b = weights.mutau
-        # weights.ZZ_elliptical_cut_90_boosted = weights.mutau
-        # weights.ZZ_elliptical_cut_90_boosted_noPNet = weights.mutau
-        # weights.ZZ_elliptical_cut_90_CR_resolved_1b = weights.mutau
-        # weights.ZZ_elliptical_cut_90_CR_resolved_2b = weights.mutau
-        # weights.ZZ_elliptical_cut_90_CR_boosted_noPNet = weights.mutau
-        # weights.ZZ_elliptical_cut_90_CR = weights.mutau
+    #     weights.base_noWeights = ["genWeight", "DYstitchWeight"]
 
-        return weights
+    #     return weights
 
     #@override
     def add_datasets(self):

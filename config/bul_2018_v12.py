@@ -2,26 +2,26 @@
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from analysis_tools.utils import DotDict
 
-def get_2018_v12_weights():
-    weights = DotDict()
-    weights.default = "1"
-    # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
-    weights.total_events_weights = ["genWeight", "puWeight"]
+# def get_2018_v12_weights():
+#     weights = DotDict()
+#     weights.default = "1"
+#     # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
+#     weights.total_events_weights = ["genWeight", "puWeight"]
 
-    weights.mutau = ["genWeight", "puWeight",  "DYstitchWeight", 
-        "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF", "L1PreFiringWeight",
-        "bTagweightReshape"]
-    weights.etau = weights.mutau
-    weights.tautau = weights.mutau
-    weights.base_selection = weights.mutau
-    weights.base = weights.mutau
-    weights.base_fixedGenWeight = ["genWeightFixed", "puWeight"]
-    weights.base_oldGenWeight = ["genWeight", "puWeight"]
-    weights.base_noWeights = ["genWeight"]
+#     weights.mutau = ["genWeight", "puWeight",  "DYstitchWeight", 
+#         "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF", "L1PreFiringWeight",
+#         "bTagweightReshape"]
+#     weights.etau = weights.mutau
+#     weights.tautau = weights.mutau
+#     weights.base_selection = weights.mutau
+#     weights.base = weights.mutau
+#     weights.base_fixedGenWeight = ["genWeightFixed", "puWeight"]
+#     weights.base_oldGenWeight = ["genWeight", "puWeight"]
+#     weights.base_noWeights = ["genWeight"]
 
-    # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
-        # for channel in weights.channels}
-    return weights
+#     # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
+#         # for channel in weights.channels}
+#     return weights
 
 def setupBtagDeeptau(self):
 #    self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)

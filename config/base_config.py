@@ -1090,18 +1090,16 @@ class BaseConfig(cmt_config):
         # These weights are used for PreCounter
         weights.total_events_weights = ["genWeightFixed", "puWeight"] # DYstitchWeight
 
-        weights.mutau = ["genWeightFixed", "puWeight", "prescaleWeight", "trigSF",
+        weights.base_noWeights = ["genWeight", "DYstitchWeight"]
+
+        weights.all = ["genWeightFixed", "puWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
             "bTagweightReshape", "fatjet_pnet_SF",
-            "DYstitchWeight", "HEM_weight"
+            "DYstitchWeight", "hem_weight"
             ]
-            
-        weights.etau = weights.mutau
-        weights.tautau = weights.mutau
-        weights.base = weights.mutau
-
-        # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
-            # for channel in weights.channels}
+        for category in self.categories:
+            weights[category.name] = weights.all
+        
         return weights
 
     def add_systematics(self):
