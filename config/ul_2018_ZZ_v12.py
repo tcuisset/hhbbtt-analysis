@@ -18,6 +18,7 @@ class Config_ul_2018_ZZ_v12(base_config_ZZ):
 
     def add_weights(self):
         weights = get_2018_v12_weights()
+        assert False
         weights.ZZ_elliptical_cut_90 = weights.mutau
         weights.ZZ_elliptical_cut_90_sr = weights.mutau
         weights.ZZ_elliptical_cut_90_etau = weights.mutau
@@ -29,6 +30,7 @@ class Config_ul_2018_ZZ_v12(base_config_ZZ):
         weights.ZZ_elliptical_cut_80_CR_etau = weights.mutau
         weights.ZZ_elliptical_cut_90_resolved_1b = weights.mutau
         weights.ZZ_elliptical_cut_90_resolved_2b = weights.mutau
+        weights.ZZ_elliptical_cut_90_boosted = weights.mutau
         weights.ZZ_elliptical_cut_90_boosted_noPNet = weights.mutau
         weights.ZZ_elliptical_cut_90_CR_resolved_1b = weights.mutau
         weights.ZZ_elliptical_cut_90_CR_resolved_2b = weights.mutau
@@ -802,6 +804,54 @@ class Config_ul_2018_ZZ_v12(base_config_ZZ):
                 process=self.processes.get("ggXZZbbtt_M5000"),
                 xs=1,
                 tags=["ul", "secondary", "res"]),
+
+            #### BoostedTaus
+            Dataset("GluGluToXToZZTo2B2Tau_M200_BT",
+                folder="/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/GluGluToXToZZTo2B2Tau_M-200_TuneCP5_13TeV-powheg-pythia8/crab_GluGluToXToZZTo2B2Tau_M200/240919_121702/0000/",
+                process=self.processes.get("ggXZZbbtt_M5000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                #secondary_dataset="GluGluToXToZZTo2B2Tau_M5000_aux",
+                tags=["ul", "nanoV10", "res", "BT"]),
+            Dataset("GluGluToXToZZTo2B2Tau_M1000_BT",
+                folder="/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/GluGluToXToZZTo2B2Tau_M-1000_TuneCP5_13TeV-powheg-pythia8/crab_GluGluToXToZZTo2B2Tau_M1000/240919_122103/0000/",
+                process=self.processes.get("ggXZZbbtt_M5000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                #secondary_dataset="GluGluToXToZZTo2B2Tau_M5000_aux",
+                tags=["ul", "nanoV10", "res", "BT"]),
+            Dataset("GluGluToXToZZTo2B2Tau_M3000_BT",
+                folder="/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/GluGluToXToZZTo2B2Tau_M-3000_TuneCP5_13TeV-powheg-pythia8/crab_GluGluToXToZZTo2B2Tau_M3000/240919_121857/0000/",
+                process=self.processes.get("ggXZZbbtt_M5000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                #secondary_dataset="GluGluToXToZZTo2B2Tau_M5000_aux",
+                tags=["ul", "nanoV10", "res", "BT"]),
+            Dataset("GluGluToXToZZTo2B2Tau_M5000_BT",
+                folder="/eos/grif/cms/llr/store/user/tcuisset/GluGluToXToZZTo2B2Tau_M-5000_TuneCP5_13TeV-powheg-pythia8/crab_test_2/240912_102034/0000/",
+                process=self.processes.get("ggXZZbbtt_M5000"),
+                prefix="eos.grif.fr//",
+                xs=1,
+                #secondary_dataset="GluGluToXToZZTo2B2Tau_M5000_aux",
+                tags=["ul", "nanoV10", "res", "BT"]),
+
+            Dataset("zz_sl_signal_BT",
+                folder="/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_ZZTo2Q2L_2018_v1/240916_154438/0000/",
+                process=self.processes.get("zz_sl_signal"),
+                xs=self.cross_section_dict["zz_sl"],
+                prefix="eos.grif.fr//",
+                tags=["ul", "nanoV10", "BT"]),
+            
+            # *[
+            # Dataset(f"GluGluToXToZZTo2B2Tau_M{mass}_BT",
+            #     folder=f"/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/GluGluToXToZZTo2B2Tau_M-{mass}_TuneCP5_13TeV-powheg-pythia8/crab_GluGluToXToZZTo2B2Tau_M{mass}/240919_121857/0000/",
+            #     process=self.processes.get("ggXZZbbtt_M5000"),
+            #     prefix="eos.grif.fr//",
+            #     xs=1,
+            #     #secondary_dataset="GluGluToXToZZTo2B2Tau_M5000_aux",
+            #     tags=["ul", "nanoV10", "res", "BT"])
+            # for mass in [200, 500, 1000, 2000, 3000, 4000]
+            # ]
 
             # Old datasets ULv9 produced privately
             

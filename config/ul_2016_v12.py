@@ -8,7 +8,7 @@ def get_2016_v12_weights():
     # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
     weights.total_events_weights = ["genWeight", "puWeight"]
 
-    weights.mutau = ["genWeight", "puWeight", "DYstitchEasyWeight", "prescaleWeight", 
+    weights.mutau = ["genWeight", "puWeight", "DYstitchEasyWeight", 
         "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF", "L1PreFiringWeight",
         "bTagweightReshape"]
     weights.etau = weights.mutau
@@ -21,7 +21,7 @@ def get_2016_v12_weights():
     return weights
 
 def setupBtagDeeptau(self):
-    self.btag=DotDict(tight=0.6377, medium=0.2489, loose=0.0480)
+#    self.btag=DotDict(tight=0.6377, medium=0.2489, loose=0.0480)
     self.deeptau=DotDict(
         vsjet=DotDict(VVVLoose=1, VVLoose=2, VLoose=3, Loose=4, Medium=5,
             Tight=6, VTight=7, VVTight=8),
@@ -204,6 +204,9 @@ def get_common_datasets_v12(self):
                 "tautau": 10,
                 "etau": 10,
                 "mutau": 10,
+                "resolved_1b": 2,
+                "resolved_2b": 2,
+                "boosted" : 1,
                 "elliptical_cut": 5
             },
             secondary_dataset="dy_aux",
@@ -321,10 +324,13 @@ def get_common_datasets_v12(self):
             process=self.processes.get("tt_dl"),
             xs=self.cross_section_dict["tt_dl"],
             merging={
-                "tautau": 10,
-                "mutau": 10,
-                "etau": 20,
-                "elliptical_cut": 20
+                "tautau": 20,
+                "mutau": 20,
+                "etau": 40,
+                "resolved_1b": 15,
+                "resolved_2b": 10,
+                "boosted" : 1,
+                "elliptical_cut": 10,
             },
             # scaling=(0.908, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_dl_aux",
@@ -339,7 +345,10 @@ def get_common_datasets_v12(self):
                 "tautau": 20,
                 "mutau": 60,
                 "etau": 40,
-                "elliptical_cut": 40
+                "resolved_1b": 15,
+                "resolved_2b": 10,
+                "boosted" : 1,
+                "elliptical_cut": 20
             },
             # scaling=(0.908, 0.006), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_sl_aux",

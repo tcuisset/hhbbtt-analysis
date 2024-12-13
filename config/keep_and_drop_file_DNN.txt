@@ -1,8 +1,17 @@
 drop .*
+
+#drop Jet.*
+#drop FatJet.*
+#drop fatjet_pt_resolution
+#drop fatjet_smear_factor.*
+#drop GenPart.*
+
+
 keep event
 keep run
 keep luminosityBlock
 keep bunchCrossing
+
 keep hh_kinfit_chi2
 keep hh_kinfit_m
 keep sv_mass
@@ -24,11 +33,14 @@ keep costheta_l2_httmet
 keep b_1_cvsb
 keep b_1_cvsl
 keep boosted
+keep boosted_bb
+keep boostedTau
 keep channel
 keep is_vbf
 keep jet_1_quality
 keep jet_2_quality
 keep year
+
 keep genWeight
 keep genWeightFixed
 keep puWeight
@@ -36,13 +48,23 @@ keep puWeightUp
 keep puWeightDown
 keep prescaleWeight
 keep trigSF
+keep L1PreFiringWeight
 keep L1PreFiringWeight_Nom
 keep PUjetID_SF
-keep pairType
-keep dau1_idDeepTau2017v2p1VSjet
-keep dau2_idDeepTau2017v2p1VSjet
-keep isOS
+
 keep DYstitchEasyWeight
+keep DYstitchWeight
 keep idAndIsoAndFakeSF
 keep bTagweightReshape
+
+
+keep pairType.*
+keep dau(1|2)_idDeepTau2017v2p1VSjet
+keep dau(1|2)_rawIdDeepTauVSjet
+keep isOS
+
+
+
 keep LHE_HT
+keep LHE_Vpt
+keep LHE_NpNLO

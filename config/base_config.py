@@ -10,11 +10,12 @@ from cmt.base_tasks.base import Task
 
 from config.xs_config import cross_section_dict
 
+import math
 
 def get_common_processes():
     processes = [
-        # W
-        Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="all_background", llr_name="WJets"),
+        # W. Process type is DY-like (not sure why, but doing same as HH resonant analysis)
+        Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="all_background", llr_name="WJets", fatjet_bb_type="DYlike"),
 
         Process("wjets_ht1", Label("Wjets HT1"), color=(5, 87, 92), 
                 parent_process="wjets"),
@@ -53,7 +54,7 @@ def get_common_processes():
                 parent_process="wjets"),
 
         # DY
-        Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DY", isDY=True),
+        Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DY", isDY=True, fatjet_bb_type="DYlike"),
 
         Process("dy_incl", Label("DY Incl"), color=(0, 165, 80), 
                 parent_process="dy", isDY=True),
@@ -77,7 +78,7 @@ def get_common_processes():
                 parent_process="dy", isDY=True),
 
         # EWK
-        Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk"),
+        Process("ewk_z",      Label("EWK Z"),     color=(255, 230, 0), parent_process="ewk", fatjet_bb_type="DYlike"),
         Process("ewk_wplus",  Label("EWK W^{+}"), color=(255, 230, 0), parent_process="ewk"),
         Process("ewk_wminus", Label("EWK W^{-}"), color=(255, 230, 0), parent_process="ewk"),
         Process("ewk", Label("EWK"), color=(255, 230, 0), parent_process="others", llr_name="EWK"),
@@ -86,11 +87,11 @@ def get_common_processes():
         Process("tt_dl", Label("t#bar{t} DL"), color=(40, 194, 255), parent_process="tt"),
         Process("tt_sl", Label("t#bar{t} SL"), color=(40, 194, 255), parent_process="tt"),
         Process("tt_fh", Label("t#bar{t} FH"), color=(40, 194, 255), parent_process="tt"),
-        Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="all_background", llr_name="TT"),
+        Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="all_background", llr_name="TT", fatjet_bb_type="TTlike"),
         # TW
-        Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="others", llr_name="TW"),
+        Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="others", llr_name="TW", fatjet_bb_type="TTlike"),
         # singleT
-        Process("singlet", Label("st"), color=(255, 230, 0), parent_process="others", llr_name="singleT"),
+        Process("singlet", Label("st"), color=(255, 230, 0), parent_process="others", llr_name="singleT", fatjet_bb_type="TTlike"),
 
         # VV
         Process("zz", Label("ZZ"), color=(20, 60, 255), parent_process="vv"),
@@ -101,9 +102,9 @@ def get_common_processes():
         Process("zzz", Label("ZZZ"), color=(20, 60, 255), parent_process="vvv"),
         Process("wzz", Label("WZZ"), color=(20, 60, 255), parent_process="vvv"),
         Process("www", Label("WWW"), color=(20, 60, 255), parent_process="vvv"),
-        Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"),
+        Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"), 
         Process("vvv", Label("VVV"), color=(20, 60, 255), parent_process="vv_v", llr_name="VVV"),
-        Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="all_background"),
+        Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="all_background", fatjet_bb_type="DYlike"), # will apply DY PNet SFs except where there is a Z->bb at gen level
 
         # TTX
         Process("ttw", Label("TTW"), color=(4, 240, 106), parent_process="ttx"),
@@ -113,23 +114,23 @@ def get_common_processes():
         Process("ttwh", Label("TTWH"), color=(4, 240, 106), parent_process="ttx"),
         Process("ttzh", Label("TTZH"), color=(4, 240, 106), parent_process="ttx"),
         Process("ttzz", Label("TTZZ"), color=(4, 240, 106), parent_process="ttx"),
-        Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="all_background", llr_name="TTX"),
+        Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="all_background", llr_name="TTX", fatjet_bb_type="TTlike"),
         
         # zh_hbb_zqq : is defined in ZZ and ZH configs
         # WH_htt
         Process("wh_htt", Label("wh_htt"), color=(130, 39, 197), parent_process="wh"),
-        Process("wh", Label("WH"), color=(130, 39, 197), parent_process="higgs", llr_name="WH"),
+        Process("wh", Label("WH"), color=(130, 39, 197), parent_process="higgs", llr_name="WH", fatjet_bb_type="DYlike"),
         # VBF_htt
         Process("vbf_htt", Label("vbf_htt"), color=(130, 39, 197), parent_process="higgs", llr_name="qqH"),
         # ggHZZ
-        Process("ggH_ZZ", Label("ggH_ZZ"), color=(130, 39, 197), parent_process="higgs", llr_name="ggH"),
+        Process("ggH_ZZ", Label("ggH_ZZ"), color=(130, 39, 197), parent_process="higgs", llr_name="ggH", fatjet_bb_type="HHlike"),
         # ttH_hbb
         Process("tth_bb", Label("t#bar{t}H bb"), color=(130, 39, 197), parent_process="ttH"),
         Process("tth_tautau", Label("t#bar{t}H #tau#tau"), color=(130, 39, 197), parent_process="ttH"),
         Process("tth_nonbb", Label("t#bar{t}H nonbb"), color=(130, 39, 197), parent_process="ttH"),
-        Process("ttH", Label("t#bar{t}H"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH"),
+        Process("ttH", Label("t#bar{t}H"), color=(130, 39, 197), parent_process="higgs", llr_name="ttH", fatjet_bb_type="TTlike"),
         # ggHH
-        Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, parent_process="higgs", llr_name="ggHH_kl_1_kt_1_hbbhtt"),
+        Process("ggf_sm", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, parent_process="higgs", llr_name="ggHH_kl_1_kt_1_hbbhtt", fatjet_bb_type="HHlike"),
         Process("higgs", Label("Higgs"), color=(130, 39, 197), parent_process="all_background", llr_name="Higgs"),
 
         Process("others", Label("Others"), color=(255, 230, 0),
@@ -140,9 +141,10 @@ def get_common_processes():
         Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
         Process("data_etau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
         Process("data_mutau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
+        Process("data_met", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
 
         # unused currently for ZZ/ZH analysis
-        Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH",
+        Process("ggf", Label("HH_{ggF}"), color=(130, 39, 197), isSignal=False, llr_name="ggH", fatjet_bb_type="HHlike",
             parent_process="all_background"),
         Process("ggf_0_1", Label("HH_{ggF}^{(0, 1)}"), color=(0, 0, 0), isSignal=False,
             parent_process="ggf"),
@@ -152,7 +154,7 @@ def get_common_processes():
             parent_process="ggf"),
 
         # unused currently for ZZ/ZH analysis
-        Process("vbf", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, llr_name="qqH"),
+        Process("vbf", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, llr_name="qqH", fatjet_bb_type="HHlike"),
         Process("vbf_sm", Label("HH_{VBF}"), color=(0, 0, 0), isSignal=False, parent_process="vbf"),
         Process("vbf_0p5_1_1", Label("HH_{VBF}^{(0.5,1,1)}"), color=(0, 0, 0),
             isSignal=False, parent_process="vbf"),
@@ -183,6 +185,10 @@ def get_common_processes():
         ],
         "signal": [
             "ggf_sm",
+        ],
+        "data_bkg": [ # mostly used for FeaturePlot2D (ie plotting jet veto maps)
+            "data",
+            "all_background"
         ],
         "etau": [
             "tt_dl",
@@ -244,11 +250,22 @@ def get_common_processes():
 
 class BaseConfig(cmt_config):
     def __init__(self, *args, **kwargs):
+        self.tauId_algo = "idDeepTau2017v2p1"
+        self.add_bjet_id(kwargs["year"], kwargs.get("runPeriod", None), "DeepFlavB")
         self.channels = self.add_channels()
         self.regions = self.add_regions()
         self.categories = self.add_categories()
         self.cross_section_dict = cross_section_dict
         super().__init__(*args, **kwargs)
+        # propagating fatjet_bb_type to every process. If a process does not have it, take it from a parent process
+        for process in self.processes:
+            upper_process = process
+            fatjet_bb_type = None
+            while fatjet_bb_type is None and upper_process.parent_process is not None:
+                fatjet_bb_type = upper_process.get_aux("fatjet_bb_type")
+                upper_process = self.processes.get(upper_process.parent_process)
+            if fatjet_bb_type is not None:
+                process.aux["fatjet_bb_type"] = fatjet_bb_type
 
     def join_selection_channels(self, selection):
         """ Takes a dict channel -> [selection], where the list of selections is first and-ed (with parentheses) 
@@ -268,46 +285,57 @@ class BaseConfig(cmt_config):
     def add_regions(self):
         selection = OrderedDict()
         region_names = ["Signal region", "OS inv. iso", "SS iso", "SS inv. iso"]
+
+        if self.useBoostedTaus:
+            dau1_iso = f"isBoostedTau ? dau1_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+            """ Medium isolation of dau1 (for tautau channel) """
+            dau2_iso = f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+            """ Medium isolation of dau2 """
+            dau2_loosenedIso = [
+                f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
+                f"isBoostedTau ? dau2_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}"]
+            """ Loosened isolation for QCD reduced isolation control region """
+            
+        else:
+            dau1_iso = f"dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+            """ Medium isolation of dau1 (for tautau channel) """
+            dau2_iso = f"dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
+            """ Medium isolation of dau2 """
+            dau2_loosenedIso = [
+                f"dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
+                f"dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}"]
+            """ Loosened isolation for QCD reduced isolation control region """
+
         selection["os_iso"] = {
-            "mutau": ["isOS == 1",
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
-            "etau": ["isOS == 1",
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+            "mutau": ["isOS == 1", dau2_iso],
+            "etau": ["isOS == 1", dau2_iso],
             "tautau": ["isOS == 1",
-                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+                dau1_iso,
+                dau2_iso],
         }
         selection["os_inviso"] = {
-            "mutau": ["isOS == 1", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
-            "etau": ["isOS == 1", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+            "mutau": ["isOS == 1", *dau2_loosenedIso],
+            "etau": ["isOS == 1", *dau2_loosenedIso],
             "tautau": ["isOS == 1",
-                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
-                "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+                dau1_iso,
+                *dau2_loosenedIso],
         }
         selection["ss_iso"] = {
-            "mutau": ["isOS == 0",
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
-            "etau": ["isOS == 0",
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+            "mutau": ["isOS == 0", dau2_iso],
+            "etau": ["isOS == 0", dau2_iso],
             "tautau": ["isOS == 0",
-                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
-                "dau2_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium],
+                dau1_iso,
+                dau2_iso],
         }
         selection["ss_inviso"] = {
-            "mutau": ["isOS == 0", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
-            "etau": ["isOS == 0", "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+            "mutau": ["isOS == 0", *dau2_loosenedIso],
+            "etau": ["isOS == 0", *dau2_loosenedIso],
             "tautau": ["isOS == 0",
-                "dau1_idDeepTau2017v2p1VSjet >= %s" % self.deeptau.vsjet.Medium,
-                "dau2_idDeepTau2017v2p1VSjet >= 1",
-                "dau2_idDeepTau2017v2p1VSjet < %s" % self.deeptau.vsjet.Medium],
+                dau1_iso,
+                *dau2_loosenedIso],
         }
         regions = []
-        for ikey, key in enumerate(selection):
+        for ikey, key in enumerate(selection): # os_iso, os_inviso, etc
             regions.append(Category(key, label=Label(region_names[ikey]),
                 selection=self.join_selection_channels(selection[key])))
             for channel in self.channels:
@@ -315,6 +343,21 @@ class BaseConfig(cmt_config):
                     label=Label(", ".join([channel.label.root, region_names[ikey]])),
                     selection=jrs(channel.selection,
                         jrs(selection[key][channel.name], op="and"), op="and")))
+        for channel in self.channels:
+            regions.append(Category(f"{channel.name}_os",
+                label=f"{channel.label.root}, OS (no QCD isolation cut)",
+                selection=jrs(channel.selection,
+                    "isOS == 1")))
+            regions.append(Category(f"{channel.name}_ss",
+                label=f"{channel.label.root}, SS (no QCD isolation cut)",
+                selection=jrs(channel.selection,
+                    "isOS == 0", op="and")))
+        regions.append(Category(f"baseline_region",
+            label="baseline etau+mutau+tautau",
+            selection="pairType>=0 && pairType <= 2"))
+        regions.append(Category(f"baseline_hem_affected",
+            label="EraCD - baseline etau+mutau+tautau",
+            selection="pairType>=0 && pairType <= 2 && hem_affected_run"))
         return ObjectCollection(regions)
 
     def add_channels(self):
@@ -328,15 +371,54 @@ class BaseConfig(cmt_config):
     def get_bjets_requirements(self):
         """ Compute the requirements for btagging for the different categories.
         Returns dict with keys req_1b, req_2b, req_ll 
-        Uses self.btag
+        Uses self.btag_algo_wps
         """
         reqs = DotDict()
         btag = "Jet_btagDeepFlavB.at(bjet{}_JetIdx)"
-        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag[wp])
+        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag_algo_wps[wp])
         reqs.req_1b = jrs(jrs(df(1, ">", "medium"), df(2, "<", "medium"), op="and"),
                 jrs(df(1, "<", "medium"), df(2, ">", "medium"), op="and"), op="or")  # exactly one b jet passes medium (for res1b)
         reqs.req_2b = jrs(df(1, ">", "medium"), df(2, ">", "medium")) # both bjets pass medium (for res2b)
-        reqs.req_ll = jrs(df(1, ">", "loose"), df(2, ">", "loose")) # both bjets pass loose (for boosted) 
+        reqs.req_1or2b = jrs(df(1, ">", "medium"), df(2, ">", "medium"), op="or") # at least one b jets passes medium (res1b | res2b), for orthogonality of boosted with resolved
+        reqs.req_ll = jrs(df(1, ">", "loose"), df(2, ">", "loose")) # both bjets pass loose (for old boosted, not used now) 
+
+        # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
+        self.boosted_bb_tagging_wp = self.particleNetMD_legacy.low
+        reqs.boosted_pnet = f"(FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)/(FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)+FatJet_particleNetLegacy_QCD.at(fatjet_JetIdx)) >= {self.boosted_bb_tagging_wp})"
+        return reqs
+    
+    def get_categories_requirements(self):
+        """ Requirements for selecting res1b, res2b & boosted categories """
+        
+        bjets = self.get_bjets_requirements()
+        # req_2jets = "(bjet1_JetIdx >= 0)" # requires that we have 2 AK4 jets selected by hhbtag, prerequisite for resolved (if bjet1_JetIdx is there then bjet2_JetIdx is also there)
+        reqs = DotDict()
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail = DotDict() # priority to res2b, for HPSTaus category
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_2b = f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))" # res2b has priority
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.boosted_bb = f"(!({reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_2b}) && fatjet_JetIdx>=0 && ({bjets.boosted_pnet}))" # fatjet passing pnet & not res2b
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_1b = f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}) && !(fatjet_JetIdx>=0 && ({bjets.boosted_pnet})))" # 2 jets & exactly one b-tag (->orthogonal res2b) & no fatjet passing pnet (orthogonalize boosted)
+
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail = DotDict() # priority to boosted, for boostedTaus category
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb = f"(fatjet_JetIdx>=0 && ({bjets.boosted_pnet}))" # priority boosted
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.resolved_2b = f"(!{reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb} && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))"
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.resolved_1b = f"(!{reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb} && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
+
+        # old code giving priority to boosted
+            # reqs.resolved_1b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
+            # reqs.resolved_2b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))"
+            # # Following not needed since orthogonalization done at HHJets level
+            # ## need to orthogonalize boosted to resolved. -> need isBoosted = 1 (ie there is an AK8 jet passing selection), and :
+            # ## - either we have <2 AK4 jets passing the first selections (before hhbtag and btag, ie pt, PUid, deltaR) 
+            # ## - or we have >= 2 AK4 jets but the 2 hhbtag-selected jets both fail the medium btag WP
+            # ## note the order of evaluation, important to not access Jet collections with -1 index
+            # reqs.boosted_bb = f"(isBoosted == 1) && fatjet_JetIdx>=0 && ({bjets.boosted_pnet})"
+            # reqs.boosted = reqs.boosted_bb # for backwards compatibility
+
+        # Taus categories
+        reqs.HPSTau = "(isBoostedTau == false && pairType >= 0)"
+        reqs.boostedTau = "(isBoostedTau == true && pairType >= 0)"
+
+        # reqs.all_categories = f"(pairType >= 0 && (({reqs.boosted_bb}) || ({reqs.resolved_1b}) || ({reqs.resolved_2b})))" # ALl categories (for DNN training)
         return reqs
 
     def add_categories(self, **kwargs):
@@ -345,7 +427,7 @@ class BaseConfig(cmt_config):
 
         sel = DotDict()
         btag = kwargs.pop("btag", "Jet_btagDeepFlavB.at(bjet{}_JetIdx)")
-        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag[wp])
+        df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag_algo_wps[wp])
         sel["btag"] = DotDict(
             m_first=[df(1, ">", "medium")], # bjet 1 passes medium btag WP
             m_second=[df(2, ">", "medium")],
@@ -410,437 +492,601 @@ class BaseConfig(cmt_config):
 
         categories = [
             Category("base", "base", selection="event >= 0"),
+            Category("base_noWeights", "no selection, no weights", selection="1"),
             Category("base_fixedGenWeight", "base with genWeight (fixed)", selection="1"),
             Category("base_oldGenWeight", "base with old genWeight (no fix)", selection="1"),
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
-            Category("base_selection", "base",
-                nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
-                    " && ((Sum$(Muon_pt->fElements > 17) > 0"
-                    " || Sum$(Electron_pt->fElements > 17) > 0)"
-                    " || Sum$(Tau_pt->fElements > 17) > 1)"
-                    " && Sum$(Jet_pt->fElements > 17) > 1)",
-                selection="Tau_pt[Tau_pt > 17].size() > 0 "
-                    "&& ((Muon_pt[Muon_pt > 17].size() > 0"
-                    "|| Electron_pt[Electron_pt > 17].size() > 0)"
-                    "|| Tau_pt[Tau_pt > 17].size() > 1)"
-                    "&& Jet_pt[Jet_pt > 17].size() > 0"),
-            Category("baseline_sr", "baseline Signal region",
-                selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 2) && (isOS == 1) && "
-                    "(dau2_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0})) "
-                    .format(self.deeptau.vsjet.Medium)),
+            # Category("base_selection", "base",
+            #     nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
+            #         " && ((Sum$(Muon_pt->fElements > 17) > 0"
+            #         " || Sum$(Electron_pt->fElements > 17) > 0)"
+            #         " || Sum$(Tau_pt->fElements > 17) > 1)"
+            #         " && Sum$(Jet_pt->fElements > 17) > 1)",
+            #     selection="Tau_pt[Tau_pt > 17].size() > 0 "
+            #         "&& ((Muon_pt[Muon_pt > 17].size() > 0"
+            #         "|| Electron_pt[Electron_pt > 17].size() > 0)"
+            #         "|| Tau_pt[Tau_pt > 17].size() > 1)"
+            #         "&& Jet_pt[Jet_pt > 17].size() > 0"),
+            # Category("baseline_sr", "baseline Signal region",
+            #     selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+            #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
+            #         "((pairType == 2) && (isOS == 1) && "
+            #         "(dau2_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0})) "
+            #         .format(self.deeptau.vsjet.Medium)),
             # Category("dum", "dummy category", selection="event == 220524669"),
             Category("dum", "dummy category", selection="event == 74472670"),
-            Category("debug", "debug category", selection="(event >= 31122668) && (event <= 31185105)"),
+            Category("debug", "debug category", selection="luminosityBlock == 315421 && event == 315420434"),
             Category("mutau", "#mu#tau channel", selection="pairType == 0"),
             Category("etau", "e#tau channel", selection="pairType == 1"),
             Category("tautau", "#tau#tau channel", selection="pairType == 2"),
-            Category("resolved_1b", label="Resolved 1b category",
-                selection=sel["resolved_1b_combined"]),
-            Category("resolved_2b", label="Resolved 2b category",
-                selection=sel["resolved_2b_combined"]),
-            Category("boosted", label="Boosted category",
-                selection=sel["boosted_combined"]),
-            Category("vbf_loose", label="VBF (loose) category",
-                selection=sel["vbf_loose_combined"]),
-            Category("vbf_tight", label="VBF (tight) category",
-                selection=sel["vbf_tight_combined"]),
-            Category("vbf", label="VBF category",
-                selection=sel["vbf_combined"]),
+            # Category("resolved_1b", label="Resolved 1b category",
+            #     selection=sel["resolved_1b_combined"]),
+            # Category("resolved_2b", label="Resolved 2b category",
+            #     selection=sel["resolved_2b_combined"]),
+            # Category("boosted", label="Boosted category",
+            #     selection=sel["boosted_combined"]),
+            # Category("vbf_loose", label="VBF (loose) category",
+            #     selection=sel["vbf_loose_combined"]),
+            # Category("vbf_tight", label="VBF (tight) category",
+            #     selection=sel["vbf_tight_combined"]),
+            # Category("vbf", label="VBF category",
+            #     selection=sel["vbf_combined"]),
         ]
         return ObjectCollection(categories)
     
     def add_features(self):
+        # important : for Categorization with --syetmatic  it is important that systematics are enabled here
+        systematics_mode = "reduced"
+        if systematics_mode == "reduced" or systematics_mode == "full": # reduced systematics
+            if systematics_mode == "reduced":
+                self.jec_systs = ["jec_1"] # jec_2
+            else:
+                self.jec_systs = ["jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
+                                "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]
+            self.jme_systs = ["jer"] + self.jec_systs
+            self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
+            self.tau_systs_params = dict(central="tes", systematics=["tes"])
+            if systematics_mode == "reduced":
+                self.lepton_systs_params =  dict(systematics=["tes"]) # you may need to add central="tes", 
+            else:
+                self.lepton_systs_params =  dict(systematics=["ele_scale", "ele_resolution", "tes"]) # you may need to add central="tes", 
+            self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time (+MET)
+
+            # met systs are special systematics to allow plotting of met variables without PrePlot crashing
+            #self.met_systs = dict(central="met_tes_xycorr", systematics=list(map(lambda s:s.replace("_", "_MET_"), self.jec_systs)) + ["tes_MET", "met_unclustered_MET"]) 
+            self.met_systs = dict(systematics=self.jec_systs+self.lepton_systs_params["systematics"]+["met_unclustered"])
+
+            self.all_systs = self.lepton_systs_params["systematics"] + ["met_unclustered"] + self.jme_systs
+        elif systematics_mode == "one_jec": # reduced JEC
+            self.jec_systs = ["jec"]
+            self.jme_systs = ["jer"] + self.jec_systs
+            self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
+            self.tau_systs_params = dict(central="tes", systematics=["tes"])
+            self.lepton_systs_params =  dict(systematics=["ele_scale", "ele_resolution", "tes"]) # you may need to add central="tes", 
+            self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
+
+            ## TODO Fix this need to find a way for the framweork to handle this
+            self.met_systs = dict(central="met_tes_xycorr", systematics=[]) # ["jec_MET"] + ["tes"] 
+
+            self.all_systs = ["ele_scale", "ele_resolution", "tes"] + self.jme_systs
+        elif systematics_mode == "no_systs": # no systs
+            self.jec_systs = []
+            self.jme_systs = []
+            self.jet_systs_params = dict(central="jet_smearing", systematics=self.jme_systs)
+            self.tau_systs_params = dict(central="tes", systematics=[])
+            self.lepton_systs_params =  dict(systematics=[]) # you may need to add central="tes", 
+            self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
+
+            self.met_systs = dict(central="met_tes_xycorr", systematics=[]) 
+
+            self.all_systs = [] + self.jme_systs
+        else:
+            raise ValueError()
+
+        # event weight systs only need to be included in the feature that is used in config.weights
+        phi_binning = (20, -math.pi, math.pi)
+        phi_binning_50 = (50, -math.pi, math.pi)
         features = [
             Feature("jet_pt", "Jet_pt", binning=(30, 0, 300),
-                x_title=Label("jet p_{T}"),
-                units="GeV"),
+                x_title=Label("jet p_{T} (no corrections)"),
+                units="GeV", tags=["jet"]),
+            Feature("jet_pt_smeared", "Jet_pt", binning=(30, 0, 300),
+                x_title=Label("jet p_{T} (smeared)"), **self.jet_systs_params,
+                units="GeV", tags=["jet"]),
+            Feature("jet_eta", "Jet_eta", binning=(50, -5., 5.),
+                x_title=Label("jet #eta (all jets)"),
+                tags=["jet"]),
+            Feature("jet_phi", "Jet_phi", binning=phi_binning_50,
+                x_title=Label("jet #phi (all jets)"),
+                tags=["jet"]),
+            # For jet veto maps. jets_hem_preselection is a RVec<bool> computed in hemIssueRDF
+            Feature("jet_eta_hem", "Jet_eta[jets_hem_preselection]", binning=(50, -5., 5.),
+                x_title=Label("jet #eta (all jets with ID)"),
+                tags=["jet"]),
+            Feature("jet_phi_hem", "Jet_phi[jets_hem_preselection]", binning=phi_binning_50,
+                x_title=Label("jet #phi (all jets with ID)"),
+                tags=["jet"]),
             Feature("nJet", "nJet", binning=(20, 0, 20),
-                x_title=Label("nJet")),
+                x_title=Label("nJet"), tags=["jet"]),
+            Feature("btagging", "Jet_btagDeepFlavB", binning=(30,0,1),
+                x_title=Label("b-tagging score"), tags=["base"]),
 
             # bjet features
-            Feature("bjet1_pt", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{1} p_{T}"),
-                units="GeV",
-                central="jet_smearing",
-                selection="abs({{bjet1_eta}}) < 2.1", #[FIXME]?
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("bjet1_eta", "Jet_eta.at(bjet1_JetIdx)", binning=(20, -3.2, 3.2),
-                x_title=Label("b_{1} #eta")),
-            Feature("bjet1_phi", "Jet_phi.at(bjet1_JetIdx)", binning=(20, -5, 5),
-                x_title=Label("b_{1} #phi")),
-            Feature("bjet1_mass", "Jet_mass.at(bjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{1} m"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("bjet2_pt", "Jet_pt.at(bjet2_JetIdx)", binning=(10, 50, 150),
+            Feature("bjet1_pt", "Jet_pt.at(bjet1_JetIdx)", binning=(20, 20, 220),
+                x_title=Label("b_{1} p_{T}"), selection="bjet1_JetIdx>=0",
+                units="GeV", tags=["base"],
+                **self.jet_systs_params),
+            Feature("bjet1_pt_high", "Jet_pt.at(bjet1_JetIdx)", binning=(30, 20, 500),
+                x_title=Label("b_{1} p_{T}"), selection="bjet1_JetIdx>=0",
+                units="GeV", tags=["base"],
+                **self.jet_systs_params),
+            Feature("bjet1_eta", "Jet_eta.at(bjet1_JetIdx)", binning=(20, -3., 3.),
+                x_title=Label("b_{1} #eta"), selection="bjet1_JetIdx>=0", tags=["base"]),
+            Feature("bjet1_phi", "Jet_phi.at(bjet1_JetIdx)", binning=phi_binning,
+                x_title=Label("b_{1} #phi"), selection="bjet1_JetIdx>=0", tags=["base"]),
+            Feature("bjet1_mass", "Jet_mass.at(bjet1_JetIdx)", binning=(20, 0, 60),
+                x_title=Label("b_{1} m"), selection="bjet1_JetIdx>=0",
+                units="GeV", tags=["base"],
+                **self.jet_systs_params),
+            Feature("bjet1_btagScore", "Jet_btagDeepFlavB.at(bjet1_JetIdx)", binning=(30,0,1),
+                x_title=Label("b-tagging score of b-jet 1"), selection="bjet1_JetIdx>=0", tags=["base"]),
+            Feature("bjet2_pt", "Jet_pt.at(bjet2_JetIdx)", binning=(20, 20, 220),
                 x_title=Label("b_{2} p_{T}"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("bjet2_eta", "Jet_eta.at(bjet2_JetIdx)", binning=(20, -3.2, 3.2),
-                x_title=Label("b_{2} #eta")),
-            Feature("bjet2_phi", "Jet_phi.at(bjet2_JetIdx)", binning=(20, -5, 5),
-                x_title=Label("b_{2} #phi")),
-            Feature("bjet2_mass", "Jet_mass.at(bjet2_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{2} m"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-
-            # jets features
-            Feature("ctjet1_pt", "Jet_pt.at(ctjet_indexes.at(0))", binning=(10, 50, 150),
-                x_title=Label("add. central jet 1 p_{t}"),
-                units="GeV",
-                central="jet_smearing",
-                selection="ctjet_indexes.size() > 0",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("ctjet1_eta", "Jet_eta.at(ctjet_indexes.at(0))", binning=(20, -5., 5.),
-                x_title=Label("add. central jet 1 #eta"),
-                selection="ctjet_indexes.size() > 0"),
-            Feature("ctjet1_phi", "Jet_phi.at(ctjet_indexes.at(0))", binning=(20, -3.2, 3.2),
-                x_title=Label("add. central jet 1 #phi"),
-                selection="ctjet_indexes.size() > 0"),
-            Feature("ctjet1_mass", "Jet_mass.at(ctjet_indexes.at(0))", binning=(10, 50, 150),
-                x_title=Label("add. central jet 1 m"),
-                units="GeV",
-                central="jet_smearing",
-                selection="ctjet_indexes.size() > 0",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("fwjet1_pt", "Jet_pt.at(fwjet_indexes.at(0))", binning=(10, 50, 150),
-                x_title=Label("add. forward jet 1 p_t"),
-                units="GeV",
-                central="jet_smearing",
-                selection="fwjet_indexes.size() > 0",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("fwjet1_eta", "Jet_eta.at(fwjet_indexes.at(0))", binning=(20, -5., 5.),
-                x_title=Label("add. forward jet 1 #eta"),
-                selection="fwjet_indexes.size() > 0"),
-            Feature("fwjet1_phi", "Jet_phi.at(fwjet_indexes.at(0))", binning=(20, -3.2, 3.2),
-                x_title=Label("add. forward jet 1  #phi"),
-                selection="fwjet_indexes.size() > 0"),
-            Feature("fwjet1_mass", "Jet_mass.at(fwjet_indexes.at(0))", binning=(10, 50, 150),
-                x_title=Label("add. forward jet 1  m"),
-                units="GeV",
-                central="jet_smearing",
-                selection="fwjet_indexes.size() > 0",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                units="GeV", tags=["base"], selection="bjet2_JetIdx>=0",
+                **self.jet_systs_params),
+            Feature("bjet2_pt_high", "Jet_pt.at(bjet2_JetIdx)", binning=(30, 20, 500),
+                x_title=Label("b_{2} p_{T}"),
+                units="GeV", tags=["base"], selection="bjet2_JetIdx>=0",
+                **self.jet_systs_params),
+            Feature("bjet2_eta", "Jet_eta.at(bjet2_JetIdx)", binning=(20, -3., 3.),
+                x_title=Label("b_{2} #eta"), selection="bjet2_JetIdx>=0", tags=["base"]),
+            Feature("bjet2_phi", "Jet_phi.at(bjet2_JetIdx)", binning=phi_binning,
+                x_title=Label("b_{2} #phi"), selection="bjet2_JetIdx>=0", tags=["base"]),
+            Feature("bjet2_mass", "Jet_mass.at(bjet2_JetIdx)", binning=(20, 0, 60),
+                x_title=Label("b_{2} m"), selection="bjet2_JetIdx>=0",
+                units="GeV", tags=["base"],
+                **self.jet_systs_params),
+            Feature("bjet2_btagScore", "Jet_btagDeepFlavB.at(bjet2_JetIdx)", binning=(30,0,1),
+                x_title=Label("b-tagging score of b-jet 2"), selection="bjet2_JetIdx>=0", tags=["base"]),
 
             Feature("bjet_difpt", "abs({{bjet1_pt}} - {{bjet2_pt}})", binning=(10, 50, 150),
-                x_title=Label("bb #Delta p_t"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+                x_title=Label("bb #Delta p_t"), selection="bjet1_JetIdx>=0 && bjet2_JetIdx>=0",
+                units="GeV", # TODO add tags here
+                **self.jet_systs_params),
+            
+            # fatjet features
+            Feature("fatjet_pt", "FatJet_pt.at(fatjet_JetIdx)", binning=(20, 200, 500),
+                x_title=Label("FatJet p_{T}"), selection="fatjet_JetIdx>=0",
+                units="GeV", tags=["base"],
+                **self.jet_systs_params),
+            Feature("fatjet_pt_high", "FatJet_pt.at(fatjet_JetIdx)", binning=(30, 200, 3000),
+                x_title=Label("FatJet p_{T}"), selection="fatjet_JetIdx>=0",
+                units="GeV", tags=["base"],
+                **self.jet_systs_params),
+            Feature("fatjet_eta", "FatJet_eta.at(fatjet_JetIdx)", binning=(20, -3.2, 3.2),
+                x_title=Label("FatJet #eta"), selection="fatjet_JetIdx>=0", tags=["base"]),
+            Feature("fatjet_phi", "FatJet_phi.at(fatjet_JetIdx)", binning=phi_binning,
+                x_title=Label("FatJet #phi"), selection="fatjet_JetIdx>=0", tags=["base"]),
+            Feature("fatjet_mass", "FatJet_mass.at(fatjet_JetIdx)", binning=(20, 0, 200),
+                x_title=Label("FatJet m"), selection="fatjet_JetIdx>=0",
+                units="GeV", tags=["base"],
+                **self.jet_systs_params),
+            Feature("fatjet_msoftdrop", "FatJet_msoftdrop.at(fatjet_JetIdx)", binning=(20, 0, 200),
+                x_title=Label("FatJet SoftDrop mass"), selection="fatjet_JetIdx>=0",
+                units="GeV", tags=["base"],
+                ), # TODO softdrop systematics ??
+            Feature("fatjet_pnet_XbbVsQCD", "FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)/(FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)+FatJet_particleNetLegacy_QCD.at(fatjet_JetIdx))", binning=(40, 0, 1),
+                x_title=Label("FatJet ParticleNet XbbVsQCD"), selection="fatjet_JetIdx>=0",
+                tags=["base"],
+                ),
+            Feature("fatjet_pnet_XbbVsQCD_near1", "FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)/(FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)+FatJet_particleNetLegacy_QCD.at(fatjet_JetIdx))", binning=(40, self.boosted_bb_tagging_wp, 1),
+                x_title=Label("FatJet ParticleNet XbbVsQCD"), selection="fatjet_JetIdx>=0",
+                tags=["base"],
+                ),
+
+            # jets features
+            # Feature("ctjet1_pt", "Jet_pt.at(ctjet_indexes.at(0))", binning=(10, 50, 150),
+            #     x_title=Label("add. central jet 1 p_{t}"),
+            #     units="GeV", tags=["extra"],
+            #     selection="ctjet_indexes.size() > 0",
+            #     **self.jet_systs_params),
+            # Feature("ctjet1_eta", "Jet_eta.at(ctjet_indexes.at(0))", binning=(20, -5., 5.),
+            #     x_title=Label("add. central jet 1 #eta"), tags=["extra"],
+            #     selection="ctjet_indexes.size() > 0"),
+            # Feature("ctjet1_phi", "Jet_phi.at(ctjet_indexes.at(0))", binning=phi_binning,
+            #     x_title=Label("add. central jet 1 #phi"), tags=["extra"],
+            #     selection="ctjet_indexes.size() > 0"),
+            # Feature("ctjet1_mass", "Jet_mass.at(ctjet_indexes.at(0))", binning=(10, 50, 150),
+            #     x_title=Label("add. central jet 1 m"),
+            #     units="GeV", tags=["extra"],
+            #     selection="ctjet_indexes.size() > 0",
+            #     **self.jet_systs_params),
+            # Feature("fwjet1_pt", "Jet_pt.at(fwjet_indexes.at(0))", binning=(10, 50, 150),
+            #     x_title=Label("add. forward jet 1 p_t"),
+            #     units="GeV", tags=["extra"],
+            #     selection="fwjet_indexes.size() > 0",
+            #     **self.jet_systs_params),
+            # Feature("fwjet1_eta", "Jet_eta.at(fwjet_indexes.at(0))", binning=(20, -5., 5.),
+            #     x_title=Label("add. forward jet 1 #eta"), tags=["extra"],
+            #     selection="fwjet_indexes.size() > 0"),
+            # Feature("fwjet1_phi", "Jet_phi.at(fwjet_indexes.at(0))", binning=phi_binning,
+            #     x_title=Label("add. forward jet 1  #phi"), tags=["extra"],
+            #     selection="fwjet_indexes.size() > 0"),
+            # Feature("fwjet1_mass", "Jet_mass.at(fwjet_indexes.at(0))", binning=(10, 50, 150),
+            #     x_title=Label("add. forward jet 1  m"),
+            #     units="GeV", tags=["extra"],
+            #     selection="fwjet_indexes.size() > 0",
+            #     **self.jet_systs_params),
 
             # lepton features
-            Feature("lep1_pt", "dau1_pt", binning=(10, 50, 150),
+            Feature("lep1_pt", "dau1_pt", binning=(20, 20, 220),
                 x_title=Label("#tau_{1} p_{T}"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("lep1_eta", "dau1_eta", binning=(20, -5., 5.),
-                x_title=Label("#tau_{1} #eta")),
-            Feature("lep1_phi", "dau1_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("#tau_{1} #phi")),
-            Feature("lep1_mass", "dau1_mass", binning=(10, 50, 150),
+                units="GeV", tags=["base"],
+                **self.lepton_systs_params),
+            Feature("lep1_pt_high", "dau1_pt", binning=(30, 20, 500),
+                x_title=Label("#tau_{1} p_{T}"),
+                units="GeV", tags=["base"],
+                **self.lepton_systs_params),
+            Feature("lep1_eta", "dau1_eta", binning=(20, -2.5, 2.5),
+                x_title=Label("#tau_{1} #eta"), tags=["base"]),
+            Feature("lep1_phi", "dau1_phi", binning=phi_binning,
+                x_title=Label("#tau_{1} #phi"), tags=["base"]),
+            Feature("lep1_mass", "dau1_mass", binning=(30, -0.5, 5),
                 x_title=Label("#tau_{1} m"),
-                units="GeV",
-                systematics=["tes"]),
-
-            Feature("lep2_pt", "dau2_pt", binning=(10, 50, 150),
+                units="GeV", tags=["base"],
+                **self.lepton_systs_params),
+            Feature("lep1_idDeepTauVSjet", "dau1_idDeepTau2017v2p1VSjet", binning=(11, 0, 10),
+                x_title=Label("#tau_{1} DeepTau2017v2p1VSjet (tautau HPS)"), selection="!isBoostedTau && pairType == 2",
+                tags=["base"]),
+            Feature("lep1_rawIdDeepTauVSjet", "dau1_rawIdDeepTauVSjet", binning=(30, 0, 1),
+                x_title=Label("#tau_{1} raw DeepTau2017v2p1VSjet (tautau HPS)"), selection="!isBoostedTau && pairType == 2",
+                tags=["base"]),
+            *( # features only for boostedTaus
+            (Feature("lep1_rawIdDeepBoostedTauVSjet", "dau1_rawIdDeepTauVSjet", binning=(50, 0, 1),
+                x_title=Label("#tau_{1} raw DeepBoostedTau VSjet (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
+                tags=["base"]),
+            Feature("lep1_rawIdDeepBoostedTauVSjet_nearOne", "dau1_rawIdDeepTauVSjet", binning=(80, self.deepboostedtau.vsjet.LooseWisc, 1),
+                x_title=Label("#tau_{1} raw DeepBoostedTau VSjet (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
+                tags=["base"]),
+            Feature("lep1_rawAntiEle2018", "boostedTau_rawAntiEle2018[dau1_idx]", binning=(50, -1, 1),
+                x_title=Label("#tau_{1} raw AntiEle2018 score (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
+                tags=["study"]),
+            Feature("lep1_idAntiMu", "boostedTau_idAntiMu[dau1_idx]", binning=(3, 0, 3),
+                x_title=Label("#tau_{1} anti-muon discriminator (1=loose, 2=tight) (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
+                tags=["study"])
+            )
+            if self.useBoostedTaus else ()
+            ),
+            Feature("lep2_pt", "dau2_pt", binning=(20, 20, 220),
                 x_title=Label("#tau_{2} p_{T}"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("lep2_eta", "dau2_eta", binning=(20, -5., 5.),
-                x_title=Label("#tau_{2} #eta")),
-            Feature("lep2_phi", "dau2_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("#tau_{2} #phi")),
-            Feature("lep2_mass", "dau2_mass", binning=(10, 50, 150),
+                units="GeV", tags=["base"],
+                **self.lepton_systs_params),
+            Feature("lep2_pt_high", "dau2_pt", binning=(30, 20, 500),
+                x_title=Label("#tau_{2} p_{T}"),
+                units="GeV", tags=["base"],
+                **self.lepton_systs_params),
+            Feature("lep2_eta", "dau2_eta", binning=(20, -2.5, 2.5),
+                x_title=Label("#tau_{2} #eta"), tags=["base"]),
+            Feature("lep2_phi", "dau2_phi", binning=phi_binning,
+                x_title=Label("#tau_{2} #phi"), tags=["base"]),
+            Feature("lep2_mass", "dau2_mass", binning=(30, -0.5, 5),
                 x_title=Label("#tau_{2} m"),
-                units="GeV",
-                systematics=["tes"]),
-
-            Feature("dR_tautau", "sqrt((dau1_eta - dau2_eta)*(dau1_eta - dau2_eta) "
-                " + (dau1_phi - dau2_phi)*(dau1_phi - dau2_phi))",
-                binning=(30, 0, 5),
-                x_title=Label("#Delta R (#tau_{1}, #tau_{2})")),
-
-            # MET
-            Feature("met_pt", "MET_pt", binning=(10, 50, 150),
-                x_title=Label("MET p_{T}"),
-                units="GeV",
-                central="met_smearing",
-                systematics=["jer_MET", "tes_MET", "jec_MET"]), # "jec_MET_1", "jec_MET_2", "jec_MET_3", 
-                            #  "jec_MET_4", "jec_MET_5", "jec_MET_6", "jec_MET_7", "jec_MET_8",
-                            #  "jec_MET_9", "jec_MET_10", "jec_MET_11"]),
-            Feature("met_phi", "MET_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("MET #phi"),
-                central="met_smearing",
-                systematics=["jer_MET", "tes_MET", "jec_MET_1"]), # "jec_MET_2", "jec_MET_3", 
-                            #  "jec_MET_4", "jec_MET_5", "jec_MET_6", "jec_MET_7", "jec_MET_8",
-                            #  "jec_MET_9", "jec_MET_10", "jec_MET_11"]),
+                units="GeV", tags=["base"],
+                **self.lepton_systs_params),
+            Feature("lep2_idDeepTauVSjet", "dau2_idDeepTau2017v2p1VSjet", binning=(11, 0, 10),
+                x_title=Label("#tau_{2} DeepTau2017v2p1VSjet (HPS taus)"), selection="!isBoostedTau",
+                tags=["base"]),
+            Feature("lep2_rawIdDeepTauVSjet", "dau2_rawIdDeepTauVSjet", binning=(50, 0, 1),
+                x_title=Label("#tau_{2} raw DeepTau2017v2p1VSjet (HPS taus)"), selection="!isBoostedTau",
+                tags=["base"]),
+            *( # features only for boostedTaus
+            (Feature("lep2_rawIdDeepBoostedTauVSjet", "dau2_rawIdDeepTauVSjet", binning=(50, 0, 1),
+                x_title=Label("#tau_{2} raw DeepBoostedTau VSjet (boostedTaus)"), selection="isBoostedTau",
+                tags=["base"]),
+            Feature("lep2_rawIdDeepBoostedTauVSjet_nearOne", "dau2_rawIdDeepTauVSjet", binning=(80, self.deepboostedtau.vsjet.LooseWisc, 1),
+                x_title=Label("#tau_{2} raw DeepBoostedTau VSjet (boostedTaus)"), selection="isBoostedTau",
+                tags=["base"]),
+            Feature("lep2_rawAntiEle2018", "boostedTau_rawAntiEle2018[dau2_idx]", binning=(50, -1, 1),
+                x_title=Label("#tau_{2} raw AntiEle2018 score (boostedTaus)"), selection="isBoostedTau",
+                tags=["study"]),
+            Feature("lep2_idAntiMu", "boostedTau_idAntiMu[daue_idx]", binning=(3, 0, 3),
+                x_title=Label("#tau_{2} anti-muon discriminator (1=loose, 2=tight) (boostedTaus)"), selection="isBoostedTau",
+                tags=["study"])
+            ) if self.useBoostedTaus else ()
+            ),
+            Feature("dR_tautau", "deltaR(dau1_eta, dau1_phi, dau2_eta, dau2_phi)" # from cmssw/DataFormats/Math/interface/deltaR.h, imported in cmt.base_tasks.base
+                    #"sqrt((dau1_eta - dau2_eta)*(dau1_eta - dau2_eta) "
+                #" + (dau1_phi - dau2_phi)*(dau1_phi - dau2_phi))"
+                ,
+                binning=(50, 0, 6),
+                x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
+            Feature("dR_tautau_low", "deltaR(dau1_eta, dau1_phi, dau2_eta, dau2_phi)", 
+                binning=(50, 0, 0.5),
+                x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
+        ]
+        # MET (not all of the features are usually computed, might need to add metShifterRDF to modulesrdf.yaml)
+        for binning, suffix in (((20, 0, 200), ""), ((30, 150, 800), "_highRange")):
+            features.extend([
+            Feature(f"met_pt{suffix}_raw", "MET_pt", binning=binning,
+                x_title=Label("MET p_{T} (no smearing, no XY)"),
+                units="GeV", tags=["base"],
+                central="",
+                #systematics=self.met_systs # not computed usually
+                ),          
+            Feature(f"met_pt{suffix}_corr", "MET_tes_xycorr_pt", binning=binning,
+                x_title=Label("MET p_{T} (TES, XY-corr)"),
+                units="GeV", tags=["base"],
+                **self.met_systs),
+            # here : could add MET smeared&noXY, and nosmear&XY
+            ])
             
-            Feature("btagging", "Jet_btagDeepFlavB", binning=(30,0,1),
-                x_title=Label("b-tagging score")),
+        features += [
+            Feature("met_phi_raw", "MET_phi", binning=phi_binning,
+                x_title=Label("MET #phi (no smearing, no XY)"),
+                units="GeV", tags=["base"],
+                central="",
+                #systematics=self.met_systs # not computed usually
+                ),
+            Feature("met_phi_corr", "MET_tes_xycorr_phi", binning=(20, -3.2, 3.2),
+                x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
+                **self.met_systs),
 
-            # # Hbb
-            # Feature("Hbb_pt", "Hbb_pt", binning=(10, 50, 150),
-            #     x_title=Label("Z(b#bar{b}) p_{T}"),
-            #     units="GeV"),
-            # Feature("Hbb_eta", "Hbb_eta", binning=(20, -5., 5.),
-            #     x_title=Label("Z(b#bar{b}) #eta")),
-            # Feature("Hbb_phi", "Hbb_phi", binning=(20, -3.2, 3.2),
-            #     x_title=Label("Z(b#bar{b}) #phi")),
-            # Feature("Hbb_mass", "Hbb_mass", binning=(100, 0, 500),
-            #     x_title=Label("Z(b#bar{b}) mass"),
-            #     units="GeV"),
+            Feature("pairType", "pairType", binning=(5, -1, 3), 
+                x_title=Label("pairType"), tags=["base"]),
+            Feature("pairType_HPSTaus", "pairType_HPSTaus", binning=(5, -1, 3), 
+                x_title=Label("pairType HPS taus"), tags=["base"]),
+            Feature("pairType_boostedTaus", "pairType_boostedTaus", binning=(5, -1, 3), 
+                x_title=Label("pairType boostedTaus"), tags=["base"]),
+            
+            Feature("hasBoosted", "fatjet_JetIdx>=0", binning=(2, 0, 2), 
+                x_title=Label("Has AK8 candidate (no PNet cut)"), tags=["base"]),
+            Feature("isBoostedTau", "isBoostedTau", binning=(2, 0, 2), 
+                x_title=Label("is boostedTau"), tags=["base"]),
 
-            # # Htt
-            # Feature("Htt_pt", "Htt_pt", binning=(10, 50, 150),
-            #     x_title=Label("H(#tau^{+}#tau^{-}) p_{T}"),
-            #     units="GeV",),
-            #     # systematics=["tes"]),
-            # Feature("Htt_eta", "Htt_eta", binning=(20, -5., 5.),
-            #     x_title=Label("H(#tau^{+}#tau^{-}) #eta"),),
-            #     # systematics=["tes"]),
-            # Feature("Htt_phi", "Htt_phi", binning=(20, -3.2, 3.2),
-            #     x_title=Label("H(#tau^{+}#tau^{-}) #phi"),),
-            #     # systematics=["tes"]),
-            # Feature("Htt_mass", "Htt_mass", binning=(30, 0, 300),
-            #     x_title=Label("H(#tau^{+}#tau^{-}) mass"),
-            #     units="GeV"),
-            #     #systematics=["tes"]),
-
-            # # Htt (SVFit)
-            # Feature("Htt_svfit_pt", "Htt_svfit_pt", binning=(10, 50, 150),
-            #     x_title=Label("H(#tau^{+}#tau^{-}) p_{T} (SVFit)"),
-            #     units="GeV",),
-            #     # systematics=["tes"]),
-            # Feature("Htt_svfit_eta", "Htt_svfit_eta", binning=(20, -5., 5.),
-            #     x_title=Label("H(#tau^{+}#tau^{-}) #eta (SVFit)"),),
-            #     # systematics=["tes"]),
-            # Feature("Htt_svfit_phi", "Htt_svfit_phi", binning=(20, -3.2, 3.2),
-            #     x_title=Label("H(#tau^{+}#tau^{-}) #phi (SVFit)"),),
-            #     # systematics=["tes"]),
-            # Feature("Htt_svfit_mass", "Htt_svfit_mass", binning=(70, 0, 350),
-            #     x_title=Label("H(#tau^{+}#tau^{-}) mass (SVFit)"),
-            #     units="GeV"),
-            #     # systematics=["tes"]),
-
-            # # HH
-            # Feature("HH_pt", "HH_pt", binning=(10, 50, 150),
-            #     x_title=Label("ZZ p_{T}"),
-            #     units="GeV"),
-            #     # systematics=["tes"]),
-            # Feature("HH_eta", "HH_eta", binning=(20, -5., 5.),
-            #     x_title=Label("ZZ #eta")),
-            #     # systematics=["tes"]),
-            # Feature("HH_phi", "HH_phi", binning=(20, -3.2, 3.2),
-            #     x_title=Label("ZZ #phi")),
-            #     # systematics=["tes"]),
-            # Feature("HH_mass", "HH_mass", binning=(50, 0, 1000),
-            #     x_title=Label("m_{bb#tau#tau}"),
-            #     units="GeV"),
-            #     # systematics=["tes"]),
-
-            # # HH (SVFit)
-            # Feature("HH_svfit_pt", "HH_svfit_pt", binning=(10, 50, 150),
-            #     x_title=Label("HH p_{T} (SVFit)"),
-            #     units="GeV",),
-            #     # systematics=["tes"]),
-            # Feature("HH_svfit_eta", "HH_svfit_eta", binning=(20, -5., 5.),
-            #     x_title=Label("HH #eta (SVFit)")),
-            #     #systematics=["tes"]),
-            # Feature("HH_svfit_phi", "HH_svfit_phi", binning=(20, -3.2, 3.2),
-            #     x_title=Label("HH #phi (SVFit)")),
-            #     #systematics=["tes"]),
-            # Feature("HH_svfit_mass", "HH_svfit_mass", binning=(50, 0, 1000),
-            #     x_title=Label("HH mass (SVFit)"),
-            #     units="GeV"),
-            #     # systematics=["tes"]),
-
-            # # HH KinFit
-            # Feature("HHKinFit_mass", "HHKinFit_mass", binning=(50, 0, 1000),
-            #     x_title=Label("HH mass (Kin. Fit)"),
-            #     units="GeV"),
-            #     # systematics=["tes"]),
-            # Feature("HHKinFit_chi2", "HHKinFit_chi2", binning=(30, 0, 10),
-            #     x_title=Label("HH #chi^{2} (Kin. Fit)")),
-            #     # systematics=["tes"]),
-
-            # # HH Gen Level
-            # Feature("genHH_mass", "genHH_mass", binning=(100, 0, 2500),
-            #     x_title=Label("generator HH mass"),
-            #     units="GeV"),
+            # The H/Z dependent features have been moved to base_config_ZZ/ZH/ZbbHtt/ZttHbb 
 
             # DNN features FullFeatSet: no systematics since the DNN cannot hadle them and we don't want to save theme for plotting
             Feature("zz_kinfit_chi2", "hh_kinfit_chi2", binning=(30, 0, 50),
-                x_title=Label("ZZ #chi^{2} (Kin. Fit)"),
+                x_title=Label("ZZ #chi^{2} (Kin. Fit)"), tags=["dnnInput"],
+                selection="!isBoosted",
                 systematics=[]),
             Feature("zz_kinfit_m", "hh_kinfit_m", binning=(50, 0, 1000),
-                x_title=Label("ZZ mass (Kin. Fit)"), units="GeV",
+                x_title=Label("ZZ mass (Kin. Fit)"), units="GeV", tags=["dnnInput"],
+                selection="!isBoosted",
                 systematics=[]),
             Feature("sv_mass", "sv_mass", binning=(20, 30, 230),
-                x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), units="GeV",
+                x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), units="GeV", tags=["dnnInput"],
                 systematics=[]),
             Feature("dR_l1_l2_x_sv_pT", "dR_l1_l2_x_sv_pT", binning=(30, 0, 400), 
-                x_title=Label("#DeltaR (l_{1}, l_{2}) #times p_{T} (Z_{#tau#tau}^{SVFit})"),
+                x_title=Label("#DeltaR (l_{1}, l_{2}) #times p_{T} (Z_{#tau#tau}^{SVFit})"), tags=["dnnInput"],
                 systematics=[]),
             Feature("l1_mt", "l_1_mt", binning=(25, 0, 200), 
-                x_title=Label("m_{T} (l_{1})"), units="GeV",
+                x_title=Label("m_{T} (l_{1})"), units="GeV", tags=["dnnInput"],
                 systematics=[]),
             Feature("l_2_pT", "l_2_pT", binning=(25, 50, 150),
-                x_title=Label("#tau_{2} p_{t}"), units="GeV",
+                x_title=Label("#tau_{2} p_{t}"), units="GeV", tags=["dnnInput"],
                 systematics=[]),
             Feature("dR_l1_l2", "dR_l1_l2", binning=(50, 0, 5), 
-                x_title=Label("#DeltaR (l_{1}, l_{2})"),
+                x_title=Label("#DeltaR (l_{1}, l_{2})"), tags=["dnnInput"],
                 systematics=[]),
             Feature("dphi_sv_met", "dphi_sv_met", binning=(30, 0, 3.14), 
-                x_title=Label("#Delta#phi (Z_{#tau#tau}^{SVFit}, MET)"),
+                x_title=Label("#Delta#phi (Z_{#tau#tau}^{SVFit}, MET)"), tags=["dnnInput"],
                 systematics=[]),
             Feature("z_bb_mass", "h_bb_mass", binning=(35, 0, 350),
-                x_title=Label("Z(b#bar{b}) mass"), units="GeV",
+                x_title=Label("Z(b#bar{b}) mass"), units="GeV", tags=["dnnInput"],
                 systematics=[]),
             Feature("b_2_hhbtag", "b_2_hhbtag", binning=(50, 0, 1), 
-                x_title=Label("ZZbtag bJet_{2}"),
+                x_title=Label("ZZbtag bJet_{2}"), tags=["dnnInput"],
                 systematics=[]),
             Feature("diZ_mass_sv", "diH_mass_sv", binning=(50, 0, 1000),
-                x_title=Label("ZZ_{bb#tau#tau}^{SVFit}"), units="GeV",
+                x_title=Label("ZZ_{bb#tau#tau}^{SVFit}"), units="GeV", tags=["dnnInput"],
                 systematics=[]),
             Feature("dphi_zbb_sv", "dphi_hbb_sv", binning=(30, 0, 3.14), 
-                x_title=Label("#Delta#phi (Z_{bb}, Z_{#tau#tau}^{SVFit})"),
+                x_title=Label("#Delta#phi (Z_{bb}, Z_{#tau#tau}^{SVFit})"), tags=["dnnInput"],
                 systematics=[]),
             Feature("z_bb_pT", "h_bb_pT", binning=(10, 50, 150),
-                x_title=Label("Z(b#bar{b}) p_{T}"), units="GeV",
+                x_title=Label("Z(b#bar{b}) p_{T}"), units="GeV", tags=["dnnInput"],
                 systematics=[]),
             Feature("dR_l1_l2_boosted_ztt_met", "dR_l1_l2_boosted_htt_met", binning=(50, 0, 5), 
-                x_title=Label("#DeltaR (l_{1}, l_{2}) Boost(Z_{#tau#tau}+MET)"),
+                x_title=Label("#DeltaR (l_{1}, l_{2}) Boost(Z_{#tau#tau}+MET)"), tags=["dnnInput"],
                 systematics=[]),
             Feature("l_1_pT", "l_1_pT", binning=(25, 50, 150),
-                x_title=Label("#tau_{1} p_{T}"), units="GeV",
+                x_title=Label("#tau_{1} p_{T}"), units="GeV", tags=["dnnInput"],
                 systematics=[]),
             Feature("b_1_pT", "b_1_pT", binning=(20, 40, 200),
-                x_title=Label("b_{1} p_{T}"), units="GeV",
+                x_title=Label("b_{1} p_{T}"), units="GeV", tags=["dnnInput"],
                 systematics=[]),
             Feature("phi", "phi", binning=(30, 0, 3.14), 
-                x_title=Label("#Phi"),
+                x_title=Label("#Phi"), tags=["dnnInput"],
                 systematics=[]),
             Feature("costheta_l2_zttmet", "costheta_l2_httmet", binning=(20, 0, 1), 
-                x_title=Label("cos#Theta"),
+                x_title=Label("cos#Theta"), tags=["dnnInput"],
                 systematics=[]),
             Feature("b_1_cvsb", "b_1_cvsb", binning=(4, 0, 4), 
-                x_title=Label("CvsB (bJet_{1})"),
+                x_title=Label("CvsB (bJet_{1})"), tags=["dnnInput"],
                 systematics=[]),
             Feature("b_1_cvsl", "b_1_cvsl", binning=(4, 0, 4), 
-                x_title=Label("CvsL (bJet_{1})"),
+                x_title=Label("CvsL (bJet_{1})"), tags=["dnnInput"],
                 systematics=[]),
-            Feature("boosted", "boosted", binning=(2, 0, 2), 
-                x_title=Label("isBoosted")),
-            Feature("is_vbf", "is_vbf", binning=(2, 0, 2), 
-                x_title=Label("isVBF")),
+            Feature("boosted", "isBoosted", binning=(2, 0, 2), 
+                x_title=Label("isBoosted"), tags=["dnnInput"]),
+            # Feature("is_vbf", "is_vbf", binning=(2, 0, 2), 
+            #     x_title=Label("isVBF"), tags=["dnnInput"]),
             Feature("jet_1_quality", "jet_1_quality", binning=(6, 0, 6), 
-                x_title=Label("Quality (bJet_{1})")),
+                x_title=Label("Quality (bJet_{1})"), tags=["dnnInput"]),
             Feature("jet_2_quality", "jet_2_quality", binning=(6, 0, 6), 
-                x_title=Label("Quality (bJet_{2})")),
+                x_title=Label("Quality (bJet_{2})"), tags=["dnnInput"]),
             
             # dnn_ZZbbtt_kl_1 was moved in base_config_ZZ.py
             # Feature("dnn_hhbbtt_kl_1", "dnn_hhbbtt_kl_1", binning=(10, 0, 1),
             #     x_title=Label("DNN HH")),
 
             # VBFjet features
-            Feature("vbfjet1_pt", "Jet_pt.at(VBFjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("VBFjet1 p_{t}"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("vbfjet1_eta", "Jet_eta.at(VBFjet1_JetIdx)", binning=(20, -5., 5.),
-                x_title=Label("VBFjet1 #eta")),
-            Feature("vbfjet1_phi", "Jet_phi.at(VBFjet1_JetIdx)", binning=(20, -3.2, 3.2),
-                x_title=Label("VBFjet1 #phi")),
-            Feature("vbfjet1_mass", "Jet_mass.at(VBFjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("VBFjet1 m"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("vbfjet2_pt", "Jet_pt.at(VBFjet2_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("VBFjet2 p_t"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("vbfjet2_eta", "Jet_eta.at(VBFjet2_JetIdx)", binning=(20, -5., 5.),
-                x_title=Label("VBFjet2 #eta")),
-            Feature("vbfjet2_phi", "Jet_phi.at(VBFjet2_JetIdx)", binning=(20, -3.2, 3.2),
-                x_title=Label("VBFjet2 #phi")),
-            Feature("vbfjet2_mass", "Jet_mass.at(VBFjet2_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("VBFjet2 m"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            # Feature("vbfjet1_pt", "Jet_pt.at(VBFjet1_JetIdx)", binning=(10, 50, 150),
+            #     x_title=Label("VBFjet1 p_{t}"),
+            #     units="GeV",
+            #     central="jet_smearing",
+            #     systematics=self.jme_systs),
+            # Feature("vbfjet1_eta", "Jet_eta.at(VBFjet1_JetIdx)", binning=(20, -5., 5.),
+            #     x_title=Label("VBFjet1 #eta")),
+            # Feature("vbfjet1_phi", "Jet_phi.at(VBFjet1_JetIdx)", binning=(20, -3.2, 3.2),
+            #     x_title=Label("VBFjet1 #phi")),
+            # Feature("vbfjet1_mass", "Jet_mass.at(VBFjet1_JetIdx)", binning=(10, 50, 150),
+            #     x_title=Label("VBFjet1 m"),
+            #     units="GeV",
+            #     central="jet_smearing",
+            #     systematics=self.jme_systs),
+            # Feature("vbfjet2_pt", "Jet_pt.at(VBFjet2_JetIdx)", binning=(10, 50, 150),
+            #     x_title=Label("VBFjet2 p_t"),
+            #     units="GeV",
+            #     central="jet_smearing",
+            #     systematics=self.jme_systs),
+            # Feature("vbfjet2_eta", "Jet_eta.at(VBFjet2_JetIdx)", binning=(20, -5., 5.),
+            #     x_title=Label("VBFjet2 #eta")),
+            # Feature("vbfjet2_phi", "Jet_phi.at(VBFjet2_JetIdx)", binning=(20, -3.2, 3.2),
+            #     x_title=Label("VBFjet2 #phi")),
+            # Feature("vbfjet2_mass", "Jet_mass.at(VBFjet2_JetIdx)", binning=(10, 50, 150),
+            #     x_title=Label("VBFjet2 m"),
+            #     units="GeV",
+            #     central="jet_smearing",
+            #     systematics=self.jme_systs),
 
             # VBFjj
-            Feature("VBFjj_mass", "VBFjj_mass", binning=(40, 0, 1000),
-                x_title=Label("VBFjj mass"),
-                units="GeV",
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("VBFjj_deltaEta", "VBFjj_deltaEta", binning=(40, -8, 8),
-                x_title=Label("#Delta#eta(VBFjj)"),
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
-            Feature("VBFjj_deltaPhi", "VBFjj_deltaPhi", binning=(40, -6.4, 6.4),
-                x_title=Label("#Delta#phi(VBFjj)"),
-                central="jet_smearing",
-                systematics=["jer", "jec"]), # "jec_1", "jec_2", "jec_3", "jec_4", "jec_5", "jec_6", 
-                             # "jec_7", "jec_8", "jec_9", "jec_10", "jec_11"]),
+            # Feature("VBFjj_mass", "VBFjj_mass", binning=(40, 0, 1000),
+            #     x_title=Label("VBFjj mass"),
+            #     units="GeV",
+            #     central="jet_smearing",
+            #     systematics=self.jme_systs),
+            # Feature("VBFjj_deltaEta", "VBFjj_deltaEta", binning=(40, -8, 8),
+            #     x_title=Label("#Delta#eta(VBFjj)"))
+            # Feature("VBFjj_deltaPhi", "VBFjj_deltaPhi", binning=(40, -6.4, 6.4),
+            #     x_title=Label("#Delta#phi(VBFjj)")),
 
             # Weights
-            Feature("genWeight", "genWeight", binning=(20, 0, 2),
-                x_title=Label("genWeight")),
-            Feature("genWeightFixed", "genWeightFixed", binning=(20, 0, 2),
-                x_title=Label("genWeightFixed")), # genWeight eventually modified to fix Madgraph LO bug
-            Feature("puWeight", "puWeight", binning=(20, 0, 2),
-                x_title=Label("puWeight"),
-                systematics=["pu"]),
-            Feature("prescaleWeight", "prescaleWeight", binning=(20, 0, 2),
-                x_title=Label("prescaleWeight")),
-            Feature("trigSF", "trigSF", binning=(20, 0, 2),
-                x_title=Label("trigSF"),
-                systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11"]),
-            Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(20, 0, 2),
-                x_title=Label("L1PreFiringWeight"),
+            Feature("genWeight", "genWeight", binning=(50, 0, 2),
+                x_title=Label("genWeight"), tags=["base"], noData=True),
+            Feature("genWeightFixed", "genWeightFixed", binning=(50, 0, 2),
+                x_title=Label("genWeightFixed"), tags=["base"], noData=True), # genWeight eventually modified to fix Madgraph LO bug
+            Feature("DYstitchWeight_log", "DYstitchWeight == 0 ? -19.9 : std::log10(DYstitchWeight)", binning=(100, -20, 0),
+                x_title=Label("log10(DY stitching weight), 0 maps to -20"), tags=["base"], noData=True),
+            Feature("puWeight", "puWeight", binning=(30, 0.5, 1.5),
+                x_title=Label("puWeight"), noData=True,
+                systematics=["pu"], tags=["base"]),
+            # Feature("prescaleWeight", "prescaleWeight", binning=(20, 0, 2),
+            #     x_title=Label("prescaleWeight")),
+            Feature("trigSF", "trigSF", binning=(30, 0.5, 1.5),
+                x_title=Label("trigSF"), tags=["base"], noData=True,
+                systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11", "trigSFmet"]), 
+            Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(30, 0.5, 1.5),
+                x_title=Label("L1PreFiringWeight"), tags=["base"], noData=True,
                 central="prefiring_central",
                 systematics=["prefiring"]),
-            Feature("PUjetID_SF", "PUjetID_SF", binning=(20, 0, 2),
-                x_title=Label("PUjetID_SF"),
+            Feature("PUjetID_SF", "PUjetID_SF", binning=(30, 0.5, 1.5),
+                x_title=Label("PUjetID_SF"), tags=["base"], noData=True,
                 systematics=["PUjetID"]),
-            Feature("idAndIsoAndFakeSF", "idAndIsoAndFakeSF", binning=(20, 0, 2),
-                x_title=Label("idAndIsoAndFakeSF"),
-                systematics=["jetTauFakes", "etauFR", "mutauFR", "eleIso", "muIso", "muId"]),
+            Feature("idAndIsoAndFakeSF", "idAndIsoAndFakeSF", binning=(30, 0, 2),
+                x_title=Label("idAndIsoAndFakeSF"), tags=["base"], noData=True,
+                systematics=["jetTauFakes", "etauFR", "mutauFR", "eleReco", "eleIso", "muIso", "muId"]),
+            Feature("bTagweightReshape", "bTagweightReshape", binning=(30, 0, 2),
+                x_title=Label("b-tag reshaping weight"), tags=["base"], noData=True,
+                systematics=self.jec_systs + ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
+            Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 2.),
+                x_title=Label("FatJet ParticleNet SF"), tags=["base"], noData=True,
+                systematics=["fatjet_pnet"]),
+            ############## TODO TODO self.jec_systs+
 
-            Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000),
-                x_title=Label("LHE PtZ"), units="GeV"),
-            Feature("LHE_HT", "LHE_HT", binning=(100, 0, 1000),
-                x_title=Label("LHE HT"), units="GeV"),
-            Feature("LHE_HT_low", "LHE_HT", binning=(100, 0, 130),
-                x_title=Label("LHE HT"), units="GeV"),
-            Feature("LHE_HT_high", "LHE_HT", binning=(100, 0, 3000),
-                x_title=Label("LHE HT"), units="GeV"),
+            # LHE variables (MC only)
+            Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000), noData=True,
+                x_title=Label("LHE PtZ"), units="GeV", tags=["lhe"]),
+            Feature("LHE_HT", "LHE_HT", binning=(100, 0, 1000), noData=True,
+                x_title=Label("LHE HT"), units="GeV", tags=["lhe"]),
+            Feature("LHE_HT_low", "LHE_HT", binning=(100, 0, 130), noData=True,
+                x_title=Label("LHE HT"), units="GeV", tags=["lhe"]),
+            Feature("LHE_HT_high", "LHE_HT", binning=(100, 0, 3000), noData=True,
+                x_title=Label("LHE HT"), units="GeV", tags=["lhe"]),
+            Feature("LHE_Njets", "LHE_Njets", binning=(5, 0, 5), noData=True,
+              x_title=Label("LHE Njets"), tags=["lhe"]),
+            Feature("LHE_NpLO", "LHE_NpLO", binning=(5, 0, 5), noData=True,
+              x_title=Label("LHE Nb of partons at LO"), tags=["lhe"]),
+            Feature("LHE_NpNLO", "LHE_NpNLO", binning=(5, 0, 5), noData=True,
+              x_title=Label("LHE Nb of partons at NLO"), tags=["lhe"]),
+            
+            # Gen variables (MC only & only when enabled, usually signal only)
+            Feature("genXbb_pgdId", "genXbb_pgdId", binning=(30, 0, 30), noData=True,
+                x_title=Label("PDG ID of X->bb at gen level"), tags=["signal"]),
+            Feature("genXbb_pt", "genXbb_pt", binning=(20, 20, 220),
+                x_title=Label("gen X(to bb) p_{T}"), selection="genXbb_GenPartIdx>=0",
+                units="GeV", tags=["signal"]),
+            Feature("genXbb_pt_high", "genXbb_pt", binning=(30, 20, 500),
+                x_title=Label("gen X(to bb) p_{T}"), selection="genXbb_GenPartIdx>=0",
+                units="GeV", tags=["signal"]),
+            Feature("genXbb_eta", "genXbb_eta", binning=(20, -3., 3.),
+                x_title=Label("gen X(to bb) #eta"), selection="genXbb_GenPartIdx>=0", tags=["signal"]),
+            Feature("genXbb_phi", "genXbb_phi", binning=phi_binning,
+                x_title=Label("gen X(to bb) #phi"), selection="genXbb_GenPartIdx>=0", tags=["signal"]),
+            Feature("genXbb_mass", "genXbb_mass", binning=(40, 0, 150),
+                x_title=Label("X(bb) mass"),
+                units="GeV", tags=["signal"]),
+            
+            # Feature("genXtautau_pgdId", "genXtautau_pgdId", binning=(30, 0, 30), noData=True,
+            #     x_title=Label("PDG ID of X->tautau at gen level"), tags=["signal"]),
+            Feature("genXtautau_pt", "genXtautau_pt", binning=(20, 20, 220),
+                x_title=Label("gen X(to bb) p_{T}"), selection="genXtautau_GenPartIdx>=0",
+                units="GeV", tags=["signal"]),
+            Feature("genXtautau_pt_high", "genXtautau_pt", binning=(30, 20, 500),
+                x_title=Label("gen X(to bb) p_{T}"), selection="genXtautau_GenPartIdx>=0",
+                units="GeV", tags=["signal"]),
+            Feature("genXtautau_eta", "genXtautau_eta", binning=(20, -3., 3.),
+                x_title=Label("gen X(to bb) #eta"), selection="genXtautau_GenPartIdx>=0", tags=["signal"]),
+            Feature("genXtautau_phi", "genXtautau_phi", binning=phi_binning,
+                x_title=Label("gen X(to bb) #phi"), selection="genXtautau_GenPartIdx>=0", tags=["signal"]),
+            Feature("genXtautau_mass", "genXtautau_mass", binning=(40, 0, 150),
+                x_title=Label("X(#tau^{+}#tau^{-}) mass"),
+                units="GeV", tags=["signal"]),
+            
+            Feature("gen_b1_pt", "gen_b1_pt", binning=(20, 20, 220),
+                x_title=Label("gen b_{1} p_{T}"), selection="gen_b1_GenPartIdx>=0",
+                units="GeV", tags=["signal"]),
+            Feature("gen_b1_pt_high", "gen_b1_pt", binning=(30, 20, 500),
+                x_title=Label("gen b_{1} p_{T}"), selection="gen_b1_GenPartIdx>=0",
+                units="GeV", tags=["signal"]),
+            Feature("gen_b1_eta", "gen_b1_eta", binning=(20, -3., 3.),
+                x_title=Label("gen b_{1} #eta"), selection="gen_b1_GenPartIdx>=0", tags=["signal"]),
+            Feature("gen_b1_phi", "gen_b1_phi", binning=phi_binning,
+                x_title=Label("gen b_{1} #phi"), selection="gen_b1_GenPartIdx>=0", tags=["signal"]),
+            Feature("gen_b2_pt", "gen_b2_pt", binning=(20, 20, 220),
+                x_title=Label("gen b_{2} p_{T}"), selection="gen_b2_GenPartIdx>=0",
+                units="GeV", tags=["signal"]),
+            Feature("gen_b2_pt_high", "gen_b2_pt", binning=(30, 20, 500),
+                x_title=Label("gen b_{2} p_{T}"), selection="gen_b2_GenPartIdx>=0",
+                units="GeV", tags=["signal"]),
+            Feature("gen_b2_eta", "gen_b2_eta", binning=(20, -3., 3.),
+                x_title=Label("gen b_{2} #eta"), selection="gen_b2_GenPartIdx>=0", tags=["signal"]),
+            Feature("gen_b2_phi", "gen_b2_phi", binning=phi_binning,
+                x_title=Label("gen b_{2} #phi"), selection="gen_b2_GenPartIdx>=0", tags=["signal"]),
+
+            Feature("gen_dR_tautau", "gen_deltaR_tautau",
+                binning=(50, 0, 6),
+                x_title=Label("Gen #Delta R (#tau_{1}, #tau_{2}) (incl. #mu)"), tags=["signal"]),
+            Feature("gen_dR_tautau_low", "gen_deltaR_tautau", 
+                binning=(50, 0, 0.5),
+                x_title=Label("Gen #Delta R (#tau_{1}, #tau_{2}) (incl. #mu)"), tags=["signal"]),
+            Feature("gen_dR_daudau", "gen_deltaR_daudau",
+                binning=(50, 0, 6),
+                x_title=Label("Gen #Delta R (#tau_{1}, #tau_{2}) (visible energy)"), tags=["signal"]),
+            Feature("gen_dR_daudau_low", "gen_deltaR_daudau", 
+                binning=(50, 0, 0.5),
+                x_title=Label("Gen #Delta R (#tau_{1}, #tau_{2}) (visible energy)"), tags=["signal"]),
+            Feature("gen_dR_bb", "gen_deltaR_bb",
+                binning=(50, 0, 6),
+                x_title=Label("Gen #Delta R (b_{1}, b_{2})"), tags=["signal"]),
+            Feature("gen_dR_bb_low", "gen_deltaR_bb", 
+                binning=(50, 0, 0.5),
+                x_title=Label("Gen #Delta R (b_{1}, b_{2})"), tags=["signal"]),
+            
+            Feature("gen_deltaR_XX", "gen_deltaR_XX",
+                binning=(50, 0, 6),
+                x_title=Label("Gen #Delta R (Xbb,X#tau#tau)"), tags=["signal"]),
         ]
         return ObjectCollection(features)
     
@@ -849,64 +1095,103 @@ class BaseConfig(cmt_config):
         weights.default = "1"
 
         # These weights are used for PreCounter
-        weights.total_events_weights = ["genWeightFixed", "puWeight", "DYstitchEasyWeight"]
+        weights.total_events_weights = ["genWeightFixed", "puWeight"] # DYstitchWeight
 
-        weights.mutau = ["genWeightFixed", "puWeight", "prescaleWeight", "trigSF",
+        weights.base_noWeights = ["genWeight", "DYstitchWeight"]
+
+        weights.all = ["genWeightFixed", "puWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
-            "bTagweightReshape"]
-            
-        weights.etau = weights.mutau
-        weights.tautau = weights.mutau
-        weights.base = weights.mutau
-
-        # weights.channels_mult = {channel: jrs(weights.channels[channel], op="*")
-            # for channel in weights.channels}
+            "bTagweightReshape", "fatjet_pnet_SF",
+            "DYstitchWeight", "hem_weight"
+            ]
+        for category in self.categories:
+            weights[category.name] = weights.all
+        
         return weights
 
     def add_systematics(self):
+        # See https://gitlab.cern.ch/cms-analysis/general/systematics for naming conventions
+
+        cats_lepton_systs = [] # categories that have event migration due to tau energy scale or electron scale/smearing
+        cats_jet_systs = [] # same but JEC/JES
+        for category in self.categories:
+            # Because of pairType filter in hhlepton we actually need to add lepton systs for all categories
+            cats_lepton_systs.append(category.name)
+            # for preprocess we need to run svfit with variations (to be able to use it easily in Categorization, otherwise it's not strictly necessary)
+            cats_jet_systs.append(category.name)
+
+
+            #if category.name in ["baseline", "baseline_sr", "etau", "mutau", "tautau"]:
+            #    cats_lepton_systs.append(category.name)
+            #if "elliptical_cut" in category.name or "orthogonal_cut" in category.name:
+                #cats_lepton_systs.append(category.name)
+                #cats_jet_systs.append(category.name)
+
         systematics = [
-            Systematic("tes", "_corr", decorrelate="year"), #up="_up", down='_down'),
+            # Tau energy scale
+            Systematic("tes", "_corr", decorrelate="year", module_syst_type=["tau_syst", "met_syst"], affected_categories=cats_lepton_systs),
 
-            Systematic("jet_smearing", "_nom"),
-            Systematic("jer", "_smeared", label="JES", llr_name="CMS_res_j_2018", decorrelate="year"), #up="_up", down='_down'),
-            Systematic("jec_1", "_FlavorQCD", label="FlavorQCD"), #up="_up", down='_down'),
-            Systematic("jec_2", "_RelativeBal", label="RelativeBal"), #up="_up", down='_down'),
-            Systematic("jec_3", "_HF", label="HF"), #up="_up", down='_down'),
-            Systematic("jec_4", "_BBEC1", label="BBEC1"), #up="_up", down='_down'),
-            Systematic("jec_5", "_EC2", label="EC2"), #up="_up", down='_down'),
-            Systematic("jec_6", "_Absolute", label="Absolute"), #up="_up", down='_down'),
-            Systematic("jec_7", "_BBEC1_2018", label="BBEC1_2018"), #up="_up", down='_down'),
-            Systematic("jec_8", "_EC2_2018", label="EC2_2018"), #up="_up", down='_down'),
-            Systematic("jec_9", "_Absolute_2018", label="Absolute_2018"), #up="_up", down='_down'),
-            Systematic("jec_10", "_HF_2018", label="HF_2018"), #up="_up", down='_down'),
-            Systematic("jec_11", "_RelativeSample_2018", label="RelativeSample_2018"), #up="_up", down='_down'),
-            Systematic("jec", "_Total", decorrelate="year"), #up="_up", down='_down'),
+            Systematic("jet_smearing", "_nom"), # Nominal jet smearing
+            # JER (jet energy resolution, smearing of jet energy applied on MC only). NOT PROPAGATED TO MET (not recommended by default by JME, but could be tried)
+            Systematic("jer", "_smeared", label="JES", llr_name="CMS_res_j_2018", decorrelate="year", module_syst_type=["jet_syst"], affected_categories=cats_jet_systs), # systematic variation of smearing
+            ## JEC (jet energy corrections). Propagated to MET as well
+            # Split 11-ways
+            Systematic("jec_1", "_FlavorQCD", label="FlavorQCD", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_2", "_RelativeBal", label="RelativeBal", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_3", "_HF", label="HF", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_4", "_BBEC1", label="BBEC1", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_5", "_EC2", label="EC2", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_6", "_Absolute", label="Absolute", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_7", f"_BBEC1_{self.year}", label=f"BBEC1_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_8", f"_EC2_{self.year}", label=f"EC2_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_9", f"_Absolute_{self.year}", label=f"Absolute_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_10", f"_HF_{self.year}", label=f"HF_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_11", f"_RelativeSample_{self.year}", label=f"RelativeSample_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            # unsplit (to be used instead of the 11-ways)
+            Systematic("jec", "_Total", module_syst_type=["jet_syst", "met_syst"], decorrelate="year", affected_categories=cats_jet_systs), 
 
-            Systematic("met_smearing", ("MET", "MET_smeared")), # includes both jer and tes
-            Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'),
-            Systematic("tes_MET", ("MET", "MET_smeared"), up="_corr_up", down='_corr_down'),
-            Systematic("jec_MET_1", ("MET", "MET_smeared"), up="_FlavorQCD_up", down='_FlavorQCD_down'),
-            Systematic("jec_MET_2", ("MET", "MET_smeared"), up="_RelativeBal_up", down='_RelativeBal_down'),
-            Systematic("jec_MET_3", ("MET", "MET_smeared"), up="_HF_up", down='_HF_down'),
-            Systematic("jec_MET_4", ("MET", "MET_smeared"), up="_BBEC1_up", down='_BBEC1_down'),
-            Systematic("jec_MET_5", ("MET", "MET_smeared"), up="_EC2_up", down='_EC2_down'),
-            Systematic("jec_MET_6", ("MET", "MET_smeared"), up="_Absolute_up", down='_Absolute_down'),
-            Systematic("jec_MET_7", ("MET", "MET_smeared"), up="_BBEC1_2018_up", down='_BBEC1_2018_down'),
-            Systematic("jec_MET_8", ("MET", "MET_smeared"), up="_EC2_2018_up", down='_EC2_2018_down'),
-            Systematic("jec_MET_9", ("MET", "MET_smeared"), up="_Absolute_2018_up", down='_Absolute_2018_down'),
-            Systematic("jec_MET_10", ("MET", "MET_smeared"), up="_HF_2018_up", down='_HF_2018_down'),
-            Systematic("jec_MET_11", ("MET", "MET_smeared"), up="_RelativeSample_2018_up", down='_RelativeSample_2018_down'),
-            Systematic("jec_MET", ("MET", "MET_smeared"), up="_Total_up", down='_Total_down'),
+            # MET central values
+            Systematic("met_smearing", ("MET", "MET_smeared")),
+            Systematic("met_smearing_xycorr", ("MET", "MET_smeared_xycorr")),
+            Systematic("met_tes_xycorr", ("MET", "MET_tes_xycorr")),
+            # MET uncertainties
+            Systematic("met_unclustered", "_unclustered", label="Unclustered energy", module_syst_type=["met_syst"], affected_categories=cats_jet_systs),
+
+            # used only to plot MET corrected variables with systematics. NOT TO BE RUN AS AN ACTUAL SYSTEMATIC IN PREPROCESS
+            # actually does not work as PrePlot does not use the systematic input, but the central one, because the syst name is not the same...
+            # Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'), # no MET smearing
+            # Systematic("tes_MET", ("MET", "MET_tes_xycorr"), up="_corr_up", down='_corr_down'),
+            # Systematic("jec_MET_1", ("MET", "MET_tes_xycorr"), up="_FlavorQCD_up", down='_FlavorQCD_down'),
+            # Systematic("jec_MET_2", ("MET", "MET_tes_xycorr"), up="_RelativeBal_up", down='_RelativeBal_down'),
+            # Systematic("jec_MET_3", ("MET", "MET_tes_xycorr"), up="_HF_up", down='_HF_down'),
+            # Systematic("jec_MET_4", ("MET", "MET_tes_xycorr"), up="_BBEC1_up", down='_BBEC1_down'),
+            # Systematic("jec_MET_5", ("MET", "MET_tes_xycorr"), up="_EC2_up", down='_EC2_down'),
+            # Systematic("jec_MET_6", ("MET", "MET_tes_xycorr"), up="_Absolute_up", down='_Absolute_down'),
+            # Systematic("jec_MET_7", ("MET", "MET_tes_xycorr"), up=f"_BBEC1_{self.year}_up", down=f'_BBEC1_{self.year}_down'),
+            # Systematic("jec_MET_8", ("MET", "MET_tes_xycorr"), up=f"_EC2_{self.year}_up", down=f'_EC2_{self.year}_down'),
+            # Systematic("jec_MET_9", ("MET", "MET_tes_xycorr"), up=f"_Absolute_{self.year}_up", down=f'_Absolute_{self.year}_down'),
+            # Systematic("jec_MET_10", ("MET", "MET_tes_xycorr"), up=f"_HF_{self.year}_up", down=f'_HF_{self.year}_down'),
+            # Systematic("jec_MET_11", ("MET", "MET_tes_xycorr"), up=f"_RelativeSample_{self.year}_up", down=f'_RelativeSample_{self.year}_down'),
+            # Systematic("jec_MET", ("MET", "MET_tes_xycorr"), up="_Total_up", down='_Total_down'),
+            # Systematic("met_unclustered_MET", ("MET", "MET_tes_xycorr"), up="_unclustered_up", down="_unclustered_down", label="Unclustered energy"),
+
+            # Electrons (see https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys for correlation instructions)
+            # note : no leading underscore in up/down, due to framework bug (basically if central="" then no underscore in up/down)
+            Systematic("ele_scale", "", up="_scale_up", down="_scale_down", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs, decorrelate="year"),
+            Systematic("ele_resolution", "", up="_smear_up", down="_smear_down", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs),
 
             Systematic("prefiring_central", "_Nom"),
             Systematic("prefiring", "", up="_Up", down="_Dn", decorrelate="year"),
 
+            # event weights systematics, from idAndIsoAndFakeSF
             Systematic("jetTauFakes", "", up="_tau_vsjet_up", down="_tau_vsjet_down", decorrelate="year"),
             Systematic("etauFR", "", up="_tau_vse_up", down="_tau_vse_down", decorrelate="year"),
             Systematic("mutauFR", "", up="_tau_vsmu_up", down="_tau_vsmu_down", decorrelate="year"),
-            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down", decorrelate="year"),
-            Systematic("muIso", "", up="_muon_iso_up", down="_muon_iso_down", decorrelate="year"),
-            Systematic("muId", "", up="_muon_id_up", down="_muon_id_down", decorrelate="year"),
+            Systematic("eleReco", "", up="_ele_reco_up", down="_ele_reco_down"), # eleReco & eleIso correlated : https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations
+            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down"), # actually electron MVA ID SFs, correlated https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys
+            # https://twiki.cern.ch/twiki/bin/view/CMS/MuonUL2018
+            Systematic("muIso", "", up="_muon_iso_up", down="_muon_iso_down"),
+            Systematic("muId", "", up="_muon_id_up", down="_muon_id_down"),
 
             Systematic("trigSFele", "", up="_eleUp", down="_eleDown", decorrelate="year"),
             Systematic("trigSFmu", "", up="_muUp", down="_muDown", decorrelate="year"),
@@ -914,10 +1199,25 @@ class BaseConfig(cmt_config):
             Systematic("trigSFDM1", "", up="_DM1Up", down="_DM1Down", decorrelate="year"),
             Systematic("trigSFDM10", "", up="_DM10Up", down="_DM10Down", decorrelate="year"),
             Systematic("trigSFDM11", "", up="_DM11Up", down="_DM11Down", decorrelate="year"),
+            Systematic("trigSFmet", "", up="_met_statup", down="_met_statdown", decorrelate="year"),
 
             Systematic("PUjetID", "", up="_up", down="_down", decorrelate="year"),
             Systematic("pu", "", up="Up", down="Down", decorrelate="year"),
-            Systematic("empty", "", up="", down="")
+            Systematic("empty", "", up="", down=""),
+
+            # btag shape uncertainties (there is also the JEC variations to use as well)
+            Systematic("CMS_btag_cferr1", "_cferr1"),
+            Systematic("CMS_btag_cferr2", "_cferr2"),
+            Systematic("CMS_btag_hf", "_hf"),
+            Systematic("CMS_btag_hfstats1", "_hfstats1", decorrelate="year"),
+            Systematic("CMS_btag_hfstats2", "_hfstats2", decorrelate="year"),
+            Systematic("CMS_btag_lf", "_lf"),
+            Systematic("CMS_btag_lfstats1", "_lfstats1", decorrelate="year"),
+            Systematic("CMS_btag_lfstats2", "_lfstats2", decorrelate="year"),
+
+            Systematic("fatjet_pnet", "", decorrelate="year"), # FatJet ParticleNet XbbVsQCD scale factors 
+
+            # Systematic("jes"), # 
         ]
         return ObjectCollection(systematics)
 
@@ -1015,7 +1315,7 @@ class BaseConfig(cmt_config):
                         systVal = syst.SystValues[isy][iproc]
                         if syst_name not in systematics:
                             systematics[syst_name] = {}
-                        systematics[syst_name][original_process.name] = eval(systVal)
+                        systematics[syst_name][original_process.name] = systVal #eval(systVal)
                         break
                     elif process.parent_process:
                         process=self.processes.get(process.parent_process)

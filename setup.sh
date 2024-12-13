@@ -255,6 +255,13 @@ action() {
           compile="1"
         fi
 
+        export BASEMODULES_PATH="Base/Filters"
+        if [ ! -d "$BASEMODULES_PATH" ]; then
+          git clone https://gitlab.cern.ch/cms-phys-ciemat/event-filters.git Base/Filters
+          #git clone https://gitlab.cern.ch/evernazz/cmt-base-modules.git Base/Modules
+          compile="1"
+        fi
+
         export HHKINFIT_PATH="HHKinFit2"
         if [ ! -d "$HHKINFIT_PATH" ]; then
           #git clone https://github.com/bvormwald/HHKinFit2.git -b CMSSWversion
@@ -265,7 +272,7 @@ action() {
 
         export SVFIT_PATH="TauAnalysis"
         if [ ! -d "$SVFIT_PATH" ]; then
-          git clone https://github.com/LLRCMS/ClassicSVfit.git TauAnalysis/ClassicSVfit -b bbtautau_LegacyRun2
+          git clone https://github.com/LLRCMS/ClassicSVfit.git TauAnalysis/ClassicSVfit -b bbtautau_CCLUB
           git clone https://github.com/svfit/SVfitTF TauAnalysis/SVfitTF
           compile="1"
         fi
@@ -332,6 +339,11 @@ action() {
           git clone https://gitlab.cern.ch/evernazz/muo-corrections.git Corrections/MUO
           #git clone https://gitlab.cern.ch/cms-phys-ciemat/egm-corrections.git Corrections/EGM
           git clone https://gitlab.cern.ch/evernazz/egm-corrections.git Corrections/EGM
+          # Add the JSON for scale uncertainties (fix for Run2 because egamma made a mess with nanoaod)
+          # also for some reason they are not on CVMFS ? (at least I could not find them)
+          mkdir Corrections/EGM/data
+          git clone --depth=1 https://github.com/cms-egamma/ScaleFactorsJSON.git Corrections/EGM/data/ScaleUncertainties
+          
           #git clone https://gitlab.cern.ch/cms-phys-ciemat/btv-corrections.git Corrections/BTV
           git clone https://gitlab.cern.ch/evernazz/btv-corrections.git Corrections/BTV
           compile="1"
@@ -389,6 +401,7 @@ action() {
             cmt_pip_install sphinx==5.2.2
             cmt_pip_install sphinx_rtd_theme
             cmt_pip_install sphinx_design
+            cmt_pip_install envyaml
         fi
 
         # gfal python bindings

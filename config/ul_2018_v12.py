@@ -8,7 +8,7 @@ def get_2018_v12_weights():
     # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
     weights.total_events_weights = ["genWeight", "puWeight"]
 
-    weights.mutau = ["genWeight", "puWeight", "DYstitchEasyWeight", "prescaleWeight", 
+    weights.mutau = ["genWeight", "puWeight", "DYstitchEasyWeight", 
         "trigSF", "idAndIsoAndFakeSF", "PUjetID_SF", "L1PreFiringWeight",
         "bTagweightReshape"]
     weights.etau = weights.mutau
@@ -23,7 +23,7 @@ def get_2018_v12_weights():
     return weights
 
 def setupBtagDeeptau(self):
-    self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
+#    self.btag=DotDict(tight=0.7264, medium=0.2770, loose=0.0494)
     self.deeptau=DotDict(
         vsjet=DotDict(VVVLoose=1, VVLoose=2, VLoose=3, Loose=4, Medium=5,
             Tight=6, VTight=7, VVTight=8),
@@ -206,12 +206,15 @@ def get_common_datasets_v12(self):
                 "tautau": 10,
                 "etau": 10,
                 "mutau": 10,
+                "resolved_1b": 2,
+                "resolved_2b": 2,
+                "boosted" : 1,
                 "elliptical_cut": 5
             },
             secondary_dataset="dy_aux",
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+            tags=["ul", "nanoV10", "limited"]),
 
         Dataset("dy_ptz1",
             folder=p + "DYJetsToLL_LHEFilterPtZ-0To50-amcatnloFXFX",
@@ -326,13 +329,16 @@ def get_common_datasets_v12(self):
                 "tautau": 20,
                 "mutau": 20,
                 "etau": 40,
-                "elliptical_cut": 20
+                "resolved_1b": 30,
+                "resolved_2b": 20,
+                "boosted" : 1,
+                "elliptical_cut": 20,
             },
             # scaling=(0.96639, 0.00863), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_dl_aux",
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+            tags=["ul", "nanoV10", "limited"]),
         Dataset("tt_sl",
             folder=p + "TTToSemiLeptonic",
             process=self.processes.get("tt_sl"),
@@ -341,13 +347,16 @@ def get_common_datasets_v12(self):
                 "tautau": 20,
                 "mutau": 60,
                 "etau": 40,
+                "resolved_1b": 30,
+                "resolved_2b": 20,
+                "boosted" : 1,
                 "elliptical_cut": 40
             },
             # scaling=(0.96639, 0.00863), # temporaily disabled until we compute our ou SF
             secondary_dataset="tt_sl_aux",
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+            tags=["ul", "nanoV10", "limited"]),
         Dataset("tt_fh",
             folder=p + "TTToHadronic",
             process=self.processes.get("tt_fh"),
@@ -719,21 +728,15 @@ def get_common_datasets_v12(self):
             process=self.processes.get("data_tau"),
             runEra="A",
             splitting=-1,
-            merging={
-                "tautau": 2,
-            },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+            tags=["ul", "nanoV10", "limited"]),
         Dataset("data_tau_b",
             folder=p + "Tau_Run2018B",
             selection="pairType == 2",
             process=self.processes.get("data_tau"),
             runEra="B",
             splitting=-1,
-            merging={
-                "tautau": 2,
-            },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
@@ -743,9 +746,6 @@ def get_common_datasets_v12(self):
             process=self.processes.get("data_tau"),
             runEra="C",
             splitting=-1,
-            merging={
-                "tautau": 2,
-            },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
@@ -756,7 +756,7 @@ def get_common_datasets_v12(self):
             runEra="D",
             splitting=-1,
             merging={
-                "tautau": 2,
+                "resolved_1b": 2,
             },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
@@ -770,20 +770,17 @@ def get_common_datasets_v12(self):
             runEra="A",
             splitting=-1,
             merging={
-                "etau": 2,
+                "resolved_1b": 2,
             },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+            tags=["ul", "nanoV10", "limited"]),
         Dataset("data_etau_b",
             folder=p + "EGamma_Run2018B",
             selection="pairType == 1",
             process=self.processes.get("data_etau"),
             runEra="B",
             splitting=-1,
-            merging={
-                "etau": 2,
-            },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
@@ -806,7 +803,7 @@ def get_common_datasets_v12(self):
             runEra="D",
             splitting=-1,
             merging={
-                "etau": 2,
+                "resolved_1b": 3,
             },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
@@ -820,20 +817,17 @@ def get_common_datasets_v12(self):
             runEra="A",
             splitting=-1,
             merging={
-                "mutau": 2,
+                "resolved_1b": 2,
             },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
-            tags=["ul", "nanoV10"]),
+            tags=["ul", "nanoV10", "limited"]),
         Dataset("data_mutau_b",
             folder=p + "SingleMuon_Run2018B",
             process=self.processes.get("data_mutau"),
             selection="pairType == 0",
             runEra="B",
             splitting=-1,
-            merging={
-                "mutau": 2,
-            },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
@@ -843,9 +837,6 @@ def get_common_datasets_v12(self):
             selection="pairType == 0",
             runEra="C",
             splitting=-1,
-            merging={
-                "mutau": 2,
-            },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",
             tags=["ul", "nanoV10"]),
@@ -856,7 +847,7 @@ def get_common_datasets_v12(self):
             runEra="D",
             splitting=-1,
             merging={
-                "mutau": 2,
+                "resolved_1b": 2,
             },
             # categorization_max_events=10000,
             prefix="eoscms.cern.ch//",

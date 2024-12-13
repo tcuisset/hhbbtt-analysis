@@ -10,6 +10,7 @@ from config.base_config_ZbbHtt import ConfigZbbHtt
 
 class Config_ul_2018_ZbbHtt_v12(ConfigZbbHtt):
     def __init__(self, *args, **kwargs):
+        self.useBoostedTaus = False
         setupBtagDeeptau(self)
         super().__init__(*args, **kwargs)
 

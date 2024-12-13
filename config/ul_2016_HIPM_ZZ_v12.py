@@ -811,5 +811,5 @@ class Config_ul_2016_HIPM_ZZ_v12(base_config_ZZ):
     #     versions = {"MergeCategorizationStats": "prod_503"}
     #     return versions
 
-config = Config_ul_2016_HIPM_ZZ_v12("ul_2016_HIPM_ZZ_v12", year=2016, ecm=13, lumi_pb=19500, isUL=True, ispreVFP=True, AnalysisType="Zbb_Ztautau")
+config = Config_ul_2016_HIPM_ZZ_v12("ul_2016_HIPM_ZZ_v12", year=2016, ecm=13, lumi_pb=19500, isUL=True, ispreVFP=True, runPeriod="preVFP", AnalysisType="Zbb_Ztautau")
 # https://github.com/LLRCMS/KLUBAnalysis/blob/master/config/mainCfg_MuTau_UL2016APV.cfg#L3C8-L3C13
