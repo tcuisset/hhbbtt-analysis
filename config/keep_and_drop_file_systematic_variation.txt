@@ -1,5 +1,52 @@
 # keep_and_drop file for PreprocessRDF for systematic variations enabled (ie everything except nominal)
 drop HLT.*
+# Muon triggers
+keep HLT_IsoTkMu24
+keep HLT_IsoMu24
+keep HLT_IsoMu27
+keep HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1
+keep HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1
+keep HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1
+# noniso muon
+keep HLT_.*Mu50
+keep HLT_.*Mu100
+
+# Electron triggers
+keep HLT_Ele25_eta2p1_WPTight_Gsf
+keep HLT_Ele32_WPTight_Gsf.*
+keep HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1
+keep HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1
+# noniso electron
+keep HLT_Ele115_CaloIdVT_GsfTrkIdT
+keep HLT_Photon175
+keep HLT_Photon200
+keep HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50
+keep HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165
+
+# Tau triggers
+keep HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg
+keep HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg
+keep HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg
+keep HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg
+keep HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg
+keep HLT_DoubleMediumDeepTauPFTauHPS35_L2NN_eta2p1
+#singleTau
+keep HLT_MediumChargedIsoPFTau180HighPtRelaxedIso*
+keep HLT_MediumChargedIsoPFTau50_Trk30_eta2p1_1pr_MET110
+
+# Jet triggers
+keep HLT_AK8PFHT*
+keep HLT_AK8PFJet*
+keep HLT_PFJet*
+# MET/HT triggers
+keep HLT_PFHT1050
+keep HLT_PFHT500_PFMET100_PFMHT100_IDTight
+keep HLT_PFMET120_PFMHT120_IDTight
+# MET triggers
+keep HLT_PFMETNoMu120_PFMHTNoMu120_IDTight
+keep HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight
+keep HLT_PFMET120_PFMHT120_IDTight
+
 drop L1.*
 # keep only Nom
 drop L1PreFiringWeight.*
@@ -14,7 +61,6 @@ drop .*Photon.*
 drop Photon.*
 drop IsoTrack.*
 drop nIsoTrack.*
-drop nLHEPart
 keep LHE.*
 # keep LHE_Vpt
 # keep LHE_HT
@@ -22,22 +68,19 @@ keep LHE.*
 # keep LHE_NpLO
 # keep LHE_NpNLO
 # keep LHE_Nb
+drop nLHEPart
+drop LHEPart.*
 
-drop boostedTau.*
-drop nboostedTau
 drop .*cleanmask
 
 drop SV.*
 drop nSV
-drop nOtherPV
-drop OtherPV_z
+drop (n|)OtherPV.*
 drop RefitPV.*
 drop SoftActivityJet.*
 drop nSoftActivityJet
 drop FsrPhoton.*
 drop nFsrPhoton
-# drop gen
-drop GenPart.*
 drop GenDressedLepton.*
 drop nGenDressedLepton
 drop GenIsolatedPhoton.*
@@ -53,6 +96,71 @@ drop nCorrT1METJet
 drop CorrT1METJet.*
 drop DeepMETResolutionTune.*
 drop DeepMETResponseTune.*
+
+drop nGenJetAK8
+keep GenJetAK8.*
+
+drop nGenJet
+drop GenJet.*
+drop nSubGenJetAK8
+drop SubGenJetAK8.*
+drop Generator.*
+drop GenVtx.*
+keep nGenVisTau
+keep GenVisTau.*
+# drop GenMET.*
+drop Pileup.*
+drop PuppiMET.*
+drop RawMET.*
+drop RawPuppiMET.*
+drop Rho.*
+drop nSubJet
+drop SubJet.*
+drop TkMET.*
+drop genTtbarId
+drop PV.*
+
+drop (n|)GenPart.*
+
+
+drop Electron.*
+keep Electron_pt.*
+drop Electron_pt_.*_(up|down)
+keep Electron_pt{systs}
+keep Electron_eta
+keep Electron_phi
+keep Electron_mass.*
+drop Electron_mass_.*_(up|down)
+keep Electron_mass{systs}
+#keep Electron_genPart.*
+#keep Electron_vidNestedWPBitmap
+#keep Electron_mvaNoIso
+#keep Electron_mvaIso
+#keep Electron_miniPFRelIso.*
+#keep Electron_cutBased
+keep Electron_pfRelIso.*
+#keep Electron_miniPFRelIso.*
+
+
+
+drop Jet.*
+keep Jet_pt.*
+drop Jet_pt_.*_(up|down)
+keep Jet_pt{systs}
+# eta/phi probably not needed 
+keep Jet_eta
+keep Jet_phi
+# keep btag as that needs JEC
+keep Jet_btagDeepFlavB
+keep Jet_btagDeepFlavCvB
+keep Jet_btagDeepFlavCvL
+keep Jet_btagDeepFlavQG
+keep Jet_mass.*
+drop Jet_mass_.*_(up|down)
+keep Jet_mass{systs}
+# hhbtag depends on JEC
+keep Jet_HHbtag
+
 drop FatJet.*
 keep FatJet_pt.*
 drop FatJet_pt_.*_(up|down)
@@ -73,79 +181,31 @@ keep FatJet_msoftdrop
 keep FatJet_particleNet_XbbVsQCD
 # keep FatJet_particleNet_QCD
 # keep FatJet_particleNet_massCorr
-# keep FatJet_particleNetLegacy_Xbb
-# keep FatJet_particleNetLegacy_QCD
+keep FatJet_particleNetLegacy_Xbb
+keep FatJet_particleNetLegacy_QCD
 # keep FatJet_particleNetLegacy_mass
 # keep FatJet_particleNetWithMass_HbbvsQCD
 # keep FatJet_particleNetWithMass_ZvsQCD
 # keep FatJet_particleNetWithMass_QCD
-# n-subjettiness (jet substructure variables) :
+# # n-subjettiness (jet substructure variables) :
 # keep FatJet_tau.*
 
-drop nGenJetAK8
-# keep GenJetAK8.*
 
-drop nGenJet
-drop GenJet.*
-drop nSubGenJetAK8
-drop SubGenJetAK8.*
-drop Generator.*
-drop GenVtx.*
-drop nGenVisTau
-drop GenVisTau.*
-# drop genmet
-drop GenMET.*
-drop Pileup.*
-drop PuppiMET.*
-drop RawMET.*
-drop RawPuppiMET.*
-drop Rho.*
-drop nSubJet
-drop SubJet.*
-drop TkMET.*
-drop genTtbarId
-drop PV.*
-
-drop Electron.*
-keep Electron_pt.*
-drop Electron_pt_.*_(up|down)
-keep Electron_pt{systs}
-keep Electron_eta
-keep Electron_phi
-keep Electron_mass.*
-drop Electron_mass_.*_(up|down)
-keep Electron_mass{systs}
-drop Jet.*
-keep Jet_pt.*
-drop Jet_pt_.*_(up|down)
-keep Jet_pt{systs}
-# eta/phi probably not needed 
-keep Jet_eta
-keep Jet_phi
-# keep btag as that needs JEC
-keep Jet_btagDeepFlavB
-keep Jet_btagDeepFlavCvB
-keep Jet_btagDeepFlavCvL
-keep Jet_btagDeepFlavQG
-keep Jet_mass.*
-drop Jet_mass_.*_(up|down)
-keep Jet_mass{systs}
-# hhbtag depends on JEC
-keep Jet_HHbtag
 keep MET.*
 drop MET.*_(up|down)
 keep MET_.*{systs}
 # keep MET_cov.*
 # # we need to keep also uncorrected MET as for ex JER is not propgataed to MET
-# keep MET_.*_(pt|phi)
 drop MET_fiducial.*
 drop MET_significance.*
 drop MET_sum.*
+
 drop Muon.*
 keep Muon_pt
 keep Muon_eta
 keep Muon_phi
 keep Muon_mass
+
 drop Tau.*
 keep Tau_pt.*
 drop Tau_pt_.*_(up|down)
@@ -163,6 +223,28 @@ keep Tau_mass{systs}
 # keep Tau_pt_corr
 # keep Tau_pt_corr_up
 # keep Tau_pt_corr_down
+keep Tau_idDeepTau2017v2p1VS.*
+keep Tau_charge
+
+drop boostedTau.*
+keep boostedTau_pt.*
+keep boostedTau_eta
+keep boostedTau_phi
+keep boostedTau_mass.*
+keep boostedTau_decayMode
+keep boostedTau_idAntiEle2018
+keep boostedTau_rawAntiEle2018
+keep boostedTau_rawAntiEleCat2018
+keep boostedTau_idAntiMu
+keep boostedTau_genPartFlav
+keep boostedTau_charge
+keep boostedTau_LeadingMuon_muonIdx
+keep boostedTau_LeadingElectron_electronIdx
+keep boostedTau_Leading(Electron|Muon)CorrIso
+keep boostedTau_rawDeepTau.*
+
+# these are quite large and only needed for nominal
+drop (n|)LHEPdfWeight
 
 ######## framework branches
 # we need to keep bjet1 raw in case the syst is a lepton one 
@@ -192,8 +274,8 @@ keep Tau_mass{systs}
 # drop sv_mass_.*
 # keep sv_mass_.*{systs}
 
-
-drop trigSF_.*
+# no need for variations of trigSF
+drop trigSF_.*_(up|down)
 
 # these are included in idAndIsoAndFakeSF
 drop musf_.*
@@ -201,8 +283,8 @@ drop elesf_.*
 
 # no need for systematic variations as these are only weight variations
 drop idAndIsoAndFakeSF_.*
-drop bTagweightReshape_.*
+#drop bTagweightReshape_.*
 # except for btag as that is needed for JEC....
-keep bTagweightReshape{systs}
+#keep bTagweightReshape{systs}
 
 

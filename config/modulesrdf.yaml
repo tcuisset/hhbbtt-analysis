@@ -125,65 +125,12 @@ hhleptonVar:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
-# hhleptonVarTESup:
-#     name: HHLeptonVarRDF
-#     path: Tools.Tools.HHLepton
-#     parameters:
-#         isMC: self.dataset.process.isMC
-#         year: self.config.year
-#         tau_syst: corr_up
-
-# hhleptonVarTESdown:
-#     name: HHLeptonVarRDF
-#     path: Tools.Tools.HHLepton
-#     parameters:
-#         isMC: self.dataset.process.isMC
-#         year: self.config.year
-#         tau_syst: corr_down
-
-############### JME corrections
-# TODO JEC should be first then JER on top of JEC nominal/variations (https://cms-talk.web.cern.ch/t/jer-and-jec-variation-question/46184/3)
-
+############### JME corrections for AK4 jets 
+# JEC should be first then JER on top of JEC nominal/variations (https://cms-talk.web.cern.ch/t/jer-and-jec-variation-question/46184/3)
 # JEC is already done in NanoAOD normally. So only variations need to be computed
 # 2018 MC : GT used 123X_upgrade2018_realistic_v2,  CondDB https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/123X_upgrade2018_realistic_v2  - JetCorrectionsRecord is JetCorrectorParametersCollection_Summer19UL18_V5_MC_AK4PFchs
 # 2016APV MC : JetCorrectorParametersCollection_Summer19UL16APV_V7_MC_AK4PFchs
 # (otherwise JEC nominal would need to be computed here)
-
-### JER (only one single uncertainty, fine as long as we don't constrain it)
-# Smear jets in MC. Outputs : jet_smear_factor (_up/_down) & jet_pt_resolution
-jet_smearing:
-    name: jetSmearerRDF
-    path: Corrections.JME.smearing
-    parameters:
-        year: self.config.year
-        runPeriod: self.config.runPeriod
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
-# Create Jet_pt_nom & Jet_mass_nom & Jet_pt_smeared_up/down & Jet_mass_smeared_up/down
-jer_jet:
-    name: jetVarRDF
-    path: Corrections.JME.smearing
-    parameters:
-        isMC: self.dataset.process.isMC
-
-# FatJet smearing. Outputs : fatjet_smear_factor (_up/_down) & fatjet_pt_resolution
-fatjet_smearing:
-    name: jetSmearerRDF
-    path: Corrections.JME.smearing
-    parameters:
-        year: self.config.year
-        runPeriod: self.config.runPeriod
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
-        type: fatjerc
-# Create FatJet_pt_nom & FatJet_mass_nom & FatJet_pt_smeared_up/down & FatJet_mass_smeared_up/down
-jer_fatjet:
-    name: jetVarRDF
-    path: Corrections.JME.smearing
-    parameters:
-        isMC: self.dataset.process.isMC
-        type: fatjerc
-
 
 ### JEC
 # not specifying jec_sources will lead to the default being picked up which is the reduced set of 11 (names are year-dependent) + "Total".
@@ -208,6 +155,75 @@ jec_jet_corrections:
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
+
+
+## JER (only one single uncertainty, fine as long as we don't constrain it)
+# Smear jets in MC. Outputs : jet_smear_factor (_up/_down) & jet_pt_resolution
+jet_smearing:
+    name: jetSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        year: self.config.year
+        runPeriod: self.config.runPeriod
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+# Create Jet_pt_nom & Jet_mass_nom & Jet_pt_smeared_up/down & Jet_mass_smeared_up/down
+jer_jet:
+    name: jetVarRDF
+    path: Corrections.JME.smearing
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+
+#################### MET
+# HHJets uses MET for hhbtag, so compute MET before
+# TODO boostedTau systematics propagation to MET ???? (probably should deal with overlap with HPS taus ?)
+met_shift:
+    name: metShifterRDF
+    path: Corrections.JME.met
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        met_smear_tag: "tes_electron"
+        jet_syst: "" # do not smear MET. Will be overriden for JEC & JER
+        propagate_jer_smearing: False # prevent JER variations from being propagated to MET
+        propagate_tes: True 
+        propagate_electron: True 
+
+# MET XY corrections. Produces MET_smeared_xycorr_pt_{met_syst} & MET_smeared_xycorr_phi_{met_syst}
+MET_XYCorrections:
+    name: MET_XYCorrections_RDF
+    path: Corrections.JME.met
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runEra: self.dataset.runEra
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+        met_smear_tag: "tes_electron" # defines the input smear_tag
+
+MET_unclusteredEnergy:
+    name: MET_UnclusteredEnergy_RDF
+    path: Corrections.JME.met
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        met_smear_tag: "tes_electron_xycorr" # defines the input smear_tag
+
+
+####### Creating definitvive pairType (adding MET_pt cut to boostedTaus)
+HHLeptonMETCut:
+    name: HHLeptonMETCutRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        pairType_filter: not self.dataset.process.isSignal
+        met_smear_tag: "tes_electron_xycorr"
+
+
+########################### FatJet JME corrections 
+# we put these corrections here because they do not propagate to MET thus can be put later after filter in hhlepton (processing time optimization)
 # same but for FatJet. Actually uses the same correction sources as AK4, but we still need to compute the variations for each AK8 jet
 jec_factors_fatjet:
     name: jecProviderRDF
@@ -226,53 +242,26 @@ jec_fatjet_corrections:
         isMC: self.dataset.process.isMC
         jet_collection: FatJet
 
-# jec_met:
-#     name: jecMETRDF
-#     path: Corrections.JME.jec
-#     parameters:
-#         year: self.config.year
-#         isMC: self.dataset.process.isMC
-#         # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
-#             # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
 
-hemIssue:
-    name: hemIssueRDF
-    path: Corrections.JME.HEM_issue
+# FatJet smearing. Outputs : fatjet_smear_factor (_up/_down) & fatjet_pt_resolution
+fatjet_smearing:
+    name: jetSmearerRDF
+    path: Corrections.JME.smearing
     parameters:
         year: self.config.year
+        runPeriod: self.config.runPeriod
         isMC: self.dataset.process.isMC
-
-#################### MET
-# HHJets uses MET for hhbtag, so compute MET before
-# TODO boostedTau systematics propagation to MET ???? (probably should deal with overlap with HPS taus ?)
-met_shift:
-    name: metShifterRDF
-    path: Corrections.JME.met
+        isUL: self.dataset.has_tag('ul')
+        type: fatjerc
+# Create FatJet_pt_nom & FatJet_mass_nom & FatJet_pt_smeared_up/down & FatJet_mass_smeared_up/down
+jer_fatjet:
+    name: jetVarRDF
+    path: Corrections.JME.smearing
     parameters:
-        year: self.config.year
         isMC: self.dataset.process.isMC
-        met_smear_tag: "tes"
-        jet_syst: "" # do not smear MET. Will be overriden for JEC & JER
-        propagate_jer_smearing: False # prevent JER variations from being propagated to MET
+        year: self.config.year
+        type: fatjerc
 
-# MET XY corrections. Produces MET_smeared_xycorr_pt_{met_syst} & MET_smeared_xycorr_phi_{met_syst}
-MET_XYCorrections:
-    name: MET_XYCorrections_RDF
-    path: Corrections.JME.met
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        runEra: self.dataset.runEra
-        ispreVFP: self.config.get_aux('ispreVFP', False)
-        met_smear_tag: "tes"
-
-MET_unclusteredEnergy:
-    name: MET_UnclusteredEnergy_RDF
-    path: Corrections.JME.met
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        met_smear_tag: "tes_xycorr"
 
 #### HHJets
 hhjets:
@@ -282,77 +271,84 @@ hhjets:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
-        met_smear_tag: "tes_xycorr"
+        met_smear_tag: "tes_electron_xycorr"
         filter: not self.dataset.process.isSignal
         model_version: 2
         btag_wp: self.config.btag_algo_wps.medium
         fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
         doGenCutFlow: self.dataset.process.isSignal
 
+
+
 bjet1var:
-    name: VarFromVectorRDF
-    path: Base.Modules.baseModules
+    name: HHJetsVarRDF
+    path: Tools.Tools.HHJets
     parameters:
-        variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom] # use smeared values
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        variables_withSyst: [pt, mass]
+        variables_withoutSyst: [eta, phi]
         index: bjet1_JetIdx
         input_prefix: Jet
         output_prefix: bjet1
-        condition: self.dataset.process.isMC
-
 bjet2var:
-    name: VarFromVectorRDF
-    path: Base.Modules.baseModules
+    name: HHJetsVarRDF
+    path: Tools.Tools.HHJets
     parameters:
-        variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        variables_withSyst: [pt, mass]
+        variables_withoutSyst: [eta, phi]
         index: bjet2_JetIdx
         input_prefix: Jet
         output_prefix: bjet2
-        condition: self.dataset.process.isMC
-
 fatjetvar:
-    name: VarFromVectorRDF
-    path: Base.Modules.baseModules
+    name: HHJetsVarRDF
+    path: Tools.Tools.HHJets
     parameters:
-        variables: [FatJet_pt_nom, FatJet_eta, FatJet_mass_nom]
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        variables_withSyst: [pt, mass]
+        variables_withoutSyst: [eta, phi]
         index: fatjet_JetIdx
         input_prefix: FatJet
         output_prefix: fatjet
-        condition: self.dataset.process.isMC
 
-# Here we compute a second time the JEC variations for the selected bjets. We could probably reuse the already-computed ones in jec_jet_corrections in some way, should be identitcal
-jecb1:
-    name: jecProviderRDF
-    path: Corrections.JME.jec
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
-        pt: bjet1_pt_nom
-        eta: bjet1_eta
-        mass: bjet1_mass_nom
+
+# # Here we compute a second time the JEC variations for the selected bjets. We could probably reuse the already-computed ones in jec_jet_corrections in some way, should be identitcal
+# jecb1:
+#     name: jecProviderRDF
+#     path: Corrections.JME.jec
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         isUL: self.dataset.has_tag('ul')
+#         pt: bjet1_pt_nom
+#         eta: bjet1_eta
+#         mass: bjet1_mass_nom
         
-jecb2:
-    name: jecProviderRDF
-    path: Corrections.JME.jec
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
-        pt: bjet2_pt_nom
-        eta: bjet2_eta
-        mass: bjet2_mass_nom
+# jecb2:
+#     name: jecProviderRDF
+#     path: Corrections.JME.jec
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         isUL: self.dataset.has_tag('ul')
+#         pt: bjet2_pt_nom
+#         eta: bjet2_eta
+#         mass: bjet2_mass_nom
         
-# same jec variations for fatjet as for AK4
-jecfatjet:
-    name: jecProviderRDF
-    path: Corrections.JME.jec
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
-        pt: fatjet_pt_nom
-        eta: fatjet_eta
-        mass: fatjet_mass_nom
+# # same jec variations for fatjet as for AK4
+# jecfatjet:
+#     name: jecProviderRDF
+#     path: Corrections.JME.jec
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         isUL: self.dataset.has_tag('ul')
+#         pt: fatjet_pt_nom
+#         eta: fatjet_eta
+#         mass: fatjet_mass_nom
         
 # FatJet X->bb tagging scale factors
 AK8GenRDF:
@@ -379,7 +375,7 @@ trigSF:
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
-        met_smear_tag: tes_xycorr
+        met_smear_tag: "tes_electron_xycorr"
 
 # Computes ['PUjetID_SF', 'PUjetID_SF_up', 'PUjetID_SF_down']
 PUjetID_SF:
@@ -446,6 +442,13 @@ btag:
         lep_phi: "{dau1_phi, dau2_phi}"
         lep_mass: "{dau1_mass{lep_syst}, dau2_mass{lep_syst}}"
 
+hemIssue:
+    name: hemIssueRDF
+    path: Corrections.JME.HEM_issue
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+
 
 ###########
 svfit_ZZ:
@@ -455,6 +458,6 @@ svfit_ZZ:
         year: self.config.year
         isMC: self.dataset.process.isMC
         AnalysisType: self.config.get_aux('AnalysisType', False)
-        met_smear_tag: tes_xycorr
+        met_smear_tag: "tes_electron_xycorr"
         algo: FastMTT
         
