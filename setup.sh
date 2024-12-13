@@ -272,7 +272,7 @@ action() {
 
         export SVFIT_PATH="TauAnalysis"
         if [ ! -d "$SVFIT_PATH" ]; then
-          git clone https://github.com/LLRCMS/ClassicSVfit.git TauAnalysis/ClassicSVfit -b bbtautau_LegacyRun2
+          git clone https://github.com/LLRCMS/ClassicSVfit.git TauAnalysis/ClassicSVfit -b bbtautau_CCLUB
           git clone https://github.com/svfit/SVfitTF TauAnalysis/SVfitTF
           compile="1"
         fi
