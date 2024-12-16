@@ -192,8 +192,8 @@ keep FatJet_particleNetLegacy_QCD
 
 
 keep MET.*
-drop MET.*_(up|down)
-keep MET_.*{systs}
+#drop MET.*_(up|down)
+#keep MET_.*{systs}
 # keep MET_cov.*
 # # we need to keep also uncorrected MET as for ex JER is not propgataed to MET
 drop MET_fiducial.*

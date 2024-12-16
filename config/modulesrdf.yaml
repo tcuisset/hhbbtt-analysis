@@ -8,15 +8,6 @@ lumifilter:
         isMC: self.dataset.process.isMC
         year: self.config.year
 
-# UL only
-puweightCor:
-    name: puWeightRDF
-    path: Corrections.LUM.puWeight
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-        isUL: self.dataset.has_tag('ul')
-
 # filter bbtautau for datasets used as SM signal
 bbtautau_sig_bkg:
     name: BBTauTauFilterRDF
@@ -378,6 +369,8 @@ trigSF:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
+        # only compute systematic for trigger SFs in case we are in "nominal" (we don't apply trigger SFs variations on top of JEC for example)
+        computeSystematics_PY: not systematic
         ispreVFP: self.config.get_aux('ispreVFP', False)
         met_smear_tag: "tes_electron_xycorr"
 
@@ -422,9 +415,22 @@ idAndIsoSF:
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
+        runPeriod: self.config.runPeriod
+        computeSystematics_PY: not systematic
         # muon_iso_syst_directions: ["_syst_up", "_syst_down"] # syst actually includes stat as well....
         # muon_id_syst_directions: ["_syst_up", "_syst_down"]
+        tau_vsjet_pt_syst_directions: "all"
+        tau_vsjet_dm_syst_directions: "all"
 
+
+# ["central", # BTV uncertainties
+#             "down_cferr1", "down_cferr2", "down_hf", "down_hfstats1", "down_hfstats2",  "down_lf", "down_lfstats1", "down_lfstats2", 
+#             "up_cferr1", "up_cferr2", "up_hf", "up_hfstats1", "up_hfstats2",  "up_lf", "up_lfstats1", "up_lfstats2", 
+#             # SFs to be applied on top of the JES variations (reduced set of 11 uncertainties)
+#             "down_jesAbsolute", "down_jesFlavorQCD", "down_jesAbsolute_{year}", "down_jesBBEC1", "down_jesBBEC1_{year}", "down_jesEC2", "down_jesEC2_{year}", "down_jesHF", "down_jesHF_{year}", "down_jesRelativeBal", "down_jesRelativeSample", "down_jesRelativeSample_{year}",
+#             "up_jesAbsolute", "up_jesFlavorQCD", "up_jesAbsolute_{year}", "up_jesBBEC1", "up_jesBBEC1_{year}", "up_jesEC2", "up_jesEC2_{year}", "up_jesHF", "up_jesHF_{year}", "up_jesRelativeBal", "up_jesRelativeSample", "up_jesRelativeSample_{year}",
+#             # one total uncertainty for JES
+#             "up_jes", "down_jes"] 
 btag:
     name: btag_SFRDF
     path: Corrections.BTV.btag_SF
@@ -433,14 +439,17 @@ btag:
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
         ispreVFP: self.config.get_aux('ispreVFP', False)
-        reshape_uncertainties: ["central", # BTV uncertainties
-        "down_cferr1", "down_cferr2", "down_hf", "down_hfstats1", "down_hfstats2",  "down_lf", "down_lfstats1", "down_lfstats2", 
-        "up_cferr1", "up_cferr2", "up_hf", "up_hfstats1", "up_hfstats2",  "up_lf", "up_lfstats1", "up_lfstats2", 
-        # SFs to be applied on top of the JES variations (reduced set of 11 uncertainties)
-        "down_jesAbsolute", "down_jesFlavorQCD", "down_jesAbsolute_{year}", "down_jesBBEC1", "down_jesBBEC1_{year}", "down_jesEC2", "down_jesEC2_{year}", "down_jesHF", "down_jesHF_{year}", "down_jesRelativeBal", "down_jesRelativeSample", "down_jesRelativeSample_{year}",
-        "up_jesAbsolute", "up_jesFlavorQCD", "up_jesAbsolute_{year}", "up_jesBBEC1", "up_jesBBEC1_{year}", "up_jesEC2", "up_jesEC2_{year}", "up_jesHF", "up_jesHF_{year}", "up_jesRelativeBal", "up_jesRelativeSample", "up_jesRelativeSample_{year}",
-        # one total uncertainty for JES
-        "up_jes", "down_jes"]
+        # NB: the >- is YAML syntax for multiline string
+        reshape_uncertainties_PY: >-
+            ["down_jesAbsolute", "down_jesFlavorQCD", "down_jesAbsolute_{year}", "down_jesBBEC1", "down_jesBBEC1_{year}", "down_jesEC2", "down_jesEC2_{year}", "down_jesHF", "down_jesHF_{year}", "down_jesRelativeBal", "down_jesRelativeSample", "down_jesRelativeSample_{year}",
+            "up_jesAbsolute", "up_jesFlavorQCD", "up_jesAbsolute_{year}", "up_jesBBEC1", "up_jesBBEC1_{year}", "up_jesEC2", "up_jesEC2_{year}", "up_jesHF", "up_jesHF_{year}", "up_jesRelativeBal", "up_jesRelativeSample", "up_jesRelativeSample_{year}",
+            "up_jes", "down_jes"] if "jec" in str(systematic) 
+            else 
+            ["central"] if systematic
+            else
+            ["central", 
+            "down_cferr1", "down_cferr2", "down_hf", "down_hfstats1", "down_hfstats2",  "down_lf", "down_lfstats1", "down_lfstats2", 
+            "up_cferr1", "up_cferr2", "up_hf", "up_hfstats1", "up_hfstats2",  "up_lf", "up_lfstats1", "up_lfstats2"]
         lep_pt: "{dau1_pt{lep_syst}, dau2_pt{lep_syst}}"
         lep_eta: "{dau1_eta, dau2_eta}"
         lep_phi: "{dau1_phi, dau2_phi}"
@@ -453,6 +462,14 @@ hemIssue:
         year: self.config.year
         isMC: self.dataset.process.isMC
 
+puweightCor:
+    name: puWeightRDF
+    path: Corrections.LUM.puWeightCor
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        runPeriod: self.config.runPeriod
+        isUL: self.dataset.has_tag('ul')
 
 ###########
 svfit_ZZ:
