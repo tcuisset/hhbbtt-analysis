@@ -78,7 +78,7 @@ eleScaleUncertainties:
         ispreVFP: self.config.get_aux('ispreVFP', False)
 
 # Computes DeepTau SFs (event weights) and TES (tau energy scale) : *per-object variations*
-# we use the single template up/down
+# don't compute all the uncertainties if we are already applying a systematic (the weight systs are only applied on top of central)
 tauSF:
     name: tauSFRDF
     path: Corrections.TAU.tauCorrections
@@ -89,6 +89,10 @@ tauSF:
         runPeriod: self.config.runPeriod
         tauId_algo: self.config.tauId_algo
         vsjet_wps: [Medium] # we use also VVVLoose for QCD but no SFs are available (only Loose, Medium, Tight, VTight )
+        vsjet_pt_binned_uncertainties_PY: >-
+            ["nom"] if systematic else 'all'
+        vsjet_dm_binned_uncertainties_PY: >-
+            ["nom"] if systematic else 'all'
         vse_wps: [VVLoose]
         vsmu_wps: [VLoose, Tight]
 
