@@ -498,23 +498,39 @@ class BaseConfig(cmt_config):
         sel["vbf"] = self.combine_selections_per_channel(sel.vbf_tight, sel.vbf_loose)
         sel["vbf_combined"] = self.join_selection_channels(sel.vbf)
 
+        goodtaus = ("("
+            "Tau_idDeepTau2017v2p1VSjet>=1 && Tau_idDeepTau2017v2p1VSmu>=1 && Tau_idDeepTau2017v2p1VSe>=2 && " 
+            "(Tau_idDecayModeNewDMs == 0 || Tau_idDecayModeNewDMs == 1 || Tau_idDecayModeNewDMs == 10 || Tau_idDecayModeNewDMs == 11) &&"
+            "Tau_dz <= 0.2"
+            ")"
+        )
+        base_HPS_emutau = (
+            f"ROOT::VecOps::Any({goodtaus}) && (ROOT::VecOps::Any("
+            "Muon_eta<=2.4 && Muon_pfRelIso04_all<=0.15 && Muon_dxy<=0.045&&Muon_dz<=0.2&&Muon_tightId"
+            ") || ROOT::VecOps::Any("
+            "Electron_pt>=18 && Electron_mvaIso_WP80 && Electron_dxy<=0.045 && Electron_dz<=0.2 && Electron_eta<=2.5"
+            "))"
+        )
+        base_HPS = f"(({base_HPS_emutau}) || (Tau_dz[{goodtaus}].size()>=2))"
+
+        base_goodBoostedTaus = "boostedTau_pt>=30 && boostedTau_eta<=2.5 && (boostedTau_decayMode == 0 || boostedTau_decayMode == 1 || boostedTau_decayMode == 10 || boostedTau_decayMode == 11)"
+        base_boostedTau_emutau = (
+            f"ROOT::VecOps::Any({base_goodBoostedTaus}) && (ROOT::VecOps::Any("
+            "Muon_eta<=2.4 && Muon_dxy<=0.045&&Muon_dz<=0.2&&Muon_looseId"
+            ") || ROOT::VecOps::Any("
+            "Electron_pt>=25 && Electron_dxy<=0.045 && Electron_dz<=0.2 && Electron_eta<=2.5"
+            "))"
+        )
+        base_boostedTaus = f"MET_pt>=150&&(({base_boostedTau_emutau}) || (boostedTau_pt[{base_goodBoostedTaus}].size()>=2))"
+
         categories = [
-            Category("base", "base", selection="event >= 0"),
+            Category("base", "base", selection=""),
             Category("base_noWeights", "no selection, no weights", selection="1"),
             Category("base_fixedGenWeight", "base with genWeight (fixed)", selection="1"),
             Category("base_oldGenWeight", "base with old genWeight (no fix)", selection="1"),
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
-            # Category("base_selection", "base",
-            #     nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
-            #         " && ((Sum$(Muon_pt->fElements > 17) > 0"
-            #         " || Sum$(Electron_pt->fElements > 17) > 0)"
-            #         " || Sum$(Tau_pt->fElements > 17) > 1)"
-            #         " && Sum$(Jet_pt->fElements > 17) > 1)",
-            #     selection="Tau_pt[Tau_pt > 17].size() > 0 "
-            #         "&& ((Muon_pt[Muon_pt > 17].size() > 0"
-            #         "|| Electron_pt[Electron_pt > 17].size() > 0)"
-            #         "|| Tau_pt[Tau_pt > 17].size() > 1)"
-            #         "&& Jet_pt[Jet_pt > 17].size() > 0"),
+            Category("base_selection", "base",
+                selection=f"({base_HPS}) || ({base_boostedTaus})"),
             # Category("baseline_sr", "baseline Signal region",
             #     selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
             #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
