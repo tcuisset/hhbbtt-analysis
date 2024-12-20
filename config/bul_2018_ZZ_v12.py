@@ -47,7 +47,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
             Dataset("zz_sl_signal",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
-                xs=self.cross_section_dict["zz_sl"],
+                xs=self.cross_section_dict["zz_sl_signal"],
                 #secondary_dataset="zz_sl_signal_aux",
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul", "genfilter", "nonResOnly"]),
@@ -59,11 +59,11 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
             Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_background"),
-                xs=self.cross_section_dict["zz_sl"],
+                xs=self.cross_section_dict["zz_sl_background"],
                 #secondary_dataset="zz_sl_background_aux",
                 # categorization_max_events=10000,
                 prefix="eos.grif.fr//",
-                tags=["ul", "nanoV10", "bul", "genfilter"]),
+                tags=["ul", "nanoV10", "bul", "genfilter", "nonResOnly"]),
             
             #### ZHToTauTau
             Dataset("zh_htt",
@@ -105,7 +105,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 folder=p + f"GluGluToXToZZTo2B2Tau_M-{mass}",
                 process=self.processes.get(f"ggXZZbbtt_M{mass}"),
                 prefix="eos.grif.fr//",
-                xs=1,
+                xs=self.cross_section_dict["GluGluToXToZZTo2B2Tau"],
                 tags=["ul", "nanoV10", "bul", "res"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
             
             for mass in res_mass_ZZ

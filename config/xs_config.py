@@ -5,31 +5,87 @@
 # - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopRefXsec
 # - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopNNLORef
 
+# Useful branching ratios :
+
+#  - B.R.(Z->ee) = 0.033632
+#  - B.R.(Z->mm) = 0.033662
+#  - B.R.(Z->tt) = 0.033696
+#  - B.R.(Z->bb) = 0.1512
+#  - B.R.(Z->qq) = 0.699
+
+#  - B.R.(H->tt) = 0.06
+#  - B.R.(H->bb) = 0.53
+
 cross_section_dict = {
 
-    # ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8
-    # infos : https://indico.cern.ch/event/439995/contributions/1094416/attachments/1143460/1638648/diboson_final.pdf
-    # https://cms-talk.web.cern.ch/t/question-about-cross-sections-of-zz-samples/18780/2
-    # branching ratios : Z->ee=0.0336, Z->bb=0.151, Z->qq=0.699
+    ####################################################################
+    ###################### SM ZZ->bbtautau #############################
+    ####################################################################
+
+    # ---> ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8 
+    # Infos : https://indico.cern.ch/event/439995/contributions/1094416/attachments/1143460/1638648/diboson_final.pdf and https://cms-talk.web.cern.ch/t/question-about-cross-sections-of-zz-samples/18780/2
     # Theory : 
-    # - 0.0349 (Z->mumu, Z->ee, NLO, mll>1) from https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV
-    #      s(ZZ) = 0.0349 / (0.0336*0.0336*2) = 15.46
-    # - 16.523 (inclusive, NLO, MCFM) from https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
-    #    though it points to ZZ incl XSDB which says 10.16
-    # - 16.91 +3.2% -2.4% from https://arxiv.org/pdf/1405.2219 (NNLO)
-    "zz_sl":            3.22,                     # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
-    # "zz_sl":          3.676,                    # XSDB unknown (ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8), probaly should use this one ?
+    #           - 16.91 +3.2% -2.4% (NNLO) from https://arxiv.org/pdf/1405.2219
+    #           - 16.523 (inclusive, NLO, MCFM) from https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to though it points to ZZ incl XSDB which says 10.16
+    #           - 15.46 (Z->mumu, Z->ee, NLO, mll>1) from https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV s(ZZ) = 0.0349 / (0.0336*0.0336*2) = 15.46
+
+    # "zz_sl":          3.22,                     # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
+    # "zz_sl":          3.676,                    # XSDB unknown
     # "zz_sl":          5.52,                     # AN
+    "zz_sl":            2.389,                    # = 16.91 * 0.699 * (0.033696 + 0.033662 + 0.033696) * 2 || (sigma(pp->ZZ) from theory) * BR(Z->qq) * BR(Z->ll) * 2 https://arxiv.org/pdf/1405.2219
 
-    # ZHToTauTau_M125_CP5_13TeV-powheg-pythia8
-    # XSDB : 0.7891 but H->tautau decay done with Pythia so need to *BR(H->tautau)=0.06 -> 0.047346
-    "zh_htt":           0.053034, # = 0.8839*0.06 (sigma(pp->ZH) from theory) * BR(H->tautau) #0.7891 (XSDB NLO)
+    "zz_sl_signal":     0.172,                    # = 16.91 * 0.1512 * 0.033696 * 2 || (sigma(pp->ZZ) from theory) * BR(Z->bb) * BR(Z->tt) * 2 https://arxiv.org/pdf/1405.2219
+    "zz_sl_background": 2.217,                    # = 2.389 - 0.172
+
+    ####################################################################
+    ###################### SM Z->bb,H->tautau ##########################
+    ####################################################################
+
+    # ---> ZHToTauTau_M125_CP5_13TeV-powheg-pythia8
+    # Infos : H->tt decay is done with Pythia, so the branching ratio is not accounted for in XSDB
+    # Theory : 
+    #           - 0.9 +3.8% -3.1% (NLO) from https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+
     # "zh_htt":         0.0554,                   # AN
+    # "zh_htt":         0.047346,                 # = 0.7891 * 0.06 || (sigma(pp->ZH) from XSDB NLO) * BR(H->tt)
+    "zh_htt":           0.054,                    # = 0.9 * 0.06 || (sigma(pp->ZH) from theory) * BR(H->tautau) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+    
+    "zh_zbb_htt_signal":        0.0081,           # = 0.9 * 0.06 * 0.1512 || (sigma(pp->ZH) from theory) * BR(H->tautau) * BR(Z->bb) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+    "zh_zbb_htt_background":    0.0459,           # = 0.054 - 0.0081
 
-    # ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8
+    ####################################################################
+    ###################### SM Z->tautau,H->bb ##########################
+    ####################################################################
+
+    # ---> ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8
+    # Infos : H->bb decay is done with Pythia, so the branching ratio is not accounted for in XSDB
+    # Theory : 
+    #           - 0.9 +3.8% -3.1% (NLO) from https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+
     # XSDB 0.07977	but H->bb decay done with Pythia so *BR(H->bb)=0.53  -> 0.0423
-    "zh_hbb_zll":       0.0472, # = 0.8839*(0.0335962*3)*0.53 (sigma(pp->ZH) from theory) * BR(Z->ll)*BR(H->bb)  
     # "zh_hbb_zll":     0.052,                    # AN
+    # "zh_hbb_zll":     0.042,                    # = 0.07977 * 0.53 || (sigma(pp->ZH) from XSDB NLO) * BR(H->bb)
+    "zh_hbb_zll":       0.0482,                   # = 0.9 * (0.033696 + 0.033662 + 0.033696) * 0.53 || (sigma(pp->ZH) from theory) * BR(Z->ll) * BR(H->bb) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+
+    "zh_ztt_hbb_signal":        0.0161,           # = 0.9 * 0.033696 * 0.53 || (sigma(pp->ZH) from theory) * BR(Z->tt) * BR(H->bb) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+    "zh_ztt_hbb_background":    0.0321,           # = 0.0482 - 0.0161
+
+    ####################################################################
+    ###################### Resonant Signals ############################
+    ####################################################################
+
+    # Assuming cross-section of Z'->ZH and X->ZZ = 1 pb
+    # Infos : BR(Z'->ZH) ~ 0.47 in HVT model B (actually Z' mass-dependent) extracted from plot in B2G-23-008
+    # Infos : BR(R->ZZ) = 0.47 for mass = 1TeV (lambda 3TeV, krpi 35), sigma(pp->R) * BR(ZZ) = 0.12 pb + (from B2G) sigma(pp->R)=0.256 pb -> BR(R->ZZ)=0.47
+    # Infos : BR(R->ZZ) = 0.00064 for mass = 3TeV
+
+    "ZprimeToZH_ZToBB_HToTauTau" : 0.0091,        # = 1 * 0.1512 * 0.06 || sigma(Z'->ZH) * BR(Z->bb) * BR(H->tt) 
+    "ZprimeToZH_ZToTauTau_HToBB" : 0.0179,        # = 1 * 0.033696 * 0.53 || sigma(Z'->ZH) * BR(Z->tt) * BR(H->bb) 
+    "GluGluToXToZZTo2B2Tau":       0.0101         # = 1 * 0.1512 * 0.033696 * 2 || sigma(X->ZZ) * BR(Z->bb) * BR(Z->tt) 
+
+    ####################################################################
+    ######################### Backgrounds ##############################
+    ####################################################################
 
     "wjets_FXFX":       61526.7,                  # theory (XSDB 67350.0 or 66680.0)
     "wjets_FXFX_0j":    52780.0/64888.0*61526.7,  # CMSDAS
@@ -179,13 +235,4 @@ cross_section_dict = {
 
     # "vbf_sm":         0.001726,
 
-    # Cross-sections for resonant ZH signal. Assuming cross-section of Z'->ZH is one.
-    # removed * 0.876 (* BR(tautau->mutau,etau,tautau)) as I think that should not be there (taken into account by norm using aux dataset ???)
-    "ZprimeToZH_ZToBB_HToTauTau" : 1 * 0.009, # sigma(Z'->ZH) * BR(Z->bb, H->tautau) 
-    "ZprimeToZH_ZToTauTau_HToBB" : 1 * 0.019, # sigma(Z'->ZH) * BR(Z->tautau, H->bb) 
-    # for info : BR(Z'->ZH) ~ 0.47 in HVT model B (actually Z' mass-dependent) extracted from plot in B2G-23-008
-
-    # ggX->ZZ cross sections (from AN19/131)
-    # Radion (lambda 3TeV, krpi 35) mass=1TeV sigma(pp->R)xBR(ZZ) = 0.12 pb + (from B2G) sigma(pp->R)=0.256pb -> BR(R->ZZ)=0.47
-    # mass = 3TeV -> 0.00064
 }
