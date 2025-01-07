@@ -96,6 +96,7 @@ hhlepton:
         doGenCutFlow: self.dataset.process.isSignal
         isV10: self.dataset.has_tag("nanoV10")
         year: self.config.year
+        ispreVFP: self.config.get_aux('ispreVFP', False)
         runEra: self.dataset.runEra
         vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
 # for VsEle, we need to use either VVLoose or Tight in order to apply SFs for genuine taus for VsJet discriminant
@@ -359,6 +360,7 @@ FatJetParticleNetSFProducer:
     path: Tools.Tools.fatjet_pnet_sf
     parameters:
         year: self.config.year
+        runPeriod: self.config.runPeriod
         isMC: self.dataset.process.isMC
         dataset: self.dataset.name
         fatjet_bb_type: self.dataset.process.get_aux("fatjet_bb_type")
