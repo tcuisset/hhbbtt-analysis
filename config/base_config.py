@@ -530,7 +530,7 @@ class BaseConfig(cmt_config):
             Category("base_oldGenWeight", "base with old genWeight (no fix)", selection="1"),
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
             Category("base_selection", "base",
-                selection=f"({base_HPS}) || ({base_boostedTaus})"),
+                selection=f"({base_HPS}) || ({base_boostedTaus})", selection_HPS=f"({base_HPS})"),
             # Category("baseline_sr", "baseline Signal region",
             #     selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
             #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
