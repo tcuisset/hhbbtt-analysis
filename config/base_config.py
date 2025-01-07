@@ -888,13 +888,12 @@ class BaseConfig(cmt_config):
             features.extend([
             Feature(f"met_pt{suffix}_raw", "MET_pt", binning=binning,
                 x_title=Label("MET p_{T} (no smearing, no XY)"),
-                units="GeV", tags=["base"],
+                units="GeV", tags=["base", "met"],
                 central="",
-                #systematics=self.met_systs # not computed usually
                 ),          
-            Feature(f"met_pt{suffix}_corr", "MET_tes_xycorr_pt", binning=binning,
+            Feature(f"met_pt{suffix}_corr", "MET_tes_electron_xycorr_pt", expression_data="MET_pt", binning=binning,
                 x_title=Label("MET p_{T} (TES, XY-corr)"),
-                units="GeV", tags=["base"],
+                units="GeV", tags=["base", "met"],
                 **self.met_systs),
             # here : could add MET smeared&noXY, and nosmear&XY
             ])
@@ -904,10 +903,9 @@ class BaseConfig(cmt_config):
                 x_title=Label("MET #phi (no smearing, no XY)"),
                 units="GeV", tags=["base"],
                 central="",
-                #systematics=self.met_systs # not computed usually
                 ),
-            Feature("met_phi_corr", "MET_tes_xycorr_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
+            Feature("met_phi_corr", "MET_tes_electron_xycorr_phi", expression_data="MET_phi", binning=(20, -3.2, 3.2),
+                x_title=Label("MET #phi (TES, XY-corr)"), tags=["base", "met"],
                 **self.met_systs),
 
             Feature("pairType", "pairType", binning=(5, -1, 3), 
@@ -1235,11 +1233,12 @@ class BaseConfig(cmt_config):
             # MET central values
             Systematic("met_smearing", ("MET", "MET_smeared")),
             Systematic("met_smearing_xycorr", ("MET", "MET_smeared_xycorr")),
-            Systematic("met_tes_xycorr", ("MET", "MET_tes_xycorr")),
+            Systematic("met_tes_electron_xycorr", ("MET", "MET_tes_electron_xycorr")),
             # MET uncertainties
             Systematic("met_unclustered", "_unclustered", label="Unclustered energy", module_syst_type=["met_syst"], affected_categories=cats_jet_systs),
 
             # used only to plot MET corrected variables with systematics. NOT TO BE RUN AS AN ACTUAL SYSTEMATIC IN PREPROCESS
+            # I think it is intended for plotting MET with a smear tag, so that it replaces "MET" with "MET_smeared...." only for MC
             # actually does not work as PrePlot does not use the systematic input, but the central one, because the syst name is not the same...
             # Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'), # no MET smearing
             # Systematic("tes_MET", ("MET", "MET_tes_xycorr"), up="_corr_up", down='_corr_down'),
@@ -1376,6 +1375,7 @@ class BaseConfig(cmt_config):
         """
         Method to extract all normalization systematics from the KLUB files.
         It considers the processes given by the process_group_name and their parents.
+        Returns dict : systematic_name -> process name -> string that is either a single number or of style "0.9/1.1" (combine datacard syntax)
         """
         # systematics
         systematics = {}
