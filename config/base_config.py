@@ -582,7 +582,8 @@ class BaseConfig(cmt_config):
 
             # met systs are special systematics to allow plotting of met variables without PrePlot crashing
             #self.met_systs = dict(central="met_tes_xycorr", systematics=list(map(lambda s:s.replace("_", "_MET_"), self.jec_systs)) + ["tes_MET", "met_unclustered_MET"]) 
-            self.met_systs = dict(systematics=self.jec_systs+self.lepton_systs_params["systematics"]+["met_unclustered"])
+            self.met_systs = dict(systematics=self.jec_systs+self.lepton_systs_params["systematics"]+["met_unclustered"]) #central="met_tes_electron_xycorr", 
+            # removed the central= as it was too annoying
 
             self.all_systs = self.lepton_systs_params["systematics"] + ["met_unclustered"] + self.jme_systs
         elif systematics_mode == "no_systs": # no systs
@@ -594,7 +595,7 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=[]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = dict(central="met_tes_xycorr", systematics=[]) 
+            self.met_systs = dict(systematics=[]) # central="met_tes_electron_xycorr", 
 
             self.all_systs = [] + self.jme_systs
         else:
@@ -909,16 +910,16 @@ class BaseConfig(cmt_config):
                 **self.met_systs),
 
             Feature("pairType", "pairType", binning=(5, -1, 3), 
-                x_title=Label("pairType"), tags=["base"]),
+                x_title=Label("pairType"), tags=["pairTypes"]),
             Feature("pairType_HPSTaus", "pairType_HPSTaus", binning=(5, -1, 3), 
-                x_title=Label("pairType HPS taus"), tags=["base"]),
+                x_title=Label("pairType HPS taus"), tags=["pairTypes"]),
             Feature("pairType_boostedTaus", "pairType_boostedTaus", binning=(5, -1, 3), 
-                x_title=Label("pairType boostedTaus"), tags=["base"]),
+                x_title=Label("pairType boostedTaus"), tags=["pairTypes"]),
             
             Feature("hasBoosted", "fatjet_JetIdx>=0", binning=(2, 0, 2), 
-                x_title=Label("Has AK8 candidate (no PNet cut)"), tags=["base"]),
+                x_title=Label("Has AK8 candidate (no PNet cut)"), tags=["pairTypes"]),
             Feature("isBoostedTau", "isBoostedTau", binning=(2, 0, 2), 
-                x_title=Label("is boostedTau"), tags=["base"]),
+                x_title=Label("is boostedTau"), tags=["pairTypes"]),
 
             # The H/Z dependent features have been moved to base_config_ZZ/ZH/ZbbHtt/ZttHbb 
 
@@ -1041,37 +1042,37 @@ class BaseConfig(cmt_config):
 
             # Weights
             Feature("genWeight", "genWeight", binning=(50, 0, 2),
-                x_title=Label("genWeight"), tags=["base"], noData=True),
+                x_title=Label("genWeight"), tags=["weights"], noData=True),
             Feature("genWeightFixed", "genWeightFixed", binning=(50, 0, 2),
-                x_title=Label("genWeightFixed"), tags=["base"], noData=True), # genWeight eventually modified to fix Madgraph LO bug
+                x_title=Label("genWeightFixed"), tags=["weights"], noData=True), # genWeight eventually modified to fix Madgraph LO bug
             Feature("DYstitchWeight_log", "DYstitchWeight == 0 ? -19.9 : std::log10(DYstitchWeight)", binning=(100, -20, 0),
-                x_title=Label("log10(DY stitching weight), 0 maps to -20"), tags=["base"], noData=True),
+                x_title=Label("log10(DY stitching weight), 0 maps to -20"), tags=["weights"], noData=True),
             Feature("puWeight", "puWeight", binning=(30, 0.5, 1.5),
                 x_title=Label("puWeight"), noData=True,
-                systematics=["pu"], tags=["base"]),
+                systematics=["pu"], tags=["weights"]),
             # Feature("prescaleWeight", "prescaleWeight", binning=(20, 0, 2),
             #     x_title=Label("prescaleWeight")),
             Feature("trigSF", "trigSF", binning=(30, 0.5, 1.5),
-                x_title=Label("trigSF"), tags=["base"], noData=True,
+                x_title=Label("trigSF"), tags=["base", "weights"], noData=True,
                 systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11", "trigSFmet"]), 
             Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(30, 0.5, 1.5),
-                x_title=Label("L1PreFiringWeight"), tags=["base"], noData=True,
+                x_title=Label("L1PreFiringWeight"), tags=["weights"], noData=True,
                 central="prefiring_central",
                 systematics=["prefiring"]),
             Feature("PUjetID_SF", "PUjetID_SF", binning=(30, 0.5, 1.5),
-                x_title=Label("PUjetID_SF"), tags=["base"], noData=True,
+                x_title=Label("PUjetID_SF"), tags=["weights"], noData=True,
                 systematics=["PUjetID"]),
             Feature("idAndIsoAndFakeSF", "idAndIsoAndFakeSF", binning=(30, 0, 2),
-                x_title=Label("idAndIsoAndFakeSF"), tags=["base"], noData=True,
+                x_title=Label("idAndIsoAndFakeSF"), tags=["base", "weights"], noData=True,
                 systematics=["deepTau_stat_highpT_bin1", "deepTau_stat_highpT_bin2", "deepTau_syst_highpT", "deepTau_syst_highpT_extrap",
                              "deepTau_stat1_dm0", "deepTau_stat2_dm0", "deepTau_stat1_dm1", "deepTau_stat2_dm1", "deepTau_stat1_dm10", "deepTau_stat2_dm10", "deepTau_stat1_dm11", "deepTau_stat2_dm11", 
                              "deepTau_syst_alleras", "deepTau_syst_era", "deepTau_syst_dm0", "deepTau_syst_dm1", "deepTau_syst_dm10", "deepTau_syst_dm11",
                               "etauFR", "mutauFR", "eleReco", "eleIso", "muIso", "muId"]),
             Feature("bTagweightReshape", "bTagweightReshape", binning=(30, 0, 2),
-                x_title=Label("b-tag reshaping weight"), tags=["base"], noData=True,
+                x_title=Label("b-tag reshaping weight"), tags=["base", "weights"], noData=True,
                 central="jer", systematics=self.jme_systs + ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
             Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 2.),
-                x_title=Label("FatJet ParticleNet SF"), tags=["base"], noData=True,
+                x_title=Label("FatJet ParticleNet SF"), tags=["base", "weights"], noData=True,
                 systematics=["fatjet_pnet"]),
             ############## TODO TODO self.jec_systs+
 
