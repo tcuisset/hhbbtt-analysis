@@ -106,7 +106,6 @@ class ConfigZttHbb(BaseConfig):
     #@override
     def add_features(self):
         """ Add features specific to ZH, in addition to the common ones defined in base_config.py 
-        There are features for both ZbbHtt and ZttHbb analyses. TODO split them
         """
         base_features = super().add_features() + get_ZH_common_features(self)
         zttHbb_features = [
