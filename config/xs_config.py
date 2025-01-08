@@ -81,7 +81,7 @@ cross_section_dict = {
 
     "ZprimeToZH_ZToBB_HToTauTau" : 0.0091,        # = 1 * 0.1512 * 0.06 || sigma(Z'->ZH) * BR(Z->bb) * BR(H->tt) 
     "ZprimeToZH_ZToTauTau_HToBB" : 0.0179,        # = 1 * 0.033696 * 0.53 || sigma(Z'->ZH) * BR(Z->tt) * BR(H->bb) 
-    "GluGluToXToZZTo2B2Tau":       0.0101         # = 1 * 0.1512 * 0.033696 * 2 || sigma(X->ZZ) * BR(Z->bb) * BR(Z->tt) 
+    "GluGluToXToZZTo2B2Tau":       0.0101,        # = 1 * 0.1512 * 0.033696 * 2 || sigma(X->ZZ) * BR(Z->bb) * BR(Z->tt) 
 
     ####################################################################
     ######################### Backgrounds ##############################
