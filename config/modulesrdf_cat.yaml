@@ -8,7 +8,7 @@ zz:
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
-        met_smear_tag: tes_xycorr
+        met_smear_tag: tes_electron_xycorr
         AnalysisType: self.config.get_aux('AnalysisType', False)
 
 zzvar:
@@ -17,7 +17,7 @@ zzvar:
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
-        met_smear_tag: tes_xycorr
+        met_smear_tag: tes_electron_xycorr
         AnalysisType: self.config.get_aux('AnalysisType', False)
 
 zzdnninputs:
@@ -30,7 +30,7 @@ zzdnninputs:
         btag_wps: self.config.btag_algo_wps
         cvl_wps: self.config.ctag_algo_wps.CvL
         cvb_wps: self.config.ctag_algo_wps.CvB
-        met_smear_tag: tes_xycorr
+        met_smear_tag: tes_electron_xycorr
 
 # old per-event implementation of DNN
 # zzdnn:

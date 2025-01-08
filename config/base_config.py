@@ -498,23 +498,39 @@ class BaseConfig(cmt_config):
         sel["vbf"] = self.combine_selections_per_channel(sel.vbf_tight, sel.vbf_loose)
         sel["vbf_combined"] = self.join_selection_channels(sel.vbf)
 
+        goodtaus = ("("
+            "Tau_idDeepTau2017v2p1VSjet>=1 && Tau_idDeepTau2017v2p1VSmu>=1 && Tau_idDeepTau2017v2p1VSe>=2 && " 
+            "(Tau_idDecayModeNewDMs == 0 || Tau_idDecayModeNewDMs == 1 || Tau_idDecayModeNewDMs == 10 || Tau_idDecayModeNewDMs == 11) &&"
+            "Tau_dz <= 0.2"
+            ")"
+        )
+        base_HPS_emutau = (
+            f"ROOT::VecOps::Any({goodtaus}) && (ROOT::VecOps::Any("
+            "Muon_eta<=2.4 && Muon_pfRelIso04_all<=0.15 && Muon_dxy<=0.045&&Muon_dz<=0.2&&Muon_tightId"
+            ") || ROOT::VecOps::Any("
+            "Electron_pt>=18 && Electron_mvaIso_WP80 && Electron_dxy<=0.045 && Electron_dz<=0.2 && Electron_eta<=2.5"
+            "))"
+        )
+        base_HPS = f"(({base_HPS_emutau}) || (Tau_dz[{goodtaus}].size()>=2))"
+
+        base_goodBoostedTaus = "boostedTau_pt>=30 && boostedTau_eta<=2.5 && (boostedTau_decayMode == 0 || boostedTau_decayMode == 1 || boostedTau_decayMode == 10 || boostedTau_decayMode == 11)"
+        base_boostedTau_emutau = (
+            f"ROOT::VecOps::Any({base_goodBoostedTaus}) && (ROOT::VecOps::Any("
+            "Muon_eta<=2.4 && Muon_dxy<=0.045&&Muon_dz<=0.2&&Muon_looseId"
+            ") || ROOT::VecOps::Any("
+            "Electron_pt>=25 && Electron_dxy<=0.045 && Electron_dz<=0.2 && Electron_eta<=2.5"
+            "))"
+        )
+        base_boostedTaus = f"MET_pt>=150&&(({base_boostedTau_emutau}) || (boostedTau_pt[{base_goodBoostedTaus}].size()>=2))"
+
         categories = [
-            Category("base", "base", selection="event >= 0"),
+            Category("base", "base", selection=""),
             Category("base_noWeights", "no selection, no weights", selection="1"),
             Category("base_fixedGenWeight", "base with genWeight (fixed)", selection="1"),
             Category("base_oldGenWeight", "base with old genWeight (no fix)", selection="1"),
-            Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
-            # Category("base_selection", "base",
-            #     nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
-            #         " && ((Sum$(Muon_pt->fElements > 17) > 0"
-            #         " || Sum$(Electron_pt->fElements > 17) > 0)"
-            #         " || Sum$(Tau_pt->fElements > 17) > 1)"
-            #         " && Sum$(Jet_pt->fElements > 17) > 1)",
-            #     selection="Tau_pt[Tau_pt > 17].size() > 0 "
-            #         "&& ((Muon_pt[Muon_pt > 17].size() > 0"
-            #         "|| Electron_pt[Electron_pt > 17].size() > 0)"
-            #         "|| Tau_pt[Tau_pt > 17].size() > 1)"
-            #         "&& Jet_pt[Jet_pt > 17].size() > 0"),
+            Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2 && ((bjet1_JetIdx>=0&&bjet2_JetIdx)||(fatjet_JetIdx>=0))"),
+            Category("base_selection", "base",
+                selection=f"({base_HPS}) || ({base_boostedTaus})", selection_HPS=f"({base_HPS})"),
             # Category("baseline_sr", "baseline Signal region",
             #     selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
             #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
@@ -544,7 +560,7 @@ class BaseConfig(cmt_config):
     
     def add_features(self):
         # important : for Categorization with --syetmatic  it is important that systematics are enabled here
-        systematics_mode = "reduced"
+        systematics_mode = "full"
         if systematics_mode in ["reduced", "full", "one_jec"]: # reduced systematics
             if systematics_mode == "reduced":
                 self.jec_systs = ["jec_1"] # jec_2
@@ -566,7 +582,8 @@ class BaseConfig(cmt_config):
 
             # met systs are special systematics to allow plotting of met variables without PrePlot crashing
             #self.met_systs = dict(central="met_tes_xycorr", systematics=list(map(lambda s:s.replace("_", "_MET_"), self.jec_systs)) + ["tes_MET", "met_unclustered_MET"]) 
-            self.met_systs = dict(systematics=self.jec_systs+self.lepton_systs_params["systematics"]+["met_unclustered"])
+            self.met_systs = dict(systematics=self.jec_systs+self.lepton_systs_params["systematics"]+["met_unclustered"]) #central="met_tes_electron_xycorr", 
+            # removed the central= as it was too annoying
 
             self.all_systs = self.lepton_systs_params["systematics"] + ["met_unclustered"] + self.jme_systs
         elif systematics_mode == "no_systs": # no systs
@@ -578,7 +595,7 @@ class BaseConfig(cmt_config):
             self.lepton_systs_params =  dict(systematics=[]) # you may need to add central="tes", 
             self.didau_systs_params = self.lepton_systs_params # for dau1 & dau2 at same time
 
-            self.met_systs = dict(central="met_tes_xycorr", systematics=[]) 
+            self.met_systs = dict(systematics=[]) # central="met_tes_electron_xycorr", 
 
             self.all_systs = [] + self.jme_systs
         else:
@@ -601,11 +618,11 @@ class BaseConfig(cmt_config):
             Feature("jet_phi", "Jet_phi", binning=phi_binning_50,
                 x_title=Label("jet #phi (all jets)"),
                 tags=["jet", "baseObjects"]),
-            Feature("jet_mass", "Jet_mass", binning=(30, 0, 300),
-                x_title=Label("jet p_{T} (no corrections)"),
+            Feature("jet_mass", "Jet_mass", binning=(30, 0, 100),
+                x_title=Label("jet mass (no corrections)"),
                 units="GeV", tags=["jet", "baseObjects"]),
-            Feature("jet_smass_smeared", "Jet_mass", binning=(30, 0, 300),
-                x_title=Label("jet p_{T} (smeared)"), **self.jet_systs_params,
+            Feature("jet_mass_smeared", "Jet_mass", binning=(30, 0, 100),
+                x_title=Label("jet mass (smeared)"), **self.jet_systs_params,
                 units="GeV", tags=["jet", "baseObjects"]),
             
             Feature("nJet", "nJet", binning=(20, 0, 20),
@@ -635,11 +652,11 @@ class BaseConfig(cmt_config):
             Feature("electron_phi", "Electron_phi", binning=phi_binning_50,
                 x_title=Label("electron #phi (all electrons)"),
                 tags=["electron", "baseObjects"]),
-            Feature("electron_mass", "Electron_mass", binning=(30, 0, 2.),
-                x_title=Label("electron p_{T} (ID+ISO SFs only)"),
+            Feature("electron_mass", "Electron_mass", binning=(30, 0, 0.3),
+                x_title=Label("electron mass (ID+ISO SFs only)"),
                 units="GeV", tags=["electron", "baseObjects"]),
-            Feature("electron_mass_SS", "Electron_mass", binning=(30, 0, 2.),
-                x_title=Label("electron p_{T} (SFs&scale&smearing)"), **self.electron_systs,
+            Feature("electron_mass_SS", "Electron_mass", binning=(30, 0, 0.3),
+                x_title=Label("electron mass (SFs&scale&smearing)"), **self.electron_systs,
                 units="GeV", tags=["electron", "baseObjects"]),
             
             Feature("muon_pt", "Muon_pt", binning=(30, 0, 300),
@@ -651,8 +668,8 @@ class BaseConfig(cmt_config):
             Feature("muon_phi", "Muon_phi", binning=phi_binning_50,
                 x_title=Label("muon #phi (all muons)"),
                 tags=["muon", "baseObjects"]),
-            Feature("muon_mass", "Muon_mass", binning=(30, 0, 2.),
-                x_title=Label("muon p_{T}"),
+            Feature("muon_mass", "Muon_mass", binning=(30, 0, 0.2),
+                x_title=Label("muon mass"),
                 units="GeV", tags=["muon", "baseObjects"]),
 
             Feature("tau_pt", "Tau_pt", binning=(30, 0, 300),
@@ -668,10 +685,10 @@ class BaseConfig(cmt_config):
                 x_title=Label("tau #phi (all taus)"),
                 tags=["tau", "baseObjects"]),
             Feature("tau_mass", "Tau_mass", binning=(30, 0, 2.),
-                x_title=Label("tau p_{T} (ID SFs only)"),
+                x_title=Label("tau mass (ID SFs only)"),
                 units="GeV", tags=["tau", "baseObjects"]),
             Feature("tau_mass_tes", "Tau_mass", binning=(30, 0, 2.),
-                x_title=Label("tau p_{T} (SFs&TES)"), **self.tau_systs_params,
+                x_title=Label("tau mass (SFs&TES)"), **self.tau_systs_params,
                 units="GeV", tags=["tau", "baseObjects"]),
 
             # bjet features
@@ -872,13 +889,12 @@ class BaseConfig(cmt_config):
             features.extend([
             Feature(f"met_pt{suffix}_raw", "MET_pt", binning=binning,
                 x_title=Label("MET p_{T} (no smearing, no XY)"),
-                units="GeV", tags=["base"],
+                units="GeV", tags=["base", "met"],
                 central="",
-                #systematics=self.met_systs # not computed usually
                 ),          
-            Feature(f"met_pt{suffix}_corr", "MET_tes_xycorr_pt", binning=binning,
+            Feature(f"met_pt{suffix}_corr", "MET_tes_electron_xycorr_pt", expression_data="MET_pt", binning=binning,
                 x_title=Label("MET p_{T} (TES, XY-corr)"),
-                units="GeV", tags=["base"],
+                units="GeV", tags=["base", "met"],
                 **self.met_systs),
             # here : could add MET smeared&noXY, and nosmear&XY
             ])
@@ -888,23 +904,22 @@ class BaseConfig(cmt_config):
                 x_title=Label("MET #phi (no smearing, no XY)"),
                 units="GeV", tags=["base"],
                 central="",
-                #systematics=self.met_systs # not computed usually
                 ),
-            Feature("met_phi_corr", "MET_tes_xycorr_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("MET #phi (TES, XY-corr)"), tags=["base"],
+            Feature("met_phi_corr", "MET_tes_electron_xycorr_phi", expression_data="MET_phi", binning=(20, -3.2, 3.2),
+                x_title=Label("MET #phi (TES, XY-corr)"), tags=["base", "met"],
                 **self.met_systs),
 
             Feature("pairType", "pairType", binning=(5, -1, 3), 
-                x_title=Label("pairType"), tags=["base"]),
+                x_title=Label("pairType"), tags=["pairTypes"]),
             Feature("pairType_HPSTaus", "pairType_HPSTaus", binning=(5, -1, 3), 
-                x_title=Label("pairType HPS taus"), tags=["base"]),
+                x_title=Label("pairType HPS taus"), tags=["pairTypes"]),
             Feature("pairType_boostedTaus", "pairType_boostedTaus", binning=(5, -1, 3), 
-                x_title=Label("pairType boostedTaus"), tags=["base"]),
+                x_title=Label("pairType boostedTaus"), tags=["pairTypes"]),
             
             Feature("hasBoosted", "fatjet_JetIdx>=0", binning=(2, 0, 2), 
-                x_title=Label("Has AK8 candidate (no PNet cut)"), tags=["base"]),
+                x_title=Label("Has AK8 candidate (no PNet cut)"), tags=["pairTypes"]),
             Feature("isBoostedTau", "isBoostedTau", binning=(2, 0, 2), 
-                x_title=Label("is boostedTau"), tags=["base"]),
+                x_title=Label("is boostedTau"), tags=["pairTypes"]),
 
             # The H/Z dependent features have been moved to base_config_ZZ/ZH/ZbbHtt/ZttHbb 
 
@@ -1027,34 +1042,37 @@ class BaseConfig(cmt_config):
 
             # Weights
             Feature("genWeight", "genWeight", binning=(50, 0, 2),
-                x_title=Label("genWeight"), tags=["base"], noData=True),
+                x_title=Label("genWeight"), tags=["weights"], noData=True),
             Feature("genWeightFixed", "genWeightFixed", binning=(50, 0, 2),
-                x_title=Label("genWeightFixed"), tags=["base"], noData=True), # genWeight eventually modified to fix Madgraph LO bug
+                x_title=Label("genWeightFixed"), tags=["weights"], noData=True), # genWeight eventually modified to fix Madgraph LO bug
             Feature("DYstitchWeight_log", "DYstitchWeight == 0 ? -19.9 : std::log10(DYstitchWeight)", binning=(100, -20, 0),
-                x_title=Label("log10(DY stitching weight), 0 maps to -20"), tags=["base"], noData=True),
+                x_title=Label("log10(DY stitching weight), 0 maps to -20"), tags=["weights"], noData=True),
             Feature("puWeight", "puWeight", binning=(30, 0.5, 1.5),
                 x_title=Label("puWeight"), noData=True,
-                systematics=["pu"], tags=["base"]),
+                systematics=["pu"], tags=["weights"]),
             # Feature("prescaleWeight", "prescaleWeight", binning=(20, 0, 2),
             #     x_title=Label("prescaleWeight")),
             Feature("trigSF", "trigSF", binning=(30, 0.5, 1.5),
-                x_title=Label("trigSF"), tags=["base"], noData=True,
+                x_title=Label("trigSF"), tags=["base", "weights"], noData=True,
                 systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11", "trigSFmet"]), 
             Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(30, 0.5, 1.5),
-                x_title=Label("L1PreFiringWeight"), tags=["base"], noData=True,
+                x_title=Label("L1PreFiringWeight"), tags=["weights"], noData=True,
                 central="prefiring_central",
                 systematics=["prefiring"]),
             Feature("PUjetID_SF", "PUjetID_SF", binning=(30, 0.5, 1.5),
-                x_title=Label("PUjetID_SF"), tags=["base"], noData=True,
+                x_title=Label("PUjetID_SF"), tags=["weights"], noData=True,
                 systematics=["PUjetID"]),
             Feature("idAndIsoAndFakeSF", "idAndIsoAndFakeSF", binning=(30, 0, 2),
-                x_title=Label("idAndIsoAndFakeSF"), tags=["base"], noData=True,
-                systematics=["jetTauFakes", "etauFR", "mutauFR", "eleReco", "eleIso", "muIso", "muId"]),
+                x_title=Label("idAndIsoAndFakeSF"), tags=["base", "weights"], noData=True,
+                systematics=["deepTau_stat_highpT_bin1", "deepTau_stat_highpT_bin2", "deepTau_syst_highpT", "deepTau_syst_highpT_extrap",
+                             "deepTau_stat1_dm0", "deepTau_stat2_dm0", "deepTau_stat1_dm1", "deepTau_stat2_dm1", "deepTau_stat1_dm10", "deepTau_stat2_dm10", "deepTau_stat1_dm11", "deepTau_stat2_dm11", 
+                             "deepTau_syst_alleras", "deepTau_syst_era", "deepTau_syst_dm0", "deepTau_syst_dm1", "deepTau_syst_dm10", "deepTau_syst_dm11",
+                              "etauFR", "mutauFR", "eleReco", "eleIso", "muIso", "muId"]),
             Feature("bTagweightReshape", "bTagweightReshape", binning=(30, 0, 2),
-                x_title=Label("b-tag reshaping weight"), tags=["base"], noData=True,
+                x_title=Label("b-tag reshaping weight"), tags=["base", "weights"], noData=True,
                 central="jer", systematics=self.jme_systs + ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
             Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 2.),
-                x_title=Label("FatJet ParticleNet SF"), tags=["base"], noData=True,
+                x_title=Label("FatJet ParticleNet SF"), tags=["base", "weights"], noData=True,
                 systematics=["fatjet_pnet"]),
             ############## TODO TODO self.jec_systs+
 
@@ -1192,7 +1210,8 @@ class BaseConfig(cmt_config):
 
         systematics = [
             # Tau energy scale
-            Systematic("tes", "_corr", decorrelate="year", module_syst_type=["tau_syst", "met_syst"], affected_categories=cats_lepton_systs),
+            # should decorrelate between real taus and electrons faking tau
+            Systematic("tes", "_corr", label=f"CMS_scale_t_{self.year}", module_syst_type=["tau_syst", "met_syst"], affected_categories=cats_lepton_systs),
 
             # JER (jet energy resolution, smearing of jet energy applied on MC only). NOT PROPAGATED TO MET (not recommended by default by JME, but could be tried)
             Systematic("jer", "_smeared", label="JES", llr_name="CMS_res_j_2018", decorrelate="year", module_syst_type=["jet_syst"], affected_categories=cats_jet_systs), # systematic variation of smearing
@@ -1215,11 +1234,12 @@ class BaseConfig(cmt_config):
             # MET central values
             Systematic("met_smearing", ("MET", "MET_smeared")),
             Systematic("met_smearing_xycorr", ("MET", "MET_smeared_xycorr")),
-            Systematic("met_tes_xycorr", ("MET", "MET_tes_xycorr")),
+            Systematic("met_tes_electron_xycorr", ("MET", "MET_tes_electron_xycorr")),
             # MET uncertainties
             Systematic("met_unclustered", "_unclustered", label="Unclustered energy", module_syst_type=["met_syst"], affected_categories=cats_jet_systs),
 
             # used only to plot MET corrected variables with systematics. NOT TO BE RUN AS AN ACTUAL SYSTEMATIC IN PREPROCESS
+            # I think it is intended for plotting MET with a smear tag, so that it replaces "MET" with "MET_smeared...." only for MC
             # actually does not work as PrePlot does not use the systematic input, but the central one, because the syst name is not the same...
             # Systematic("jer_MET", ("MET", "MET_smeared"), up="_up", down='_down'), # no MET smearing
             # Systematic("tes_MET", ("MET", "MET_tes_xycorr"), up="_corr_up", down='_corr_down'),
@@ -1239,16 +1259,38 @@ class BaseConfig(cmt_config):
 
             # Electrons (see https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys for correlation instructions)
             # note : no leading underscore in up/down, due to framework bug (basically if central="" then no underscore in up/down)
-            Systematic("ele_scale", "", up="_scale_up", down="_scale_down", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs, decorrelate="year"),
-            Systematic("ele_resolution", "", up="_smear_up", down="_smear_down", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs),
+            Systematic("ele_scale", "_scale", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs, decorrelate="year"),
+            Systematic("ele_resolution", "_smear", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs),
 
             Systematic("prefiring_central", "_Nom"),
             Systematic("prefiring", "", up="_Up", down="_Dn", decorrelate="year"),
 
             # event weights systematics, from idAndIsoAndFakeSF
-            Systematic("jetTauFakes", "", up="_tau_vsjet_up", down="_tau_vsjet_down", decorrelate="year"),
-            Systematic("etauFR", "", up="_tau_vse_up", down="_tau_vse_down", decorrelate="year"),
-            Systematic("mutauFR", "", up="_tau_vsmu_up", down="_tau_vsmu_down", decorrelate="year"),
+            # DeepTauVSJet pt binned
+            Systematic("deepTau_stat_highpT_bin1", "_tau_vsjet_pt_stat_highpT_bin1", label=f"CMS_eff_t_high_pt_bin1_{self.year}"),
+            Systematic("deepTau_stat_highpT_bin2", "_tau_vsjet_pt_stat_highpT_bin1", label=f"CMS_eff_t_high_pt_bin2_{self.year}"),
+            Systematic("deepTau_syst_highpT", "_tau_vsjet_pt_syst_highpT", label=f"CMS_eff_t_high_pt"),
+            Systematic("deepTau_syst_highpT_extrap", "_tau_vsjet_pt_syst_highpT_extrap", label=f"CMS_eff_t_high_pt_extrap"),
+            # DeepTauVSJet dm-binned
+            Systematic("deepTau_stat1_dm0", "_tau_vsjet_dm_stat1_dm0", label=f"CMS_eff_t_stat1_DM0_{self.year}"),
+            Systematic("deepTau_stat2_dm0", "_tau_vsjet_dm_stat2_dm0", label=f"CMS_eff_t_stat2_DM0_{self.year}"),
+            Systematic("deepTau_stat1_dm1", "_tau_vsjet_dm_stat1_dm1", label=f"CMS_eff_t_stat1_DM1_{self.year}"),
+            Systematic("deepTau_stat2_dm1", "_tau_vsjet_dm_stat2_dm1", label=f"CMS_eff_t_stat2_DM1_{self.year}"),
+            Systematic("deepTau_stat1_dm10", "_tau_vsjet_dm_stat1_dm10", label=f"CMS_eff_t_stat1_DM10_{self.year}"),
+            Systematic("deepTau_stat2_dm10", "_tau_vsjet_dm_stat2_dm10", label=f"CMS_eff_t_stat2_DM10_{self.year}"),
+            Systematic("deepTau_stat1_dm11", "_tau_vsjet_dm_stat1_dm11", label=f"CMS_eff_t_stat1_DM11_{self.year}"),
+            Systematic("deepTau_stat2_dm11", "_tau_vsjet_dm_stat2_dm11", label=f"CMS_eff_t_stat2_DM11_{self.year}"),
+            Systematic("deepTau_syst_alleras", "_tau_vsjet_dm_syst_alleras", label=f"CMS_eff_t_syst"),
+            Systematic(f"deepTau_syst_era", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}", label=f"CMS_eff_t_{self.year}{self.runPeriod}"),
+            Systematic("deepTau_syst_dm0", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm0", label=f"CMS_eff_t_syst_DM0_{self.year}"),
+            Systematic("deepTau_syst_dm1", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm1", label=f"CMS_eff_t_syst_DM1_{self.year}"),
+            Systematic("deepTau_syst_dm10", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm10", label=f"CMS_eff_t_syst_DM10_{self.year}"),
+            Systematic("deepTau_syst_dm11", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm11", label=f"CMS_eff_t_syst_DM11_{self.year}"),
+
+            #Systematic("jetTauFakes", "", up="_tau_vsjet_up", down="_tau_vsjet_down", decorrelate="year"),
+            Systematic("etauFR", "_tau_vse", label=f"CMS_scale_t_eFake_{self.year}", decorrelate="year"), # should be split by eta bin
+            Systematic("mutauFR", "_tau_vsmu", label=f"CMS_scale_t_muFake_{self.year}", decorrelate="year"), # should be split by eta region
+
             Systematic("eleReco", "", up="_ele_reco_up", down="_ele_reco_down"), # eleReco & eleIso correlated : https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations
             Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down"), # actually electron MVA ID SFs, correlated https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys
             # https://twiki.cern.ch/twiki/bin/view/CMS/MuonUL2018
@@ -1334,6 +1376,7 @@ class BaseConfig(cmt_config):
         """
         Method to extract all normalization systematics from the KLUB files.
         It considers the processes given by the process_group_name and their parents.
+        Returns dict : systematic_name -> process name -> string that is either a single number or of style "0.9/1.1" (combine datacard syntax)
         """
         # systematics
         systematics = {}

@@ -5,9 +5,9 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from config.base_config_ZZ import Config as base_config_ZZ, res_mass_ZZ
-from config.bul_2018_v12 import setupBtagDeeptau, get_common_datasets_v12 #,get_2018_v12_weights
+from config.bul_2016_HIPM_v12 import setupBtagDeeptau, get_common_datasets_v12 #,get_2016_HIPM_v12_weights
 
-class Config_bul_2018_ZZ_v12(base_config_ZZ):
+class Config_bul_2016_HIPM_ZZ_v12(base_config_ZZ):
     def __init__(self, *args, **kwargs):
         self.useBoostedTaus = True
         setupBtagDeeptau(self)
@@ -16,15 +16,6 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
         self.regions = self.add_regions()
         self.categories = self.add_categories()
 
-    # def add_weights(self):
-    #     weights = get_2018_v12_weights()
-    #     print(self.categories)
-    #     for category in self.categories:
-    #         weights[category.name] = weights.mutau
-        
-    #     weights.base_noWeights = ["genWeight", "DYstitchWeight"]
-
-    #     return weights
 
     #@override
     def add_datasets(self):
@@ -37,7 +28,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
         # ZHToTauTau is considered as background
         # ZH_Hbb_Zll is considered as background
 
-        p = "/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/2018_MC/"
+        p = "/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/2016_HIPM_MC/"
         datasets += ObjectCollection([
 
             ###################################### ZZ Signal ##############################################
@@ -103,7 +94,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
 
             *(
             Dataset(f"GluGluToXToZZTo2B2Tau_M{mass}",
-                folder=p + f"GluGluToXToZZTo2B2Tau_M-{mass}", # the dash was accidently added for 2018 only in the private Nano production
+                folder=p + f"GluGluToXToZZTo2B2Tau_M{mass}",
                 process=self.processes.get(f"ggXZZbbtt_M{mass}"),
                 prefix="eos.grif.fr//",
                 xs=1,
@@ -120,9 +111,5 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
             
         return datasets
 
-    # if I don't want to specify the version every time
-    # def add_version(self):
-    #     versions = {"MergeCategorizationStats": "prod_503"}
-    #     return versions
 
-config = Config_bul_2018_ZZ_v12("bul_2018_ZZ_v12", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Zbb_Ztautau")
+config = Config_bul_2016_HIPM_ZZ_v12("bul_2016_HIPM_ZZ_v12", year=2016, ecm=13, lumi_pb=19500, isUL=True, AnalysisType="Zbb_Ztautau", ispreVFP=True, runPeriod="preVFP")
