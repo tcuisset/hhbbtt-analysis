@@ -344,7 +344,7 @@ class BaseConfig(cmt_config):
                     selection=jrs(channel.selection,
                         jrs(selection[qcd_key][channel.name], op="and"), op="and")))
                 for tau_name, tau_cut in [("boostedTaus", "isBoostedTau"), ("HPSTaus", "!isBoostedTau")]:
-                    regions.append(Category("_".join([channel.name, qcd_key, tau_name]),
+                    regions.append(Category("_".join([channel.name, tau_name, qcd_key]),
                     label=Label(", ".join([channel.label.root, region_names[ikey], tau_cut])),
                     selection=jrs([
                             channel.selection,
