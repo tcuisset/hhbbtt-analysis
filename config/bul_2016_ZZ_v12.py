@@ -5,9 +5,9 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from config.base_config_ZZ import Config as base_config_ZZ, res_mass_ZZ
-from config.bul_2018_v12 import setupBtagDeeptau, get_common_datasets_v12 #,get_2018_v12_weights
+from config.bul_2016_v12 import setupBtagDeeptau, get_common_datasets_v12
 
-class Config_bul_2018_ZZ_v12(base_config_ZZ):
+class Config_bul_2016_ZZ_v12(base_config_ZZ):
     def __init__(self, *args, **kwargs):
         self.useBoostedTaus = True
         setupBtagDeeptau(self)
@@ -16,15 +16,6 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
         self.regions = self.add_regions()
         self.categories = self.add_categories()
 
-    # def add_weights(self):
-    #     weights = get_2018_v12_weights()
-    #     print(self.categories)
-    #     for category in self.categories:
-    #         weights[category.name] = weights.mutau
-        
-    #     weights.base_noWeights = ["genWeight", "DYstitchWeight"]
-
-    #     return weights
 
     #@override
     def add_datasets(self):
@@ -37,7 +28,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
         # ZHToTauTau is considered as background
         # ZH_Hbb_Zll is considered as background
 
-        p = "/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/2018_MC/"
+        p = "/eos/grif/cms/llr/store/user/tcuisset/boostedTaus/2016_MC/"
         datasets += ObjectCollection([
 
             ###################################### ZZ Signal ##############################################
@@ -47,7 +38,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
             Dataset("zz_sl_signal",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
-                xs=self.cross_section_dict["zz_sl_signal"],
+                xs=self.cross_section_dict["zz_sl"],
                 #secondary_dataset="zz_sl_signal_aux",
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
                 prefix="eos.grif.fr//",
@@ -60,11 +51,11 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
             Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_background"),
-                xs=self.cross_section_dict["zz_sl_background"],
+                xs=self.cross_section_dict["zz_sl"],
                 #secondary_dataset="zz_sl_background_aux",
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
                 prefix="eos.grif.fr//",
-                tags=["ul", "nanoV10", "bul", "genfilter", "nonResOnly"]),
+                tags=["ul", "nanoV10", "bul", "genfilter"]),
             
             #### ZHToTauTau
             Dataset("zh_htt",
@@ -82,7 +73,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 process=self.processes.get("zh_hbb"),
                 xs=self.cross_section_dict["zh_hbb_zll"],
                 #secondary_dataset="zh_hbb_zll_aux",
-                categorization_merging={'base' : 3, '': 1},
+                categorization_merging={'': 1},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul"]),
 
@@ -92,7 +83,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 process=self.processes.get("zz_bbtt"),
                 xs=self.cross_section_dict["zz_sl"],
                 #secondary_dataset="zz_bbtt_aux",
-                categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},# categorization_max_events=10000,
+                categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul", "res", "genfilter", "resOnly", "limitedBoostedTau"]),
 
@@ -103,7 +94,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
 
             *(
             Dataset(f"GluGluToXToZZTo2B2Tau_M{mass}",
-                folder=p + f"GluGluToXToZZTo2B2Tau_M-{mass}", # the dash was accidently added for 2018 only in the private Nano production
+                folder=p + f"GluGluToXToZZTo2B2Tau_M{mass}",
                 process=self.processes.get(f"ggXZZbbtt_M{mass}"),
                 prefix="eos.grif.fr//",
                 xs=1,
@@ -125,4 +116,4 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
     #     versions = {"MergeCategorizationStats": "prod_503"}
     #     return versions
 
-config = Config_bul_2018_ZZ_v12("bul_2018_ZZ_v12", year=2018, ecm=13, lumi_pb=59741, isUL=True, AnalysisType="Zbb_Ztautau")
+config = Config_bul_2016_ZZ_v12("bul_2016_ZZ_v12", year=2016, ecm=13, lumi_pb=16800, isUL=True, AnalysisType="Zbb_Ztautau", ispreVFP=False, runPeriod="postVFP")

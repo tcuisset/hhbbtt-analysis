@@ -10,6 +10,7 @@ from config.base_config import get_common_processes, BaseConfig
 res_mass_ZZ = [ 200, 210, 220, 230, 240, 250, 260, 270, 280, 300, 320, 350, 360, 400, 450, 500, 550,
                 600, 650, 700, 750, 800, 850, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700,
                 1800, 1900, 2000, 2200, 2400, 2500, 2600, 2800, 3000, 3500, 4000, 4500, 5000]
+res_mass_ZZ_limited = [200, 1000, 2000, 3000, 4000, 5000]
 
 class Config(BaseConfig):
     def __init__(self, *args, **kwargs):
@@ -460,6 +461,18 @@ class Config(BaseConfig):
         ],
         "zz_res": [
             *[f"ggXZZbbtt_M{mass}" for mass in res_mass_ZZ],
+            "zz_bbtt",
+            "higgs",
+            "vv_v",
+            "wjets",
+            "dy",
+            "others",
+            "tt",
+            "ttx",
+            "data",
+        ],
+        "zz_res_limitedMass": [
+            *[f"ggXZZbbtt_M{mass}" for mass in res_mass_ZZ_limited],
             "zz_bbtt",
             "higgs",
             "vv_v",
