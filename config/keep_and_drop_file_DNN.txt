@@ -51,18 +51,21 @@ keep trigSF
 keep L1PreFiringWeight
 keep L1PreFiringWeight_Nom
 keep PUjetID_SF
-
+keep hem_weight
 keep DYstitchEasyWeight
 keep DYstitchWeight
 keep idAndIsoAndFakeSF
-keep bTagweightReshape
-
+keep bTagweightReshape.*
+drop bTagweightReshape.*_up
+drop bTagweightReshape.*_down
+keep fatjet_pnet_SF
 
 keep pairType.*
 keep dau(1|2)_idDeepTau2017v2p1VSjet
 keep dau(1|2)_rawIdDeepTauVSjet
 keep isOS
-
+keep jetCategory
+keep isBoostedTau
 
 
 keep LHE_HT

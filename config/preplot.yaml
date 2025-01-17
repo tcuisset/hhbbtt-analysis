@@ -5,3 +5,4 @@ dystitching:
     parameters:
         isDY: self.dataset.process.get_aux('isDY', False)
         year: self.config.year
+        runPeriod: self.config.runPeriod
