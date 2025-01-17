@@ -298,14 +298,14 @@ class Config(BaseConfig):
                 systematics=self.all_systs)
             for nbins in [10, 30, 100, 500]],
             
-            *[Feature(f"dnn_ZZbbtt_{nbins}b_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(nbins, 0, 1), tags=["dnn", "blind"],
+            *[Feature(f"dnn_ZZbbtt_{nbins}b_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(nbins, 0, 1), tags=["dnn", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
                 x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),
                 systematics=self.all_systs)
             for mass in res_mass_ZZ for nbins in [10, 100]],
 
-            *[Feature(f"dnn_ZZbbtt_{nbins}bv_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}",
+            *[Feature(f"dnn_ZZbbtt_{nbins}bv_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", # variable binning version for auto-rebin algorithm
                 binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(2./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(3/10*nbins), endpoint=False), np.linspace(0.9, 1., int(4/10*nbins), endpoint=True)]),
-                x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),  tags=["dnn", "blind"],
+                x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),  tags=["dnn", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
                 systematics=self.all_systs)
             for mass in res_mass_ZZ for nbins in [500]],
 
@@ -609,6 +609,20 @@ class Config(BaseConfig):
             "zz_sl_signal",
             "zz_res",
         ],
+        }
+        process_group_names |= {
+            f"datacard_zz_res_reduced_M{mass}": [
+                f"ggXZZbbtt_M{mass}",
+                "zz_bbtt",
+                "tt",
+                "dy",
+                "wjets",
+                "vv_v",
+                "ttx",
+                "higgs", # include wh, vbf_htt, ggH_ZZ, ttH, zh, ggf_sm
+                "others", #inlucde ewk, tw, singlet
+                "data",
+            ] for mass in res_mass_ZZ
         }
         return processes, process_group_names, process_training_names
 
