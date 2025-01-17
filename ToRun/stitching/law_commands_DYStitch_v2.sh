@@ -30,3 +30,13 @@ law run FeaturePlot --version prod_240321 --PrePlot-skip-merging --config-name u
  --process-group-name dy_split --save-root --save-png --category-name base \
  --region-name os_iso --stack --log-y
 
+
+################################################################# BUL
+YEAR=2018
+law run MergeStitchSkimWrapper --config-name bul_${YEAR}_ZZ_v12 --version prod_250108 --dataset-names dy,dy_0j,dy_1j,dy_2j,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6 \
+    --StitchSkim-workflow htcondor --StitchSkim-tasks-per-job 10 --StitchSkim-htcondor-scheduler llrt3condor.in2p3.fr --StitchSkim-transfer-logs --StitchSkim-poll-interval 2 --StitchSkim-submission-threads 1 --StitchSkim-retries 0 --StitchSkim-avoid-vms False \
+    --StitchSkim-custom-condor-tag 'include : /opt/exp_soft/cms/t3/t3queue |,T3queue=short,WNTag=el9,request_memory=0.7G,+SingularityCmd = "/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/el7_container"' --StitchSkim-parallel-jobs 10 --workers 20 --print-status 1
+
+law run StichWeights --config-name bul_${YEAR}_ZZ_v12 --version prod_250108 --inclusive-dataset-name dy \
+ --dataset-names dy,dy_0j,dy_1j,dy_2j,dy_ptz1,dy_ptz2,dy_ptz3,dy_ptz4,dy_ptz5,dy_ptz6 --print-status 2
+

@@ -557,6 +557,13 @@ Using a dataset or feature that does not exist is silently ignored.
 
 Using `--workers 1` in combination with RDataFrame will lead to a memory leak, as every new RDataFrame creation will use some memory that will never be freed.
 
+
+### Temporary files
+A lot of orphaned temprary files end up in `nanoaod_base_analysis/data/tmp`, these need to be cleaned up : 
+`cd nanoaod_base_analysis/data/tmp && find ./ -maxdepth 1 -name 'tmp*' -exec rm -r {} \+`. NB: don't just remove the tmp folder as the list of InputData files is stored there (it will have to be regrenrated).
+`ls -U -f -1` can list the files at reasonable speed (and ` /bin/ls -1U nanoaod_base_analysis/data/tmp | wc -l` count them). Also `/bin/ls -U . | xargs rm -r` can work. The `jobs` folder is also filling up.
+Also try  `mkdir emptydir && rsync -a --delete emptydir/ yourdirectory/` to remove fast
+
 ### Notebooks issues
 luigi v2.8.13 wants tornado>=4,<6 but notebook installed in cmssw wants tornado 6 ([issue](https://github.com/jupyter/notebook/issues/5920)). There is also a jinja issue.
 In case you get the error ̀`ImportError: cannot import name 'contextfilter' from 'jinja2'`, then run `pip install --upgrade --prefix "$CMT_SOFTWARE" jinja2==3.0.3 `. The issue is due to a too recent version of jinja2 being installed , not compatible with the old jupyter nbconvert that comes with CMSSW.
