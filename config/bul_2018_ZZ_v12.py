@@ -109,7 +109,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 xs=1,
                 categorization_merging={"boosted_bb_boostedTau": 4 if mass >= 1300 else 2 if mass > 900 else 1, '': 1},
                 merging={
-                    "boosted_bb_boostedTau" : 4 if mass >= 1300 else 2 if mass > 900 else 1
+                    "boosted_bb_boostedTau" : 3 if mass >= 1300 else 2 if mass > 900 else 1
                 },
                 tags=["ul", "nanoV10", "bul", "res"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
             
