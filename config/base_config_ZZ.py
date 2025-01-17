@@ -66,31 +66,28 @@ class Config(BaseConfig):
             #     selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.boosted})"),
         ])
 
-        all_categories_selections = []
-        for jet_category in ["resolved_1b", "resolved_2b", "boosted_bb"]:
-            #for tau_category in ["HPSTau", "boostedTau"]:
-            tau_category = "HPSTau"
-            categories.append(Category(
-                f"ZZ_EC90_{jet_category}_{tau_category}",
-                f"EC90 {jet_category} {tau_category}",
-                selection=f"({elliptical_cut_90}) && ({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})",
-                jet_category="boosted" if jet_category == "boosted_bb" else "resolved"
-            ))
-            all_categories_selections.append(f"({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})")
-
-            tau_category = "boostedTau"
-            categories.append(Category(
-                f"ZZ_EC90_{jet_category}_{tau_category}",
-                f"EC90 {jet_category} {tau_category}",
-                selection=f"({elliptical_cut_90}) && ({cat_reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})",
-                jet_category="boosted" if jet_category == "boosted_bb" else "resolved"
-            ))
-            all_categories_selections.append(f"({cat_reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})")
+        #all_categories_selections = []
+        for jet_category_idx, jet_category in [(0, "resolved_2b"), (1, "resolved_1b"), (2, "boosted_bb")]:
+            for tau_category in ["HPSTau", "boostedTau"]:
+                categories.append(Category(
+                    f"ZZ_EC90_{jet_category}_{tau_category}",
+                    f"EC90 {jet_category} {tau_category}",
+                    selection=f"({elliptical_cut_90}) && (jetCategory == {jet_category_idx}) && ({cat_reqs[tau_category]})", # ({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]})
+                    jet_category=jet_category#"boosted" if jet_category == "boosted_bb" else "resolved"
+                ))
+            #all_categories_selections.append(f"({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})")
         
         
         categories.append(
         Category("ZZ_elliptical_cut_90_sr", "ZZ mass cut E=90% && Signal region", # for DNN training
-                selection=jrs([elliptical_cut_90, jrs(all_categories_selections, op="or"), jrs([self.regions.get("etau_os_iso").selection, self.regions.get("mutau_os_iso").selection, self.regions.get("tautau_os_iso").selection], op="or")], op="and")
+                selection=jrs([
+                    elliptical_cut_90,
+                    jrs([
+                        f"{cat_reqs['HPSTau']} && jetCategory >= 0", # HPSTaus 
+                        f"{cat_reqs['boostedTau']} && jetCategory == 2" # boostedTaus : boosted_bb only
+                    ], op="or"),
+                    jrs([self.regions.get("etau_os_iso").selection, self.regions.get("mutau_os_iso").selection, self.regions.get("tautau_os_iso").selection], op="or")],
+                op="and")
                 )
         )
 

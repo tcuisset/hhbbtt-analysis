@@ -40,66 +40,56 @@ class ConfigZttHbb(BaseConfig):
         # elliptical_cut_90_inv = ("((({{Ztt_svfit_mass}} - 91.) * ({{Ztt_svfit_mass}} - 91.) / (83. * 83.)"
         #         " + ({{Hbb_mass}} - 102.) * ({{Hbb_mass}} - 102.) / (143. * 143.)) >= 1)")
 
-        sr_cut = ("(((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
-                    "((pairType == 2) && (isOS == 1) && "
-                    "(dau1_idDeepTau2017v2p1VSjet >= {0}) && (dau2_idDeepTau2017v2p1VSjet >= {0}))) "
-                    .format(self.deeptau.vsjet.Medium))
-        bjets = self.get_bjets_requirements()
         cat_reqs = self.get_categories_requirements()
         
         categories += ObjectCollection([
 
             Category("ZttHbb_elliptical_cut_90", "Elliptical cut E=90%",
                 selection=elliptical_cut_90),
-            Category("ZttHbb_elliptical_cut_90_sr", "ZH mass cut E=90% && Signal region",
-                selection="("+elliptical_cut_90+") && ("+sr_cut+")"),
 
-            Category("ZttHbb_elliptical_cut_90_CR_mutau", "CR ZH mass cut E=90%",
-                selection="("+elliptical_cut_90_inv+") && (pairType == 0)"),
-            Category("ZttHbb_elliptical_cut_90_CR_etau", "CR ZH mass cut E=90%",
-                selection="("+elliptical_cut_90_inv+") && (pairType == 1)"),
-            Category("ZttHbb_elliptical_cut_90_CR_tautau", "CR ZH mass cut E=90%",
-                selection="("+elliptical_cut_90_inv+") && (pairType == 2)"),
-
-            Category("ZttHbb_elliptical_cut_90_mutau", "ZH mass cut E=90%",
-                selection="("+elliptical_cut_90+") && (pairType == 0)"),
-            Category("ZttHbb_elliptical_cut_90_etau", "ZH mass cut E=90%",
-                selection="("+elliptical_cut_90+") && (pairType == 1)"),
-            Category("ZttHbb_elliptical_cut_90_tautau", "ZH mass cut E=90%",
-                selection="("+elliptical_cut_90+") && (pairType == 2)"),
-            
-            Category("ZttHbb_elliptical_cut_90_resolved_1b", "EC90 & resolved 1b",
-                selection=f"({elliptical_cut_90}) && {cat_reqs.resolved_1b}"),
-            Category("ZttHbb_elliptical_cut_90_resolved_2b", "EC90 & resolved 2b",
-                selection=f"({elliptical_cut_90}) && {cat_reqs.resolved_2b}"),
-            Category("ZttHbb_elliptical_cut_90_boosted", "EC90 & boosted",
-                selection=f"({elliptical_cut_90}) && {cat_reqs.boosted}"),
-            
-            Category("ZttHbb_elliptical_cut_90_boosted_noPNet", "EC90 & boosted (no PNet cut)",
-                selection=f"({elliptical_cut_90}) && isBoosted == 1 "),
-            
-            Category("ZttHbb_orthogonal_cut_90_resolved_1b", "EC90 orthogonal & resolved 1b",
-                selection=f"({elliptical_cut_90}) && ({orthogonality}) && {cat_reqs.resolved_1b}"),
-            Category("ZttHbb_orthogonal_cut_90_resolved_2b", "EC90 orthogonal & resolved 2b",
-                selection=f"({elliptical_cut_90}) && ({orthogonality}) && {cat_reqs.resolved_2b}"),
-            Category("ZttHbb_orthogonal_cut_90_boosted", "EC90 orthogonal & boosted",
-                selection=f"({elliptical_cut_90}) && ({orthogonality}) && {cat_reqs.boosted}"),
-            Category("ZttHbb_orthogonal_cut_90_boosted_noPNet", "EC90 orthogonal & boosted (no PNet cut)",
-                selection=f"({elliptical_cut_90}) && ({orthogonality}) && isBoosted == 1 "),
+            # Category("ZttHbb_elliptical_cut_90_CR_mutau", "CR ZH mass cut E=90%",
+            #     selection="("+elliptical_cut_90_inv+") && (pairType == 0)"),
+            # Category("ZttHbb_elliptical_cut_90_CR_etau", "CR ZH mass cut E=90%",
+            #     selection="("+elliptical_cut_90_inv+") && (pairType == 1)"),
+            # Category("ZttHbb_elliptical_cut_90_CR_tautau", "CR ZH mass cut E=90%",
+            #     selection="("+elliptical_cut_90_inv+") && (pairType == 2)"),
             
             Category("ZttHbb_orthogonal_cut_90_CR", "CR orthogonal",
                 selection=f"({elliptical_cut_90_inv}) && ({orthogonality})"),
             
-            Category("ZttHbb_orthogonal_cut_90_CR_resolved_1b", "CR orthogonal & resolved 1b",
-                selection=f"({elliptical_cut_90_inv}) && ({orthogonality})&& {cat_reqs.resolved_1b}"),
-            Category("ZttHbb_orthogonal_cut_90_CR_resolved_2b", "CR orthogonal & resolved 2b",
-                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && {cat_reqs.resolved_2b}"),
-            Category("ZttHbb_orthogonal_cut_90_CR_boosted", "CR orthogonal & boosted",
-                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && {cat_reqs.boosted}"),
-            Category("ZttHbb_orthogonal_cut_90_CR_boosted_noPNet", "CR orthogonal & boosted (no PNet cut)",
-                selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 1 "),
+            # Category("ZttHbb_orthogonal_cut_90_CR_resolved_1b", "CR orthogonal & resolved 1b",
+            #     selection=f"({elliptical_cut_90_inv}) && ({orthogonality})&& {cat_reqs.resolved_1b}"),
+            # Category("ZttHbb_orthogonal_cut_90_CR_resolved_2b", "CR orthogonal & resolved 2b",
+            #     selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && {cat_reqs.resolved_2b}"),
+            # Category("ZttHbb_orthogonal_cut_90_CR_boosted", "CR orthogonal & boosted",
+            #     selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && {cat_reqs.boosted}"),
+            # Category("ZttHbb_orthogonal_cut_90_CR_boosted_noPNet", "CR orthogonal & boosted (no PNet cut)",
+            #     selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 1 "),
         ])
+
+        for orthogonality_name, orthogonality_cut in [("EC", "true"), ("OC", orthogonality)]:
+            for jet_category_idx, jet_category in [(0, "resolved_2b"), (1, "resolved_1b"), (2, "boosted_bb")]:
+                for tau_category in ["HPSTau", "boostedTau"]:
+                    categories.append(Category(
+                        f"ZttHbb_{orthogonality_name}90_{jet_category}_{tau_category}",
+                        f"{orthogonality_name}90 {jet_category} {tau_category}",
+                        selection=f"({elliptical_cut_90}) && ({orthogonality_cut}) && (jetCategory == {jet_category_idx}) && ({cat_reqs[tau_category]})",
+                        jet_category=jet_category
+                    ))
+            
+            categories.append(
+            Category(f"ZttHbb_{orthogonality_name}90_sr", f"ZttHbb {orthogonality_name} mass cut E=90% && Signal region", # for DNN training
+                    selection=jrs([
+                        elliptical_cut_90,
+                        orthogonality_cut,
+                        jrs([
+                            f"{cat_reqs['HPSTau']} && jetCategory >= 0", # HPSTaus 
+                            f"{cat_reqs['boostedTau']} && jetCategory == 2" # boostedTaus : boosted_bb only
+                        ], op="or"),
+                        jrs([self.regions.get("etau_os_iso").selection, self.regions.get("mutau_os_iso").selection, self.regions.get("tautau_os_iso").selection], op="or")], 
+                    op="and")
+                    )
+            )
 
         return categories
     

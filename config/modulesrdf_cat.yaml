@@ -2,6 +2,25 @@
 # It is not analysis related (managed by AnalysisType) 
 # It computes the output of the DNN and all the systematic uncertainties
 
+hhjetsCategory:
+    name: JetCategoryRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        btag_wp: self.config.btag_algo_wps.medium
+        fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
+
+# filter jet category to avoid running kinfit & all for events that will fail categorization selection anyway
+# only relevant for categories that have only one jet category in them (ie not for DNN training for example)
+JetCategoryFilter:
+    name: JetCategoryFilterRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        jet_category: self.category.get_aux("jet_category")
+
 zz:
     name: HHKinFitRDF
     path: Tools.Tools.hh
@@ -31,6 +50,7 @@ zzdnninputs:
         cvl_wps: self.config.ctag_algo_wps.CvL
         cvb_wps: self.config.ctag_algo_wps.CvB
         met_smear_tag: tes_electron_xycorr
+        feature_file: src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-11-16/all_features.txt
 
 # old per-event implementation of DNN
 # zzdnn:

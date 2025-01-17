@@ -404,12 +404,12 @@ class BaseConfig(cmt_config):
         reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail = DotDict() # priority to res2b, for HPSTaus category
         reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_2b = f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))" # res2b has priority
         reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.boosted_bb = f"(!({reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_2b}) && fatjet_JetIdx>=0 && ({bjets.boosted_pnet}))" # fatjet passing pnet & not res2b
-        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_1b = f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}) && !(fatjet_JetIdx>=0 && ({bjets.boosted_pnet})))" # 2 jets & exactly one b-tag (->orthogonal res2b) & no fatjet passing pnet (orthogonalize boosted)
+        reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail.resolved_1b = f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}) && !(fatjet_JetIdx>=0))" # 2 jets & exactly one b-tag (->orthogonal res2b) & no fatjet at all (orthogonalize boosted)
 
         reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail = DotDict() # priority to boosted, for boostedTaus category
         reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb = f"(fatjet_JetIdx>=0 && ({bjets.boosted_pnet}))" # priority boosted
-        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.resolved_2b = f"(!{reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb} && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))"
-        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.resolved_1b = f"(!{reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.boosted_bb} && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.resolved_2b = f"(fatjet_JetIdx<0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_2b}))"
+        reqs.jet_cat_Boosted_Res2b_Res1b_noPNetFail.resolved_1b = f"(fatjet_JetIdx<0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
 
         # old code giving priority to boosted
             # reqs.resolved_1b = f"(isBoosted == 0 && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({bjets.req_1b}))"
