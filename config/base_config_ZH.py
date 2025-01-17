@@ -115,13 +115,13 @@ def get_ZH_common_processes():
         # ZHToTauTau_M125 dataset with genfilter Z->bb,H->tautau
         # ONLY TO BE USED FOR NON-RESONANT (use dataset selection)
         Process("zh_zbb_htt_signal", Label("Z_{bb}H_{#tau#tau}"),
-                ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(0, 165, 80), llr_name="ZbbHtt"),
+                ProcType="Zbb_Htautau", isSigBBTT=True, isSignal=True, color=(0, 165, 80), llr_name="ZbbHtt", fatjet_bb_type="HHlike"),
         # same as above but with reversed genfilter (ZH, Z->anything except bb, H->tautau)
         Process("zh_zbb_htt_background", Label("ZH (H#rightarrow#tau#tau) bkg"), parent_process='zh',
                 ProcType="Zbb_Htautau", isBkgBBTT=True, color=(224, 190, 79)),
         # resonant
         *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res), 
-                isSigBBTT=True, ProcType="Zbb_Htautau", isSignal=True, llr_name="ZprimeZbbHtt")
+                ProcType="Zbb_Htautau", isSignal=True, llr_name="ZprimeZbbHtt", fatjet_bb_type="HHlike") # isSigBBTT=True, 
             for mass in resonant_masses_ZH],
         
         # background for resonant analysis (zh_zbb_htt_signal with isSignal=False, dataset is the exact same)
@@ -132,13 +132,13 @@ def get_ZH_common_processes():
         ######### ZttHbb
         # ZH_Hbb_Zll dataset with genfilter Z->tautau,H->bb
         Process("zh_ztt_hbb_signal", Label("Z_{#tau#tau}H_{bb}"),
-                ProcType="Ztautau_Hbb", isSigBBTT=True, isSignal=True, color=(0, 165, 80), llr_name="ZttHbb"),
+                ProcType="Ztautau_Hbb", isSigBBTT=True, isSignal=True, color=(0, 165, 80), llr_name="ZttHbb", fatjet_bb_type="HHlike"),
         # same as above but with reversed genfilter (Z->ll except tautau, H->bb)
         Process("zh_ztt_hbb_background", Label("ZH (Z#rightarrow ll, H#rightarrow bb) bkg"), parent_process='zh',
                 ProcType="Ztautau_Hbb", isBkgBBTT=True, color=(224, 190, 79)),
         # resonant
         *[Process(f"Zprime_Zh_Ztautauhbb_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res),
-                    isSigBBTT=True, ProcType="Ztautau_Hbb", isSignal=True, llr_name="ZprimeZttHbb")
+                    ProcType="Ztautau_Hbb", isSignal=True, llr_name="ZprimeZttHbb", fatjet_bb_type="HHlike") # isSigBBTT=True, 
             for mass in resonant_masses_ZH],
 
         # background for resonant analysis (zh_ztt_hbb_signal with isSignal=False, dataset is the exact same)
