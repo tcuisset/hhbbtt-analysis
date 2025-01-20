@@ -881,7 +881,7 @@ class BaseConfig(cmt_config):
                 binning=(50, 0, 6),
                 x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
             Feature("dR_tautau_low", "deltaR(dau1_eta, dau1_phi, dau2_eta, dau2_phi)", 
-                binning=(50, 0, 0.5),
+                binning=(50, 0, 0.8), # max deltaR for boostedTaus is 0.8 (0.7 for etau)
                 x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
         ]
         # MET (not all of the features are usually computed, might need to add metShifterRDF to modulesrdf.yaml)
