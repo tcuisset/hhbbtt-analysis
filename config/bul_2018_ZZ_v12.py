@@ -50,6 +50,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 xs=self.cross_section_dict["zz_sl_signal"],
                 #secondary_dataset="zz_sl_signal_aux",
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
+                preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul", "genfilter", "nonResOnly"]),
 
@@ -73,6 +74,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 xs=self.cross_section_dict["zh_htt"],
                 #secondary_dataset="zh_htt_aux",
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
+                preplot_htcondor_workflow_params={"resolved_1b_HPSTau":{"request_cpus":8}, "resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul"]), 
 
@@ -83,6 +85,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 xs=self.cross_section_dict["zh_hbb_zll"],
                 #secondary_dataset="zh_hbb_zll_aux",
                 categorization_merging={'base' : 3, '': 1},
+                preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul"]),
 
@@ -92,7 +95,8 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 process=self.processes.get("zz_bbtt"),
                 xs=self.cross_section_dict["zz_sl"],
                 #secondary_dataset="zz_bbtt_aux",
-                categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},# categorization_max_events=10000,
+                categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
+                preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul", "res", "genfilter", "resOnly", "limitedBoostedTau"]),
 
@@ -111,7 +115,8 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 merging={
                     "boosted_bb_boostedTau" : 3 if mass >= 1300 else 2 if mass > 900 else 1
                 },
-                tags=["ul", "nanoV10", "bul", "res"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
+                preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}} if (mass >= 500 and mass <= 900) else {},
+                tags=["ul", "nanoV10", "bul", "res", "resSignal"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
             
             for mass in res_mass_ZZ
             )
