@@ -1,0 +1,284 @@
+# This configuration is used for Categorization step
+# It is not analysis related (managed by AnalysisType) 
+# It computes the output of the DNN and all the systematic uncertainties
+
+hhjetsCategory:
+    name: JetCategoryRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        btag_wp: self.config.btag_algo_wps.medium
+        fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
+
+# filter jet category to avoid running kinfit & all for events that will fail categorization selection anyway
+# only relevant for categories that have only one jet category in them (ie not for DNN training for example)
+JetCategoryFilter:
+    name: JetCategoryFilterRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        jet_category: self.category.get_aux("jet_category")
+
+zz:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        met_smear_tag: tes_electron_xycorr
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zzvar:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        met_smear_tag: tes_electron_xycorr
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zzdnninputs:
+    name: HHDNNInputRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+        btag_wps: self.config.btag_algo_wps
+        cvl_wps: self.config.ctag_algo_wps.CvL
+        cvb_wps: self.config.ctag_algo_wps.CvB
+        met_smear_tag: tes_electron_xycorr
+        feature_file: src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-11-16/all_features.txt
+
+# old per-event implementation of DNN
+# zzdnn:
+#     name: HHDNNRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+
+# extracts variables from Jet & FatJet collections to be able to remove them at Categorization and keep only flat variables
+bjet1var:
+    name: HHJetsVarRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        variables_withSyst: []
+        variables_withoutSyst: [btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
+        index: bjet1_JetIdx
+        input_prefix: Jet
+        output_prefix: bjet1
+bjet2var:
+    name: HHJetsVarRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        variables_withSyst: []
+        variables_withoutSyst: [btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
+        index: bjet2_JetIdx
+        input_prefix: Jet
+        output_prefix: bjet2
+fatjetvar:
+    name: HHJetsVarRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        variables_withSyst: []
+        variables_withoutSyst: [particleNetLegacy_Xbb, particleNetLegacy_QCD, msoftdrop] # , tau1, tau2, pnet massCorr not available
+        index: fatjet_JetIdx
+        input_prefix: FatJet
+        output_prefix: fatjet
+
+######################################################################
+# Tau Energy Scale (tes): HHKinFitRDF + HHVarRDF + ZZDNNRDF
+######################################################################
+        
+# zz_tes_up:
+#     name: HHKinFitRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         met_smear_tag: smeared
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         tau_syst: corr_up
+
+# zz_tes_down:
+#     name: HHKinFitRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         met_smear_tag: smeared
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         tau_syst: corr_down
+
+# zzvar_tes_up:
+#     name: HHVarRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         met_smear_tag: smeared
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         tau_syst: corr_up
+
+# zzvar_tes_down:
+#     name: HHVarRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         met_smear_tag: smeared
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         tau_syst: corr_down
+
+# zzdnninputs_tes_up:
+#     name: HHDNNInputRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         tau_syst: corr_up
+
+# zzdnninputs_tes_down:
+#     name: HHDNNInputRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         tau_syst: corr_down
+    
+# ######################################################################
+# # Jet Energy Resolution (JER) : HHKinFitRDF + HHVarRDF + ZZDNNRDF
+# ######################################################################
+
+# # I had to add the the smearing to svfit even if it is not affected by it
+# # How to define a systematics that contains two variations? (jet + MET smearing)
+
+# zz_JER_up:
+#     name: HHKinFitRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         met_smear_tag: smeared
+#         jet_syst: smeared_up
+#         met_syst: up
+
+# zz_JER_down:
+#     name: HHKinFitRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         met_smear_tag: smeared
+#         jet_syst: smeared_down
+#         met_syst: down
+
+# zzvar_JER_up:
+#     name: HHVarRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         met_smear_tag: smeared
+#         jet_syst: smeared_up
+#         met_syst: up
+
+# zzvar_JER_down:
+#     name: HHVarRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         met_smear_tag: smeared
+#         jet_syst: smeared_down
+#         met_syst: down
+
+# zzdnninputs_JER_up:
+#     name: HHDNNInputRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         jet_syst: smeared_up
+#         met_syst: up
+
+# zzdnninputs_JER_down:
+#     name: HHDNNInputRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         jet_syst: smeared_down
+#         met_syst: down
+
+# ######################################################################
+# # Jet Energy Scale (JES) : HHKinFitRDF + HHVarRDF + ZZDNNRDF
+# ######################################################################
+
+# zz_Total_up:
+#     name: HHKinFitRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         met_smear_tag: smeared
+#         jet_syst: Total_up
+#         met_syst: Total_up
+# zz_Total_down:
+#     name: HHKinFitRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         met_smear_tag: smeared
+#         jet_syst: Total_down
+#         met_syst: Total_down
+
+# zzvar_Total_up:
+#     name: HHVarRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         met_smear_tag: smeared
+#         jet_syst: Total_up
+#         met_syst: Total_up
+# zzvar_Total_down:
+#     name: HHVarRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         met_smear_tag: smeared
+#         jet_syst: Total_down
+#         met_syst: Total_down
+
+# zzdnninputs_Total_up:
+#     name: HHDNNInputRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         jet_syst: Total_up
+#         met_syst: Total_up
+# zzdnninputs_Total_down:
+#     name: HHDNNInputRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         jet_syst: Total_down
+#         met_syst: Total_down
+

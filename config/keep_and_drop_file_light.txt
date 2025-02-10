@@ -1,0 +1,15 @@
+# in data, the trigger branches are not always the saem across runs and thus across different files, which causes issues when using TChain and RDataFrame. So drop the problematic trigger branches
+drop HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1
+drop HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1
+drop HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1
+drop HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1
+drop HLT_Ele32_WPTight_Gsf
+drop HLT_Double.*ChargedIsoPFTau.*
+drop HLT_MediumChargedIsoPFTau50_Trk30_eta2p1_1pr_MET110
+
+drop Jet_.*
+drop FatJet_.*
+drop Tau_.*
+
+drop jet_pt_resolution
+drop jet_smear_factor(_up|_down|)
