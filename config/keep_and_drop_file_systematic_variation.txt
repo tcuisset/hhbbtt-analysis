@@ -225,6 +225,7 @@ keep Tau_mass{systs}
 # keep Tau_pt_corr_down
 keep Tau_idDeepTau2017v2p1VS.*
 keep Tau_charge
+drop Tau_ptCorrPNet
 
 drop boostedTau.*
 keep boostedTau_pt.*
@@ -287,4 +288,5 @@ drop idAndIsoAndFakeSF_.*
 # except for btag as that is needed for JEC....
 #keep bTagweightReshape{systs}
 
-
+# jet_pt_resolution is needed for KinFit
+keep jet_pt_resolution

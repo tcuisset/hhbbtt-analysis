@@ -4,3 +4,6 @@ drop HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1
 drop HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1
 drop HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1
 drop HLT_Double.*ChargedIsoPFTau.*
+
+drop HLT_Ele32_WPTight_Gsf
+drop HLT_MediumChargedIsoPFTau50_.*
