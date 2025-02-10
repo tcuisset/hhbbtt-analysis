@@ -1211,32 +1211,32 @@ class BaseConfig(cmt_config):
         systematics = [
             # Tau energy scale
             # should decorrelate between real taus and electrons faking tau
-            Systematic("tes", "_corr", label=f"CMS_scale_t_{self.year}", module_syst_type=["tau_syst", "met_syst"], affected_categories=cats_lepton_systs),
+            Systematic("tes", "_corr", label="TES", datacard_label=f"CMS_scale_t_{self.year_period}", module_syst_type=["tau_syst", "met_syst"], affected_categories=cats_lepton_systs),
 
             # JER (jet energy resolution, smearing of jet energy applied on MC only). NOT PROPAGATED TO MET (not recommended by default by JME, but could be tried)
-            Systematic("jer", "_smeared", label="JES", llr_name="CMS_res_j_2018", decorrelate="year", module_syst_type=["jet_syst"], affected_categories=cats_jet_systs), # systematic variation of smearing
+            Systematic("jer", "_smeared", label="JES", datacard_label=f"CMS_res_j_{self.year_period}", module_syst_type=["jet_syst"], affected_categories=cats_jet_systs), # systematic variation of smearing
             ## JEC (jet energy corrections). Propagated to MET as . Includes JER nominal
             # Split 11-ways
-            Systematic("jec_1", "_smeared_FlavorQCD", label="FlavorQCD", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_2", "_smeared_RelativeBal", label="RelativeBal", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_3", "_smeared_HF", label="HF", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_4", "_smeared_BBEC1", label="BBEC1", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_5", "_smeared_EC2", label="EC2", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_6", "_smeared_Absolute", label="Absolute", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_7", f"_smeared_BBEC1_{self.year}", label=f"BBEC1_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_8", f"_smeared_EC2_{self.year}", label=f"EC2_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_9", f"_smeared_Absolute_{self.year}", label=f"Absolute_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_10", f"_smeared_HF_{self.year}", label=f"HF_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
-            Systematic("jec_11", f"_smeared_RelativeSample_{self.year}", label=f"RelativeSample_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_1", "_smeared_FlavorQCD", label="FlavorQCD", datacard_label="CMS_scale_j_FlavorQCD", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_2", "_smeared_RelativeBal", label="RelativeBal", datacard_label="CMS_scale_j_RelativeBal", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_3", "_smeared_HF", label="HF", datacard_label="CMS_scale_j_HF", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_4", "_smeared_BBEC1", label="BBEC1", datacard_label="CMS_scale_j_BBEC1", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_5", "_smeared_EC2", label="EC2", datacard_label="CMS_scale_j_EC2", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_6", "_smeared_Absolute", label="Absolute", datacard_label="CMS_scale_j_Absolute", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_7", f"_smeared_BBEC1_{self.year}", datacard_label=f"CMS_scale_j_BBEC1_{self.year_period}", label=f"BBEC1_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_8", f"_smeared_EC2_{self.year}", datacard_label=f"CMS_scale_j_EC2_{self.year_period}", label=f"EC2_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_9", f"_smeared_Absolute_{self.year}", datacard_label=f"CMS_scale_j_Absolute_{self.year_period}", label=f"Absolute_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_10", f"_smeared_HF_{self.year}", datacard_label=f"CMS_scale_j_HF_{self.year_period}", label=f"HF_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
+            Systematic("jec_11", f"_smeared_RelativeSample_{self.year}", datacard_label=f"CMS_scale_j_RelativeSample_{self.year_period}", label=f"RelativeSample_{self.year}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
             # unsplit (to be used instead of the 11-ways)
-            Systematic("jec", "_Total", module_syst_type=["jet_syst", "met_syst"], decorrelate="year", affected_categories=cats_jet_systs), 
+            Systematic("jec", "_Total", datacard_label=f"CMS_scale_j_{self.year_period}", module_syst_type=["jet_syst", "met_syst"], affected_categories=cats_jet_systs), 
 
             # MET central values
             Systematic("met_smearing", ("MET", "MET_smeared")),
             Systematic("met_smearing_xycorr", ("MET", "MET_smeared_xycorr")),
             Systematic("met_tes_electron_xycorr", ("MET", "MET_tes_electron_xycorr")),
             # MET uncertainties
-            Systematic("met_unclustered", "_unclustered", label="Unclustered energy", module_syst_type=["met_syst"], affected_categories=cats_jet_systs),
+            Systematic("met_unclustered", "_unclustered", datacard_label=f"CMS_scale_met_unclustered_energy_{self.year_period}", label="Unclustered energy", module_syst_type=["met_syst"], affected_categories=cats_jet_systs),
 
             # used only to plot MET corrected variables with systematics. NOT TO BE RUN AS AN ACTUAL SYSTEMATIC IN PREPROCESS
             # I think it is intended for plotting MET with a smear tag, so that it replaces "MET" with "MET_smeared...." only for MC
@@ -1259,67 +1259,67 @@ class BaseConfig(cmt_config):
 
             # Electrons (see https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys for correlation instructions)
             # note : no leading underscore in up/down, due to framework bug (basically if central="" then no underscore in up/down)
-            Systematic("ele_scale", "_scale", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs, decorrelate="year"),
-            Systematic("ele_resolution", "_smear", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs),
+            Systematic("ele_scale", "_scale", datacard_label=f"CMS_scale_e_{self.year_period}", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs),
+            Systematic("ele_resolution", "_smear", datacard_label=f"CMS_res_e", module_syst_type=["electron_syst", "met_syst"], affected_categories=cats_lepton_systs),
 
             Systematic("prefiring_central", "_Nom"),
-            Systematic("prefiring", "", up="_Up", down="_Dn", decorrelate="year"),
+            Systematic("prefiring", "", up="_Up", down="_Dn", datacard_label=f"CMS_l1_ecal_prefiring_{self.year_period}"),
 
             # event weights systematics, from idAndIsoAndFakeSF
             # DeepTauVSJet pt binned
-            Systematic("deepTau_stat_highpT_bin1", "_tau_vsjet_pt_stat_highpT_bin1", label=f"CMS_eff_t_high_pt_bin1_{self.year}"),
-            Systematic("deepTau_stat_highpT_bin2", "_tau_vsjet_pt_stat_highpT_bin1", label=f"CMS_eff_t_high_pt_bin2_{self.year}"),
-            Systematic("deepTau_syst_highpT", "_tau_vsjet_pt_syst_highpT", label=f"CMS_eff_t_high_pt"),
-            Systematic("deepTau_syst_highpT_extrap", "_tau_vsjet_pt_syst_highpT_extrap", label=f"CMS_eff_t_high_pt_extrap"),
+            Systematic("deepTau_stat_highpT_bin1", "_tau_vsjet_pt_stat_highpT_bin1", datacard_label=f"CMS_eff_t_high_pt_bin1_{self.year}"),
+            Systematic("deepTau_stat_highpT_bin2", "_tau_vsjet_pt_stat_highpT_bin1", datacard_label=f"CMS_eff_t_high_pt_bin2_{self.year}"),
+            Systematic("deepTau_syst_highpT", "_tau_vsjet_pt_syst_highpT", datacard_label=f"CMS_eff_t_high_pt"),
+            Systematic("deepTau_syst_highpT_extrap", "_tau_vsjet_pt_syst_highpT_extrap", datacard_label=f"CMS_eff_t_high_pt_extrap"),
             # DeepTauVSJet dm-binned
-            Systematic("deepTau_stat1_dm0", "_tau_vsjet_dm_stat1_dm0", label=f"CMS_eff_t_stat1_DM0_{self.year}"),
-            Systematic("deepTau_stat2_dm0", "_tau_vsjet_dm_stat2_dm0", label=f"CMS_eff_t_stat2_DM0_{self.year}"),
-            Systematic("deepTau_stat1_dm1", "_tau_vsjet_dm_stat1_dm1", label=f"CMS_eff_t_stat1_DM1_{self.year}"),
-            Systematic("deepTau_stat2_dm1", "_tau_vsjet_dm_stat2_dm1", label=f"CMS_eff_t_stat2_DM1_{self.year}"),
-            Systematic("deepTau_stat1_dm10", "_tau_vsjet_dm_stat1_dm10", label=f"CMS_eff_t_stat1_DM10_{self.year}"),
-            Systematic("deepTau_stat2_dm10", "_tau_vsjet_dm_stat2_dm10", label=f"CMS_eff_t_stat2_DM10_{self.year}"),
-            Systematic("deepTau_stat1_dm11", "_tau_vsjet_dm_stat1_dm11", label=f"CMS_eff_t_stat1_DM11_{self.year}"),
-            Systematic("deepTau_stat2_dm11", "_tau_vsjet_dm_stat2_dm11", label=f"CMS_eff_t_stat2_DM11_{self.year}"),
-            Systematic("deepTau_syst_alleras", "_tau_vsjet_dm_syst_alleras", label=f"CMS_eff_t_syst"),
-            Systematic(f"deepTau_syst_era", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}", label=f"CMS_eff_t_{self.year}{self.runPeriod}"),
-            Systematic("deepTau_syst_dm0", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm0", label=f"CMS_eff_t_syst_DM0_{self.year}"),
-            Systematic("deepTau_syst_dm1", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm1", label=f"CMS_eff_t_syst_DM1_{self.year}"),
-            Systematic("deepTau_syst_dm10", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm10", label=f"CMS_eff_t_syst_DM10_{self.year}"),
-            Systematic("deepTau_syst_dm11", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm11", label=f"CMS_eff_t_syst_DM11_{self.year}"),
+            Systematic("deepTau_stat1_dm0", "_tau_vsjet_dm_stat1_dm0", datacard_label=f"CMS_eff_t_stat1_DM0_{self.year}"),
+            Systematic("deepTau_stat2_dm0", "_tau_vsjet_dm_stat2_dm0", datacard_label=f"CMS_eff_t_stat2_DM0_{self.year}"),
+            Systematic("deepTau_stat1_dm1", "_tau_vsjet_dm_stat1_dm1", datacard_label=f"CMS_eff_t_stat1_DM1_{self.year}"),
+            Systematic("deepTau_stat2_dm1", "_tau_vsjet_dm_stat2_dm1", datacard_label=f"CMS_eff_t_stat2_DM1_{self.year}"),
+            Systematic("deepTau_stat1_dm10", "_tau_vsjet_dm_stat1_dm10", datacard_label=f"CMS_eff_t_stat1_DM10_{self.year}"),
+            Systematic("deepTau_stat2_dm10", "_tau_vsjet_dm_stat2_dm10", datacard_label=f"CMS_eff_t_stat2_DM10_{self.year}"),
+            Systematic("deepTau_stat1_dm11", "_tau_vsjet_dm_stat1_dm11", datacard_label=f"CMS_eff_t_stat1_DM11_{self.year}"),
+            Systematic("deepTau_stat2_dm11", "_tau_vsjet_dm_stat2_dm11", datacard_label=f"CMS_eff_t_stat2_DM11_{self.year}"),
+            Systematic("deepTau_syst_alleras", "_tau_vsjet_dm_syst_alleras", datacard_label=f"CMS_eff_t_syst"),
+            Systematic(f"deepTau_syst_era", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}", datacard_label=f"CMS_eff_t_{self.year}"),
+            Systematic("deepTau_syst_dm0", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm0", datacard_label=f"CMS_eff_t_syst_DM0_{self.year}"),
+            Systematic("deepTau_syst_dm1", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm1", datacard_label=f"CMS_eff_t_syst_DM1_{self.year}"),
+            Systematic("deepTau_syst_dm10", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm10", datacard_label=f"CMS_eff_t_syst_DM10_{self.year}"),
+            Systematic("deepTau_syst_dm11", f"_tau_vsjet_dm_syst_{self.year}{('_'+ self.runPeriod if self.runPeriod else '')}_dm11", datacard_label=f"CMS_eff_t_syst_DM11_{self.year}"),
 
             #Systematic("jetTauFakes", "", up="_tau_vsjet_up", down="_tau_vsjet_down", decorrelate="year"),
-            Systematic("etauFR", "_tau_vse", label=f"CMS_scale_t_eFake_{self.year}", decorrelate="year"), # should be split by eta bin
-            Systematic("mutauFR", "_tau_vsmu", label=f"CMS_scale_t_muFake_{self.year}", decorrelate="year"), # should be split by eta region
+            Systematic("etauFR", "_tau_vse", datacard_label=f"CMS_scale_t_eFake_{self.year}", label=f"CMS_scale_t_eFake_{self.year}", decorrelate="year"), # should be split by eta bin
+            Systematic("mutauFR", "_tau_vsmu", datacard_label=f"CMS_scale_t_muFake_{self.year}", label=f"CMS_scale_t_muFake_{self.year}"), # should be split by eta region
 
-            Systematic("eleReco", "", up="_ele_reco_up", down="_ele_reco_down"), # eleReco & eleIso correlated : https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations
-            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down"), # actually electron MVA ID SFs, correlated https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys
+            Systematic("eleReco", "", up="_ele_reco_up", down="_ele_reco_down", datacard_label="CMS_eff_e_reco"), # eleReco & eleIso correlated : https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations
+            Systematic("eleIso", "", up="_ele_iso_up", down="_ele_iso_down", datacard_label="CMS_eff_e_id"), # actually electron MVA ID SFs, correlated https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Recommendations_on_Combining_Sys
             # https://twiki.cern.ch/twiki/bin/view/CMS/MuonUL2018
-            Systematic("muIso", "", up="_muon_iso_up", down="_muon_iso_down"),
-            Systematic("muId", "", up="_muon_id_up", down="_muon_id_down"),
+            Systematic("muIso", "", up="_muon_iso_up", down="_muon_iso_down", datacard_label="CMS_eff_m_iso"),
+            Systematic("muId", "", up="_muon_id_up", down="_muon_id_down", datacard_label="CMS_eff_m_id"),
 
-            Systematic("trigSFele", "", up="_eleUp", down="_eleDown", decorrelate="year"),
-            Systematic("trigSFmu", "", up="_muUp", down="_muDown", decorrelate="year"),
-            Systematic("trigSFDM0", "", up="_DM0Up", down="_DM0Down", decorrelate="year"),
-            Systematic("trigSFDM1", "", up="_DM1Up", down="_DM1Down", decorrelate="year"),
-            Systematic("trigSFDM10", "", up="_DM10Up", down="_DM10Down", decorrelate="year"),
-            Systematic("trigSFDM11", "", up="_DM11Up", down="_DM11Down", decorrelate="year"),
-            Systematic("trigSFmet", "", up="_met_statup", down="_met_statdown", decorrelate="year"),
+            Systematic("trigSFele", "", up="_eleUp", down="_eleDown", datacard_label=f"CMS_ZZbbtt_trig_eff_ele_{self.year}"),
+            Systematic("trigSFmu", "", up="_muUp", down="_muDown", datacard_label=f"CMS_ZZbbtt_trig_eff_mu_{self.year}"),
+            Systematic("trigSFDM0", "", up="_DM0Up", down="_DM0Down", datacard_label=f"CMS_ZZbbtt_trig_eff_tau_DM0_{self.year}"),
+            Systematic("trigSFDM1", "", up="_DM1Up", down="_DM1Down", datacard_label=f"CMS_ZZbbtt_trig_eff_tau_DM1_{self.year}"),
+            Systematic("trigSFDM10", "", up="_DM10Up", down="_DM10Down", datacard_label=f"CMS_ZZbbtt_trig_eff_tau_DM10_{self.year}"),
+            Systematic("trigSFDM11", "", up="_DM11Up", down="_DM11Down", datacard_label=f"CMS_ZZbbtt_trig_eff_tau_DM11_{self.year}"),
+            Systematic("trigSFmet", "", up="_met_statup", down="_met_statdown", datacard_label=f"CMS_ZZbbtt_trig_eff_met_{self.year}"),
 
-            Systematic("PUjetID", "", up="_up", down="_down", decorrelate="year"),
-            Systematic("pu", "", up="Up", down="Down", decorrelate="year"),
+            Systematic("PUjetID", "", up="_up", down="_down", datacard_label=f"CMS_eff_j_PUJET_id_{self.year}"),
+            Systematic("pu", "", up="Up", down="Down", datacard_label=f"CMS_pileup_{self.year}"),
             Systematic("empty", "", up="", down=""),
 
             # btag shape uncertainties (there is also the JEC variations to use as well)
-            Systematic("CMS_btag_cferr1", "_smeared_cferr1"),
-            Systematic("CMS_btag_cferr2", "_smeared_cferr2"),
-            Systematic("CMS_btag_hf", "_smeared_hf"),
-            Systematic("CMS_btag_hfstats1", "_smeared_hfstats1", decorrelate="year"),
-            Systematic("CMS_btag_hfstats2", "_smeared_hfstats2", decorrelate="year"),
-            Systematic("CMS_btag_lf", "_smeared_lf"),
-            Systematic("CMS_btag_lfstats1", "_smeared_lfstats1", decorrelate="year"),
-            Systematic("CMS_btag_lfstats2", "_smeared_lfstats2", decorrelate="year"),
+            Systematic("CMS_btag_cferr1", "_smeared_cferr1", datacard_label=f"CMS_btag_cferr1"),
+            Systematic("CMS_btag_cferr2", "_smeared_cferr2", datacard_label=f"CMS_btag_cferr2"),
+            Systematic("CMS_btag_hf", "_smeared_hf", datacard_label=f"CMS_btag_hf"),
+            Systematic("CMS_btag_hfstats1", "_smeared_hfstats1", datacard_label=f"CMS_btag_hfstats1_{self.year}"),
+            Systematic("CMS_btag_hfstats2", "_smeared_hfstats2", datacard_label=f"CMS_btag_hfstats2_{self.year}"),
+            Systematic("CMS_btag_lf", "_smeared_lf", datacard_label=f"CMS_btag_lf"),
+            Systematic("CMS_btag_lfstats1", "_smeared_lfstats1", datacard_label=f"CMS_btag_lfstats1_{self.year}"),
+            Systematic("CMS_btag_lfstats2", "_smeared_lfstats2", datacard_label=f"CMS_btag_lfstats2_{self.year}"),
 
-            Systematic("fatjet_pnet", "", decorrelate="year"), # FatJet ParticleNet XbbVsQCD scale factors 
+            Systematic("fatjet_pnet", "", datacard_label=f"CMS_ZZbbtt_fatjet_bb_tagging_eff_{self.year}"), # FatJet ParticleNet XbbVsQCD scale factors 
 
             # Systematic("jes"), # 
         ]
