@@ -2,6 +2,7 @@
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from plotting_tools import Label
 import itertools
+import numpy as np
 
 from config.base_config import get_common_processes, BaseConfig
 
@@ -91,7 +92,15 @@ def get_ZH_common_features(self):
         *[Feature(f"dnn_ZHbbtt_kl_1_{mass}", f"dnn_ZHbbtt_kl_1_{mass}", binning=(10, 0, 1),
                 x_title=Label(f"DNN ZH resonant {mass}"), tags=["dnn", "blind"],
                 systematics=self.all_systs)
-        for mass in resonant_masses_ZH]
+        for mass in resonant_masses_ZH],
+
+        *[Feature(f"dnn_ZHbbtt_{nbins}bv_M{mass}", f"dnn_ZHbbtt_kl_1_{mass}", # variable binning version for auto-rebin algorithm
+                # [0, 0.5, 0.8, 0.9, 0.97, 1]
+                # [  50  50   100  150  150 ]
+                binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(1./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(2/10*nbins), endpoint=False), np.linspace(0.9, 0.97, int(3/10*nbins), endpoint=False), np.linspace(0.97, 1., int(3/10*nbins), endpoint=True)]),
+                x_title=Label(f"PNN ZH {mass} GeV" if mass < 1000 else f"PNN ZH {mass/1000:g} TeV"),  tags=["dnn", "dnn_res", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in reduced_resonant_masses_ZH else []),
+                systematics=self.all_systs, no_save_bin_yields=True)
+            for mass in resonant_masses_ZH for nbins in [500]],
     ])
 
 def get_ZH_common_processes():
@@ -194,6 +203,56 @@ def get_ZH_common_processes():
             "ggf_sm",
             "data",
         ],
+        "datacard_res_reduced": [
+            *[f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in resonant_masses_ZH],
+            *[f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in resonant_masses_ZH],
+            # "zh_zbb_htt", # ZbbHtt as background for resonant analysis -> included in zh
+            # "zh_ztt_hbb", # background for resonant analysis -> included in zh
+            #"zh_zbb_htt_background", # -> goes in zh -> higgs
+            # "zz_bbtt", -> goes into zz -> vv
+            "tt",
+            "dy",
+            "wjets",
+            "vv_v", #includes vv (& zz) & vvv
+            "ttx",
+            "higgs", # include wh, vbf_htt, ggH_ZZ, ttH, zh, ggf_sm
+            "others", #inlucde ewk, tw, singlet
+            "data",
+        ],
+        "full": [
+            'ewk_wminus',
+            'ewk_wplus',
+            'ewk_z',
+            'ggH_ZZ',
+            'ggf_sm',
+            'singlet',
+            'tt_dl',
+            'tt_fh',
+            'tt_sl',
+            'tth_bb',
+            'tth_tautau',
+            'ttw',
+            'ttwh',
+            'ttww',
+            'ttwz',
+            'ttz',
+            'ttzh',
+            'ttzz',
+            'tw',
+            'wh_htt',
+            "dy",
+            "wjets",
+            'ww',
+            'www',
+            'wwz',
+            'wz',
+            'wzz',
+            'zh_hbb',
+            'zh_htt',
+            'zz',
+            'zzz',
+            'data'
+        ]
     }
 
     process_training_names = {}
