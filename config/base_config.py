@@ -104,7 +104,7 @@ def get_common_processes():
         Process("www", Label("WWW"), color=(20, 60, 255), parent_process="vvv"),
         Process("wwz", Label("WWZ"), color=(20, 60, 255), parent_process="vvv"), 
         Process("vvv", Label("VVV"), color=(20, 60, 255), parent_process="vv_v", llr_name="VVV"),
-        Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="all_background", fatjet_bb_type="DYlike"), # will apply DY PNet SFs except where there is a Z->bb at gen level
+        Process("vv_v", Label("VV(V)"), color=(20, 60, 255), parent_process="all_background", fatjet_bb_type="DYlike", llr_name="VV_V"), # will apply DY PNet SFs except where there is a Z->bb at gen level
 
         # TTX
         Process("ttw", Label("TTW"), color=(4, 240, 106), parent_process="ttx"),
@@ -134,7 +134,7 @@ def get_common_processes():
         Process("higgs", Label("Higgs"), color=(130, 39, 197), parent_process="all_background", llr_name="Higgs"),
 
         Process("others", Label("Others"), color=(255, 230, 0),
-            parent_process="all_background"),
+            parent_process="all_background", llr_name="Others"),
 
         # Data
         Process("data", Label("Data"), color=(0, 0, 0), isData=True),
@@ -256,6 +256,7 @@ class BaseConfig(cmt_config):
         self.regions = self.add_regions()
         self.categories = self.add_categories()
         self.cross_section_dict = cross_section_dict
+        self.year_period = str(kwargs["year"]) + kwargs.get("runPeriod", "")
         super().__init__(*args, **kwargs)
         # propagating fatjet_bb_type to every process. If a process does not have it, take it from a parent process
         for process in self.processes:
