@@ -27,8 +27,9 @@ def get_datasets_ZH_2016(self):
             process=self.processes.get("zh_zbb_htt_signal"),
             xs=self.cross_section_dict["zh_htt"],
             categorization_merging={'': 1},
+            preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
-            tags=["ul", "nanoV10", "bul", "nonres_only", "limited", "genfilter", "zh"]),
+            tags=["ul", "nanoV10", "bul", "nonResOnly", "limited", "genfilter", "zh"]),
         
         
         #### ZH_Hbb_Zll
@@ -36,10 +37,10 @@ def get_datasets_ZH_2016(self):
             folder=p + "ZH_Hbb_Zll",
             process=self.processes.get("zh_ztt_hbb_signal"),
             xs=self.cross_section_dict["zh_hbb_zll"],
-            secondary_dataset="zh_ztt_hbb_signal_aux",
             categorization_merging={'': 1},
+            preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
-            tags=["ul", "nanoV10", "bul", "nonres_only", "limited", "genfilter", "zh"]),
+            tags=["ul", "nanoV10", "bul", "nonResOnly", "limited", "genfilter", "zh"]),
 
 
         ###################################### ZH Background ##########################################
@@ -49,7 +50,6 @@ def get_datasets_ZH_2016(self):
             folder=p + "ZHToTauTau_M125",
             process=self.processes.get("zh_zbb_htt_background"),
             xs=self.cross_section_dict["zh_htt"],
-            secondary_dataset="zh_zbb_htt_background_aux",
             categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "limited", "genfilter", "zh"]),
@@ -61,8 +61,8 @@ def get_datasets_ZH_2016(self):
             folder=p + "ZHToTauTau_M125",
             process=self.processes.get("zh_zbb_htt"),
             xs=self.cross_section_dict["zh_htt"],
-            secondary_dataset="zh_zbb_htt_aux",
             categorization_merging={'': 1},
+            preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "res", "limited", "genfilter", "zh"]),
 
@@ -72,7 +72,6 @@ def get_datasets_ZH_2016(self):
             folder=p + "ZH_Hbb_Zll",
             process=self.processes.get("zh_ztt_hbb_background"),
             xs=self.cross_section_dict["zh_hbb_zll"],
-            secondary_dataset="zh_ztt_hbb_background_aux",
             categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "limited", "genfilter", "zh"]),
@@ -94,8 +93,8 @@ def get_datasets_ZH_2016(self):
             folder=p + "ZH_Hbb_Zll",
             process=self.processes.get("zh_ztt_hbb_signal"),
             xs=self.cross_section_dict["zh_hbb_zll"],
-            secondary_dataset="zh_ztt_hbb_aux",
             categorization_merging={'': 1},
+            preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "res", "limited", "genfilter", "zh"]),
 
@@ -108,8 +107,8 @@ def get_datasets_ZH_2016(self):
             folder=p + "ZZTo2Q2L",
             process=self.processes.get("zz_sl"),
             xs=self.cross_section_dict["zz_sl"],
-            secondary_dataset="zz_sl_aux",
             categorization_merging={'boosted_bb': 1, 'resolved_1b_HPSTau': 2, 'resolved_2b_HPSTau': 1},
+            preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "zh"]),
 
@@ -123,12 +122,13 @@ def get_datasets_ZH_2016(self):
             folder=p + f"ZprimeToZH_ZToBB_HToTauTau_M{mass}",
             process=self.processes.get(f"Zprime_Zh_Zbbhtautau_M{mass}"),
             prefix="eos.grif.fr//",
-            xs=1,
+            xs=self.cross_section_dict["ZprimeToZH_ZToBB_HToTauTau"],
             categorization_merging={"boosted_bb_boostedTau": 4 if mass >= 1300 else 2 if mass > 900 else 1, '': 1},
             merging={
-                "boosted_bb_boostedTau" : 4 if mass >= 1300 else 2 if mass > 900 else 1
+                "boosted_bb_boostedTau" : 3 if mass in (2000,) else 4 if mass >= 1300 else 2 if mass > 900 else 1
             },
-            tags=["ul", "nanoV10", "bul", "bul", "res", "zh"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
+            preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}} if (mass >= 500 and mass <= 900) else {"boosted_bb_boostedTau":{"request_cpus":8}} if mass >=1300 else {},
+            tags=["ul", "nanoV10", "bul", "res", "zh", "resSignal"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
         
         for mass in resonant_masses_ZH
         ),
@@ -137,12 +137,13 @@ def get_datasets_ZH_2016(self):
             folder=p + f"ZprimeToZH_ZToTauTau_HToBB_M{mass}",
             process=self.processes.get(f"Zprime_Zh_Ztautauhbb_M{mass}"),
             prefix="eos.grif.fr//",
-            xs=1,
-            categorization_merging={"boosted_bb_boostedTau": 4 if mass >= 1300 else 2 if mass > 900 else 1, '': 1},
+            xs=self.cross_section_dict["ZprimeToZH_ZToTauTau_HToBB"],
+            categorization_merging={"boosted_bb_boostedTau":  4 if mass >= 1300 else 2 if mass > 900 else 1, '': 1},
             merging={
-                "boosted_bb_boostedTau" : 4 if mass >= 1300 else 2 if mass > 900 else 1
+                "boosted_bb_boostedTau" : 3 if mass in (1400, 1600, 1800) else 4 if mass >= 1300 else 2 if mass > 900 else 1
             },
-            tags=["ul", "nanoV10", "bul", "bul", "res", "zh"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
+            preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}} if (mass >= 500 and mass <= 900) else {"boosted_bb_boostedTau":{"request_cpus":8}} if mass >=1300 else {},
+            tags=["ul", "nanoV10", "bul", "res", "zh", "resSignal"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
         
         for mass in resonant_masses_ZH
         ),
