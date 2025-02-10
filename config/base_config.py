@@ -1172,6 +1172,7 @@ class BaseConfig(cmt_config):
         return ObjectCollection(features)
     
     def add_weights(self):
+        from copy import copy
         weights = DotDict()
         weights.default = "1"
 
@@ -1182,13 +1183,45 @@ class BaseConfig(cmt_config):
 
         weights.all = ["genWeightFixed", "puWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
-            "bTagweightReshape", "fatjet_pnet_SF",
-            "DYstitchWeight", "hem_weight"
+            "DYstitchWeight"
             ]
+        if self.year == 2018:
+            weights.all.append("hem_weight") # hem issue is only for 2018
+        elif self.year >= 2016 and self.year <= 2017: pass
+        else: raise ValueError()
         for category in self.categories:
-            weights[category.name] = weights.all
+            weights[category.name] = copy(weights.all) # very important to copy otherwise all updates are common to categories !
+            if not "resolved_" in category.name:
+                weights[category.name].append("fatjet_pnet_SF")
+            if not "boosted_bb_boostedTau" in category.name: # we only consider boosted_bb for boostedTau thus no need for AK4 btag SFs
+                weights[category.name].append("bTagweightReshape")
         
         return weights
+
+    def get_weights_systematics(self, list_of_weights, isMC=False, category=None): # override base implementation to skip useless systematics
+        systematics = []
+        config_systematics = self.systematics.names()
+        if isMC:
+            for weight in list_of_weights:
+                try:
+                    feature = self.features.get(weight)
+                except ValueError:
+                    continue
+
+                for syst in feature.systematics:
+                    if syst not in systematics:
+                        assert syst in config_systematics
+                        if category:
+                            if "boostedTau" in category.name:
+                                if syst.startswith("deepTau_"): continue
+                                if syst in ["etauFR", "mutauFR", "trigSFele", "trigSFmu"] or syst.startswith("trigSFDM"): continue
+                                if syst.startswith("CMS_btag_"): continue
+                            if not "boosted_bb" in category.name:
+                                if syst == "fatjet_pnet": continue
+
+                        systematics.append(syst)
+                
+        return systematics
 
     def add_systematics(self):
         # See https://gitlab.cern.ch/cms-analysis/general/systematics for naming conventions
