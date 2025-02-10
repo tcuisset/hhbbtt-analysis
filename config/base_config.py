@@ -383,6 +383,7 @@ class BaseConfig(cmt_config):
         """
         reqs = DotDict()
         btag = "Jet_btagDeepFlavB.at(bjet{}_JetIdx)"
+        #btag = "bjet{}_btagDeepFlavB"
         df = lambda i, op, wp: "{} {} {}".format(btag.format(i), op, self.btag_algo_wps[wp])
         reqs.req_1b = jrs(jrs(df(1, ">", "medium"), df(2, "<", "medium"), op="and"),
                 jrs(df(1, "<", "medium"), df(2, ">", "medium"), op="and"), op="or")  # exactly one b jet passes medium (for res1b)
@@ -393,6 +394,7 @@ class BaseConfig(cmt_config):
         # TODO see if there is SFs applying here and if we need to use {{ ... }} syntax to have migrating events
         self.boosted_bb_tagging_wp = self.particleNetMD_legacy.low
         reqs.boosted_pnet = f"(FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)/(FatJet_particleNetLegacy_Xbb.at(fatjet_JetIdx)+FatJet_particleNetLegacy_QCD.at(fatjet_JetIdx)) >= {self.boosted_bb_tagging_wp})"
+        #reqs.boosted_pnet = f"(fatjet_particleNetLegacy_Xbb/(fatjet_particleNetLegacy_Xbb+fatjet_particleNetLegacy_QCD) >= {self.boosted_bb_tagging_wp})"
         return reqs
     
     def get_categories_requirements(self):
