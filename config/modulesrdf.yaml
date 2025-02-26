@@ -513,5 +513,6 @@ svfit_ZZ:
         isMC: self.dataset.process.isMC
         AnalysisType: self.config.get_aux('AnalysisType', False)
         met_smear_tag: "tes_electron_xycorr"
+        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         algo: FastMTT
         
