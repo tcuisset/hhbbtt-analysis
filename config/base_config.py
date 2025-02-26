@@ -633,10 +633,10 @@ class BaseConfig(cmt_config):
                 x_title=Label("nJet"), tags=["jet"]),
             
             # For jet veto maps. jets_hem_preselection is a RVec<bool> computed in hemIssueRDF
-            Feature("jet_eta_hem", "Jet_eta[jets_hem_preselection]", binning=(50, -5., 5.),
+            Feature("jet_eta_hem", "Jet_eta[jets_hem_preselection && ROOT::VecOps::abs(Jet_eta)<2.5 && Jet_pt>20]", binning=(50, -3., 3.),
                 x_title=Label("jet #eta (all jets with ID)"),
                 tags=["jet", "baseObjects"]),
-            Feature("jet_phi_hem", "Jet_phi[jets_hem_preselection]", binning=phi_binning_50,
+            Feature("jet_phi_hem", "Jet_phi[jets_hem_preselection && ROOT::VecOps::abs(Jet_eta)<2.5 && Jet_pt>20]", binning=phi_binning_50,
                 x_title=Label("jet #phi (all jets with ID)"),
                 tags=["jet", "baseObjects"]),
             
