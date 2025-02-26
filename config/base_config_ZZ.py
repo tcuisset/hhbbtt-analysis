@@ -4,6 +4,7 @@ from analysis_tools.utils import DotDict, join_root_selection as jrs
 from plotting_tools import Label
 import itertools
 import numpy as np
+import sys
 
 from config.base_config import get_common_processes, BaseConfig
 
@@ -293,18 +294,19 @@ class Config(BaseConfig):
                 x_title=Label("ZZ #chi^{2} (Kin. Fit)"), tags=["cat"],
                 systematics=self.all_systs),
             
-            *[Feature(f"dnn_ZZbbtt_{nbins}b", "dnn_ZZbbtt_kl_1", binning=(nbins, 0, 1),
-                x_title=Label("DNN ZZ"), tags=["dnn", "blind"], no_save_bin_yields=True,
+            *[Feature(f"dnn_ZZbbtt_{nbins}b", "dnn_ZZbbtt_kl_1", binning=(nbins, 0, 1+sys.float_info.epsilon),
+                x_title=Label("DNN ZZ"), tags=["dnn", "blind", "dnn_nonres"]+(["dnn_limited"] if nbins in [10, 100] else []), no_save_bin_yields=True,
                 systematics=self.all_systs)
             for nbins in [10, 30, 100, 500]],
             
-            *[Feature(f"dnn_ZZbbtt_{nbins}b_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(nbins, 0, 1), tags=["dnn", "dnn_res", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
+            *[Feature(f"dnn_ZZbbtt_{nbins}b_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(nbins, 0, 1+sys.float_info.epsilon), tags=["dnn_extra", "dnn_res", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
                 x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"), no_save_bin_yields=True,
                 systematics=self.all_systs)
             for mass in res_mass_ZZ for nbins in [10, 100]],
 
             *[Feature(f"dnn_ZZbbtt_{nbins}bv_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", # variable binning version for auto-rebin algorithm
-                binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(2./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(3/10*nbins), endpoint=False), np.linspace(0.9, 1., int(4/10*nbins), endpoint=True)]),
+                # in case high DNN score gets rounded to 1 we want to include it, thus the highest bin includes 1. Also add one bin to the last interval as we need nbins+1 edges
+                binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(1./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(2/10*nbins), endpoint=False), np.linspace(0.9, 0.97, int(3/10*nbins), endpoint=False), np.linspace(0.97, 1.+sys.float_info.epsilon, int(3/10*nbins)+1, endpoint=True)]),
                 x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),  tags=["dnn", "dnn_res", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
                 systematics=self.all_systs, no_save_bin_yields=True)
             for mass in res_mass_ZZ for nbins in [500]],
