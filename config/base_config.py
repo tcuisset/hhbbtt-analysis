@@ -1044,7 +1044,7 @@ class BaseConfig(cmt_config):
             # Feature("VBFjj_deltaPhi", "VBFjj_deltaPhi", binning=(40, -6.4, 6.4),
             #     x_title=Label("#Delta#phi(VBFjj)")),
 
-            # Weights
+            ####### Weights
             Feature("genWeight", "genWeight", binning=(50, 0, 2),
                 x_title=Label("genWeight"), tags=["weights"], noData=True),
             Feature("genWeightFixed", "genWeightFixed", binning=(50, 0, 2),
@@ -1077,8 +1077,13 @@ class BaseConfig(cmt_config):
                 central="jer", systematics=self.jme_systs + ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
             Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 2.),
                 x_title=Label("FatJet ParticleNet SF"), tags=["base", "weights"], noData=True,
-                systematics=["fatjet_pnet"]),
-            ############## TODO TODO self.jec_systs+
+                systematics=["fatjet_pnet"]), # self.jec_systs+ not needed to add jec_systs there, it would cause issues with naming of variable
+            Feature("pdfWeight", "pdfWeight", binning=(30, 0.5, 1.5),
+                x_title=Label("PDF weight"), tags=["weights"], noData=True,
+                systematics=["pdf"]),
+            Feature("scaleWeight", "scaleWeight", binning=(30, 0.5, 1.5),
+                x_title=Label("QCD renomrlization scale weight"), tags=["weights"], noData=True,
+                systematics=["qcd_scale"]),
 
             # LHE variables (MC only)
             Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000), noData=True,
@@ -1181,13 +1186,13 @@ class BaseConfig(cmt_config):
         weights.default = "1"
 
         # These weights are used for PreCounter
-        weights.total_events_weights = ["genWeightFixed", "puWeight"] # DYstitchWeight
+        weights.total_events_weights = ["genWeightFixed"] # DYstitchWeight, "puWeight"
 
         weights.base_noWeights = ["genWeight", "DYstitchWeight"]
 
         weights.all = ["genWeightFixed", "puWeight", "trigSF",
             "idAndIsoAndFakeSF", "L1PreFiringWeight", "PUjetID_SF",
-            "DYstitchWeight"
+            "DYstitchWeight", "pdfWeight", "scaleWeight"
             ]
         if self.year == 2018:
             weights.all.append("hem_weight") # hem issue is only for 2018
@@ -1358,7 +1363,8 @@ class BaseConfig(cmt_config):
 
             Systematic("fatjet_pnet", "", datacard_label=f"CMS_ZZbbtt_fatjet_bb_tagging_eff_{self.year}"), # FatJet ParticleNet XbbVsQCD scale factors 
 
-            # Systematic("jes"), # 
+            Systematic("pdf", ""), # pdf uncertainties
+            Systematic("qcd_scale", "", datacard_label="QCDscale")
         ]
         return ObjectCollection(systematics)
 
