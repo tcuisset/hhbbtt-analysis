@@ -87,6 +87,14 @@ tauSF:
             ["nom"] if systematic else 'all'
         vse_wps: [VVLoose]
         vsmu_wps: [VLoose, Tight]
+boostedTauES:
+    name: boostedTauEnergyScaleRDF
+    path: Tools.Tools.dauIdIso
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        runPeriod: self.config.runPeriod
+
 
 # Trigger & lepton selections. Depends on TES (&electron scale ?)
 hhlepton:
