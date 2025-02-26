@@ -169,8 +169,9 @@ def get_common_processes():
         Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
             color=(255, 102, 102), isSignal=False, parent_process="vbf"),
 
-        Process("all_background", Label("Background"), color=(0, 0, 255)),
-
+        Process("all_background", Label("Background"), color=(0, 0, 255), parent_process="all_processes"),
+        Process("all_signals", Label("All signals (not really meaningful to plot)"), color=(0, 0, 255), parent_process="all_processes"),
+        Process("all_processes", Label("All processes (meaningless to plot)"), color=(0, 0, 255)),
     ]
 
     process_group_names = {
