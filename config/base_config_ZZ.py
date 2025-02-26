@@ -323,12 +323,12 @@ class Config(BaseConfig):
 
             # ZZ SL (signal and background)
             # zz_sl_signal : removes everything not decaying to bbtautau, removes ZH contribution (ZH is included with ZHToTauTau dataset)
-            # (includes : Z->bb,Z->tautau / Z->bb,Z/gamma->tautau)
+            # (includes : Z->bb,Z->tautau / Z->bb,Z/gamma->tautau). Normalized using theory
             Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True, isSignal=True, llr_name="ZZbbtt", fatjet_bb_type="HHlike"),
-            # zz_sl_background : ZZ / ZZ/gamma decaying to 2L2Q except bbtautau
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True,  isSignal=True, genfilter_denominator_weights=True, llr_name="ZZbbtt", fatjet_bb_type="HHlike", parent_process="all_signals"),
+            # zz_sl_background : ZZ / ZZ/gamma / ZH decaying to 2L2Q except bbtautau. Normalized using XS from XSDB
             Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", 
-                    isBkgBBTT=True, ProcType="Zbb_Ztautau"),
+                    removeZH=True, isBkgBBTT=True, genfilter_denominator_weights=False, ProcType="Zbb_Ztautau"),
 
             # ZH
             Process("zh_hbb_zqq", Label("zh_hbb_zqq"), color=(130, 39, 197), parent_process="zh_hbb"),
@@ -338,49 +338,14 @@ class Config(BaseConfig):
 
             # ZZ resonant
             *[Process(f"ggXZZbbtt_M{mass}", Label(f"ggX {mass} GeV" if mass < 1000 else f"ggX {mass/1000:g} TeV"), color=next(colors_res), 
-                    isSignal=True, llr_name="ggXZZbbtt", fatjet_bb_type="HHlike")
+                    isSignal=True, llr_name="ggXZZbbtt", fatjet_bb_type="HHlike", parent_process="all_signals")
             for mass in [ 200, 210, 220, 230, 240, 250, 260, 270, 280, 300, 320, 350, 360, 400, 450, 500, 550,
                 600, 650, 700, 750, 800, 850, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700,
                 1800, 1900, 2000, 2200, 2400, 2500, 2600, 2800, 3000, 3500, 4000, 4500, 5000]],
-
-            # # ZZ resonant
-            # Process("ggXZZbbtt_M200", Label("ggX 200 GeV"), color=(238, 245, 99), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M200", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M300", Label("ggX 300 GeV"), color=(208, 240, 120), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M300", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M400", Label("ggX 400 GeV"), color=(179, 241, 134), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M400", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M500", Label("ggX 500 GeV"), color=(149, 241, 147), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M500", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M600", Label("ggX 600 GeV"), color=(126, 238, 124), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M600", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M700", Label("ggX 700 GeV"), color=(118, 241, 156),
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M700", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M800", Label("ggX 800 GeV"), color=(109, 243, 187), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M800", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M900", Label("ggX 900 GeV"), color=(127, 232, 214), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M900", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M1000", Label("ggX 1.0 TeV"), color=(122, 197, 220), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M1000", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M1100", Label("ggX 1.1 TeV"), color=(99, 173, 199), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M1100", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M1200", Label("ggX 1.2 TeV"), color=(77, 149, 167), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M1200", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M1300", Label("ggX 1.3 TeV"), color=(54, 125, 135), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M1300", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M1400", Label("ggX 1.4 TeV"), color=(30, 106, 114), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M1400", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M1500", Label("ggX 1.5 TeV"), color=(5, 87, 92), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M1500", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M2000", Label("ggX 2.0 TeV"), color=(5, 72, 76), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M2000", parent_process="ZZbbtt"),
-            # Process("ggXZZbbtt_M3000", Label("ggX 3.0 TeV"), color=(5, 59, 63), 
-            #         isSigBBTT=True, ProcType="Zbb_Ztautau", isSignal=True, llr_name="ggXZZbbtt_M3000", parent_process="ZZbbtt"),
-            # Process("zz_res", Label("ggX"), color=(238, 245, 99)),
             
-            # background for resonant analysis 
+            # zz_sl_signal but seen as background for resonant analysis 
             Process("zz_bbtt", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", llr_name="ZZbbtt", fatjet_bb_type="DYlike"),
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True, genfilter_denominator_weights=True, llr_name="ZZbbtt", fatjet_bb_type="HHlike", parent_process="all_background"),
             
         ])
 
@@ -523,7 +488,7 @@ class Config(BaseConfig):
             'zh_htt',
             'zz',
             'zz_bbtt',
-            'zz_sl_background',
+            #'zz_sl_background', # in zz
             'zz_sl_signal',
             'zzz',
             *[f"ggXZZbbtt_M{mass}" for mass in res_mass_ZZ],

@@ -36,7 +36,7 @@ def get_datasets_ZH_2018(self):
         Dataset("zh_ztt_hbb_signal",
             folder=p + "ZH_Hbb_Zll",
             process=self.processes.get("zh_ztt_hbb_signal"),
-            xs=self.cross_section_dict["zh_hbb_zll"],
+            xs=self.cross_section_dict["zh_ztt_hbb_signal"], # genfilter_denominator_weights=True
             categorization_merging={'': 1},
             preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
@@ -102,15 +102,25 @@ def get_datasets_ZH_2018(self):
 
         ###################################### ZZ Background ##########################################
         ###############################################################################################
-        # ZZ semileptonic (added here since ZZ analysis uses this dataset with genfilter for bbtautau, whilst in ZH we use the full dataset)
-        Dataset("zz_sl",
+        # zz_sl_signal but with isSignal=False. Includes only ZZ->bbtautau with genfilter. Used for non-res & res analyses
+        Dataset("zz_bbtt",
             folder=p + "ZZTo2Q2L",
-            process=self.processes.get("zz_sl"),
-            xs=self.cross_section_dict["zz_sl"],
+            process=self.processes.get("zz_bbtt"),
+            xs=self.cross_section_dict["zz_sl_signal"], # genfilter_denominator_weights=True
             categorization_merging={'boosted_bb': 1, 'resolved_1b_HPSTau': 2, 'resolved_2b_HPSTau': 1},
             preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "zh"]),
+        
+        #### ZZ_SL, everything not bbtautau, used for all analyses
+        Dataset("zz_sl_background",
+            folder=p + "ZZTo2Q2L",
+            process=self.processes.get("zz_sl_background"),
+            xs=self.cross_section_dict["zz_sl"], # genfilter_denominator_weights=False
+            #secondary_dataset="zz_sl_background_aux",
+            categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
+            prefix="eos.grif.fr//",
+            tags=["ul", "nanoV10", "bul", "genfilter"]),
 
 
         ###################################### ZH Resonant ############################################

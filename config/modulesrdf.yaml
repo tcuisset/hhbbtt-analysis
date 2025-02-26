@@ -17,6 +17,7 @@ bbtautau_sig_bkg:
         isSigBBTT: self.dataset.process.get_aux('isSigBBTT', False)
         isBkgBBTT: self.dataset.process.get_aux('isBkgBBTT', False)
         removeZH: self.dataset.process.get_aux('removeZH', False)
+        enable_filter: True
 
 gen_jets:
     name: GenJetsRDF

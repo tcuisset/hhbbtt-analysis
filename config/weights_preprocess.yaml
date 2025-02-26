@@ -1,0 +1,47 @@
+# Modules used for computing sum of genweights in PreprocessRDF (using the new h_sumgenw computation in preprocess)
+
+# removed this for simplicity and not sure it's really needed
+# puweight:
+#     name: puWeightRDF
+#     path: Corrections.LUM.puWeight
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         isUL: self.dataset.has_tag('ul')
+
+# UL only
+# puweightCor:
+    # name: puWeightRDF
+    # path: Corrections.LUM.puWeightCor
+    # parameters:
+        # isMC: self.dataset.process.isMC
+        # year: self.config.year
+        # isUL: self.dataset.has_tag('ul')
+
+# we don't apply stitching weights for normalization
+# dystitching:
+#     name: DYstitchingEasyRDF
+#     path: Tools.Tools.dyreweighting
+#     parameters:
+#         isDY: self.dataset.process.get_aux('isDY', False)
+
+# set genWeight to one for some bugged LO madgraph datasets (https://twiki.cern.ch/twiki/bin/view/CMS/MCKnownIssues#Different_weights_at_LHE_level_f)
+#in preprocessRDF it is done already, no need for a module
+# genWeightLOFix:
+#     name: GenWeightLOFixRDF
+#     path: Tools.Tools.genWeightLOFix
+#     parameters:
+#         setGenWeightToOne: self.dataset.get_aux('setGenWeightToOne', False)
+#         isMC: self.dataset.process.isMC
+
+
+bbtautau_sig_bkg:
+    name: BBTauTauFilterRDF
+    path: Tools.Tools.gen_information
+    parameters:
+        isDenominatorWeight: True
+        ProcType: self.dataset.process.get_aux('ProcType', False)
+        isSigBBTT: self.dataset.process.get_aux('isSigBBTT', False)
+        isBkgBBTT: self.dataset.process.get_aux('isBkgBBTT', False)
+        removeZH: self.dataset.process.get_aux('removeZH', False)
+        enable_filter: self.dataset.process.get_aux('genfilter_denominator_weights', False)

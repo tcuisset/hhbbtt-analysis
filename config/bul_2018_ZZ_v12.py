@@ -47,8 +47,7 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
             Dataset("zz_sl_signal",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
-                xs=self.cross_section_dict["zz_sl_signal"],
-                #secondary_dataset="zz_sl_signal_aux",
+                xs=self.cross_section_dict["zz_sl_signal"], # genfilter_denominator_weights=True
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
                 preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
@@ -57,15 +56,14 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
             ###################################### ZZ Background ##########################################
             ###############################################################################################
 
-            #### ZZ_SL
+            #### ZZ_SL, everything not bbtautau, used for all analyses
             Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_background"),
-                xs=self.cross_section_dict["zz_sl_background"],
-                #secondary_dataset="zz_sl_background_aux",
+                xs=self.cross_section_dict["zz_sl"], # genfilter_denominator_weights=False
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
                 prefix="eos.grif.fr//",
-                tags=["ul", "nanoV10", "bul", "genfilter", "nonResOnly"]),
+                tags=["ul", "nanoV10", "bul", "genfilter"]),
             
             #### ZHToTauTau
             Dataset("zh_htt",
@@ -89,12 +87,11 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul"]),
 
-            #### ZZ_SL but considered as background for the resonant analysis
+            #### ZZ_SL_signal but considered as background for the resonant analysis
             Dataset("zz_bbtt",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_bbtt"),
-                xs=self.cross_section_dict["zz_sl"],
-                #secondary_dataset="zz_bbtt_aux",
+                xs=self.cross_section_dict["zz_sl_signal"], # genfilter_denominator_weights=True
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
                 preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
