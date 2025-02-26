@@ -117,6 +117,7 @@ def get_common_processes():
         Process("ttx", Label("TTX"), color=(4, 240, 106), parent_process="all_background", llr_name="TTX", fatjet_bb_type="TTlike"),
         
         # zh_hbb_zqq : is defined in ZZ and ZH configs
+        Process("ggZH", Label("ggZH"), color=(130, 39, 197), parent_process="higgs"),
         # WH_htt
         Process("wh_htt", Label("wh_htt"), color=(130, 39, 197), parent_process="wh"),
         Process("wh", Label("WH"), color=(130, 39, 197), parent_process="higgs", llr_name="WH", fatjet_bb_type="DYlike"),

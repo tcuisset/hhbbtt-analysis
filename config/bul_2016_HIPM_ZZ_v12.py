@@ -38,9 +38,9 @@ class Config_bul_2016_HIPM_ZZ_v12(base_config_ZZ):
             Dataset("zz_sl_signal",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_signal"),
-                xs=self.cross_section_dict["zz_sl_signal"],
-                #secondary_dataset="zz_sl_signal_aux",
+                xs=self.cross_section_dict["zz_sl_signal"], # genfilter_denominator_weights=True
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
+                categorization_batching={"resolved_2b_HPSTau" : 22, "resolved_1b_HPSTau" : 11},
                 preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul", "genfilter", "nonResOnly"]),
@@ -48,15 +48,15 @@ class Config_bul_2016_HIPM_ZZ_v12(base_config_ZZ):
             ###################################### ZZ Background ##########################################
             ###############################################################################################
 
-            #### ZZ_SL
+            #### ZZ_SL, everything not bbtautau, used for all analyses
             Dataset("zz_sl_background",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_sl_background"),
-                xs=self.cross_section_dict["zz_sl_background"],
-                #secondary_dataset="zz_sl_background_aux",
+                xs=self.cross_section_dict["zz_sl"], # genfilter_denominator_weights=False
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
+                categorization_batching={"resolved_2b" : 22, "resolved_1b" : 11},
                 prefix="eos.grif.fr//",
-                tags=["ul", "nanoV10", "bul", "genfilter", "nonResOnly"]),
+                tags=["ul", "nanoV10", "bul", "genfilter"]),
             
             #### ZHToTauTau
             Dataset("zh_htt",
@@ -65,6 +65,7 @@ class Config_bul_2016_HIPM_ZZ_v12(base_config_ZZ):
                 xs=self.cross_section_dict["zh_htt"],
                 #secondary_dataset="zh_htt_aux",
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
+                categorization_batching={"resolved_2b" : 22, "resolved_1b" : 11},
                 preplot_htcondor_workflow_params={"resolved_1b_HPSTau":{"request_cpus":8}, "resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul"]), 
@@ -76,17 +77,18 @@ class Config_bul_2016_HIPM_ZZ_v12(base_config_ZZ):
                 xs=self.cross_section_dict["zh_hbb_zll"],
                 #secondary_dataset="zh_hbb_zll_aux",
                 categorization_merging={'base' : 3, '': 1},
+                categorization_batching={"resolved_2b" : 11},
                 preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul"]),
 
-            #### ZZ_SL but considered as background for the resonant analysis
+            #### ZZ_SL_signal but considered as background for the resonant analysis
             Dataset("zz_bbtt",
                 folder=p + "ZZTo2Q2L",
                 process=self.processes.get("zz_bbtt"),
-                xs=self.cross_section_dict["zz_sl"],
-                #secondary_dataset="zz_bbtt_aux",
+                xs=self.cross_section_dict["zz_sl_signal"], # genfilter_denominator_weights=True
                 categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
+                categorization_batching={"resolved_2b_HPSTau" : 22, "resolved_1b_HPSTau" : 22},
                 preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
                 prefix="eos.grif.fr//",
                 tags=["ul", "nanoV10", "bul", "res", "genfilter", "resOnly", "limitedBoostedTau"]),
@@ -106,6 +108,7 @@ class Config_bul_2016_HIPM_ZZ_v12(base_config_ZZ):
                 merging={
                     "boosted_bb_boostedTau" : 3 if mass >= 1300 else 2 if mass > 900 else 1
                 },
+                categorization_batching={"" : 22},
                 preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}} if (mass >= 500 and mass <= 900) else {},
                 tags=["ul", "nanoV10", "bul", "res", "resSignal"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
             

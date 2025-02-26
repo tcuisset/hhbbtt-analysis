@@ -25,7 +25,7 @@ def get_datasets_ZH_2018(self):
         Dataset("zh_zbb_htt_signal",
             folder=p + "ZHToTauTau_M125",
             process=self.processes.get("zh_zbb_htt_signal"),
-            xs=self.cross_section_dict["zh_htt"],
+            xs=self.cross_section_dict["zh_zbb_htt_signal"], # genfilter_denominator_weights=True
             categorization_merging={'': 1},
             preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
@@ -38,6 +38,7 @@ def get_datasets_ZH_2018(self):
             process=self.processes.get("zh_ztt_hbb_signal"),
             xs=self.cross_section_dict["zh_ztt_hbb_signal"], # genfilter_denominator_weights=True
             categorization_merging={'': 1},
+            categorization_batching={"resolved_2b" : 11},
             preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "nonResOnly", "limited", "genfilter", "zh"]),
@@ -49,7 +50,7 @@ def get_datasets_ZH_2018(self):
         Dataset("zh_zbb_htt_background", # genfilter ZbbHtt reversed -> background for both resonant and non resonant analyses
             folder=p + "ZHToTauTau_M125",
             process=self.processes.get("zh_zbb_htt_background"),
-            xs=self.cross_section_dict["zh_htt"],
+            xs=self.cross_section_dict["zh_zbb_htt_background"], #genfilter_denominator_weights=True,
             categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "limited", "genfilter", "zh"]),
@@ -60,7 +61,7 @@ def get_datasets_ZH_2018(self):
         Dataset("zh_zbb_htt",
             folder=p + "ZHToTauTau_M125",
             process=self.processes.get("zh_zbb_htt"),
-            xs=self.cross_section_dict["zh_htt"],
+            xs=self.cross_section_dict["zh_zbb_htt_signal"], # genfilter_denominator_weights=True
             categorization_merging={'': 1},
             preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
@@ -71,7 +72,7 @@ def get_datasets_ZH_2018(self):
         Dataset("zh_ztt_hbb_background", # genfilter reversed : background for both non-res and res analyses
             folder=p + "ZH_Hbb_Zll",
             process=self.processes.get("zh_ztt_hbb_background"),
-            xs=self.cross_section_dict["zh_hbb_zll"],
+            xs=self.cross_section_dict["zh_ztt_hbb_background"], # genfilter_denominator_weights=True
             categorization_merging={'boosted_bb_boostedTau': 1, 'boosted_bb_HPSTau': 1, 'resolved_1b_HPSTau': 1, 'resolved_2b_HPSTau': 1},
             prefix="eos.grif.fr//",
             tags=["ul", "nanoV10", "bul", "limited", "genfilter", "zh"]),
@@ -92,7 +93,7 @@ def get_datasets_ZH_2018(self):
         Dataset("zh_ztt_hbb",
             folder=p + "ZH_Hbb_Zll",
             process=self.processes.get("zh_ztt_hbb_signal"),
-            xs=self.cross_section_dict["zh_hbb_zll"],
+            xs=self.cross_section_dict["zh_ztt_hbb_signal"], # genfilter_denominator_weights=True
             categorization_merging={'': 1},
             preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
