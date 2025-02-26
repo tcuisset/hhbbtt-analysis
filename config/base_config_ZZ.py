@@ -11,7 +11,7 @@ from config.base_config import get_common_processes, BaseConfig
 res_mass_ZZ = [ 200, 210, 220, 230, 240, 250, 260, 270, 280, 300, 320, 350, 360, 400, 450, 500, 550,
                 600, 650, 700, 750, 800, 850, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700,
                 1800, 1900, 2000, 2200, 2400, 2500, 2600, 2800, 3000, 3500, 4000, 4500, 5000]
-res_mass_ZZ_limited = [200, 1000, 2000, 3000, 4000, 5000]
+res_mass_ZZ_limited = [200, 400, 600, 800, 1000, 1200, 1500, 2000, 3500, 5000]
 
 class Config(BaseConfig):
     def __init__(self, *args, **kwargs):
@@ -53,11 +53,14 @@ class Config(BaseConfig):
         cat_reqs = self.get_categories_requirements()
 
         categories += ObjectCollection([
-            Category("ZZ_elliptical_cut_90", "Elliptical cut E=90%",
+            Category("ZZ_EC90", "Elliptical cut E=90%",
                 selection=elliptical_cut_90),
 
-            Category("ZZ_elliptical_cut_90_CR", "CR ZZ mass cut E=90%",
+            Category("ZZ_EC90_CR", "CR ZZ mass cut E=90%",
                 selection=elliptical_cut_90_inv),
+            
+            Category("ZZ_EC90_resolved_nobtag", "CR ZZ mass cut E=90% resolved no b-tag", # category for measurement of b-tag normalization factors 
+                selection=f"({elliptical_cut_90}) && bjet1_idx>=0 && bjet2_idx>=0 && ({cat_reqs['HPSTau']})"), # no selection on fatjet as that is nested in res2b, probably this is the best region, but no single choice
 
             # Category("ZZ_elliptical_cut_90_CR_resolved_1b", "CR & resolved 1b",
             #     selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_1b})"),
