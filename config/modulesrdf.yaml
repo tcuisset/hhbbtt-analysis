@@ -181,6 +181,7 @@ met_shift:
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
+        met_smear_tag_data: "" # not applied on data anyway, just here as reminder
         met_smear_tag: "tes_electron"
         jet_syst: "" # do not smear MET. Will be overriden for JEC & JER
         propagate_jer_smearing: False # prevent JER variations from being propagated to MET
@@ -196,6 +197,7 @@ MET_XYCorrections:
         isMC: self.dataset.process.isMC
         runEra: self.dataset.runEra
         ispreVFP: self.config.get_aux('ispreVFP', False)
+        met_smear_tag_data: "" # on data  there is no TES or electron S&S 
         met_smear_tag: "tes_electron" # defines the input smear_tag
 
 MET_unclusteredEnergy:
@@ -204,6 +206,7 @@ MET_unclusteredEnergy:
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
+        met_smear_tag_data: "xycorr" # useless since that does not run on data, but for consistency
         met_smear_tag: "tes_electron_xycorr" # defines the input smear_tag
 
 
@@ -215,6 +218,7 @@ HHLeptonMETCut:
         isMC: self.dataset.process.isMC
         year: self.config.year
         pairType_filter: not self.dataset.process.isSignal
+        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         met_smear_tag: "tes_electron_xycorr"
         useBoostedTaus: self.dataset.process.isMC or not self.dataset.has_tag("hpsData") # don't forget to change this also in hhlepton
 
@@ -268,6 +272,7 @@ hhjets:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
+        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         met_smear_tag: "tes_electron_xycorr"
         filter: not self.dataset.process.isSignal
         model_version: 2
@@ -375,6 +380,7 @@ trigSF:
         # only compute systematic for trigger SFs in case we are in "nominal" (we don't apply trigger SFs variations on top of JEC for example)
         computeSystematics_PY: not systematic
         ispreVFP: self.config.get_aux('ispreVFP', False)
+        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         met_smear_tag: "tes_electron_xycorr"
 
 # Computes ['PUjetID_SF', 'PUjetID_SF_up', 'PUjetID_SF_down']

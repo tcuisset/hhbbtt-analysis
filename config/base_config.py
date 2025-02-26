@@ -340,12 +340,12 @@ class BaseConfig(cmt_config):
             regions.append(Category(qcd_key, label=Label(region_names[ikey]),
                 selection=self.join_selection_channels(selection[qcd_key])))
             for channel in self.channels:
-                regions.append(Category("_".join([channel.name, qcd_key]),
+                regions.append(Category("_".join([channel.name, qcd_key]), # etau_os_iso for example
                     label=Label(", ".join([channel.label.root, region_names[ikey]])),
                     selection=jrs(channel.selection,
                         jrs(selection[qcd_key][channel.name], op="and"), op="and")))
                 for tau_name, tau_cut in [("boostedTaus", "isBoostedTau"), ("HPSTaus", "!isBoostedTau")]:
-                    regions.append(Category("_".join([channel.name, tau_name, qcd_key]),
+                    regions.append(Category("_".join([channel.name, tau_name, qcd_key]), # etau_boostedTaus_os_iso
                     label=Label(", ".join([channel.label.root, region_names[ikey], tau_cut])),
                     selection=jrs([
                             channel.selection,
@@ -889,6 +889,7 @@ class BaseConfig(cmt_config):
                 x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
         ]
         # MET (not all of the features are usually computed, might need to add metShifterRDF to modulesrdf.yaml)
+        # NB : on data there is no propagation of tau & electron scales but there is XY corrections !
         for binning, suffix in (((20, 0, 200), ""), ((30, 150, 800), "_highRange")):
             features.extend([
             Feature(f"met_pt{suffix}_raw", "MET_pt", binning=binning,
@@ -896,7 +897,7 @@ class BaseConfig(cmt_config):
                 units="GeV", tags=["base", "met"],
                 central="",
                 ),          
-            Feature(f"met_pt{suffix}_corr", "MET_tes_electron_xycorr_pt", expression_data="MET_pt", binning=binning,
+            Feature(f"met_pt{suffix}_corr", "MET_tes_electron_xycorr_pt", expression_data="MET_xycorr_pt", binning=binning,
                 x_title=Label("MET p_{T} (TES, XY-corr)"),
                 units="GeV", tags=["base", "met"],
                 **self.met_systs),
@@ -909,7 +910,7 @@ class BaseConfig(cmt_config):
                 units="GeV", tags=["base"],
                 central="",
                 ),
-            Feature("met_phi_corr", "MET_tes_electron_xycorr_phi", expression_data="MET_phi", binning=(20, -3.2, 3.2),
+            Feature("met_phi_corr", "MET_tes_electron_xycorr_phi", expression_data="MET_xycorr_phi", binning=(20, -3.2, 3.2),
                 x_title=Label("MET #phi (TES, XY-corr)"), tags=["base", "met"],
                 **self.met_systs),
 

@@ -28,6 +28,7 @@ zz:
         isMC: self.dataset.process.isMC
         year: self.config.year
         met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         AnalysisType: self.config.get_aux('AnalysisType', False)
 
 zzvar:
@@ -37,6 +38,7 @@ zzvar:
         isMC: self.dataset.process.isMC
         year: self.config.year
         met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         AnalysisType: self.config.get_aux('AnalysisType', False)
 
 zzdnninputs:
@@ -50,6 +52,7 @@ zzdnninputs:
         cvl_wps: self.config.ctag_algo_wps.CvL
         cvb_wps: self.config.ctag_algo_wps.CvB
         met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         feature_file: src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-11-16/all_features.txt
 
 # old per-event implementation of DNN
