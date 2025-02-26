@@ -283,12 +283,20 @@ hhjets:
         isUL: self.dataset.has_tag('ul')
         met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         met_smear_tag: "tes_electron_xycorr"
-        filter: not self.dataset.process.isSignal
+        #filter: not self.dataset.process.isSignal
+        filter: False
         model_version: 2
         btag_wp: self.config.btag_algo_wps.medium
         fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
         doGenCutFlow: self.dataset.process.isSignal
 
+hhjets_filter:
+    name: PreprocessJetFilterRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        enable: not self.dataset.process.isSignal
 
 
 bjet1var:
@@ -325,6 +333,13 @@ fatjetvar:
         input_prefix: FatJet
         output_prefix: fatjet
 
+extraJetVar:
+    name: ExtraJetInformationRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        btag_wp: self.config.btag_algo_wps.medium
 
 # # Here we compute a second time the JEC variations for the selected bjets. We could probably reuse the already-computed ones in jec_jet_corrections in some way, should be identitcal
 # jecb1:
