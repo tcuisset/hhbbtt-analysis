@@ -4,6 +4,9 @@
 # - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO
 # - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopRefXsec
 # - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopNNLORef
+# - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsXSBR
+# - https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+# - https://e-publishing.cern.ch/index.php/CYRM/issue/view/32/3
 
 # Useful branching ratios :
 
@@ -25,33 +28,44 @@ cross_section_dict = {
     # ---> ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8 
     # Infos : https://indico.cern.ch/event/439995/contributions/1094416/attachments/1143460/1638648/diboson_final.pdf and https://cms-talk.web.cern.ch/t/question-about-cross-sections-of-zz-samples/18780/2
     # Theory : 
-    #           - 16.91 +3.2% -2.4% (NNLO) from https://arxiv.org/pdf/1405.2219
+    #           - 16.91 +3.2% -2.4% pb (NNLO) from https://arxiv.org/pdf/1405.2219
     #           - 16.523 (inclusive, NLO, MCFM) from https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to though it points to ZZ incl XSDB which says 10.16
     #           - 15.46 (Z->mumu, Z->ee, NLO, mll>1) from https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV s(ZZ) = 0.0349 / (0.0336*0.0336*2) = 15.46
 
     # "zz_sl":          3.22,                     # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIIWinter15GS%2D00166-,3.22,-NLO%2C%20up%20to
     # "zz_sl":          3.676,                    # XSDB unknown
     # "zz_sl":          5.52,                     # AN
-    "zz_sl":            2.389,                    # = 16.91 * 0.699 * (0.033696 + 0.033662 + 0.033696) * 2 || (sigma(pp->ZZ) from theory) * BR(Z->qq) * BR(Z->ll) * 2 https://arxiv.org/pdf/1405.2219
+    
+    #"zz_sl":            2.389,                    # = 16.91 * 0.699 * (0.033696 + 0.033662 + 0.033696) * 2 || (sigma(pp->ZZ) from theory) * BR(Z->qq) * BR(Z->ll) * 2 https://arxiv.org/pdf/1405.2219
 
+    # not including the ZH & Z/gamma continuum contribution, NEEDS TO be normalized applying genfilter on denominator
     "zz_sl_signal":     0.172,                    # = 16.91 * 0.1512 * 0.033696 * 2 || (sigma(pp->ZZ) from theory) * BR(Z->bb) * BR(Z->tt) * 2 https://arxiv.org/pdf/1405.2219
-    "zz_sl_background": 2.217,                    # = 2.389 - 0.172
+    
+    # includes ZZ on shell to not-bbtautau, ZZ/gamma continuum to anything (bbtt or otherwise). Does NOT include ZH (that is included by ZH samples)
+    "zz_sl" : 3.676,
+    #"zz_sl_background": 3.676, # from XSDB, NO RUN of filter on denominator
+    # "zz_sl_background": 2.217,                    # = 2.389 - 0.172 (subtraction of theory XS, would only work without the continuum)
 
     ####################################################################
     ###################### SM Z->bb,H->tautau ##########################
     ####################################################################
+    # TODO remove ggZH from these values
+    # ZH cross sections :
+    # H, Z->ll : 29.82 (theory, CYRM) where l is one lepton
+    # ZH inclusive : 29.82 / 0.0336 = 887.5 fb (https://e-publishing.cern.ch/index.php/CYRM/issue/view/32)
 
     # ---> ZHToTauTau_M125_CP5_13TeV-powheg-pythia8
     # Infos : H->tt decay is done with Pythia, so the branching ratio is not accounted for in XSDB
     # Theory : 
-    #           - 0.9 +3.8% -3.1% (NLO) from https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+    #           - 0.9 +3.8% -3.1% (NLO) from https://e-publishing.cern.ch/index.php/CYRM/issue/view/32 (ZH inclusive)
+    # XSDB : 0.7891
 
     # "zh_htt":         0.0554,                   # AN
     # "zh_htt":         0.047346,                 # = 0.7891 * 0.06 || (sigma(pp->ZH) from XSDB NLO) * BR(H->tt)
-    "zh_htt":           0.054,                    # = 0.9 * 0.06 || (sigma(pp->ZH) from theory) * BR(H->tautau) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+    "zh_htt":           0.055,                    # = (29.82/0.0336) * 0.0624 || (sigma(pp->ZH) from theory) * BR(H->tautau) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
     
-    "zh_zbb_htt_signal":        0.0081,           # = 0.9 * 0.06 * 0.1512 || (sigma(pp->ZH) from theory) * BR(H->tautau) * BR(Z->bb) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
-    "zh_zbb_htt_background":    0.0459,           # = 0.054 - 0.0081
+    "zh_zbb_htt_signal":        0.00837,          # = (29.82/0.0336) * 0.0624 * 0.1512 || (sigma(pp->ZH) from theory) * BR(H->tautau) * BR(Z->bb) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
+    "zh_zbb_htt_background":    0.0470,           # = (29.82/0.0336) * 0.0624 * (1-0.1512)
 
     ####################################################################
     ###################### SM Z->tautau,H->bb ##########################
@@ -59,8 +73,6 @@ cross_section_dict = {
 
     # ---> ZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8
     # Infos : H->bb decay is done with Pythia, so the branching ratio is not accounted for in XSDB
-    # Theory : 
-    #           - 0.9 +3.8% -3.1% (NLO) from https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
 
     # XSDB 0.07977	but H->bb decay done with Pythia so *BR(H->bb)=0.53  -> 0.0423
     # "zh_hbb_zll":     0.052,                    # AN
@@ -69,6 +81,13 @@ cross_section_dict = {
 
     "zh_ztt_hbb_signal":        0.0161,           # = 0.9 * 0.033696 * 0.53 || (sigma(pp->ZH) from theory) * BR(Z->tt) * BR(H->bb) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
     "zh_ztt_hbb_background":    0.0321,           # = 0.0482 - 0.0161
+
+    # ggZH_HToBB_ZToLL : ggZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8
+    # XSDB : 0.006954
+    # Theory gg->ZH : 0.1227 (so ggZ_Hbb_Zll is 0.1227*0.53*0.033632*3=0.00656) https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV#ZH_Process
+    # NB : ZH production has two distinct sources of gg→ZH: 1) a genuine NNLO contribution to what called “Drell-Yan-like”, where ZH is accompanied by two-parton radiation, gg→HZ+qqbar. 2) top- and bottom-loop induced contribution without any additional partons in the final state.
+    "ggZH_HToBB_ZToLL" : 0.006954, # XSDB
+    # NB : QCD scale on this process is +25% - 19% !!
 
     ####################################################################
     ###################### Resonant Signals ############################
@@ -97,6 +116,7 @@ cross_section_dict = {
     "wjets_MLM_2j":     2832.0,                   # CMSDAS
     "wjets_MLM_3j":     820.7,                    # CMSDAS
     "wjets_MLM_4j":     385.5,                    # CMSDAS
+    "wjets_ht1":        1283.0 * 61526.7 / 53870, # (xsdb) rescaled:
     "wjets_ht2":        1244.0 * 61526.7 / 53870, # LO * NNLO(incl)/LO(incl) : NNLO inclusive xs=61526.7 , LO inclusive xs=53870 (XSDB) , kfactor LO->NNLO = 61526.7 / 53870 = 1.14
     "wjets_ht3":        337.8 * 61526.7 / 53870,  # LO * NNLO(incl)/LO(incl) : NNLO inclusive xs=61526.7 , LO inclusive xs=53870 (XSDB) , kfactor LO->NNLO = 61526.7 / 53870 = 1.14
     "wjets_ht4":        44.93 * 61526.7 / 53870,  # LO * NNLO(incl)/LO(incl) : NNLO inclusive xs=61526.7 , LO inclusive xs=53870 (XSDB) , kfactor LO->NNLO = 61526.7 / 53870 = 1.14
