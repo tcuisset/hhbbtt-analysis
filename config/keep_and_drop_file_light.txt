@@ -10,6 +10,20 @@ drop HLT_MediumChargedIsoPFTau50_Trk30_eta2p1_1pr_MET110
 drop Jet_.*
 drop FatJet_.*
 drop Tau_.*
+drop boostedTau_rawAntiEle2018
+drop boostedTau_rawAntiEleCat2018
+drop boostedTau_rawDeepTau2018v2p7VSe
+drop boostedTau_rawDeepTau2018v2p7VSmu
+drop boostedTau_LeadingMuon_muonIdx
+drop boostedTau_LeadingElectron_electronIdx
 
 drop jet_pt_resolution
 drop jet_smear_factor(_up|_down|)
+drop fatjet_pt_resolution
+drop fatjet_smear_factor(_up|_down|)
+
+drop VBFjet(1|2)_JetIdx
+drop VBFjj_.*
+drop ctjet_indexes
+
+

@@ -176,8 +176,8 @@ keep FatJet_tau.*
 
 
 drop MET_fiducial.*
-drop MET_significance.*
-drop MET_sum.*
+#drop MET_significance.*
+#drop MET_sum.*
 
 drop Muon.*
 keep Muon_pt
