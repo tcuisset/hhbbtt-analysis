@@ -215,7 +215,7 @@ MET_unclusteredEnergy:
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
-        met_smear_tag_data: "xycorr" # useless since that does not run on data, but for consistency
+        met_smear_tag_data: "_xycorr" # useless since that does not run on data, but for consistency
         met_smear_tag: "tes_electron_xycorr" # defines the input smear_tag
 
 
@@ -227,9 +227,9 @@ HHLeptonMETCut:
         isMC: self.dataset.process.isMC
         year: self.config.year
         pairType_filter: not self.dataset.process.isSignal
-        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         met_smear_tag: "tes_electron_xycorr"
-        useBoostedTaus: self.dataset.process.isMC or not self.dataset.has_tag("hpsData") # don't forget to change this also in hhlepton
+        useBoostedTaus: self.dataset.process.isMC or not self.dataset.has_tag("dataNoBoostedTaus") # don't forget to change this also in hhlepton
 
 
 ########################### FatJet JME corrections 
@@ -281,7 +281,7 @@ hhjets:
         year: self.config.year
         isMC: self.dataset.process.isMC
         isUL: self.dataset.has_tag('ul')
-        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         met_smear_tag: "tes_electron_xycorr"
         #filter: not self.dataset.process.isSignal
         filter: False
@@ -404,7 +404,7 @@ trigSF:
         # only compute systematic for trigger SFs in case we are in "nominal" (we don't apply trigger SFs variations on top of JEC for example)
         computeSystematics_PY: not systematic
         ispreVFP: self.config.get_aux('ispreVFP', False)
-        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         met_smear_tag: "tes_electron_xycorr"
 
 # Computes ['PUjetID_SF', 'PUjetID_SF_up', 'PUjetID_SF_down']
@@ -513,6 +513,6 @@ svfit_ZZ:
         isMC: self.dataset.process.isMC
         AnalysisType: self.config.get_aux('AnalysisType', False)
         met_smear_tag: "tes_electron_xycorr"
-        met_smear_tag_data: "xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         algo: FastMTT
         
