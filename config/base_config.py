@@ -1398,8 +1398,9 @@ class BaseConfig(cmt_config):
 
             Systematic("fatjet_pnet", "", datacard_label=f"CMS_ZZbbtt_fatjet_bb_tagging_eff_{self.year}"), # FatJet ParticleNet XbbVsQCD scale factors 
 
-            Systematic("pdf", ""), # pdf uncertainties
-            Systematic("qcd_scale", "", datacard_label="QCDscale")
+            Systematic("pdf", "", ), # pdf uncertainties
+            Systematic("qcd_scale", "", datacard_label="QCDscale",
+                datacard_label_perProcess=(lambda p: "QCDscale_"+{"wjets":"V", "dy":"V", "ewk":"WWewk", "tt":"ttbar", "tw":"t", "singlet":"t", "vv":"VV", "vvv":"VVV", "ttx":"ttH", "wh":"VH", "ttH":"ttH", "ggH_ZZ":"ggH", "ggf_sm":"ggH", "zz_sl_signal":"VV", "zh":"VH", "qcd":""}[p]))
         ]
         return ObjectCollection(systematics)
 
