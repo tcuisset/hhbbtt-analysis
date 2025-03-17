@@ -12,7 +12,7 @@ class ConfigZttHbb(BaseConfig):
         super().__init__(*args, **kwargs)
         self.dnn = DotDict(
             nonresonant=DotDict(
-                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZttHbb-0-newFeatureNames",
+                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_03_04/ZttHbb-0",
                 out_branch="dnn_ZHbbtt_kl_1",
                 #systematics=["tes", "jer", "jec"]
             ),
