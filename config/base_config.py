@@ -136,6 +136,8 @@ def get_common_processes():
 
         Process("others", Label("Others"), color=(255, 230, 0),
             parent_process="all_background", llr_name="Others"),
+        
+        Process("qcd_mc", Label("QCD (MC)"), color=(182, 101, 235)),
 
         # Data
         Process("data", Label("Data"), color=(0, 0, 0), isData=True),

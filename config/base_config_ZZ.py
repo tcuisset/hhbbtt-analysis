@@ -482,6 +482,7 @@ class Config(BaseConfig):
             'ewk_z',
             'ggH_ZZ',
             'ggf_sm',
+            'ggZH',
             'singlet',
             'tt_dl',
             'tt_fh',
