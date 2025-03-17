@@ -1239,7 +1239,11 @@ class BaseConfig(cmt_config):
                 weights[category.name].append("fatjet_pnet_SF")
             if not "boosted_bb_boostedTau" in category.name: # we only consider boosted_bb for boostedTau thus no need for AK4 btag SFs
                 weights[category.name].append("bTagweightReshape")
+                #weights[category.name].append("bTagweightReshapeExtrapFactor")
+            if "boostedTau" in category.name:
+                weights[category.name].append("boostedTau_SF") # adding weight but without the systematics are these are more easily done with a lognormal
         
+        weights["crossTrigger_debug"] = ["genWeightFixed", "DYstitchWeight"]
         return weights
 
     def get_weights_systematics(self, list_of_weights, isMC=False, category=None): # override base implementation to skip useless systematics
