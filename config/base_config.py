@@ -638,6 +638,8 @@ class BaseConfig(cmt_config):
             self.all_systs = [] + self.jme_systs
         else:
             raise ValueError()
+        
+        self.btag_systs_nojec = ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]
 
         # event weight systs only need to be included in the feature that is used in config.weights
         phi_binning = (20, -math.pi, math.pi)
@@ -728,6 +730,8 @@ class BaseConfig(cmt_config):
             Feature("tau_mass_tes", "Tau_mass", binning=(30, 0, 2.),
                 x_title=Label("tau mass (SFs&TES)"), **self.tau_systs_params,
                 units="GeV", tags=["tau", "baseObjects"]),
+            
+            # TODO boostedTau features ?
 
             # bjet features
             Feature("bjet1_pt", "bjet1_pt" if flat_ntuples else "Jet_pt.at(bjet1_JetIdx)", binning=(20, 20, 220),
@@ -859,6 +863,12 @@ class BaseConfig(cmt_config):
             Feature("lep1_rawIdDeepTauVSjet", "dau1_rawIdDeepTauVSjet", binning=(50, 0, 1),
                 x_title=Label("#tau_{1} raw DeepTau2017v2p1VSjet (tautau HPS)"), selection="!isBoostedTau && pairType == 2",
                 tags=["base"]),
+            Feature("lep1_idDeepTauVSe", "dau1_idDeepTau2017v2p1VSe", binning=(11, 0, 10),
+                x_title=Label("#tau_{1} DeepTau2017v2p1VSe (tautau HPS)"), selection="!isBoostedTau && pairType == 2",
+                tags=["base"]),
+            Feature("lep1_decayMode", "dau1_decayMode", binning=(13, 0, 12),
+                x_title=Label("#tau_{1} decay mode"), selection="pairType == 2",
+                tags=["base"]),
             *( # features only for boostedTaus
             (Feature("lep1_rawIdDeepBoostedTauVSjet", "dau1_rawIdDeepTauVSjet", binning=(50, 0, 1),
                 x_title=Label("#tau_{1} raw DeepBoostedTau VSjet (di-boostedTau)"), selection="isBoostedTau && pairType == 2",
@@ -896,6 +906,12 @@ class BaseConfig(cmt_config):
                 tags=["base"]),
             Feature("lep2_rawIdDeepTauVSjet", "dau2_rawIdDeepTauVSjet", binning=(50, 0, 1),
                 x_title=Label("#tau_{2} raw DeepTau2017v2p1VSjet (HPS taus)"), selection="!isBoostedTau",
+                tags=["base"]),
+            Feature("lep2_idDeepTauVSe", "dau2_idDeepTau2017v2p1VSe", binning=(11, 0, 10),
+                x_title=Label("#tau_{2} DeepTau2017v2p1VSe (HPS taus)"), selection="!isBoostedTau",
+                tags=["base"]),
+            Feature("lep2_decayMode", "dau2_decayMode", binning=(13, 0, 12),
+                x_title=Label("#tau_{2} decay mode"),
                 tags=["base"]),
             *( # features only for boostedTaus
             (Feature("lep2_rawIdDeepBoostedTauVSjet", "dau2_rawIdDeepTauVSjet", binning=(50, 0, 1),
@@ -1109,7 +1125,13 @@ class BaseConfig(cmt_config):
                               "etauFR", "mutauFR", "eleReco", "eleIso", "muIso", "muId"]),
             Feature("bTagweightReshape", "bTagweightReshape", binning=(30, 0, 2),
                 x_title=Label("b-tag reshaping weight"), tags=["base", "weights"], noData=True,
-                central="jer", systematics=self.jme_systs + ["CMS_btag_cferr1", "CMS_btag_cferr2", "CMS_btag_hf", "CMS_btag_hfstats1", "CMS_btag_hfstats2", "CMS_btag_lf", "CMS_btag_lfstats1", "CMS_btag_lfstats2"]),
+                central="jer", systematics=self.jme_systs + self.btag_systs_nojec),
+            Feature("bTagweightReshapeExtrapFactor", "bTagweightReshapeExtrapFactor", binning=(30, 0.5, 1.5),
+                x_title=Label("b-tag extrapolation factor for reshaping weight"), tags=["weights"], noData=True,
+                systematics=self.btag_systs_nojec),
+            Feature("bTagweightReshapeCorr", "{{bTagweightReshape}}*{{bTagweightReshapeExtrapFactor}}", binning=(30, 0, 2),
+                x_title=Label("b-tag reshaping weight (with r-factor)"), tags=["weights"], noData=True,
+                systematics=self.jme_systs + self.btag_systs_nojec),
             Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 2.),
                 x_title=Label("FatJet ParticleNet SF"), tags=["base", "weights"], noData=True,
                 systematics=["fatjet_pnet"]), # self.jec_systs+ not needed to add jec_systs there, it would cause issues with naming of variable
@@ -1119,6 +1141,9 @@ class BaseConfig(cmt_config):
             Feature("scaleWeight", "scaleWeight", binning=(30, 0.5, 1.5),
                 x_title=Label("QCD renomrlization scale weight"), tags=["weights"], noData=True,
                 systematics=["qcd_scale"]),
+            Feature("totalSFWeight", "puWeight*trigSF*idAndIsoAndFakeSF*L1PreFiringWeight_Nom*PUjetID_SF*pdfWeight*scaleWeight", binning=(30, 0.2, 1.8),
+                x_title=Label("Total SFs (PU,ID-ISO,L1Pref,PU,PUJetID,PDF,Scale)"), tags=["weights"], noData=True),
+            #  add boostedTau SF systematics
 
             # LHE variables (MC only)
             Feature("LHE_Vpt", "LHE_Vpt", binning=(100, 0, 1000), noData=True,
