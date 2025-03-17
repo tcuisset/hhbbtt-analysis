@@ -31,4 +31,35 @@ drop ctjet_indexes
 drop bjet(1|2)_hadronFlavour
 drop fatjet_hadronFlavour
 
-drop (n|)GenPart_.*
+drop GenPart_.*
+drop nGenPart
+
+# ultra-light elements to drop
+drop boostedTau_.*
+keep boostedTau_pt.*
+keep boostedTau_mass.*
+keep boostedTau_eta
+keep boostedTau_phi
+keep boostedTau_rawDeepTau2018v2p7VS.*
+keep boostedTau_decayMode
+keep boostedTau_charge
+keep boostedTau_idAntiEle2018
+keep boostedTau_genPartFlav
+
+drop Electron_pfRelIso03_.*
+drop Electron_vidNestedWPBitmap
+drop Electron_cutBased
+drop Electron_mva.*
+
+drop Muon_genPartIdx	
+drop Muon_.*Id
+
+drop (n|)LHEPart.*
+
+drop elesf_.*
+drop musf_tight_.*
+drop tes_factor
+
+drop hem_jets_in_veto
+
+drop fwjet_indexes

@@ -67,6 +67,8 @@ keep isOS
 keep jetCategory
 keep isBoostedTau
 
+keep fatjet_pnet
+
 
 keep LHE_HT
 keep LHE_Vpt
