@@ -82,10 +82,11 @@ cross_section_dict = {
     "zh_ztt_hbb_signal":        0.0161,           # = 0.9 * 0.033696 * 0.53 || (sigma(pp->ZH) from theory) * BR(Z->tt) * BR(H->bb) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
     "zh_ztt_hbb_background":    0.0321,           # = 0.0482 - 0.0161
 
-    # ggZH_HToBB_ZToLL : ggZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8
-    # XSDB : 0.006954
+    # ggZH_HToBB_ZToLL : ggZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8 (Powheg ggZH, Z->inclusive leptons, H undecayed.   Pythia decay H->bb)
+    # XSDB : 0.006954 -> 26 expected events in 2018 boosted_bb_boostedTau (more than data)
     # Theory gg->ZH : 0.1227 (so ggZ_Hbb_Zll is 0.1227*0.53*0.033632*3=0.00656) https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV#ZH_Process
     # NB : ZH production has two distinct sources of gg→ZH: 1) a genuine NNLO contribution to what called “Drell-Yan-like”, where ZH is accompanied by two-parton radiation, gg→HZ+qqbar. 2) top- and bottom-loop induced contribution without any additional partons in the final state.
+    # Theory from LHC Higgs XS WG : xs(ggZH, Z->ll, for one lepton)=4.14fb -> xs(ggZH)=0.138
     "ggZH_HToBB_ZToLL" : 0.006954, # XSDB
     # NB : QCD scale on this process is +25% - 19% !!
 
@@ -172,6 +173,8 @@ cross_section_dict = {
     "wz_lnuqq":         10.71,                    # AN and https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=HIG%2DRunIISpring15DR74%2D00155-,10.71,-NLO%2C%20up%20to
     # "wz_lnuqq":       9.119,                    # XSDB unknown
 
+    "wz_lnubb":         2.519,                    # running GenXSecAnalyzer by hand (checked is compatible with wz_lnuqq with qq!=bb)
+
     "wz_lnununu":       3.033,                    # https://twiki.cern.ch/twiki/bin/view/CMS/SummaryTable1G25ns#Diboson:~:text=SUS%2DRunIISpring15MiniAODv2%2D00044-,3.033e,-%2B00%20%2B%2D%202.060e%2D02
     # "wz_lnununu":     3.414,                    # XSDB unknown
 
@@ -255,4 +258,10 @@ cross_section_dict = {
 
     # "vbf_sm":         0.001726,
 
+    "qcd_ht300":        323800, # taken from HHbbtt boosted Wisconsin AN which seems to be from XSDB
+    "qcd_ht500":        30280,
+    "qcd_ht700":        6392,
+    "qcd_ht1000":       1118,
+    "qcd_ht1500":       108.9,
+    "qcd_ht2000":       21.93 # https://xsecdb-xsdb-official.app.cern.ch/xsdb/?columns=67108863&currentPage=0&pageSize=10&searchQuery=DAS%3DQCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8
 }
