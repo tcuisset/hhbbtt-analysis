@@ -305,6 +305,7 @@ bjet1var:
         isMC: self.dataset.process.isMC
         variables_withSyst: [pt, mass]
         variables_withoutSyst: [eta, phi, btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
+        variables_MConly: [hadronFlavour]
         index: bjet1_JetIdx
         input_prefix: Jet
         output_prefix: bjet1
@@ -316,6 +317,7 @@ bjet2var:
         isMC: self.dataset.process.isMC
         variables_withSyst: [pt, mass]
         variables_withoutSyst: [eta, phi, btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
+        variables_MConly: [hadronFlavour]
         index: bjet2_JetIdx
         input_prefix: Jet
         output_prefix: bjet2
@@ -326,7 +328,8 @@ fatjetvar:
         year: self.config.year
         isMC: self.dataset.process.isMC
         variables_withSyst: [pt, mass]
-        variables_withoutSyst: [eta, phi, particleNetLegacy_Xbb, particleNetLegacy_QCD, particleNet_massCorr, tau1, tau2]
+        variables_withoutSyst: [eta, phi, msoftdrop, particleNetLegacy_Xbb, particleNetLegacy_QCD, particleNet_massCorr, tau1, tau2]
+        variables_MConly: [hadronFlavour]
         index: fatjet_JetIdx
         input_prefix: FatJet
         output_prefix: fatjet
