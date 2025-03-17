@@ -107,14 +107,12 @@ hhlepton:
         year: self.config.year
         ispreVFP: self.config.get_aux('ispreVFP', False)
         runEra: self.dataset.runEra
-        vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
-# for VsEle, we need to use either VVLoose or Tight in order to apply SFs for genuine taus for VsJet discriminant
-# so put VVLosse in vl_vse variable (this should be better named...)
-        vl_vse: self.config.deeptau.vse.VVLoose
-        vvl_vse: self.config.deeptau.vse.VVLoose
-        t_vsmu: self.config.deeptau.vsmu.Tight
-        vl_vsmu: self.config.deeptau.vsmu.VLoose
-        useBoostedTaus: self.dataset.process.isMC or not self.dataset.has_tag("hpsData") # don't forget to change this also in HHLeptonMETCut
+        deeptau_vsjet_qcd_thresholds: "[self.config.deeptau.vsjet.VVVLoose, self.config.deeptau.vsjet.VVVLoose, self.config.deeptau.vsjet.VVVLoose]"
+        # for VsEle, we need to use either VVLoose or Tight in order to apply SFs for genuine taus for VsJet discriminant
+        # order : [mutau, etau, tautau]
+        deeptau_vsele_thresholds: "[self.config.deeptau.vse.VVLoose, self.config.deeptau.vse.Tight, self.config.deeptau.vse.VVLoose]"
+        deeptau_vsmu_thresholds: "[self.config.deeptau.vsmu.Tight, self.config.deeptau.vsmu.Tight, self.config.deeptau.vsmu.VLoose]"
+        useBoostedTaus: self.dataset.process.isMC or not self.dataset.has_tag("dataNoBoostedTaus") # don't forget to change this also in HHLeptonMETCut
         tau_priority: HPS
         boostedTau_VsMu_threshold: 0 # not used
         boostedTau_VsE_threshold: 0 # not used
