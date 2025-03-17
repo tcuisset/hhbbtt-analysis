@@ -350,12 +350,33 @@ class BaseConfig(cmt_config):
                         jrs(selection[qcd_key][channel.name], op="and"), op="and")))
                 for tau_name, tau_cut in [("boostedTaus", "isBoostedTau"), ("HPSTaus", "!isBoostedTau")]:
                     regions.append(Category("_".join([channel.name, tau_name, qcd_key]), # etau_boostedTaus_os_iso
-                    label=Label(", ".join([channel.label.root, region_names[ikey], tau_cut])),
-                    selection=jrs([
-                            channel.selection,
-                            jrs(selection[qcd_key][channel.name], op="and"),
-                            tau_cut
+                        label=Label(", ".join([channel.label.root, region_names[ikey], tau_cut])),
+                        selection=jrs([
+                                channel.selection,
+                                jrs(selection[qcd_key][channel.name], op="and"),
+                                tau_cut
                         ], op="and")))
+                
+                if channel.name == "etau" or channel.name=="mutau":
+                    regions.append(Category("_".join([channel.name, "HPSTaus", "crossTrigger", qcd_key]), # etau_HPSTaus_crossTrigger_os_iso
+                        label=Label(", ".join([channel.label.root, region_names[ikey], "!isBoostedTau"])),
+                        selection=jrs([
+                                channel.selection,
+                                jrs(selection[qcd_key][channel.name], op="and"),
+                                "!isBoostedTau",
+                                "pairType == 0 ? dau1_pt <  26 : (pairType == 1 ? dau1_pt<33 : false)" # 2018 etau only (other channels should check)
+                        ], op="and")))
+                    
+                    regions.append(Category("_".join([channel.name, "HPSTaus", "crossTrigger", "TightVSe", qcd_key]), # etau_HPSTaus_crossTrigger_os_iso
+                        label=Label(", ".join([channel.label.root, region_names[ikey], "!isBoostedTau"])),
+                        selection=jrs([
+                                channel.selection,
+                                jrs(selection[qcd_key][channel.name], op="and"),
+                                "!isBoostedTau",
+                                "pairType == 0 ? dau1_pt <  26 : (pairType == 1 ? dau1_pt<33 : false)", # 2018 etau only (other channels should check)
+                                "dau2_idDeepTau2017v2p1VSe >= 6 "
+                        ], op="and")))
+                    
         for channel in self.channels:
             regions.append(Category(f"{channel.name}_os",
                 label=f"{channel.label.root}, OS (no QCD isolation cut)",
