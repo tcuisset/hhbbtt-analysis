@@ -489,8 +489,14 @@ btag:
         lep_phi: "{dau1_phi, dau2_phi}"
         lep_mass: "{dau1_mass{lep_syst}, dau2_mass{lep_syst}}"
 
-hemIssue:
-    name: hemIssueRDF
+hemIssueJets:
+    name: hemIssueJetRDF
+    path: Corrections.JME.HEM_issue
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+hemIssueLeptons:
+    name: hemIssueLeptonRDF
     path: Corrections.JME.HEM_issue
     parameters:
         year: self.config.year
