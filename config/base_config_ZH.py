@@ -82,13 +82,14 @@ def get_ZH_common_features(self):
             x_title=Label("ZH #chi^{2} (Kin. Fit)"), tags=["cat"],
             systematics=self.all_systs),
         
-        Feature("dnn_ZHbbtt_kl_1", "dnn_ZHbbtt_kl_1", binning=(10, 0, 1+sys.float_info.epsilon),
-                x_title=Label("DNN ZH"), tags=["dnn", "blind"],
-                systematics=self.all_systs),
-        
-        Feature("dnn_ZHbbtt_kl_1_CR", "dnn_ZHbbtt_kl_1", binning=(30, 0, 1+sys.float_info.epsilon),
-                x_title=Label("DNN ZH"), tags=["dnn", "blind"],
-                systematics=self.all_systs),
+        *[Feature(f"dnn_ZHbbtt_{nbins}b", "dnn_ZHbbtt_kl_1", binning=(nbins, 0, 1+sys.float_info.epsilon),
+                x_title=Label("DNN ZZ"), tags=["dnn", "blind", "dnn_nonres"]+(["dnn_limited"] if nbins in [10, 100] else []), no_save_bin_yields=True,
+                systematics=self.all_systs)
+            for nbins in [10, 30, 100, 500]],
+        *[Feature(f"dnn_ZHbbtt_{nbins}bv", "dnn_ZHbbtt_kl_1", binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(1./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(2/10*nbins), endpoint=False), np.linspace(0.9, 0.97, int(3/10*nbins), endpoint=False), np.linspace(0.97, 1.+sys.float_info.epsilon, int(3/10*nbins)+1, endpoint=True)]),
+                x_title=Label("DNN ZH"), tags=["dnn", "blind", "dnn_nonres"], no_save_bin_yields=True,
+                systematics=self.all_systs)
+            for nbins in [500]], # variable-binning non-res DNN (for boostedTaus category)
         
         *[Feature(f"dnn_ZHbbtt_kl_1_{mass}", f"dnn_ZHbbtt_kl_1_{mass}", binning=(10, 0, 1+sys.float_info.epsilon),
                 x_title=Label(f"DNN ZH resonant {mass}"), tags=["dnn", "blind"],

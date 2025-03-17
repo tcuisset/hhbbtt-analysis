@@ -536,6 +536,8 @@ class BaseConfig(cmt_config):
             Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2 && ((bjet1_JetIdx>=0&&bjet2_JetIdx)||(fatjet_JetIdx>=0))"),
             Category("base_selection", "base",
                 selection=f"({base_HPS}) || ({base_boostedTaus})", selection_HPS=f"({base_HPS})"),
+            Category("base_selection_boostedTausOnly", "base",
+                selection=f"({base_boostedTaus})"),
             # Category("baseline_sr", "baseline Signal region",
             #     selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
             #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
@@ -560,6 +562,13 @@ class BaseConfig(cmt_config):
             #     selection=sel["vbf_tight_combined"]),
             # Category("vbf", label="VBF category",
             #     selection=sel["vbf_combined"]),
+
+            # Control region for boostedTaus, no jet requirements (only MET trigger + MET>180 + boostedTaus)
+            # not useful for DNN since no jet
+            Category("boostedTau_CR", "boostedTau CR", pre_selection="isBoostedTau && pairType >= 0 && MET_significance > 2 && (deltaPhi(MET_phi, (dau1_phi+dau2_phi)/2)<0.5)",
+                      selection="isBoostedTau && pairType >= 0 && MET_significance > 2 && (deltaPhi(MET_phi, (dau1_phi+dau2_phi)/2)<0.5)"), # could add also a b-jet veto to reject ttbar using jet_btag_count_total
+
+            Category("crossTrigger_debug", "crossTrigger phase space", selection="pairType == 0 ? dau1_pt <  26 : (pairType == 1 ? dau1_pt<33 : false)")
         ]
         return ObjectCollection(categories)
     
