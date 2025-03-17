@@ -88,6 +88,7 @@ class ConfigZbbHtt(BaseConfig):
                     categories.append(Category(
                         f"ZbbHtt_{orthogonality_name}90_{jet_category}_{tau_category}",
                         f"{orthogonality_name}90 {jet_category} {tau_category}",
+                        pre_selection=f"({cat_reqs[tau_category]})",
                         selection=f"({elliptical_cut_90}) && ({orthogonality_cut}) && (jetCategory == {jet_category_idx}) && ({cat_reqs[tau_category]})",
                         jet_category=jet_category
                     ))

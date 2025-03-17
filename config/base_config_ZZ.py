@@ -57,10 +57,10 @@ class Config(BaseConfig):
                 selection=elliptical_cut_90),
 
             Category("ZZ_EC90_CR", "CR ZZ mass cut E=90%",
-                selection=elliptical_cut_90_inv),
+                selection=f"({elliptical_cut_90_inv}) && ((bjet1_JetIdx>=0 && bjet2_JetIdx>=0) || (fatjet_JetIdx >= 0)) && (pairType >= 0)"),
             
             Category("ZZ_EC90_resolved_nobtag", "CR ZZ mass cut E=90% resolved no b-tag", # category for measurement of b-tag normalization factors 
-                selection=f"({elliptical_cut_90}) && bjet1_idx>=0 && bjet2_idx>=0 && ({cat_reqs['HPSTau']})"), # no selection on fatjet as that is nested in res2b, probably this is the best region, but no single choice
+                selection=f"({elliptical_cut_90}) && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({cat_reqs['HPSTau']})"), # no selection on fatjet as that is nested in res2b, probably this is the best region, but no single choice
 
             # Category("ZZ_elliptical_cut_90_CR_resolved_1b", "CR & resolved 1b",
             #     selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_1b})"),
@@ -76,6 +76,7 @@ class Config(BaseConfig):
                 categories.append(Category(
                     f"ZZ_EC90_{jet_category}_{tau_category}",
                     f"EC90 {jet_category} {tau_category}",
+                    pre_selection=f"({cat_reqs[tau_category]})",
                     selection=f"({elliptical_cut_90}) && (jetCategory == {jet_category_idx}) && ({cat_reqs[tau_category]})", # ({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]})
                     jet_category=jet_category#"boosted" if jet_category == "boosted_bb" else "resolved"
                 ))
@@ -91,6 +92,27 @@ class Config(BaseConfig):
                         f"{cat_reqs['boostedTau']} && jetCategory == 2" # boostedTaus : boosted_bb only
                     ], op="or"),
                     jrs([self.regions.get("etau_os_iso").selection, self.regions.get("mutau_os_iso").selection, self.regions.get("tautau_os_iso").selection], op="or")],
+                op="and")
+                )
+        )
+        categories.append(
+        Category("ZZ_elliptical_cut_90_DNNtraining", "DNN training region", # for DNN training increasing training statistics
+                pre_selection=jrs([
+                    "pairType>=0",
+                    f"pairType != 2 || (isBoostedTau ? dau1_rawIdDeepTauVSjet >= 0.4 : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Loose})", # loosening dau1 iso in tautau a bit
+                    f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}"
+                ],
+                op="and"), 
+                selection=jrs([
+                    elliptical_cut_90,
+                    jrs([
+                        f"{cat_reqs['HPSTau']} && (jetCategory >= 0 || (jetCategory==-2 && fatjet_pnet>=0.2))", # HPSTaus: recover some boosted_bb events failing PNet  
+                        f"{cat_reqs['boostedTau']} && (jetCategory == 2 || (jetCategory==-2 && fatjet_pnet>=0.1))" # boostedTaus : boosted_bb only
+                    ], op="or"),
+                    "pairType>=0",
+                    f"pairType != 2 || (isBoostedTau ? dau1_rawIdDeepTauVSjet >= 0.4 : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Loose})", # loosening dau1 iso in tautau a bit
+                    f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}"
+                ],
                 op="and")
                 )
         )
