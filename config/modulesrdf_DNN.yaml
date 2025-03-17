@@ -11,20 +11,22 @@ hhjetsCategory:
         btag_wp: self.config.btag_algo_wps.medium
         fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
 
-jetCategoryCheck:
-    name: JetCategoryCheckRDF
-    path: Tools.Tools.HHJets
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        jet_category: self.category.get_aux("jet_category", None)
+# does not make sense
+# jetCategoryCheck:
+#     name: JetCategoryCheckRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         jet_category: self.category.get_aux("jet_category", None)
 
-jetCategoryFilter: # filter to keep only categories for DNN input computation. Not strictly necessary, but faster and avoids tons of printouts (esp. for signal which is run without hhjets filter)
-    name: JetCategoryFilterRDF
-    path: Tools.Tools.HHJets
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
+# disabled as we have looser requirements for DNN training
+# jetCategoryFilter: # filter to keep only categories for DNN input computation. Not strictly necessary, but faster and avoids tons of printouts (esp. for signal which is run without hhjets filter)
+#     name: JetCategoryFilterRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
 
 
 zz:
@@ -34,6 +36,7 @@ zz:
         isMC: self.dataset.process.isMC
         year: self.config.year
         met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         AnalysisType: self.config.get_aux('AnalysisType', False)
 
 zzvar:
@@ -43,6 +46,7 @@ zzvar:
         isMC: self.dataset.process.isMC
         year: self.config.year
         met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         AnalysisType: self.config.get_aux('AnalysisType', False)
 
 zzdnninputs:
@@ -56,7 +60,9 @@ zzdnninputs:
         cvl_wps: self.config.ctag_algo_wps.CvL
         cvb_wps: self.config.ctag_algo_wps.CvB
         met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         feature_file: src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-11-16/all_features.txt
+        add_systs_to_output_branches: False # for DNN training we don't want branches to change name for each systematic variation (simplicity)
 
 
 dystitching:
