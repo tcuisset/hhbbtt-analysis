@@ -258,6 +258,14 @@ cross_section_dict = {
 
     # "vbf_sm":         0.001726,
 
+
+    # DNN training and other special samples
+    # ttbar HT binned : from XSDB
+    "tt_ht600":         1.402,
+    "tt_ht800":         0.5581,
+    "tt_ht1200":        0.09876,
+    "tt_ht2500":        0.001124,
+
     "qcd_ht300":        323800, # taken from HHbbtt boosted Wisconsin AN which seems to be from XSDB
     "qcd_ht500":        30280,
     "qcd_ht700":        6392,
