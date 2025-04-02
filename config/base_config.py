@@ -1536,8 +1536,10 @@ class BaseConfig(cmt_config):
             Systematic("fatjet_pnet", "", datacard_label=f"CMS_ZZbbtt_fatjet_bb_tagging_eff_{self.year}"), # FatJet ParticleNet XbbVsQCD scale factors 
 
             Systematic("pdf", "", ), # pdf uncertainties
-            Systematic("qcd_scale", "", datacard_label="QCDscale",
-                datacard_label_perProcess=(lambda p: "QCDscale_"+{"wjets":"V", "dy":"V", "ewk":"WWewk", "tt":"ttbar", "tw":"t", "singlet":"t", "vv":"VV", "vvv":"VVV", "ttx":"ttH", "wh":"VH", "ttH":"ttH", "ggH_ZZ":"ggH", "ggf_sm":"ggH", "zz_sl_signal":"VV", "zh":"VH", "qcd":""}[p]))
+            Systematic("qcd_scale", "", datacard_label="QCDscale", # see https://cms-analysis.docs.cern.ch/guidelines/systematics/systematics/systematics_master.yml
+                datacard_label_perProcess=(lambda p: "QCDscale_"+("ggH" if p.startswith("ggXZZbbtt") else {"wjets":"V", "dy":"V", "ewk":"WWewk", "tt":"ttbar", "tw":"t", "singlet":"t", "vv":"VV", "vvv":"VVV", "ttx":"ttH", "wh":"VH", "ttH":"ttH", "ggH_ZZ":"ggH", "ggf_sm":"ggH", "zz_sl_signal":"VV", "zh":"VH", "qcd":"", 
+                    "zh_zbb_htt_signal":"VH", "zh_ztt_hbb_signal":"VH", 
+                    "others":"others", "vv_v":"VV_V", "higgs":"higgs", "zz_bbtt":"VV_V"}[p]))) # this line is systs that don't have an official naming
         ]
         return ObjectCollection(systematics)
 
