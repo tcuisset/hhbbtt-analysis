@@ -922,22 +922,33 @@ class BaseConfig(cmt_config):
             #     units="GeV", tags=["extra"],
             #     selection="fwjet_indexes.size() > 0",
             #     **self.jet_systs_params),
-
+        ]
+        def get_x_title_lambda_lepton(variable_label):
+            """ variable_label can be for ex p_{T} """
+            def get_x_title_lambda(region, **kwargs):
+                if region:
+                    if "mutau" in region.name: return Label("muon " + variable_label)
+                    elif "etau" in region.name: return Label("electron " + variable_label)
+                return Label("#tau_{1} " + variable_label)
+            return get_x_title_lambda
+        features.extend([
             # lepton features
             Feature("lep1_pt", "dau1_pt", binning=(20, 20, 220),
-                x_title=Label("#tau_{1} p_{T}"),
+                get_x_title=get_x_title_lambda_lepton("p_{T}"),
                 units="GeV", tags=["base"],
                 **self.lepton_systs_params),
             Feature("lep1_pt_high", "dau1_pt", binning=(30, 20, 500),
-                x_title=Label("#tau_{1} p_{T}"),
+                get_x_title=get_x_title_lambda_lepton("p_{T}"),
                 units="GeV", tags=["base"],
                 **self.lepton_systs_params),
             Feature("lep1_eta", "dau1_eta", binning=(20, -2.5, 2.5),
-                x_title=Label("#tau_{1} #eta"), tags=["base"]),
+                get_x_title=get_x_title_lambda_lepton("#eta"),
+                tags=["base"]),
             Feature("lep1_phi", "dau1_phi", binning=phi_binning,
-                x_title=Label("#tau_{1} #phi"), tags=["base"]),
+                get_x_title=get_x_title_lambda_lepton("#phi"),
+                tags=["base"]),
             Feature("lep1_mass", "dau1_mass", binning=(30, -0.5, 3),
-                x_title=Label("#tau_{1} m"),
+                get_x_title=get_x_title_lambda_lepton("mass"),
                 units="GeV", tags=["base"],
                 **self.lepton_systs_params),
             Feature("lep1_idDeepTauVSjet", "dau1_idDeepTau2017v2p1VSjet", binning=(11, 0, 10),
@@ -1020,7 +1031,7 @@ class BaseConfig(cmt_config):
             Feature("dR_tautau_low", "deltaR(dau1_eta, dau1_phi, dau2_eta, dau2_phi)", 
                 binning=(50, 0, 0.8), # max deltaR for boostedTaus is 0.8 (0.7 for etau)
                 x_title=Label("#Delta R (#tau_{1}, #tau_{2})"), tags=["base"]),
-        ]
+        ])
         # MET (not all of the features are usually computed, might need to add metShifterRDF to modulesrdf.yaml)
         # NB : on data there is no propagation of tau & electron scales but there is XY corrections !
         for binning, suffix in (((20, 0, 200), ""), ((30, 150, 800), "_highRange")):
