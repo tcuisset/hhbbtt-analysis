@@ -138,7 +138,17 @@ def get_common_processes():
         Process("others", Label("Others"), color=(255, 230, 0),
             parent_process="all_background", llr_name="Others"),
         
-        Process("qcd_mc", Label("QCD (MC)"), color=(182, 101, 235)),
+        Process("tt_ht", Label("t#bar{t} HT-binned"), color=(40, 194, 255)), # no parent process to not include in general plots
+        Process("tt_ht600", Label("t#bar{t} 600<HT<800"), color=(40, 194, 255), parent_process="tt_ht"), 
+        Process("tt_ht800", Label("t#bar{t} 800<HT<1200"), color=(40, 194, 255), parent_process="tt_ht"), 
+        Process("tt_ht1200", Label("t#bar{t} 1200<HT<2500"), color=(40, 194, 255), parent_process="tt_ht"), 
+        
+        Process("qcd_mc", Label("QCD (MC)"), color=(255, 143, 171)),
+        Process("qcd_mc_ht500", Label("QCD (MC) 500<HT<700"), color=(255, 229, 236), parent_process="qcd_mc"),
+        Process("qcd_mc_ht700", Label("QCD (MC) 700<HT<1000"), color=(255, 194, 209), parent_process="qcd_mc"),
+        Process("qcd_mc_ht1000", Label("QCD (MC) 1000<HT<1500"), color=(255, 179, 198), parent_process="qcd_mc"),
+        Process("qcd_mc_ht1500", Label("QCD (MC) 1500<HT<2000"), color=(255, 143, 171), parent_process="qcd_mc"),
+        Process("qcd_mc_ht2000", Label("QCD (MC) HT>2000"), color=(251, 111, 146), parent_process="qcd_mc"),
 
         # Data
         Process("data", Label("Data"), color=(0, 0, 0), isData=True),

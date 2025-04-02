@@ -29,7 +29,7 @@ def get_datasets_ZH_2018(self):
             categorization_merging={'': 1},
             preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
-            tags=["ul", "nanoV10", "bul", "nonResOnly", "limited", "genfilter", "zh"]),
+            tags=["ul", "nanoV10", "bul", "nonResOnly", "limited", "genfilter", "zh", "nonResSignal"]),
         
         
         #### ZH_Hbb_Zll
@@ -41,7 +41,7 @@ def get_datasets_ZH_2018(self):
             categorization_batching={"resolved_2b" : 11},
             preplot_htcondor_workflow_params={"resolved_2b_HPSTau":{"request_cpus":8}},
             prefix="eos.grif.fr//",
-            tags=["ul", "nanoV10", "bul", "nonResOnly", "limited", "genfilter", "zh"]),
+            tags=["ul", "nanoV10", "bul", "nonResOnly", "limited", "genfilter", "zh", "nonResSignal"]),
 
 
         ###################################### ZH Background ##########################################
