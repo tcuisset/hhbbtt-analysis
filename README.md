@@ -119,12 +119,23 @@ Parameters:
 [Madgraph forum](https://answers.launchpad.net/mg5amcnlo/+question/696360)
 
 #### ZHToTauTau
-Powheg producing H on shell + Z->anything, Pythia force decay H->tautau
+Powheg producing H on shell + Z->anything, Pythia force decay H->tautau. [Paper](https://arxiv.org/pdf/1512.02572)
 [card](https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/production/2017/13TeV/Higgs/HZJ_HanythingJ_NNPDF31_13TeV/HZJ_HanythingJ_NNPDF31_13TeV_M125_Vinclusive.input)
+
+At LHE, has status==2 Z boson, no mZ cut, no gamma contribution. Higgs (LHE status==1) on shell.
 
 #### ZH_HToBB_ZToLL
 Powheg producing H on shell + Z->ll, Pythia force decay H->bb
 [card](https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/production/2017/13TeV/Higgs/HZJ_HanythingJ_NNPDF31_13TeV/HZJ_HanythingJ_NNPDF31_13TeV_M125_Vleptonic.input)
+
+#### ggZH
+There is [/ggZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8](https://cmsweb.cern.ch/das/request?input=dataset%3D%2FggZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8%2FRunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1%2FNANOAODSIM&instance=prod/global)
+[card](https://github.com/cms-sw/genproductions/blob/abd5e620174f05eada6dac35f9e366f3019fd6ef/bin/Powheg/production/2017/13TeV/Higgs/ggHZ_HanythingJ_NNPDF31_13TeV/ggHZ_HanythingJ_NNPDF31_13TeV_M125_Vleptonic.input)
+
+Powheg has 2 processes [doc](https://powhegbox.mib.infn.it/) : 
+ - HZ
+ - HZJ used to make ZHToTauTau_M125_CP5_13TeV-powheg-pythia8 and ZH_HtoBB etc [paper](https://arxiv.org/pdf/1306.2542), computed at up to one additional jet at NLO. Seems to include qq->ZH(+j) and qg->ZH(+j)
+ - ggHZ used to make the ggZH samples. [theory paper on ggZH xs](https://arxiv.org/pdf/2204.05225), about 6%, but dominant at high Higgs pt. Appears at NNLO in pp->ZH, MC is at LO for gg->ZH
 
 ## Categories
  - base-selection : removes the events where the object has low pt that have no way to be selected for speed (should maybe be cross checked for ZH)
@@ -159,6 +170,10 @@ The systematics shift are loaded in FeaturePlot by calling config.get_norm_syste
  - Looking at category.sleection, look at all features in double brackets ({{feature_name}}) and add their systematics
  - Same for region.selection
 
+#### weight systematics
+ - PrePlot.get_weight
+ - BaseConfig.get_weights_expression looks if a feature with the same name of the weight exists. If not just multiply the weight. If yes then call:
+ - BaseConfig.get_object_expression on the feature. In case the current systematic (can be dedicated ntuple or just weight variation) is not in `Feature.systematics`, just do the eventual `Feature.central` replacement. If it is, then append the systematic tag to the weight name (in case of syst tuple, do the tuple replacement)
 
 ### Disabling fully systematics
 Add : 
@@ -230,6 +245,9 @@ ZZTo2Q2L : dataset name : process name
  - zh_htt (ZHToTauTau_M125) : (used in ZZ analysis, parent zh->higgs)
  - ttzh (dataset TTZH) : (used in ZZ analysis parent ttx->zz_background)
  - zh_hbb_zqq (ZH_HToBB_ZToQQ_M-125) : commented out ?
+
+#### QCD MC
+`/QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraphMLM-pythia8/RunIISummer19UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM`
 
 ### Process tags
  - isZZsignal : if True, module Tools.Tools.ZZAnalysis.ZZBBTauTauFilterRDF will select at gen level ZZ->bbtt events
@@ -559,8 +577,8 @@ Using `--workers 1` in combination with RDataFrame will lead to a memory leak, a
 
 
 ### Temporary files
-A lot of orphaned temprary files end up in `nanoaod_base_analysis/data/tmp`, these need to be cleaned up : 
-`cd nanoaod_base_analysis/data/tmp && find ./ -maxdepth 1 -name 'tmp*' -exec rm -r {} \+`. NB: don't just remove the tmp folder as the list of InputData files is stored there (it will have to be regrenrated).
+A lot of orphaned temprary files end up in `nanoaod_base_analysis/data/tmp`, leading to OSError. these need to be cleaned up : 
+`cd nanoaod_base_analysis/data/tmp && find ./ -mindepth 1 -maxdepth 1 -type d -name 'tmp*' -print0 | xargs -0 -n 10 -P 10 rm -r` (old slower command :` find ./ -maxdepth 1 -name 'tmp*' -exec rm -r {} \+`). NB: don't just remove the tmp folder as the list of InputData files is stored there (it will have to be regrenrated).
 `ls -U -f -1` can list the files at reasonable speed (and ` /bin/ls -1U nanoaod_base_analysis/data/tmp | wc -l` count them). Also `/bin/ls -U . | xargs rm -r` can work. The `jobs` folder is also filling up.
 Also try  `mkdir emptydir && rsync -a --delete emptydir/ yourdirectory/` to remove fast
 

@@ -16,9 +16,14 @@ cd /data_CMS/cms/$USER/cmt/PreprocessRDF/bul_${YEAR}_ZbbHtt_v12
 for process_dir in /data_CMS/cms/$ZZ_USER/cmt/PreprocessRDF/bul_${YEAR}_ZZ_v12/*; do
     if [[ ! $(basename $process_dir) == GluGluToXToZZ* ]]; then
     if [[ ! $(basename $process_dir) == zz_bbtt* ]]; then
-    if [[ ! $(basename $process_dir) == zz_sl_* ]]; then # exluce zz_sl_signal and zz_sl_background
+    if [[ ! $(basename $process_dir) == zz_sl_signal ]]; then # exluce zz_sl_signal but not zz_sl_background
     if [[ ! $(basename $process_dir) == zh_* ]]; then
+        if [ ! -d $(basename $process_dir) ]; then
+        echo "Linking " $(basename $process_dir)
          ln -s $process_dir $(basename $process_dir)
+        else 
+            echo "Skipping already existing " $(basename $process_dir)
+        fi
     fi
     fi
     fi
@@ -33,8 +38,9 @@ done
 mkdir -p /data_CMS/cms/$USER/cmt/PreprocessRDF/bul_${YEAR}_ZttHbb_v12
 cd /data_CMS/cms/$USER/cmt/PreprocessRDF/bul_${YEAR}_ZttHbb_v12
 for process_dir in /data_CMS/cms/$USER/cmt/PreprocessRDF/bul_${YEAR}_ZbbHtt_v12/*; do
-    if [ ! -f $(basename $process_dir) ]; then
-    ln -s $process_dir $(basename $process_dir)
+    if [ ! -d $(basename $process_dir) ]; then
+    echo "Linking " $(basename $process_dir)
+     ln -s $process_dir $(basename $process_dir)
     fi
 done
 
