@@ -376,16 +376,85 @@ class BaseConfig(cmt_config):
                                 "pairType == 0 ? dau1_pt <  26 : (pairType == 1 ? dau1_pt<33 : false)", # 2018 etau only (other channels should check)
                                 "dau2_idDeepTau2017v2p1VSe >= 6 "
                         ], op="and")))
-                    
+        
+        # trying inverting both boostedTau scores for boostedTau tautau inviso (tautau only)
+        boostedTau_dau12_doubleInversion_loosenedIso = [ # for boostedTaus :  VLooseQCD <= dau1 < LooseWisc && VLooseQCD <= dau2 < LooseWisc.           For HPS same as usual
+                f"isBoostedTau ? dau1_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}", 
+                f"isBoostedTau ? dau1_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}",
+                f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
+                f"isBoostedTau ? dau2_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}",
+        ]
+        selection_boostedTaus_doubleInversion = {
+            "os_iso" : selection["os_iso"],
+            "os_inviso" : {
+                "mutau": ["isOS == 1", *dau2_loosenedIso], # identical
+                "etau": ["isOS == 1", *dau2_loosenedIso], # identical
+                "tautau": ["isOS == 1",
+                    *boostedTau_dau12_doubleInversion_loosenedIso],
+            },
+            "ss_iso" : selection["ss_iso"],
+            "ss_inviso" : {
+                "mutau": ["isOS == 0", *dau2_loosenedIso], # identical
+                "etau": ["isOS == 0", *dau2_loosenedIso], # identical
+                "tautau": ["isOS == 0",
+                    *boostedTau_dau12_doubleInversion_loosenedIso],
+            },
+        }
+        # making wider inviso
+        boostedTau_dau12_doubleWideInversion_loosenedIso = jrs(  # for boostedTaus :  VLooseQCD <= dau1 < LooseWisc OR VLooseQCD <= dau2 < LooseWisc.           For HPS same as usual
+                jrs(
+                    f"isBoostedTau ? dau1_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}", 
+                    f"isBoostedTau ? dau1_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}",
+                op="and"),
+                jrs(
+                    f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}", 
+                    f"isBoostedTau ? dau2_rawIdDeepTauVSjet < {self.deepboostedtau.vsjet.LooseWisc} : dau2_idDeepTau2017v2p1VSjet < {self.deeptau.vsjet.Medium}",
+                op="and")
+            , op="or")
+        
+        selection_boostedTaus_doubleWideInversion = {
+            "os_iso" : selection["os_iso"],
+            "os_inviso" : {
+                "mutau": ["isOS == 1", *dau2_loosenedIso], # identical
+                "etau": ["isOS == 1", *dau2_loosenedIso], # identical
+                "tautau": ["isOS == 1",
+                    boostedTau_dau12_doubleWideInversion_loosenedIso],
+            },
+            "ss_iso" : selection["ss_iso"],
+            "ss_inviso" : {
+                "mutau": ["isOS == 0", *dau2_loosenedIso], # identical
+                "etau": ["isOS == 0", *dau2_loosenedIso], # identical
+                "tautau": ["isOS == 0",
+                    boostedTau_dau12_doubleWideInversion_loosenedIso],
+            },
+        }
+
+        for ikey, qcd_key in enumerate(selection_boostedTaus_doubleInversion): # tautau_doubleInversion_os_iso, os_inviso, etc
+            channel = self.channels.get("tautau")
+            regions.append(Category("_".join([channel.name, "doubleInversion", qcd_key]), 
+                label=Label(", ".join([channel.label.root, 'double inversion', region_names[ikey]])),
+                selection=jrs(channel.selection,
+                    jrs(selection_boostedTaus_doubleInversion[qcd_key][channel.name], op="and"), op="and")))
+            regions.append(Category("_".join([channel.name, "doubleWideInversion", qcd_key]), 
+                label=Label(", ".join([channel.label.root, 'double wide inversion', region_names[ikey]])),
+                selection=jrs(channel.selection,
+                    jrs(selection_boostedTaus_doubleWideInversion[qcd_key][channel.name], op="and"), op="and")))
+
         for channel in self.channels:
-            regions.append(Category(f"{channel.name}_os",
+            regions.append(Category(f"{channel.name}_os", # ex: etau_os
                 label=f"{channel.label.root}, OS (no QCD isolation cut)",
                 selection=jrs(channel.selection,
                     "isOS == 1")))
-            regions.append(Category(f"{channel.name}_ss",
+            regions.append(Category(f"{channel.name}_ss", # etau_ss
                 label=f"{channel.label.root}, SS (no QCD isolation cut)",
                 selection=jrs(channel.selection,
                     "isOS == 0", op="and")))
+            
+            regions.append(Category(f"{channel.name}", # ex: etau
+                label=f"{channel.label.root} (SR + BCD QCD control regions)",
+                selection=channel.selection))
+            
+        # special regions
         regions.append(Category(f"baseline_region",
             label="baseline etau+mutau+tautau",
             selection="pairType>=0 && pairType <= 2"))
@@ -1443,8 +1512,23 @@ class BaseConfig(cmt_config):
                 return region.name[:region.name.index("_%s" % sign)]
         return ""
 
-    def get_qcd_regions(self, region, category, wp="", shape_region="os_inviso",
-            signal_region_wp="os_iso", sym=True):
+    def get_qcd_regions(self, region, category, wp="", shape_region=None, # shape_region="os_inviso", sym=True
+            signal_region_wp="os_iso", sym=None):
+        """ Returns the Region objects to be used for QCD estimation.
+        Parameters : 
+         - region : signal region (ex : etau_os_iso), should be a Region object
+         - category : the category we are in
+         - wp : used in case there are different working points of isolation for QCD control regions
+         - shape_region: suffix of region name to take the shape from (ex : os_inviso, ss_iso). Is sym=True then this can only be os_inviso. If None automatic depending on category/region
+         - signal_region_wp : 
+         - sym : if True, the shape is taken from the average of shape_region (ie os_inviso) and ss_iso regions. If False it is taken from shape_region. If None automatic depending on category/region
+        Returns : dict
+             - ss_inviso: region
+             - os_inviso : region
+             - ss_iso : region
+             - shape (if sym=False) : shape region 
+             - shape1 & shape2 (if sym=True) : the two shape regions
+        """
         # the region must be set and tagged os_iso
         if not region:
             raise Exception("region must not be empty")
@@ -1454,6 +1538,23 @@ class BaseConfig(cmt_config):
         # the category must be compatible with the estimation technique
         # if category.has_tag("qcd_incompatible"):
         #     raise Exception("category '{}' incompatible with QCD estimation".format(category.name))
+
+        if sym is None or shape_region is None: # automatic determination depending on category/region
+            if not (sym is None and shape_region is None): raise ValueError()
+            if "boostedTau" in category.name:
+                if "tautau" in region.name:
+                    shape_region = "ss_iso" # in tautau the shape is completely off in os_inviso (from checks in boostedTau_CR)
+                    sym = False
+                elif "mutau" in region.name:
+                    shape_region = "os_inviso" # shape is better in os_inviso (from checks in boostedTau_CR)
+                    sym = False
+                else: # etau : QCD negligible
+                    shape_region = "ss_iso"
+                    sym = False
+            else:
+                sym = False # could try to set to True
+                shape_region = "ss_iso" # kind of arbitrary
+            print(f"QCD estimation in {category.name} - region {region.name}. Shape from {shape_region} (sym={sym})")
 
         if wp != "":
             wp = "__" + wp
