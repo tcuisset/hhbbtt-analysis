@@ -11,6 +11,7 @@ from cmt.base_tasks.base import Task
 from config.xs_config import cross_section_dict
 
 import math
+import numpy as np
 
 def get_common_processes():
     processes = [
@@ -357,7 +358,7 @@ class BaseConfig(cmt_config):
                                 tau_cut
                         ], op="and")))
                 
-                if channel.name == "etau" or channel.name=="mutau":
+                if channel.name == "etau" or channel.name=="mutau": # cross trigger region debug
                     regions.append(Category("_".join([channel.name, "HPSTaus", "crossTrigger", qcd_key]), # etau_HPSTaus_crossTrigger_os_iso
                         label=Label(", ".join([channel.label.root, region_names[ikey], "!isBoostedTau"])),
                         selection=jrs([
@@ -461,6 +462,9 @@ class BaseConfig(cmt_config):
         regions.append(Category(f"baseline_hem_affected",
             label="EraCD - baseline etau+mutau+tautau",
             selection="pairType>=0 && pairType <= 2 && hem_affected_run"))
+        regions.append(Category(f"HPS_nobtag",
+            label="HPSTaus no b-tagging",
+            selection="bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && (!isBoostedTau) && (pairType >= 0)"))
         return ObjectCollection(regions)
 
     def add_channels(self):
@@ -630,6 +634,11 @@ class BaseConfig(cmt_config):
                 selection=f"({base_HPS}) || ({base_boostedTaus})", selection_HPS=f"({base_HPS})"),
             Category("base_selection_boostedTausOnly", "base",
                 selection=f"({base_boostedTaus})"),
+            
+            Category("baseline_resolved_nobtag", "Baseline HPS no b-tag", # category for measurement of b-tag normalization factors 
+                pre_selection=f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({self.get_categories_requirements()['HPSTau']}))",
+                selection=f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({self.get_categories_requirements()['HPSTau']}))"), # no selection on fatjet as that is nested in res2b, probably this is the best region, but no single choice
+            
             # Category("baseline_sr", "baseline Signal region",
             #     selection="((pairType == 0) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
             #         "((pairType == 1) && (isOS == 1) && (dau2_idDeepTau2017v2p1VSjet >= {0})) || "
@@ -747,6 +756,11 @@ class BaseConfig(cmt_config):
             
             Feature("btagging", "Jet_btagDeepFlavB", binning=(30,0,1),
                 x_title=Label("b-tagging score"), tags=["jet", "baseObjects"]),
+            
+            Feature("jet_btag_count_total", "jet_btag_count_total", binning=(10, 0, 10),
+                x_title=Label("Nb of b-tagged AK4 jets (Medium WP) in the event (no other selections)"), tags=["jet", "baseObjects"]),
+            Feature("jet_btagcand_count", "jet_btagcand_count", binning=(20, 0, 20),
+                x_title=Label("Nb of AK4 jets passing base selections (no b-tag)"), tags=["jet", "baseObjects"]),
 
             # leptons
             Feature("electron_pt", "Electron_pt", binning=(30, 0, 300),
@@ -1194,13 +1208,13 @@ class BaseConfig(cmt_config):
                               "etauFR", "mutauFR", "eleReco", "eleIso", "muIso", "muId"]),
             Feature("bTagweightReshape", "bTagweightReshape", binning=(30, 0, 2),
                 x_title=Label("b-tag reshaping weight"), tags=["base", "weights"], noData=True,
-                central="jer", systematics=self.jme_systs + self.btag_systs_nojec),
+                central="jer", systematics=self.jme_systs + self.btag_systs_nojec), # techincally btag does not depend on JER but the branch in JER varied ntuples is called btagweightReshape_smeared_up/down ....
             Feature("bTagweightReshapeExtrapFactor", "bTagweightReshapeExtrapFactor", binning=(30, 0.5, 1.5),
                 x_title=Label("b-tag extrapolation factor for reshaping weight"), tags=["weights"], noData=True,
                 systematics=self.btag_systs_nojec),
             Feature("bTagweightReshapeCorr", "{{bTagweightReshape}}*{{bTagweightReshapeExtrapFactor}}", binning=(30, 0, 2),
                 x_title=Label("b-tag reshaping weight (with r-factor)"), tags=["weights"], noData=True,
-                systematics=self.jme_systs + self.btag_systs_nojec),
+                systematics=self.jec_systs + self.btag_systs_nojec),
             Feature("fatjet_pnet_SF", "fatjet_pNet_LP_SF", binning=(30, 0, 2.),
                 x_title=Label("FatJet ParticleNet SF"), tags=["base", "weights"], noData=True,
                 systematics=["fatjet_pnet"]), # self.jec_systs+ not needed to add jec_systs there, it would cause issues with naming of variable
@@ -1223,6 +1237,10 @@ class BaseConfig(cmt_config):
                 x_title=Label("LHE HT"), units="GeV", tags=["lhe"]),
             Feature("LHE_HT_high", "LHE_HT", binning=(100, 0, 3000), noData=True,
                 x_title=Label("LHE HT"), units="GeV", tags=["lhe"]),
+            Feature("LHE_HT_variableBinning", "LHE_HT",
+                #                                       1 GeV                                     5 GeV                                    25 GeV                                          100 GeV
+                binning=np.concatenate([np.linspace(0., 200, 200, endpoint=False), np.linspace(200, 600, 80, endpoint=False), np.linspace(600, 1500, 36, endpoint=False), np.linspace(1500, 5000,35, endpoint=True)]),
+                noData=True, x_title=Label("LHE HT"), units="GeV", tags=["lhe"]),
             Feature("LHE_Njets", "LHE_Njets", binning=(5, 0, 5), noData=True,
               x_title=Label("LHE Njets"), tags=["lhe"]),
             Feature("LHE_NpLO", "LHE_NpLO", binning=(5, 0, 5), noData=True,
@@ -1333,7 +1351,7 @@ class BaseConfig(cmt_config):
                 weights[category.name].append("fatjet_pnet_SF")
             if not "boosted_bb_boostedTau" in category.name: # we only consider boosted_bb for boostedTau thus no need for AK4 btag SFs
                 weights[category.name].append("bTagweightReshape")
-                #weights[category.name].append("bTagweightReshapeExtrapFactor")
+                weights[category.name].append("bTagweightReshapeExtrapFactor")
             if "boostedTau" in category.name:
                 weights[category.name].append("boostedTau_SF") # adding weight but without the systematics are these are more easily done with a lognormal
         
