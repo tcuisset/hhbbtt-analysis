@@ -85,7 +85,7 @@ tauSF:
             ["nom"] if systematic else 'all'
         vsjet_dm_binned_uncertainties_PY: >-
             ["nom"] if systematic else 'all'
-        vse_wps: [VVLoose]
+        vse_wps: [VVLoose, Tight]
         vsmu_wps: [VLoose, Tight]
 boostedTauES:
     name: boostedTauEnergyScaleRDF
