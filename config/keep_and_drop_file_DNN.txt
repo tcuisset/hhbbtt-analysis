@@ -67,6 +67,7 @@ keep isOS
 keep jetCategory
 keep isBoostedTau
 
+keep bjet(1|2)_btagDeepFlavB
 keep fatjet_pnet
 
 

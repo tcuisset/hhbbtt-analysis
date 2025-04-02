@@ -1,0 +1,35 @@
+#ultra-light for btag extrapolation factors computations
+# saves only weights and some variables
+
+drop .*
+
+keep pairType
+
+
+keep bjet(1|2)_hadronFlavour
+keep fatjet_hadronFlavour
+
+keep bjet(1|2)_btagDeepFlavB
+
+keep LHE_HT
+keep LHE_Nb
+keep LHE_Njets
+keep nJet
+keep jet_btagcand_count
+keep jet_btag_count_total
+
+keep genWeightFixed
+keep genWeight
+keep DYstitchWeight
+keep puWeight
+keep trigSF
+# keep trigSF.*
+keep L1PreFiringWeight_Nom
+keep L1PreFiringWeight_(Up|Down)
+keep PUjetID_SF
+keep idAndIsoAndFakeSF
+# keep idAndIsoAndFakeSF.*
+keep bTagweightReshape_.*
+keep fatjet_pNet_LP_SF
+keep pdfWeight.*
+keep scaleWeight.*

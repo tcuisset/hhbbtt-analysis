@@ -151,6 +151,7 @@ drop Jet.*
 #keep Jet_btagDeepFlavQG
 #keep Jet_mass.*
 keep Jet_HHbtag
+keep nJet
 
 
 drop FatJet.*
