@@ -1480,7 +1480,7 @@ class BaseConfig(cmt_config):
                     prefix + "ss_" + signal_region_wp[len("os_"):])
         return DotDict(qcd_regions)
 
-    def get_norm_systematics(self, processes_datasets, region):
+    def get_norm_systematics(self, processes_datasets, category, region):
         """
         Method to extract all normalization systematics from the KLUB files.
         It considers the processes given by the process_group_name and their parents.
@@ -1534,4 +1534,10 @@ class BaseConfig(cmt_config):
                         process=self.processes.get(process.parent_process)
                     else:
                         break
+        
+        # adding systematics not from cfg files
+        if "mutau" in region.name and not "boostedTau" in category.name:
+            # https://cms-pub-talk.web.cern.ch/t/muon-object-review-please-fill-the-questionnaire/28609/4
+            # only for muon trigger
+            systematics["CMS_ZZbbtt_Muon_WP_mismatch"] = {process.name : "1.05" for process in processes_datasets}
         return systematics
