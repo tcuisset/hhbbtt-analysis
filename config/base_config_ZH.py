@@ -139,7 +139,7 @@ def get_ZH_common_processes():
                 ProcType="Zbb_Htautau", isBkgBBTT=True, genfilter_denominator_weights=True, color=(224, 190, 79)),
         # resonant
         *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res), 
-                ProcType="Zbb_Htautau", isSignal=True, llr_name="ZprimeZbbHtt", fatjet_bb_type="HHlike", parent_process="all_signals") # isSigBBTT=True, 
+                ProcType="Zbb_Htautau", isSignal=True, isBSMSignal=True, llr_name="ZprimeZbbHtt", fatjet_bb_type="HHlike", parent_process="all_signals") # isSigBBTT=True, 
             for mass in resonant_masses_ZH],
         
         # background for resonant analysis (zh_zbb_htt_signal with isSignal=False, dataset is the exact same)
@@ -156,7 +156,7 @@ def get_ZH_common_processes():
                 ProcType="Ztautau_Hbb", isBkgBBTT=True, genfilter_denominator_weights=True, color=(224, 190, 79)),
         # resonant
         *[Process(f"Zprime_Zh_Ztautauhbb_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res),
-                    ProcType="Ztautau_Hbb", isSignal=True, llr_name="ZprimeZttHbb", fatjet_bb_type="HHlike", parent_process="all_signals") # isSigBBTT=True, 
+                    ProcType="Ztautau_Hbb", isSignal=True, isBSMSignal=True, llr_name="ZprimeZttHbb", fatjet_bb_type="HHlike", parent_process="all_signals") # isSigBBTT=True, 
             for mass in resonant_masses_ZH],
 
         # background for resonant analysis (zh_ztt_hbb_signal with isSignal=False, dataset is the exact same)
@@ -185,6 +185,18 @@ def get_ZH_common_processes():
             "wjets",
             "tt",
             "ggf_sm",
+            "data",
+        ],
+        "datacard_reduced": [ # for boostedTau category where there is not enough stat in many bkgs
+            "zh_zbb_htt_signal",
+            "zh_ztt_hbb_signal",
+            "tt",
+            "dy",
+            "wjets",
+            "vv_v", #includes vv (& zz) & vvv
+            "ttx",
+            "higgs", # include wh, vbf_htt, ggH_ZZ, ttH, zh, ggf_sm
+            "others", #inlucde ewk, tw, singlet
             "data",
         ],
         "datacard_res": [

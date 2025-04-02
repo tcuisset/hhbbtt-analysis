@@ -61,6 +61,7 @@ class Config(BaseConfig):
             
             Category("ZZ_EC90_resolved_nobtag", "CR ZZ mass cut E=90% resolved no b-tag", # category for measurement of b-tag normalization factors 
                 selection=f"({elliptical_cut_90}) && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({cat_reqs['HPSTau']})"), # no selection on fatjet as that is nested in res2b, probably this is the best region, but no single choice
+            
 
             # Category("ZZ_elliptical_cut_90_CR_resolved_1b", "CR & resolved 1b",
             #     selection=f"({elliptical_cut_90_inv}) && ({cat_reqs.resolved_1b})"),
@@ -78,7 +79,8 @@ class Config(BaseConfig):
                     f"EC90 {jet_category} {tau_category}",
                     pre_selection=f"({cat_reqs[tau_category]})",
                     selection=f"({elliptical_cut_90}) && (jetCategory == {jet_category_idx}) && ({cat_reqs[tau_category]})", # ({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]})
-                    jet_category=jet_category#"boosted" if jet_category == "boosted_bb" else "resolved"
+                    jet_category=jet_category,#"boosted" if jet_category == "boosted_bb" else "resolved"
+                    dnn_rebinning_target_bin_count=5 if (jet_category=="boosted_bb" and tau_category=="HPSTau") else 4 if (jet_category=="boosted_bb" and tau_category=="boostedTau") else 10
                 ))
             #all_categories_selections.append(f"({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})")
         
@@ -106,9 +108,10 @@ class Config(BaseConfig):
                 selection=jrs([
                     elliptical_cut_90,
                     jrs([
-                        f"{cat_reqs['HPSTau']} && (jetCategory >= 0 || (jetCategory==-2 && fatjet_pnet>=0.2))", # HPSTaus: recover some boosted_bb events failing PNet  
-                        f"{cat_reqs['boostedTau']} && (jetCategory == 2 || (jetCategory==-2 && fatjet_pnet>=0.1))" # boostedTaus : boosted_bb only
+                        f"{cat_reqs['HPSTau']} && (jetCategory >= 0 || (jetCategory==-2 && fatjet_pnet>=0.))", # HPSTaus: recover some boosted_bb events failing PNet  
+                        f"{cat_reqs['boostedTau']} && (jetCategory == 2 || (jetCategory==-2 && fatjet_pnet>=0.))" # boostedTaus : boosted_bb only
                     ], op="or"),
+                    "isOS",
                     "pairType>=0",
                     f"pairType != 2 || (isBoostedTau ? dau1_rawIdDeepTauVSjet >= 0.4 : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Loose})", # loosening dau1 iso in tautau a bit
                     f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}"
@@ -324,7 +327,7 @@ class Config(BaseConfig):
                 systematics=self.all_systs)
             for nbins in [10, 30, 100, 500]],
             *[Feature(f"dnn_ZZbbtt_{nbins}bv", "dnn_ZZbbtt_kl_1", binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(1./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(2/10*nbins), endpoint=False), np.linspace(0.9, 0.97, int(3/10*nbins), endpoint=False), np.linspace(0.97, 1.+sys.float_info.epsilon, int(3/10*nbins)+1, endpoint=True)]),
-                x_title=Label("DNN ZZ"), tags=["dnn", "blind", "dnn_nonres"], no_save_bin_yields=True,
+                x_title=Label("DNN ZZ"), tags=["dnn", "blind", "dnn_nonres", "dnn_limited"], no_save_bin_yields=True,
                 systematics=self.all_systs)
             for nbins in [500]], # variable-binning non-res DNN (for boostedTaus category)
             
@@ -367,7 +370,7 @@ class Config(BaseConfig):
 
             # ZZ resonant
             *[Process(f"ggXZZbbtt_M{mass}", Label(f"ggX {mass} GeV" if mass < 1000 else f"ggX {mass/1000:g} TeV"), color=next(colors_res), 
-                    isSignal=True, llr_name="ggXZZbbtt", fatjet_bb_type="HHlike", parent_process="all_signals")
+                    isSignal=True, isBSMSignal=True, llr_name="ggXZZbbtt", fatjet_bb_type="HHlike", parent_process="all_signals")
             for mass in [ 200, 210, 220, 230, 240, 250, 260, 270, 280, 300, 320, 350, 360, 400, 450, 500, 550,
                 600, 650, 700, 750, 800, 850, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700,
                 1800, 1900, 2000, 2200, 2400, 2500, 2600, 2800, 3000, 3500, 4000, 4500, 5000]],
