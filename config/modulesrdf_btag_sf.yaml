@@ -1,0 +1,37 @@
+
+
+
+
+dystitching:
+    name: DYstitchingRDF
+    path: Tools.Tools.dyreweighting
+    parameters:
+        isDY: self.dataset.process.get_aux('isDY', False)
+        year: self.config.year
+        runPeriod: self.config.runPeriod
+
+# # only for data, filter events having hem_weight == 0 because we cannot use weights in data
+# # MC is dealt with by adding a weight hem_weight set to 0 or 1
+# hem_weight_filer:
+#     name: hemIssueDataFilterRDF
+#     path: Corrections.JME.HEM_issue
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+
+
+pdf_scale_weights:
+    name: PdfWeightsRDF
+    path: Tools.Tools.theory
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        force_pdf_to_one: self.dataset.get_aux("force_pdf_to_one", False)
+
+# boosted_tau_sf:
+#     name: boostedTauSFRDF
+#     path: Tools.Tools.dauIdIso
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         runPeriod: self.config.runPeriod

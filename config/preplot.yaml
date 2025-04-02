@@ -32,3 +32,12 @@ boosted_tau_sf:
         year: self.config.year
         isMC: self.dataset.process.isMC
         runPeriod: self.config.runPeriod
+
+BtagReshapeExtrapFactorRDF:
+    name: BtagReshapeExtrapFactorRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runPeriod: self.config.runPeriod
+        isSignal: self.dataset.process.isSignal
