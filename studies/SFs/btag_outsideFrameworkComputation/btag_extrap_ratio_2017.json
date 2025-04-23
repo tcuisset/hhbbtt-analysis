@@ -1,0 +1,1892 @@
+{
+    "wz_lllnu": {
+        "ratios": {
+            "inclusive": 0.926000383370768,
+            "etau": 0.9228495588897558,
+            "mutau": 0.9288177740705607,
+            "tautau": 0.9140606665960284,
+            "e&mutau": 0.9264106285862679
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 593585.9068163286,
+            "etau": 230669.19169410793,
+            "mutau": 343453.0179252367,
+            "tautau": 19463.697196984012,
+            "e&mutau": 574122.2096193444
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 641021.2322543483,
+            "etau": 249953.19060629664,
+            "mutau": 369774.3814914821,
+            "tautau": 21293.660156570382,
+            "e&mutau": 619727.5720977783
+        },
+        "processed_event_count": {
+            "inclusive": 105409.0,
+            "etau": 42846.0,
+            "mutau": 58832.0,
+            "tautau": 3731.0,
+            "e&mutau": 101678.0
+        }
+    },
+    "zh_htt": {
+        "ratios": {
+            "inclusive": 0.9583144582194365,
+            "etau": 0.9531750440333058,
+            "mutau": 0.9618755439152351,
+            "tautau": 0.9567469608443468,
+            "e&mutau": 0.9586890985376116
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 133461.17727771934,
+            "etau": 39238.16164337038,
+            "mutau": 68520.33033438212,
+            "tautau": 25702.685299966553,
+            "e&mutau": 107758.49197775246
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 139266.58012203252,
+            "etau": 41165.74588161304,
+            "mutau": 71236.17059175427,
+            "tautau": 26864.663648665744,
+            "e&mutau": 112401.91647336735
+        },
+        "processed_event_count": {
+            "inclusive": 195350.0,
+            "etau": 59018.0,
+            "mutau": 95779.0,
+            "tautau": 40553.0,
+            "e&mutau": 154797.0
+        }
+    },
+    "zz_dl": {
+        "ratios": {
+            "inclusive": 0.8965101521510584,
+            "etau": 0.8885969556770379,
+            "mutau": 0.905433418932915,
+            "tautau": 0.8628600506322012,
+            "e&mutau": 0.8982833178173455
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 339424.8044321198,
+            "etau": 135722.6298295599,
+            "mutau": 187349.4762642783,
+            "tautau": 16352.698338281614,
+            "e&mutau": 323072.1060938381
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 378606.76046748,
+            "etau": 152738.12155495223,
+            "mutau": 206916.90006878276,
+            "tautau": 18951.73884374448,
+            "e&mutau": 359655.0216237353
+        },
+        "processed_event_count": {
+            "inclusive": 301599.0,
+            "etau": 127783.0,
+            "mutau": 158132.0,
+            "tautau": 15684.0,
+            "e&mutau": 285915.0
+        }
+    },
+    "dy_ptz4": {
+        "ratios": {
+            "inclusive": 0.9502086681017841,
+            "etau": 0.9485156728100025,
+            "mutau": 0.950553642343978,
+            "tautau": 0.9521857010201995,
+            "e&mutau": 0.9495426821438657
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 4896652.259504719,
+            "etau": 1813739.0083646798,
+            "mutau": 1846491.21052944,
+            "tautau": 1236422.0406106003,
+            "e&mutau": 3660230.218894122
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 5153238.887292703,
+            "etau": 1912186.6515831314,
+            "mutau": 1942542.880563965,
+            "tautau": 1298509.3551456,
+            "e&mutau": 3854729.532147096
+        },
+        "processed_event_count": {
+            "inclusive": 394428.0,
+            "etau": 149594.0,
+            "mutau": 143559.0,
+            "tautau": 101275.0,
+            "e&mutau": 293153.0
+        }
+    },
+    "tt_dl": {
+        "ratios": {
+            "inclusive": 0.9814520267098701,
+            "etau": 0.9811377329127998,
+            "mutau": 0.9816854229353031,
+            "tautau": 0.9795100381022406,
+            "e&mutau": 0.9814719057634458
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 386290711.9742698,
+            "etau": 149021906.97977647,
+            "mutau": 233362374.723788,
+            "tautau": 3906430.270704892,
+            "e&mutau": 382384281.7035647
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 393591027.845992,
+            "etau": 151886837.06757513,
+            "mutau": 237716043.5223937,
+            "tautau": 3988147.2560234666,
+            "e&mutau": 389602880.5899686
+        },
+        "processed_event_count": {
+            "inclusive": 6322376.0,
+            "etau": 2525991.0,
+            "mutau": 3725401.0,
+            "tautau": 70984.0,
+            "e&mutau": 6251392.0
+        }
+    },
+    "dy_1j": {
+        "ratios": {
+            "inclusive": 0.9635050349974497,
+            "etau": 0.9597904995610073,
+            "mutau": 0.9674730961414634,
+            "tautau": 0.9664634545248503,
+            "e&mutau": 0.9633952914676255
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 837056973.6322738,
+            "etau": 426753598.50193036,
+            "mutau": 380271188.4204815,
+            "tautau": 30032186.709861964,
+            "e&mutau": 807024786.9224122
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 868762428.0390911,
+            "etau": 444632030.32028407,
+            "mutau": 393056085.93882644,
+            "tautau": 31074311.779980253,
+            "e&mutau": 837688116.2591108
+        },
+        "processed_event_count": {
+            "inclusive": 199681.0,
+            "etau": 107728.0,
+            "mutau": 83864.0,
+            "tautau": 8089.0,
+            "e&mutau": 191592.0
+        }
+    },
+    "ttzh": {
+        "ratios": {
+            "inclusive": 0.924769166256074,
+            "etau": 0.92544881145064,
+            "mutau": 0.9270732438771989,
+            "tautau": 0.8874928461470359,
+            "e&mutau": 0.9264098867405789
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 16662.83207730626,
+            "etau": 6522.3914409684785,
+            "mutau": 9466.261776006144,
+            "tautau": 674.1788603316675,
+            "e&mutau": 15988.653216974613
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 18018.368999872368,
+            "etau": 7047.814379646387,
+            "mutau": 10210.910344490596,
+            "tautau": 759.6442757353477,
+            "e&mutau": 17258.724724137028
+        },
+        "processed_event_count": {
+            "inclusive": 18884.0,
+            "etau": 7600.0,
+            "mutau": 10467.0,
+            "tautau": 817.0,
+            "e&mutau": 18067.0
+        }
+    },
+    "st_tw_antitop": {
+        "ratios": {
+            "inclusive": 0.9873067874569028,
+            "etau": 0.9883187113290296,
+            "mutau": 0.9867399141710205,
+            "tautau": 0.9836377709272521,
+            "e&mutau": 0.9873616092348638
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 3870991.417924717,
+            "etau": 1503408.633150794,
+            "mutau": 2310806.4198220824,
+            "tautau": 56776.36495184004,
+            "e&mutau": 3814215.052972876
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 3920758.4381097862,
+            "etau": 1521177.9519271709,
+            "mutau": 2341859.680180705,
+            "tautau": 57720.80600190688,
+            "e&mutau": 3863037.632107882
+        },
+        "processed_event_count": {
+            "inclusive": 131635.0,
+            "etau": 52916.0,
+            "mutau": 76622.0,
+            "tautau": 2097.0,
+            "e&mutau": 129538.0
+        }
+    },
+    "wz_lnuqq": {
+        "ratios": {
+            "inclusive": 0.9830552449787657,
+            "etau": 0.9844395827601077,
+            "mutau": 0.9822726039171169,
+            "tautau": 0.9771575561814596,
+            "e&mutau": 0.9831147142864629
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 1855161.0701285785,
+            "etau": 714742.8754771649,
+            "mutau": 1122009.540082934,
+            "tautau": 18408.6545684806,
+            "e&mutau": 1836752.4155600977
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 1887138.1640089317,
+            "etau": 726040.3665131133,
+            "mutau": 1142258.8145170421,
+            "tautau": 18838.98297877163,
+            "e&mutau": 1868299.1810301594
+        },
+        "processed_event_count": {
+            "inclusive": 155128.0,
+            "etau": 62252.0,
+            "mutau": 91275.0,
+            "tautau": 1601.0,
+            "e&mutau": 153527.0
+        }
+    },
+    "wjets_ht1": {
+        "ratios": {
+            "inclusive": 0.978013511310722,
+            "etau": 0.9787010099266964,
+            "mutau": 0.9775752358911037,
+            "tautau": 0.9832484573528874,
+            "e&mutau": 0.9779842086043308
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 35267.55725227163,
+            "etau": 12749.685547449633,
+            "mutau": 22320.508981074476,
+            "tautau": 197.36272374753088,
+            "e&mutau": 35070.19452852411
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 36060.398802677555,
+            "etau": 13027.150700911783,
+            "mutau": 22832.522921602376,
+            "tautau": 200.72518016338722,
+            "e&mutau": 35859.673622514165
+        },
+        "processed_event_count": {
+            "inclusive": 38125.0,
+            "etau": 14591.0,
+            "mutau": 23299.0,
+            "tautau": 235.0,
+            "e&mutau": 37890.0
+        }
+    },
+    "zzz": {
+        "ratios": {
+            "inclusive": 0.9469588190672669,
+            "etau": 0.9513209906951023,
+            "mutau": 0.9401218215783455,
+            "tautau": 0.9684527699812225,
+            "e&mutau": 0.9448437523480949
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 20.749105200620527,
+            "etau": 8.001428113356251,
+            "mutau": 10.846629972528836,
+            "tautau": 1.90104711473541,
+            "e&mutau": 18.848058085885093
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 21.91130678845985,
+            "etau": 8.410860468357628,
+            "mutau": 11.53747282912625,
+            "tautau": 1.9629734909759922,
+            "e&mutau": 19.948333297483856
+        },
+        "processed_event_count": {
+            "inclusive": 1632.0,
+            "etau": 659.0,
+            "mutau": 814.0,
+            "tautau": 159.0,
+            "e&mutau": 1473.0
+        }
+    },
+    "ttwh": {
+        "ratios": {
+            "inclusive": 0.9371237588259537,
+            "etau": 0.9357177410982385,
+            "mutau": 0.9392557272027632,
+            "tautau": 0.9132030000073083,
+            "e&mutau": 0.9378221057745906
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 21281.015655837684,
+            "etau": 8366.066363871194,
+            "mutau": 12326.69961432659,
+            "tautau": 588.2496776398691,
+            "e&mutau": 20692.765978197807
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 22708.863643046403,
+            "etau": 8940.801265616768,
+            "mutau": 13123.901465085819,
+            "tautau": 644.1609123438725,
+            "e&mutau": 22064.70273070253
+        },
+        "processed_event_count": {
+            "inclusive": 24121.0,
+            "etau": 9747.0,
+            "mutau": 13652.0,
+            "tautau": 722.0,
+            "e&mutau": 23399.0
+        }
+    },
+    "wz_llqq": {
+        "ratios": {
+            "inclusive": 0.9660318499972933,
+            "etau": 0.9598392292829467,
+            "mutau": 0.972229089155323,
+            "tautau": 0.9572160752744989,
+            "e&mutau": 0.966648256225914
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 2922425.4014001433,
+            "etau": 1222451.031549168,
+            "mutau": 1510732.658493394,
+            "tautau": 189241.71135757962,
+            "e&mutau": 2733183.690042562
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 3025185.3511955445,
+            "etau": 1273599.7803115495,
+            "mutau": 1553885.4734391102,
+            "tautau": 197700.09744488585,
+            "e&mutau": 2827485.2537506605
+        },
+        "processed_event_count": {
+            "inclusive": 409689.0,
+            "etau": 179635.0,
+            "mutau": 200396.0,
+            "tautau": 29658.0,
+            "e&mutau": 380031.0
+        }
+    },
+    "st_tw_top": {
+        "ratios": {
+            "inclusive": 0.9891558748682406,
+            "etau": 0.9887485478415122,
+            "mutau": 0.9896312366900093,
+            "tautau": 0.9803818138072272,
+            "e&mutau": 0.9892851723253863
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 3877355.491508686,
+            "etau": 1497451.5380252146,
+            "mutau": 2324095.20873812,
+            "tautau": 55808.74474535129,
+            "e&mutau": 3821546.746763335
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 3919862.9761210936,
+            "etau": 1514491.7697166044,
+            "mutau": 2348445.6862047454,
+            "tautau": 56925.52019975044,
+            "e&mutau": 3862937.455921343
+        },
+        "processed_event_count": {
+            "inclusive": 132091.0,
+            "etau": 52815.0,
+            "mutau": 77203.0,
+            "tautau": 2073.0,
+            "e&mutau": 130018.0
+        }
+    },
+    "wjets_ht3": {
+        "ratios": {
+            "inclusive": 0.9837297203400465,
+            "etau": 0.9846947870941325,
+            "mutau": 0.9831179960390385,
+            "tautau": 0.9830134347010475,
+            "e&mutau": 0.9837383229000252
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 630237.4055200134,
+            "etau": 245240.20803452813,
+            "mutau": 377523.3450958944,
+            "tautau": 7473.8523895903645,
+            "e&mutau": 622763.5531304231
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 640661.1414588133,
+            "etau": 249052.00194898996,
+            "mutau": 384006.13824274193,
+            "tautau": 7603.001267081666,
+            "e&mutau": 633058.1401917316
+        },
+        "processed_event_count": {
+            "inclusive": 689388.0,
+            "etau": 280284.0,
+            "mutau": 400114.0,
+            "tautau": 8990.0,
+            "e&mutau": 680398.0
+        }
+    },
+    "ewk_z": {
+        "ratios": {
+            "inclusive": 0.967267499015159,
+            "etau": 0.9623260944300461,
+            "mutau": 0.9720342033779845,
+            "tautau": 0.966468541030316,
+            "e&mutau": 0.96733578204037
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 7034.51291167282,
+            "etau": 3120.4063397684513,
+            "mutau": 3360.6951668332513,
+            "tautau": 553.4114050711037,
+            "e&mutau": 6481.1015066017235
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 7272.562056344432,
+            "etau": 3242.566483263207,
+            "mutau": 3457.3836549724924,
+            "tautau": 572.6119181087182,
+            "e&mutau": 6699.950138235708
+        },
+        "processed_event_count": {
+            "inclusive": 8165.0,
+            "etau": 3803.0,
+            "mutau": 3646.0,
+            "tautau": 716.0,
+            "e&mutau": 7449.0
+        }
+    },
+    "st_antitop": {
+        "ratios": {
+            "inclusive": 0.9871133084556339,
+            "etau": 0.9869861914255832,
+            "mutau": 0.9870454374238259,
+            "tautau": 0.9924326486915046,
+            "e&mutau": 0.9870256957450483
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 14257911.876475802,
+            "etau": 4673370.736246077,
+            "mutau": 9352265.059868079,
+            "tautau": 232276.08036164552,
+            "e&mutau": 14025635.796114162
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 14444047.865976702,
+            "etau": 4734991.00275755,
+            "mutau": 9475009.665489517,
+            "tautau": 234047.19772963456,
+            "e&mutau": 14210000.668247066
+        },
+        "processed_event_count": {
+            "inclusive": 254694.0,
+            "etau": 87535.0,
+            "mutau": 162611.0,
+            "tautau": 4548.0,
+            "e&mutau": 250146.0
+        }
+    },
+    "ww_qqqq": {
+        "ratios": {
+            "inclusive": 0.988953764066202,
+            "etau": 0.9663320111912955,
+            "mutau": 0.9541984192748465,
+            "tautau": 0.9924178160246288,
+            "e&mutau": 0.9603909879090999
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 307668.5527931436,
+            "etau": 16595.31117512618,
+            "mutau": 15721.289031030157,
+            "tautau": 275351.9525869873,
+            "e&mutau": 32316.600206156334
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 311105.0930511933,
+            "etau": 17173.508672932665,
+            "mutau": 16475.91183705557,
+            "tautau": 277455.6725412051,
+            "e&mutau": 33649.42050998824
+        },
+        "processed_event_count": {
+            "inclusive": 4536.0,
+            "etau": 207.0,
+            "mutau": 217.0,
+            "tautau": 4112.0,
+            "e&mutau": 424.0
+        }
+    },
+    "zz_sl_signal": {
+        "ratios": {
+            "inclusive": 0.9786026353609388,
+            "etau": 0.9722736716582023,
+            "mutau": 0.9834401666411884,
+            "tautau": 0.9715935667100728,
+            "e&mutau": 0.9797637126574802
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 95499.15879669723,
+            "etau": 26799.361636470687,
+            "mutau": 55225.40713686763,
+            "tautau": 13474.390023358843,
+            "e&mutau": 82024.76877333836
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 97587.26917946036,
+            "etau": 27563.599033556737,
+            "mutau": 56155.33004461553,
+            "tautau": 13868.340101288106,
+            "e&mutau": 83718.9290781723
+        },
+        "processed_event_count": {
+            "inclusive": 25398.0,
+            "etau": 7429.0,
+            "mutau": 13833.0,
+            "tautau": 4136.0,
+            "e&mutau": 21262.0
+        }
+    },
+    "dy_2j": {
+        "ratios": {
+            "inclusive": 0.9706566953504042,
+            "etau": 0.9659555441365344,
+            "mutau": 0.9754341169325109,
+            "tautau": 0.9677263086266815,
+            "e&mutau": 0.9708396330638043
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 1372414375.185925,
+            "etau": 623119126.5344989,
+            "mutau": 668896180.0448556,
+            "tautau": 80399068.60657033,
+            "e&mutau": 1292015306.5793536
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 1413902960.5008674,
+            "etau": 645080542.5952638,
+            "mutau": 685742038.7840871,
+            "tautau": 83080379.12151645,
+            "e&mutau": 1330822581.3793507
+        },
+        "processed_event_count": {
+            "inclusive": 582324.0,
+            "etau": 280617.0,
+            "mutau": 265515.0,
+            "tautau": 36192.0,
+            "e&mutau": 546132.0
+        }
+    },
+    "ewk_wplus": {
+        "ratios": {
+            "inclusive": 0.9852499710736787,
+            "etau": 0.985478913927119,
+            "mutau": 0.9852150946400221,
+            "tautau": 0.9785948333625821,
+            "e&mutau": 0.9853165696207518
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 33701.79995514009,
+            "etau": 12837.546078609215,
+            "mutau": 20532.594048844207,
+            "tautau": 331.6598276867115,
+            "e&mutau": 33370.14012745339
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 34206.34452636773,
+            "etau": 13026.708027117276,
+            "mutau": 20840.72215351756,
+            "tautau": 338.91434573293645,
+            "e&mutau": 33867.430180634794
+        },
+        "processed_event_count": {
+            "inclusive": 36720.0,
+            "etau": 14629.0,
+            "mutau": 21694.0,
+            "tautau": 397.0,
+            "e&mutau": 36323.0
+        }
+    },
+    "wjets_ht2": {
+        "ratios": {
+            "inclusive": 0.9896696687857084,
+            "etau": 0.9906293802424168,
+            "mutau": 0.9891086772706027,
+            "tautau": 0.9877974778274962,
+            "e&mutau": 0.9896780969501455
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 364295.2496012795,
+            "etau": 135928.90726237488,
+            "mutau": 226736.8087634415,
+            "tautau": 1629.5335754630935,
+            "e&mutau": 362665.71602581633
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 368097.8220220264,
+            "etau": 137214.69398486015,
+            "mutau": 229233.46440465038,
+            "tautau": 1649.6636325160437,
+            "e&mutau": 366448.1583895106
+        },
+        "processed_event_count": {
+            "inclusive": 393834.0,
+            "etau": 155224.0,
+            "mutau": 236610.0,
+            "tautau": 2000.0,
+            "e&mutau": 391834.0
+        }
+    },
+    "dy_ptz1": {
+        "ratios": {
+            "inclusive": 0.9673600122776781,
+            "etau": 0.9632703133182555,
+            "mutau": 0.971525559274794,
+            "tautau": 0.9726843265055428,
+            "e&mutau": 0.9672996164293796
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 4511253714.021882,
+            "etau": 2273799953.2943563,
+            "mutau": 2186576256.376534,
+            "tautau": 50877504.350985885,
+            "e&mutau": 4460376209.670897
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 4663469294.5390625,
+            "etau": 2360500393.146772,
+            "mutau": 2250662615.6173677,
+            "tautau": 52306285.77492141,
+            "e&mutau": 4611163008.76414
+        },
+        "processed_event_count": {
+            "inclusive": 530670.0,
+            "etau": 284285.0,
+            "mutau": 239047.0,
+            "tautau": 7338.0,
+            "e&mutau": 523332.0
+        }
+    },
+    "wjets_ht4": {
+        "ratios": {
+            "inclusive": 0.9624702450418474,
+            "etau": 0.964165124885373,
+            "mutau": 0.9610900250468759,
+            "tautau": 0.9689835754369536,
+            "e&mutau": 0.9623391146194569
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 88064.58138639241,
+            "etau": 35127.16557402592,
+            "mutau": 51187.67350015128,
+            "tautau": 1749.742312214974,
+            "e&mutau": 86314.83907417745
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 91498.49757959368,
+            "etau": 36432.727825746755,
+            "mutau": 53260.01952590723,
+            "tautau": 1805.7502279395653,
+            "e&mutau": 89692.7473516541
+        },
+        "processed_event_count": {
+            "inclusive": 98233.0,
+            "etau": 40602.0,
+            "mutau": 55550.0,
+            "tautau": 2081.0,
+            "e&mutau": 96152.0
+        }
+    },
+    "wz_lnununu": {
+        "ratios": {
+            "inclusive": 0.9774791669719329,
+            "etau": 0.9770766990585492,
+            "mutau": 0.9783396657365198,
+            "tautau": 0.9468435742629578,
+            "e&mutau": 0.9778231123334059
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 27202.5386319267,
+            "etau": 10997.786038935843,
+            "mutau": 15912.206245024254,
+            "tautau": 292.5463479666746,
+            "e&mutau": 26909.99228396003
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 27829.27713558911,
+            "etau": 11255.80627348153,
+            "mutau": 16264.500768294136,
+            "tautau": 308.9700938134354,
+            "e&mutau": 27520.307041775668
+        },
+        "processed_event_count": {
+            "inclusive": 5597.0,
+            "etau": 2328.0,
+            "mutau": 3202.0,
+            "tautau": 67.0,
+            "e&mutau": 5530.0
+        }
+    },
+    "dy_ptz5": {
+        "ratios": {
+            "inclusive": 0.9131274120628862,
+            "etau": 0.9109709071999881,
+            "mutau": 0.9146865449990874,
+            "tautau": 0.9144365980445499,
+            "e&mutau": 0.9127935788972893
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 147822.49576210664,
+            "etau": 59866.22090500288,
+            "mutau": 57878.22981805629,
+            "tautau": 30078.045039047443,
+            "e&mutau": 117744.45072305918
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 161885.94692185876,
+            "etau": 65716.94049924283,
+            "mutau": 63276.57287023286,
+            "tautau": 32892.433552382914,
+            "e&mutau": 128993.51336947584
+        },
+        "processed_event_count": {
+            "inclusive": 103555.0,
+            "etau": 43502.0,
+            "mutau": 39304.0,
+            "tautau": 20749.0,
+            "e&mutau": 82806.0
+        }
+    },
+    "ggf_sm": {
+        "ratios": {
+            "inclusive": 0.9774339883965527,
+            "etau": 0.9750128625656203,
+            "mutau": 0.9777854114468645,
+            "tautau": 0.9792871394717136,
+            "e&mutau": 0.9767404270011315
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 33458.05301061563,
+            "etau": 9153.456009236184,
+            "mutau": 15175.490447558046,
+            "tautau": 9129.106553821593,
+            "e&mutau": 24328.946456794125
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 34230.49884473777,
+            "etau": 9388.036158979532,
+            "mutau": 15520.266788499455,
+            "tautau": 9322.19589725888,
+            "e&mutau": 24908.302947478944
+        },
+        "processed_event_count": {
+            "inclusive": 39836.0,
+            "etau": 11033.0,
+            "mutau": 17390.0,
+            "tautau": 11413.0,
+            "e&mutau": 28423.0
+        }
+    },
+    "ttw_lnu": {
+        "ratios": {
+            "inclusive": 0.9538673158891283,
+            "etau": 0.9531622331748706,
+            "mutau": 0.9543316561151108,
+            "tautau": 0.9542059933810154,
+            "e&mutau": 0.9538625438075193
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 165377.81272418675,
+            "etau": 65370.93150107092,
+            "mutau": 97708.21297777194,
+            "tautau": 2298.668245343937,
+            "e&mutau": 163079.1444788428
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 173376.1184279945,
+            "etau": 68583.21618905113,
+            "mutau": 102383.91690318867,
+            "tautau": 2408.985335754516,
+            "e&mutau": 170967.13309224002
+        },
+        "processed_event_count": {
+            "inclusive": 567116.0,
+            "etau": 233025.0,
+            "mutau": 325748.0,
+            "tautau": 8343.0,
+            "e&mutau": 558773.0
+        }
+    },
+    "wjets_ht5": {
+        "ratios": {
+            "inclusive": 0.9304463141685166,
+            "etau": 0.9301392009836367,
+            "mutau": 0.9299093055892764,
+            "tautau": 0.9503373364653083,
+            "e&mutau": 0.9300035148016305
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 87827.56172488122,
+            "etau": 35195.62245206307,
+            "mutau": 50678.47587097556,
+            "tautau": 1953.463401842692,
+            "e&mutau": 85874.09832303853
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 94392.93851506885,
+            "etau": 37839.091627192094,
+            "mutau": 54498.299529179356,
+            "tautau": 2055.5473586973003,
+            "e&mutau": 92337.39115637155
+        },
+        "processed_event_count": {
+            "inclusive": 98633.0,
+            "etau": 40874.0,
+            "mutau": 55443.0,
+            "tautau": 2316.0,
+            "e&mutau": 96317.0
+        }
+    },
+    "ww_lnuqq": {
+        "ratios": {
+            "inclusive": 0.9877211798070468,
+            "etau": 0.9877234235080095,
+            "mutau": 0.9878960527125332,
+            "tautau": 0.9746991711265243,
+            "e&mutau": 0.9878298737392184
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 44954807.80470935,
+            "etau": 17091213.64069436,
+            "mutau": 27496371.302536037,
+            "tautau": 367222.8614789496,
+            "e&mutau": 44587584.9432304
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 45513661.875197776,
+            "etau": 17303643.139283888,
+            "mutau": 27833263.658699095,
+            "tautau": 376755.07721477374,
+            "e&mutau": 45136906.79798298
+        },
+        "processed_event_count": {
+            "inclusive": 706733.0,
+            "etau": 283286.0,
+            "mutau": 417442.0,
+            "tautau": 6005.0,
+            "e&mutau": 700728.0
+        }
+    },
+    "dy_ptz2": {
+        "ratios": {
+            "inclusive": 0.9679987429235187,
+            "etau": 0.9638543159485284,
+            "mutau": 0.9721243736535787,
+            "tautau": 0.9661950977330135,
+            "e&mutau": 0.9680616355218153
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 3225374438.663637,
+            "etau": 1524548884.5254567,
+            "mutau": 1592349737.9466357,
+            "tautau": 108475816.19154271,
+            "e&mutau": 3116898622.4720936
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 3332002714.096988,
+            "etau": 1581721282.2511969,
+            "mutau": 1638010301.050303,
+            "tautau": 112271130.79548825,
+            "e&mutau": 3219731583.3014994
+        },
+        "processed_event_count": {
+            "inclusive": 891741.0,
+            "etau": 448171.0,
+            "mutau": 409657.0,
+            "tautau": 33913.0,
+            "e&mutau": 857828.0
+        }
+    },
+    "dy": {
+        "ratios": {
+            "inclusive": 0.9662966427616129,
+            "etau": 0.9630735264114455,
+            "mutau": 0.9701583633384061,
+            "tautau": 0.961849797034292,
+            "e&mutau": 0.9665163682206754
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 3707479561.904364,
+            "etau": 1810053486.4857519,
+            "mutau": 1723662782.5789986,
+            "tautau": 173763292.83961406,
+            "e&mutau": 3533716269.0647497
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 3836792344.9559226,
+            "etau": 1879455136.961639,
+            "mutau": 1776681877.634609,
+            "tautau": 180655330.3596726,
+            "e&mutau": 3656137014.5962496
+        },
+        "processed_event_count": {
+            "inclusive": 423700.0,
+            "etau": 213945.0,
+            "mutau": 186873.0,
+            "tautau": 22882.0,
+            "e&mutau": 400818.0
+        }
+    },
+    "tth_bb": {
+        "ratios": {
+            "inclusive": 0.976300363232391,
+            "etau": 0.977207296614562,
+            "mutau": 0.97579229188372,
+            "tautau": 0.9728008891598089,
+            "e&mutau": 0.9763556510283834
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 117852.88767569528,
+            "etau": 46234.18455184337,
+            "mutau": 69792.28797453883,
+            "tautau": 1826.4151493130382,
+            "e&mutau": 116026.47252638219
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 120713.7599391044,
+            "etau": 47312.565831238804,
+            "mutau": 71523.71314576404,
+            "tautau": 1877.480962101588,
+            "e&mutau": 118836.27897700283
+        },
+        "processed_event_count": {
+            "inclusive": 263535.0,
+            "etau": 106707.0,
+            "mutau": 152370.0,
+            "tautau": 4458.0,
+            "e&mutau": 259077.0
+        }
+    },
+    "st_top": {
+        "ratios": {
+            "inclusive": 0.9848620906149087,
+            "etau": 0.9854819718741539,
+            "mutau": 0.9845916268529227,
+            "tautau": 0.9832185532982413,
+            "e&mutau": 0.984888080022178
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 37537499.03043625,
+            "etau": 12311828.409804847,
+            "mutau": 24642302.116684634,
+            "tautau": 583368.5039467656,
+            "e&mutau": 36954130.526489474
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 38114472.46080852,
+            "etau": 12493205.113017602,
+            "mutau": 25027941.98590689,
+            "tautau": 593325.361884024,
+            "e&mutau": 37521147.09892451
+        },
+        "processed_event_count": {
+            "inclusive": 404611.0,
+            "etau": 139856.0,
+            "mutau": 257800.0,
+            "tautau": 6955.0,
+            "e&mutau": 397656.0
+        }
+    },
+    "ttw_qq": {
+        "ratios": {
+            "inclusive": 0.9564386171287422,
+            "etau": 0.956921964155447,
+            "mutau": 0.9558399978479981,
+            "tautau": 0.9645561607667841,
+            "e&mutau": 0.9562675706108679
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 15073.276597226548,
+            "etau": 5836.699711280161,
+            "mutau": 8922.878953244115,
+            "tautau": 313.6979327023122,
+            "e&mutau": 14759.578664524248
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 15759.795063981192,
+            "etau": 6099.452128712995,
+            "mutau": 9335.117774243918,
+            "tautau": 325.22516102425254,
+            "e&mutau": 15434.569902956937
+        },
+        "processed_event_count": {
+            "inclusive": 25697.0,
+            "etau": 10532.0,
+            "mutau": 14670.0,
+            "tautau": 495.0,
+            "e&mutau": 25202.0
+        }
+    },
+    "ttww": {
+        "ratios": {
+            "inclusive": 0.9359033986717106,
+            "etau": 0.9357963478331337,
+            "mutau": 0.936201402318824,
+            "tautau": 0.9294178399765264,
+            "e&mutau": 0.936035483641267
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 48101.823177640734,
+            "etau": 19308.018503398693,
+            "mutau": 27840.36868833936,
+            "tautau": 953.4359859025778,
+            "e&mutau": 47148.38719173815
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 51396.14114652183,
+            "etau": 20632.714102921032,
+            "mutau": 29737.5849036149,
+            "tautau": 1025.8421399858842,
+            "e&mutau": 50370.29900653599
+        },
+        "processed_event_count": {
+            "inclusive": 54700.0,
+            "etau": 22561.0,
+            "mutau": 30979.0,
+            "tautau": 1160.0,
+            "e&mutau": 53540.0
+        }
+    },
+    "wjets_ht6": {
+        "ratios": {
+            "inclusive": 0.8889765291947004,
+            "etau": 0.8888258124702095,
+            "mutau": 0.8884182039350513,
+            "tautau": 0.9057840807128222,
+            "e&mutau": 0.8885862611080497
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 77717.91028927363,
+            "etau": 31310.66737638061,
+            "mutau": 44610.25501021511,
+            "tautau": 1796.987902677901,
+            "e&mutau": 75920.92238659572
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 87424.02947316974,
+            "etau": 35227.00054059247,
+            "mutau": 50213.125769625025,
+            "tautau": 1983.9031629521803,
+            "e&mutau": 85440.12631021754
+        },
+        "processed_event_count": {
+            "inclusive": 86797.0,
+            "etau": 36106.0,
+            "mutau": 48585.0,
+            "tautau": 2106.0,
+            "e&mutau": 84691.0
+        }
+    },
+    "zz_fh": {
+        "ratios": {
+            "inclusive": 0.9928759548607252,
+            "etau": 1.2834118981437472,
+            "mutau": 1.0281981266870055,
+            "tautau": 0.9767996138383428,
+            "e&mutau": 1.0797033197078545
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 2327.901528597283,
+            "etau": 94.87215858379732,
+            "mutau": 300.6130487283375,
+            "tautau": 1932.4163212851481,
+            "e&mutau": 395.4852073121347
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 2344.604597584224,
+            "etau": 73.92183189279679,
+            "mutau": 292.3687963689972,
+            "tautau": 1978.3139693224293,
+            "e&mutau": 366.29062826179404
+        },
+        "processed_event_count": {
+            "inclusive": 414.0,
+            "etau": 18.0,
+            "mutau": 54.0,
+            "tautau": 342.0,
+            "e&mutau": 72.0
+        }
+    },
+    "zh_hbb_zll": {
+        "ratios": {
+            "inclusive": 0.9781755300417792,
+            "etau": 0.9754894593053217,
+            "mutau": 0.9799799856650822,
+            "tautau": 0.9815186866163169,
+            "e&mutau": 0.9778057942493574
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 6388.997151522781,
+            "etau": 2777.687376170016,
+            "mutau": 2972.908703524147,
+            "tautau": 638.4010718286263,
+            "e&mutau": 5750.596079694162
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 6531.544651551341,
+            "etau": 2847.4806669342165,
+            "mutau": 3033.642265159656,
+            "tautau": 650.4217194574738,
+            "e&mutau": 5881.1229320938755
+        },
+        "processed_event_count": {
+            "inclusive": 90052.0,
+            "etau": 40905.0,
+            "mutau": 39093.0,
+            "tautau": 10054.0,
+            "e&mutau": 79998.0
+        }
+    },
+    "zz_sl_background": {
+        "ratios": {
+            "inclusive": 0.9687428543066925,
+            "etau": 0.9635702441650346,
+            "mutau": 0.974003253479653,
+            "tautau": 0.9623802748857353,
+            "e&mutau": 0.9690775395451107
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 1502786.2069701592,
+            "etau": 670451.5735816705,
+            "mutau": 757728.5059717059,
+            "tautau": 74606.12741679516,
+            "e&mutau": 1428180.0795533645
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 1551274.6238997236,
+            "etau": 695799.3749201326,
+            "mutau": 777952.746322664,
+            "tautau": 77522.50265691828,
+            "e&mutau": 1473752.1212428045
+        },
+        "processed_event_count": {
+            "inclusive": 372268.0,
+            "etau": 173963.0,
+            "mutau": 176710.0,
+            "tautau": 21595.0,
+            "e&mutau": 350673.0
+        }
+    },
+    "wzz": {
+        "ratios": {
+            "inclusive": 0.9517708335157677,
+            "etau": 0.9561394373355105,
+            "mutau": 0.9489547520895512,
+            "tautau": 0.9496426245847406,
+            "e&mutau": 0.9518659037277573
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 283.69389682066037,
+            "etau": 110.53916536556387,
+            "mutau": 161.05074946046298,
+            "tautau": 12.103981994633095,
+            "e&mutau": 271.5899148260278
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 298.0695424051997,
+            "etau": 115.60987974055874,
+            "mutau": 169.71383420109046,
+            "tautau": 12.745828463550612,
+            "e&mutau": 285.323713941649
+        },
+        "processed_event_count": {
+            "inclusive": 5494.0,
+            "etau": 2254.0,
+            "mutau": 2993.0,
+            "tautau": 247.0,
+            "e&mutau": 5247.0
+        }
+    },
+    "wjets_ht7": {
+        "ratios": {
+            "inclusive": 0.8034913789493274,
+            "etau": 0.8025662920280179,
+            "mutau": 0.8029243485734897,
+            "tautau": 0.8395421614932183,
+            "e&mutau": 0.8027743922057801
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 71318.90287186339,
+            "etau": 29252.639354751744,
+            "mutau": 40613.115721169976,
+            "tautau": 1453.147795941651,
+            "e&mutau": 69865.75507592174
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 88761.25461995922,
+            "etau": 36448.876118174325,
+            "mutau": 50581.4972398396,
+            "tautau": 1730.8812619452817,
+            "e&mutau": 87030.37335801392
+        },
+        "processed_event_count": {
+            "inclusive": 78478.0,
+            "etau": 33123.0,
+            "mutau": 43682.0,
+            "tautau": 1673.0,
+            "e&mutau": 76805.0
+        }
+    },
+    "dy_0j": {
+        "ratios": {
+            "inclusive": 0.9542282248080844,
+            "etau": 0.9533318633951828,
+            "mutau": 0.9554944812764036,
+            "tautau": 0.9570455663308225,
+            "e&mutau": 0.9541915876857185
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 87478205.1855945,
+            "etau": 51976813.30466014,
+            "mutau": 34375100.24972187,
+            "tautau": 1126291.6312124778,
+            "e&mutau": 86351913.55438201
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 91674300.66658133,
+            "etau": 54521216.902947776,
+            "mutau": 35976241.54124016,
+            "tautau": 1176842.222393361,
+            "e&mutau": 90497458.44418792
+        },
+        "processed_event_count": {
+            "inclusive": 15752.0,
+            "etau": 10064.0,
+            "mutau": 5458.0,
+            "tautau": 230.0,
+            "e&mutau": 15522.0
+        }
+    },
+    "ttwz": {
+        "ratios": {
+            "inclusive": 0.9410706823101037,
+            "etau": 0.9384123907082809,
+            "mutau": 0.9434334703452608,
+            "tautau": 0.926807110158397,
+            "e&mutau": 0.9413977829486064
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 19825.43281530538,
+            "etau": 7835.399246991366,
+            "mutau": 11552.314098849158,
+            "tautau": 437.71946946487463,
+            "e&mutau": 19387.713345840508
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 21066.890285688933,
+            "etau": 8349.633193864247,
+            "mutau": 12244.9695309426,
+            "tautau": 472.28756088207575,
+            "e&mutau": 20594.60272480686
+        },
+        "processed_event_count": {
+            "inclusive": 22472.0,
+            "etau": 9148.0,
+            "mutau": 12791.0,
+            "tautau": 533.0,
+            "e&mutau": 21939.0
+        }
+    },
+    "ttzz": {
+        "ratios": {
+            "inclusive": 0.9391991980846806,
+            "etau": 0.936050220263666,
+            "mutau": 0.9428756662961728,
+            "tautau": 0.913045901017396,
+            "e&mutau": 0.9400536528748441
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 14643.955088318617,
+            "etau": 5843.403480172144,
+            "mutau": 8350.156214302593,
+            "tautau": 450.39539384390173,
+            "e&mutau": 14193.559694474701
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 15591.95867946033,
+            "etau": 6242.617493884225,
+            "mutau": 8856.052301258214,
+            "tautau": 493.2888843178986,
+            "e&mutau": 15098.669795142416
+        },
+        "processed_event_count": {
+            "inclusive": 16519.0,
+            "etau": 6776.0,
+            "mutau": 9192.0,
+            "tautau": 551.0,
+            "e&mutau": 15968.0
+        }
+    },
+    "dy_ptz3": {
+        "ratios": {
+            "inclusive": 0.9712431150294322,
+            "etau": 0.9686026122264869,
+            "mutau": 0.9733125774526322,
+            "tautau": 0.9727792603504616,
+            "e&mutau": 0.9710256109646898
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 355871684.14397436,
+            "etau": 150953348.5559166,
+            "mutau": 160709976.68751007,
+            "tautau": 44208358.90054753,
+            "e&mutau": 311663325.243427
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 366408449.7867356,
+            "etau": 155846522.24809343,
+            "mutau": 165116510.7802496,
+            "tautau": 45445416.7583925,
+            "e&mutau": 320963033.0283433
+        },
+        "processed_event_count": {
+            "inclusive": 765937.0,
+            "etau": 338061.0,
+            "mutau": 327084.0,
+            "tautau": 100792.0,
+            "e&mutau": 665145.0
+        }
+    },
+    "tt_sl": {
+        "ratios": {
+            "inclusive": 0.9877587605163579,
+            "etau": 0.9876213703458688,
+            "mutau": 0.9879460568793502,
+            "tautau": 0.9802435486437455,
+            "e&mutau": 0.9878194984698824
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 3070265690.556315,
+            "etau": 1186988247.3929534,
+            "mutau": 1858849768.5041702,
+            "tautau": 24427674.659194097,
+            "e&mutau": 3045838015.897125
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 3108315322.81355,
+            "etau": 1201865697.7595224,
+            "mutau": 1881529619.5176537,
+            "tautau": 24920005.536371004,
+            "e&mutau": 3083395317.277177
+        },
+        "processed_event_count": {
+            "inclusive": 11191560.0,
+            "etau": 4498243.0,
+            "mutau": 6593299.0,
+            "tautau": 100018.0,
+            "e&mutau": 11091542.0
+        }
+    },
+    "ww_llnunu": {
+        "ratios": {
+            "inclusive": 0.9728785059819576,
+            "etau": 0.9731027790971355,
+            "mutau": 0.9727076054571882,
+            "tautau": 0.9741573366127053,
+            "e&mutau": 0.9728607860231131
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 649290.387000758,
+            "etau": 248300.9280478627,
+            "mutau": 392103.94175057067,
+            "tautau": 8885.517202322571,
+            "e&mutau": 640404.8697984351
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 667391.0287959423,
+            "etau": 255164.1341300467,
+            "mutau": 403105.6604787988,
+            "tautau": 9121.234187096388,
+            "e&mutau": 658269.794608846
+        },
+        "processed_event_count": {
+            "inclusive": 68175.0,
+            "etau": 27162.0,
+            "mutau": 40015.0,
+            "tautau": 998.0,
+            "e&mutau": 67177.0
+        }
+    },
+    "ttz_qq": {
+        "ratios": {
+            "inclusive": 0.9634329656851225,
+            "etau": 0.9636195280954244,
+            "mutau": 0.9633407736279197,
+            "tautau": 0.962439013626296,
+            "e&mutau": 0.9634505309935224
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 239386.78337326707,
+            "etau": 92637.7911645191,
+            "mutau": 142596.25622051128,
+            "tautau": 4152.735988236855,
+            "e&mutau": 235234.0473850302
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 248472.69285936552,
+            "etau": 96135.23643259486,
+            "mutau": 148022.65213326016,
+            "tautau": 4314.804293510606,
+            "e&mutau": 244157.88856585493
+        },
+        "processed_event_count": {
+            "inclusive": 521462.0,
+            "etau": 209770.0,
+            "mutau": 302088.0,
+            "tautau": 9604.0,
+            "e&mutau": 511858.0
+        }
+    },
+    "dy_ptz6": {
+        "ratios": {
+            "inclusive": 0.8506514395007693,
+            "etau": 0.8557120835453589,
+            "mutau": 0.8449149180226178,
+            "tautau": 0.8521666267791477,
+            "e&mutau": 0.8502322126757778
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 6580.1378679031595,
+            "etau": 2553.3411813332705,
+            "mutau": 2598.20707410311,
+            "tautau": 1428.589612466769,
+            "e&mutau": 5151.548255436388
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 7735.41025424575,
+            "etau": 2983.878842465738,
+            "mutau": 3075.110900141022,
+            "tautau": 1676.4205116389878,
+            "e&mutau": 6058.989742606762
+        },
+        "processed_event_count": {
+            "inclusive": 45384.0,
+            "etau": 18715.0,
+            "mutau": 17664.0,
+            "tautau": 9005.0,
+            "e&mutau": 36379.0
+        }
+    },
+    "wjets_ht8": {
+        "ratios": {
+            "inclusive": 0.6976345778329353,
+            "etau": 0.6970290986085762,
+            "mutau": 0.6982220750093147,
+            "tautau": 0.6910195974059563,
+            "e&mutau": 0.6977178807499675
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 21592.36029732551,
+            "etau": 9004.386371454135,
+            "mutau": 12321.987680325223,
+            "tautau": 265.9862455461449,
+            "e&mutau": 21326.374051779367
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 30950.81720920132,
+            "etau": 12918.235966660324,
+            "mutau": 17647.66271556344,
+            "tautau": 384.9185269775856,
+            "e&mutau": 30565.89868222373
+        },
+        "processed_event_count": {
+            "inclusive": 23298.0,
+            "etau": 9935.0,
+            "mutau": 13065.0,
+            "tautau": 298.0,
+            "e&mutau": 23000.0
+        }
+    },
+    "www": {
+        "ratios": {
+            "inclusive": 0.9622099836183953,
+            "etau": 0.9551366129289978,
+            "mutau": 0.9673126522544477,
+            "tautau": 0.942188001748747,
+            "e&mutau": 0.9625003473731412
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 1181.2680593915363,
+            "etau": 456.8127044022806,
+            "mutau": 707.9205720566881,
+            "tautau": 16.53478293256291,
+            "e&mutau": 1164.733276458972
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 1227.6614039581798,
+            "etau": 478.26949382814496,
+            "mutau": 731.8425644560601,
+            "tautau": 17.549345673977534,
+            "e&mutau": 1210.1120582842027
+        },
+        "processed_event_count": {
+            "inclusive": 6145.0,
+            "etau": 2476.0,
+            "mutau": 3572.0,
+            "tautau": 97.0,
+            "e&mutau": 6048.0
+        }
+    },
+    "wwz": {
+        "ratios": {
+            "inclusive": 0.9601008063312934,
+            "etau": 0.9524325201243585,
+            "mutau": 0.9690255182919,
+            "tautau": 0.9011938393306392,
+            "e&mutau": 0.9620833886451554
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 812.9989662278107,
+            "etau": 326.436815265143,
+            "mutau": 461.71481448377085,
+            "tautau": 24.847336478899116,
+            "e&mutau": 788.1516297489118
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 846.7850051437999,
+            "etau": 342.74009797830126,
+            "mutau": 476.4733288939954,
+            "tautau": 27.57157827150089,
+            "e&mutau": 819.2134268722991
+        },
+        "processed_event_count": {
+            "inclusive": 5354.0,
+            "etau": 2214.0,
+            "mutau": 2970.0,
+            "tautau": 170.0,
+            "e&mutau": 5184.0
+        }
+    },
+    "ewk_wminus": {
+        "ratios": {
+            "inclusive": 0.9842046457891314,
+            "etau": 0.9863315275101234,
+            "mutau": 0.9829452231291007,
+            "tautau": 0.9767306141951412,
+            "e&mutau": 0.9842871083277758
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 10508.88872968362,
+            "etau": 4127.796212301614,
+            "mutau": 6267.281964179905,
+            "tautau": 113.81055320210598,
+            "e&mutau": 10395.078176481513
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 10677.544324389604,
+            "etau": 4184.998752621996,
+            "mutau": 6376.023624417936,
+            "tautau": 116.52194734972007,
+            "e&mutau": 10561.022377039877
+        },
+        "processed_event_count": {
+            "inclusive": 11447.0,
+            "etau": 4687.0,
+            "mutau": 6624.0,
+            "tautau": 136.0,
+            "e&mutau": 11311.0
+        }
+    },
+    "ttz_llnunu": {
+        "ratios": {
+            "inclusive": 0.9463116396227169,
+            "etau": 0.9423514772184378,
+            "mutau": 0.9493927235594596,
+            "tautau": 0.9418981367072237,
+            "e&mutau": 0.9464991308687525
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 128470.9569305988,
+            "etau": 50431.66290483447,
+            "mutau": 72828.49854262013,
+            "tautau": 5210.7954831442285,
+            "e&mutau": 123260.16144745465
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 135759.67107603012,
+            "etau": 53516.82904312397,
+            "mutau": 76710.61378011388,
+            "tautau": 5532.228252792408,
+            "e&mutau": 130227.44282323771
+        },
+        "processed_event_count": {
+            "inclusive": 611421.0,
+            "etau": 247572.0,
+            "mutau": 336322.0,
+            "tautau": 27527.0,
+            "e&mutau": 583894.0
+        }
+    },
+    "ggH_ZZ": {
+        "ratios": {
+            "inclusive": 0.9690386332460805,
+            "etau": 0.9522754090654705,
+            "mutau": 0.9806935771889099,
+            "tautau": 0.9733999150175852,
+            "e&mutau": 0.9689697985698629
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 93916.22722736296,
+            "etau": 37482.85387232213,
+            "mutau": 54967.545459995745,
+            "tautau": 1465.8278950454728,
+            "e&mutau": 92450.39933231754
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 96916.90713378772,
+            "etau": 39361.35861064235,
+            "mutau": 56049.663971040165,
+            "tautau": 1505.8845521051762,
+            "e&mutau": 95411.02258168251
+        },
+        "processed_event_count": {
+            "inclusive": 3615.0,
+            "etau": 1561.0,
+            "mutau": 1988.0,
+            "tautau": 66.0,
+            "e&mutau": 3549.0
+        }
+    },
+    "tth_tautau": {
+        "ratios": {
+            "inclusive": 0.9138012523626793,
+            "etau": 0.9134133019600109,
+            "mutau": 0.9129389559077252,
+            "tautau": 0.9198377929331742,
+            "e&mutau": 0.9131242074095713
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 408600.2989907242,
+            "etau": 143421.51578242605,
+            "mutau": 223700.46301928454,
+            "tautau": 41478.320189013335,
+            "e&mutau": 367121.9788017107
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 447143.5095260238,
+            "etau": 157017.10876628445,
+            "mutau": 245033.31966687916,
+            "tautau": 45093.081092860375,
+            "e&mutau": 402050.42843316315
+        },
+        "processed_event_count": {
+            "inclusive": 920249.0,
+            "etau": 330405.0,
+            "mutau": 489195.0,
+            "tautau": 100649.0,
+            "e&mutau": 819600.0
+        }
+    },
+    "wminush_htt": {
+        "ratios": {
+            "inclusive": 0.9461882394107253,
+            "etau": 0.9425523180093497,
+            "mutau": 0.9459749714876877,
+            "tautau": 0.9550371330222549,
+            "e&mutau": 0.9447185190274454
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 91406.58065569107,
+            "etau": 28665.275476958606,
+            "mutau": 49600.15053057903,
+            "tautau": 13141.15464815342,
+            "e&mutau": 78265.42600753771
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 96605.06952888993,
+            "etau": 30412.397199870087,
+            "mutau": 52432.83598991561,
+            "tautau": 13759.836339104102,
+            "e&mutau": 82845.2331897857
+        },
+        "processed_event_count": {
+            "inclusive": 193205.0,
+            "etau": 62187.0,
+            "mutau": 100711.0,
+            "tautau": 30307.0,
+            "e&mutau": 162898.0
+        }
+    },
+    "wplush_htt": {
+        "ratios": {
+            "inclusive": 0.9446761364089917,
+            "etau": 0.9413993988248659,
+            "mutau": 0.9437411605506426,
+            "tautau": 0.9554917187677421,
+            "e&mutau": 0.9428690683893797
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 143320.30013972917,
+            "etau": 45574.0595717304,
+            "mutau": 76993.49132803321,
+            "tautau": 20752.749239965568,
+            "e&mutau": 122567.55089976329
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 151713.68749139179,
+            "etau": 48410.97161164516,
+            "mutau": 81583.27150117092,
+            "tautau": 21719.444378575594,
+            "e&mutau": 129994.24311281592
+        },
+        "processed_event_count": {
+            "inclusive": 188354.0,
+            "etau": 61370.0,
+            "mutau": 97392.0,
+            "tautau": 29592.0,
+            "e&mutau": 158762.0
+        }
+    },
+    "zz_lnu": {
+        "ratios": {
+            "inclusive": 0.9704107385794507,
+            "etau": 0.9667982182087554,
+            "mutau": 0.9731300093546209,
+            "tautau": 0.9752564412151634,
+            "e&mutau": 0.9699217180684919
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 64943.38629652027,
+            "etau": 29778.804699346634,
+            "mutau": 29181.659435855414,
+            "tautau": 5982.922161318215,
+            "e&mutau": 58960.46413520206
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 66923.6063809316,
+            "etau": 30801.46832967855,
+            "mutau": 29987.42116195622,
+            "tautau": 6134.716889296862,
+            "e&mutau": 60788.88949163474
+        },
+        "processed_event_count": {
+            "inclusive": 76888.0,
+            "etau": 36861.0,
+            "mutau": 32255.0,
+            "tautau": 7772.0,
+            "e&mutau": 69116.0
+        }
+    },
+    "zz_qnu": {
+        "ratios": {
+            "inclusive": 0.9992400147581746,
+            "etau": 0.6706060395347608,
+            "mutau": 1.049420594844502,
+            "tautau": 0.9699803239796064,
+            "e&mutau": 1.2250803134253891
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 576.7038408575918,
+            "etau": -20.58521008234608,
+            "mutau": 101.68260042733722,
+            "tautau": 495.60645051260053,
+            "e&mutau": 81.09739034499114
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 577.1424606100862,
+            "etau": -30.696428109456427,
+            "mutau": 96.89403936503082,
+            "tautau": 510.94484935451175,
+            "e&mutau": 66.19761125557439
+        },
+        "processed_event_count": {
+            "inclusive": 84.0,
+            "etau": 6.0,
+            "mutau": 10.0,
+            "tautau": 68.0,
+            "e&mutau": 16.0
+        }
+    },
+    "zz_bbtt": {
+        "ratios": {
+            "inclusive": 0.9786026353609388,
+            "etau": 0.9722736716582023,
+            "mutau": 0.9834401666411884,
+            "tautau": 0.9715935667100728,
+            "e&mutau": 0.9797637126574802
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 95499.15879669723,
+            "etau": 26799.361636470687,
+            "mutau": 55225.40713686763,
+            "tautau": 13474.390023358843,
+            "e&mutau": 82024.76877333836
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 97587.26917946036,
+            "etau": 27563.599033556737,
+            "mutau": 56155.33004461553,
+            "tautau": 13868.340101288106,
+            "e&mutau": 83718.9290781723
+        },
+        "processed_event_count": {
+            "inclusive": 25398.0,
+            "etau": 7429.0,
+            "mutau": 13833.0,
+            "tautau": 4136.0,
+            "e&mutau": 21262.0
+        }
+    },
+    "tt_fh": {
+        "ratios": {
+            "inclusive": 0.97673718753324,
+            "etau": 0.9653335625947528,
+            "mutau": 0.9649542906081192,
+            "tautau": 0.9817771635436039,
+            "e&mutau": 0.9650207415421188
+        },
+        "sums_weights_noReshapeWeight": {
+            "inclusive": 27741604.351088654,
+            "etau": 1444869.9521464256,
+            "mutau": 6799124.263638572,
+            "tautau": 19497610.135303658,
+            "e&mutau": 8243994.215785001
+        },
+        "sum_weights_withReshapeWeight": {
+            "inclusive": 28402322.24714446,
+            "etau": 1496757.1916413128,
+            "mutau": 7046058.377908997,
+            "tautau": 19859506.677594163,
+            "e&mutau": 8542815.569550313
+        },
+        "processed_event_count": {
+            "inclusive": 99979.0,
+            "etau": 5437.0,
+            "mutau": 23002.0,
+            "tautau": 71540.0,
+            "e&mutau": 28439.0
+        }
+    }
+}
