@@ -1423,6 +1423,8 @@ class BaseConfig(cmt_config):
                 weights[category.name].append("bTagweightReshapeExtrapFactor")
             if "boostedTau" in category.name:
                 weights[category.name].append("boostedTau_SF") # adding weight but without the systematics are these are more easily done with a lognormal
+                weights[category.name].remove("trigSF") ################################# TODO TODO HACK to fix the trigSF for MET in prod_250516
+                weights[category.name].append("trigSF_KLUB_MET")
         
         weights["crossTrigger_debug"] = ["genWeightFixed", "DYstitchWeight"]
         return weights

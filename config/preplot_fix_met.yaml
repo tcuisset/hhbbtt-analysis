@@ -1,0 +1,114 @@
+# preplot modules
+# special config to fix met trigger SF in prod_250516
+dystitching:
+    name: DYstitchingRDF
+    path: Tools.Tools.dyreweighting
+    parameters:
+        isDY: self.dataset.process.get_aux('isDY', False)
+        year: self.config.year
+        runPeriod: self.config.runPeriod
+
+# only for data, filter events having hem_weight == 0 because we cannot use weights in data
+# MC is dealt with by adding a weight hem_weight set to 0 or 1
+hem_weight_filer:
+    name: hemIssueDataFilterRDF
+    path: Corrections.JME.HEM_issue
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+
+
+pdf_scale_weights:
+    name: PdfWeightsRDF
+    path: Tools.Tools.theory
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        force_pdf_to_one: self.dataset.get_aux("force_pdf_to_one", False)
+        dataset_name: self.dataset.name
+        scale_weights_mode: enveloppe
+
+boosted_tau_sf:
+    name: boostedTauSFRDF
+    path: Tools.Tools.dauIdIso
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runPeriod: self.config.runPeriod
+
+BtagReshapeExtrapFactorRDF:
+    name: BtagReshapeExtrapFactorRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runPeriod: self.config.runPeriod
+        btag_extrap_type: self.dataset.process.get_aux("btag_extrap_type")
+
+
+#### Hack to fix MET trigger SF
+# 1) compute METNoMu_KLUB (taking into account only the signal muon)
+# 2)cut on METNoMu_KLUB_pt > 180 (on top of already existing MET_pt>180 unfortunately)
+# 3) compute new trigSF
+METNoMuKLUB:
+    name: METNoMuRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runPeriod: self.config.runPeriod
+        use_KLUB_method: True
+        use_corrected_met: True
+        met_smear_tag: "tes_electron_xycorr"
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S      
+
+METCutRDF:
+    name: METCutRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runPeriod: self.config.runPeriod
+        met_filter: True
+        useBoostedTaus: True
+        METVariableForCut: NoMu_KLUB
+        met_smear_tag: "tes_electron_xycorr"
+        met_smear_tag_data: "_xycorr"
+
+KLUBMETtrigSFRDF:
+    name: KLUBMETtrigSFRDF
+    path: Tools.Tools.Htt_trigSF
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runPeriod: self.config.runPeriod
+        met_smear_tag: "tes_electron_xycorr"
+
+# computing also METNoMu using "all PFMuon" method (which is actually all looseID muons because we do not save isPFMuon branch)
+# only used for plotting cross-checks
+METNoMuRDF:
+    name: METNoMuRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runPeriod: self.config.runPeriod
+        use_KLUB_method: False
+        muon_id_branch: Muon_mediumId
+        ignore_if_no_muon_branches: True
+        use_corrected_met: True
+        met_smear_tag: "tes_electron_xycorr"
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S      
+METNoMuRawRDF:
+    name: METNoMuRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        runPeriod: self.config.runPeriod
+        use_KLUB_method: False
+        muon_id_branch: Muon_mediumId
+        ignore_if_no_muon_branches: True
+        use_corrected_met: False
+        met_smear_tag: ""
+        met_smear_tag_data: ""

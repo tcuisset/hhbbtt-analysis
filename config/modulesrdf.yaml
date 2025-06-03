@@ -220,8 +220,8 @@ MET_unclusteredEnergy:
 
 
 ####### Creating definitvive pairType (adding MET_pt cut to boostedTaus)
-HHLeptonMETCut:
-    name: HHLeptonMETCutRDF
+HHLeptonPairTypeMETCutRDF:
+    name: HHLeptonPairTypeMETCutRDF
     path: Tools.Tools.HHLepton
     parameters:
         isMC: self.dataset.process.isMC
@@ -230,6 +230,7 @@ HHLeptonMETCut:
         met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         met_smear_tag: "tes_electron_xycorr"
         useBoostedTaus: self.dataset.process.isMC or not self.dataset.has_tag("dataNoBoostedTaus") # don't forget to change this also in hhlepton
+        METVariableForCut: MET # change here for METNoMu
 
 
 ########################### FatJet JME corrections 
