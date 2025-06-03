@@ -90,6 +90,21 @@ class Config(BaseConfig):
 
             Category("ZZ_EC90_CR", "CR ZZ mass cut E=90%",
                 selection=f"({elliptical_cut_90_inv}) && ((bjet1_JetIdx>=0 && bjet2_JetIdx>=0) || (fatjet_JetIdx >= 0)) && (pairType >= 0)"),
+            Category("ZZ_EC90_CR_resolved_b", "CR inverted elliptical cut (res1b|res2b)",
+                pre_selection=f"({cat_reqs['HPSTau']})",
+                selection=f"({elliptical_cut_90_inv}) && ({cat_reqs['HPSTau']}) && (jetCategory==0||jetCategory==1)",
+                jet_category="resolved_12b", # important that it has "resolved_" in name to load resolved DNN
+                tau_category="HPSTau",
+                dnn_output_branch_type_resolved=np.float32,
+                dnn_output_branch_type_resonant=np.float32,
+                ),
+            # Category("ZZ_EC90_CR_boosted_bb", "CR boosted-bb", # category is : boosted-bb boostedTau|HPSTau either : passing PNet but outside ellipse, failing PNet anywhere. Not enough events there !
+            #     pre_selection=f"({cat_reqs['HPSTau']}) || ({cat_reqs['boostedTau']})", # QCD estimation is not correct because of merging of HPS & boostedTau ! 
+            #     selection=f"(({cat_reqs['HPSTau']}) || ({cat_reqs['boostedTau']})) && (({elliptical_cut_90_inv} && jetCategory==2) || (jetCategory == -2))",
+            #     jet_category="boosted_bb", # important that it has "boosted_bb" in name to load resolved DNN
+            #     dnn_output_branch_type_resolved=np.float32,
+            #     dnn_output_branch_type_resonant=np.float32,
+            #     ),
             
             Category("ZZ_EC90_resolved_nobtag", "CR ZZ mass cut E=90% resolved no b-tag", # category for measurement of b-tag normalization factors 
                 selection=f"({elliptical_cut_90}) && bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({cat_reqs['HPSTau']})"), # no selection on fatjet as that is nested in res2b, probably this is the best region, but no single choice

@@ -107,6 +107,15 @@ class ConfigZbbHtt(BaseConfig):
             #     selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && {cat_reqs.boosted}"),
             # Category("ZbbHtt_orthogonal_cut_90_CR_boosted_noPNet", "CR orthogonal & boosted (no PNet cut)",
             #     selection=f"({elliptical_cut_90_inv}) && ({orthogonality}) && isBoosted == 1 "),
+
+            Category("ZbbHtt_EC90_CR_resolved_b", "CR inverted elliptical cut (res1b|res2b)",
+                pre_selection=f"({cat_reqs['HPSTau']})",
+                selection=f"({elliptical_cut_90_inv}) && ({cat_reqs['HPSTau']}) && (jetCategory==0||jetCategory==1)",
+                jet_category="resolved_12b", # important that it has "resolved_" in name to load resolved DNN
+                tau_category="HPSTau",
+                dnn_output_branch_type_resolved=np.float32,
+                dnn_output_branch_type_resonant=np.float32,
+                ),
         ])
 
         for orthogonality_name, orthogonality_cut in [("EC", "true"), ("OC", orthogonality)]:
