@@ -271,5 +271,24 @@ cross_section_dict = {
     "qcd_ht700":        6392,
     "qcd_ht1000":       1118,
     "qcd_ht1500":       108.9,
-    "qcd_ht2000":       21.93 # https://xsecdb-xsdb-official.app.cern.ch/xsdb/?columns=67108863&currentPage=0&pageSize=10&searchQuery=DAS%3DQCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8
+    "qcd_ht2000":       21.93, # https://xsecdb-xsdb-official.app.cern.ch/xsdb/?columns=67108863&currentPage=0&pageSize=10&searchQuery=DAS%3DQCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8
+
+    # glugluHH xs = 31fb inclusive at NNLO
+    # ggHH_bbVV
+    #This sample is POWHEG HH (undecayed H), Pythia filter (enable H->bb, H->ZZ, H->WW) with resonance decay filter (W,Z,H allow to decay a subset (?) of  2*bquarks + 4*light quarks). So allowe decays are H->bb & H->(WW/ZZ)->4q
+    # H->bb : 0.58, H->WW : 0.22, H->ZZ : 0.027
+    # W->qq : 0.67, Z->qq : 
+    # approx xs = ggHH * (H->bb) * (H->WW) * (W->qq)**2
+    # = 0.031 * 0.58 * 0.22 * (0.67**2)
+    "ggHH_bbVV" : 0.0017 , # (XSDB says 0.02669) 
+
+    # WminusH_HToBB_WToLNu_M-125_TuneCP5_13TeV-powheg-pythia8 XSDB:0.177	
+    # Poweg WH with W leptonic decay, H undecayed. Pythia H->bb
+    # xs WminusH : 0.5282pb, xs WminusH pp-> lnuH : 0.0593 (single lepton, *3 for incl. leptons)
+    # 0.0593 * 3 * 0.58 = 0.103
+    "wminush_hbb_wlnu" : 0.103,
+
+    # XSDB : 0.3675
+    "wminush_hbb_wqq" : 0.3675*0.58,
+
 }
