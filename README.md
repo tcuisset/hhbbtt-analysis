@@ -321,6 +321,23 @@ For 2017 special case (see HHLepton.py)
 [Approval Muon POG](https://indico.cern.ch/event/1297171/contributions/5453041/attachments/2668478/4624848/mutrgSFs.pdf)
 [Approval EGamma](https://indico.cern.ch/event/1288547/#25-trigger-sfs-for-gamma-gamma)
 
+### MET
+Analyses using METNoMu trigger : 
+ - EXO-20-010 (measuring on W->muon)
+ - EXO-22-020 (")
+ - B2G-24-011 (measuring on Z->tau_mu tau_mu)
+
+### Trigger devlopments
+#### Single-tau
+HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1, no SFs for UL, only Legacy, single nb, measured in W* events
+[Approval Legacy SFs](https://indico.cern.ch/event/982713/contributions/4138615/attachments/2162407/3653661/TauId_SingleTauTrigger.pdf)
+[Ditau trigger SFs for info](https://indico.cern.ch/event/1015397/contributions/4262184/attachments/2203434/3727614/TautriggerSF-UL.pdf)
+
+#### Jet
+HLT_AK8PFHT800_TrimMass50
+[B2G-22-001 is using them](https://cms.cern.ch/iCMS/analysisadmin/cadilines?line=B2G-22-001)
+Also B2G-20-014 and B2G-22-007
+
 ## Monte Carlo corrections & systematics
 <https://twiki.cern.ch/twiki/bin/viewauth/CMS/DoubleHiggsToBBTauTauWorkingLegacyRun2>
 
@@ -573,11 +590,13 @@ Framework : creating a Dataset from another Dataset copies all properties except
 
 Using a dataset or feature that does not exist is silently ignored.
 
-Using `--workers 1` in combination with RDataFrame will lead to a memory leak, as every new RDataFrame creation will use some memory that will never be freed.
+Using `--workers 1` in combination with RDataFrame will lead to a memory leak, as every new RDataFrame creation will use some memory that will never be freed. Can set `force_multiprocessing` luigi config to fix it. 
+
+Using correctionlib : cannot find correction.h (CLING error) : add `import correctionlib; correctionlib.register_pyroot_binding()` to the python module
 
 
 ### Temporary files
-A lot of orphaned temprary files end up in `nanoaod_base_analysis/data/tmp`, leading to OSError. these need to be cleaned up : 
+A lot of orphaned temprary files end up in `nanoaod_base_analysis/data/tmp`, leading to OSError. these need to be cleaned up : `ls -f . |grep -e 'tmp' | xargs -n 10 -P 10 rm -r` or (slower)
 `cd nanoaod_base_analysis/data/tmp && find ./ -mindepth 1 -maxdepth 1 -type d -name 'tmp*' -print0 | xargs -0 -n 10 -P 10 rm -r` (old slower command :` find ./ -maxdepth 1 -name 'tmp*' -exec rm -r {} \+`). NB: don't just remove the tmp folder as the list of InputData files is stored there (it will have to be regrenrated).
 `ls -U -f -1` can list the files at reasonable speed (and ` /bin/ls -1U nanoaod_base_analysis/data/tmp | wc -l` count them). Also `/bin/ls -U . | xargs rm -r` can work. The `jobs` folder is also filling up.
 Also try  `mkdir emptydir && rsync -a --delete emptydir/ yourdirectory/` to remove fast
@@ -588,4 +607,4 @@ In case you get the error ̀`ImportError: cannot import name 'contextfilter' fro
 
 ## Frameweork developments
 ### Sppeding up PrePlot
-PrePlot is CPU-bound from histogram filling (1 histogram for each systematic, incl. weight systsemtaic). Weight computation is redone for every histogram (suboptimal) but not a bottleneck. Probably rdataframe mulitthreading is the way to go.
+PrePlot is CPU-bound from histogram filling (1 histogram for each systematic, incl. weight systsemtaic). Weight computation is redone for every histogram (suboptimal) but not a bottleneck. Probably rdataframe mulitthreading is the way to go. Or 2D histogram with syst as an axis
