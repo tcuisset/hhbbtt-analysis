@@ -10,19 +10,45 @@ from config.base_config_ZH import get_ZH_common_features, get_ZH_common_processe
 class ConfigZttHbb(BaseConfig):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.dnn = DotDict(
-            nonresonant=DotDict(
-                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_03_04/ZttHbb-0",
-                out_branch="dnn_ZHbbtt_kl_1",
-                #systematics=["tes", "jer", "jec"]
-            ),
-            resonant=DotDict(
+        # self.dnn = DotDict(
+        #     nonresonant=DotDict(
+        #         model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_03_04/ZttHbb-0",
+        #         out_branch="dnn_ZHbbtt_kl_1",
+        #         #systematics=["tes", "jer", "jec"]
+        #     ),
+        #     resonant=DotDict(
+        #         model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_01_09/ResZttHbb-0/",
+        #         resonant_masses=resonant_masses_ZH,
+        #         out_branch="dnn_ZHbbtt_kl_1_{mass}",
+        #         #systematics=["tes", "jer", "jec"]
+        #     ),
+        # )
+
+    def get_dnn_config(self, category, isResonant:bool):
+        """ Returns the DNN config for the given category. """
+        if isResonant:
+            return DotDict(
                 model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_01_09/ResZttHbb-0/",
+                #model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/Resbbtt-0/",
                 resonant_masses=resonant_masses_ZH,
                 out_branch="dnn_ZHbbtt_kl_1_{mass}",
-                #systematics=["tes", "jer", "jec"]
-            ),
-        )
+                # systematics=["tes", "jer", "jec"]
+            )
+        else:
+            if "boosted_bb" in category.get_aux("jet_category"):
+                return DotDict(
+                    model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework9/nanoaod_base_analysis/data/cmssw/CMSSW_15_0_3/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_04_17/ZttHbb_Boosted-0", 
+                    out_branch="dnn_ZHbbtt_kl_1",
+                    # systematics=["tes", "jer", "jec"]
+                )
+            elif "resolved_" in category.get_aux("jet_category"):
+                return DotDict(
+                    model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework9/nanoaod_base_analysis/data/cmssw/CMSSW_15_0_3/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_04_17/ZttHbb_Resolved-0", 
+                    out_branch="dnn_ZHbbtt_kl_1",
+                    # systematics=["tes", "jer", "jec"]
+                )
+            else: raise ValueError(category.get_aux("jet_category"))
+
 
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)

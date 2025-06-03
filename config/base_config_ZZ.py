@@ -16,21 +16,53 @@ res_mass_ZZ_limited = [200, 400, 600, 800, 1000, 1200, 1500, 2000, 3500, 5000]
 class Config(BaseConfig):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.dnn = DotDict(
-            nonresonant=DotDict(
-                # model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZZbbtt-0",
-                model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_03_04/ZZbbtt-0",
-                out_branch="dnn_ZZbbtt_kl_1",
-                # systematics=["tes", "jer", "jec"]
-            ),
-            resonant=DotDict(
+        # self.dnn = DotDict(
+        #     nonresonant=DotDict(
+        #         # model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ZZbbtt-0",
+        #         # model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_03_04/ZZbbtt-0",
+        #         #model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework9/nanoaod_base_analysis/data/cmssw/CMSSW_15_0_3/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_04_07/ZZbbtt-0",
+        #         #model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework9/nanoaod_base_analysis/data/cmssw/CMSSW_15_0_3/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_04_10/ZZbbtt_Resolved-0", # TODO change this for boosted
+        #         model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework9/nanoaod_base_analysis/data/cmssw/CMSSW_15_0_3/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_04_10/ZZbbtt_Boosted-0", # TODO change this for boosted
+        #         out_branch="dnn_ZZbbtt_kl_1",
+        #         # systematics=["tes", "jer", "jec"]
+        #     ),
+        #     resonant=DotDict(
+        #         model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_01_09/ResZZbbtt-0/",
+        #         #model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/Resbbtt-0/",
+        #         resonant_masses=res_mass_ZZ,
+        #         out_branch="dnn_ZZbbtt_kl_1_{mass}",
+        #         # systematics=["tes", "jer", "jec"]
+        #     ),
+        # )
+    
+    def get_dnn_config(self, category, isResonant:bool):
+        """ Returns the DNN config for the given category. """
+        if isResonant:
+            return DotDict(
                 model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/frameworkJobs/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_01_09/ResZZbbtt-0/",
-                #model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/ResZZbbtt-0/",
+                #model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework/nanoaod_base_analysis/data/cmssw/CMSSW_12_3_0_pre6/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-05-10/Resbbtt-0/",
                 resonant_masses=res_mass_ZZ,
                 out_branch="dnn_ZZbbtt_kl_1_{mass}",
                 # systematics=["tes", "jer", "jec"]
-            ),
-        )
+                output_branch_type=category.get_aux("dnn_output_branch_type_resonant", float)
+            )
+        else:
+            if "boosted_bb" in category.get_aux("jet_category"):
+                return DotDict(
+                    model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework9/nanoaod_base_analysis/data/cmssw/CMSSW_15_0_3/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_04_17/ZZbbtt_Boosted-0", 
+                    out_branch="dnn_ZZbbtt_kl_1",
+                    # systematics=["tes", "jer", "jec"]
+                    output_branch_type=category.get_aux("dnn_output_branch_type_boosted", float)
+                )
+            elif "resolved_" in category.get_aux("jet_category"):
+                return DotDict(
+                    model_folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/framework9/nanoaod_base_analysis/data/cmssw/CMSSW_15_0_3/src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2025_04_17/ZZbbtt_Resolved-0", 
+                    out_branch="dnn_ZZbbtt_kl_1",
+                    # systematics=["tes", "jer", "jec"]
+                    output_branch_type=category.get_aux("dnn_output_branch_type_resolved", float)
+                )
+            else: raise ValueError(category.get_aux("jet_category"))
+
 
     def add_categories(self, **kwargs):
         categories = super().add_categories(**kwargs)
