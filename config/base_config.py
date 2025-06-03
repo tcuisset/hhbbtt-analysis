@@ -315,7 +315,7 @@ class BaseConfig(cmt_config):
 
     def add_regions(self):
         selection = OrderedDict()
-        region_names = ["Signal region", "OS inv. iso", "SS iso", "SS inv. iso"]
+        region_names = ["OS iso", "OS inv. iso", "SS iso", "SS inv. iso"]
 
         if self.useBoostedTaus:
             dau1_iso = f"isBoostedTau ? dau1_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.LooseWisc} : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Medium}"
@@ -481,6 +481,7 @@ class BaseConfig(cmt_config):
                 selection=channel.selection))
             
         # special regions
+        regions.append(Category("base", label="Base (no selections)", selection="1"))
         regions.append(Category(f"baseline_region",
             label="baseline etau+mutau+tautau",
             selection="pairType>=0 && pairType <= 2"))
@@ -659,7 +660,8 @@ class BaseConfig(cmt_config):
                 selection=f"({base_HPS}) || ({base_boostedTaus})", selection_HPS=f"({base_HPS})"),
             Category("base_selection_boostedTausOnly", "base",
                 selection=f"({base_boostedTaus})"),
-            
+            Category("baseline_ultraskim", "baseline", selection="pairType >= 0 && pairType <= 2 && ((bjet1_JetIdx>=0&&bjet2_JetIdx)||(fatjet_JetIdx>=0))"), # same as baseline
+
             Category("baseline_resolved_nobtag", "Baseline HPS no b-tag", # category for measurement of b-tag normalization factors 
                 pre_selection=f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({self.get_categories_requirements()['HPSTau']}))",
                 selection=f"(bjet1_JetIdx>=0 && bjet2_JetIdx>=0 && ({self.get_categories_requirements()['HPSTau']}))"), # no selection on fatjet as that is nested in res2b, probably this is the best region, but no single choice
