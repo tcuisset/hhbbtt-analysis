@@ -1,0 +1,86 @@
+
+# for skims made for elliptical cut plots
+
+
+dystitching:
+    name: DYstitchingRDF
+    path: Tools.Tools.dyreweighting
+    parameters:
+        isDY: self.dataset.process.get_aux('isDY', False)
+        year: self.config.year
+        runPeriod: self.config.runPeriod
+
+JetCategoryFilter:
+    name: JetCategoryRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        btag_wp: self.config.btag_algo_wps.medium
+        fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
+
+# filter jet category to avoid running kinfit & all for events that will fail categorization selection anyway
+# only relevant for categories that have only one jet category in them (ie not for DNN training for example)
+# JetCategoryFilter:
+#     name: JetCategoryFilterRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         jet_category: self.category.get_aux("jet_category")
+
+# zz:
+#     name: HHKinFitRDF
+#     path: Tools.Tools.hh
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         met_smear_tag: tes_electron_xycorr
+#         met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zzvar:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+
+# extracts variables from Jet & FatJet collections to be able to remove them at Categorization and keep only flat variables
+# bjet1var:
+#     name: HHJetsVarRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         variables_withSyst: []
+#         variables_withoutSyst: [btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
+#         index: bjet1_JetIdx
+#         input_prefix: Jet
+#         output_prefix: bjet1
+# bjet2var:
+#     name: HHJetsVarRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         variables_withSyst: []
+#         variables_withoutSyst: [btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
+#         index: bjet2_JetIdx
+#         input_prefix: Jet
+#         output_prefix: bjet2
+fatjetvar:
+    name: HHJetsVarRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        variables_withSyst: []
+        variables_withoutSyst: [particleNetLegacy_Xbb, particleNetLegacy_QCD, msoftdrop] # , tau1, tau2, pnet massCorr not available
+        index: fatjet_JetIdx
+        input_prefix: FatJet
+        output_prefix: fatjet

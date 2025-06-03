@@ -1,0 +1,30 @@
+#ultra-light for elliptical cut plots
+# saves only weights and some variables
+
+drop .*
+
+keep pairType
+keep isBoostedTau
+keep jetCategory
+
+keep (Z|H|X)bb_mass.*
+keep (Z|H|X)tt_.*mass.*
+keep (HH|ZH|ZZ)_.*mass.*
+keep fatjet_msoftdrop
+
+keep genWeightFixed
+keep genWeight
+keep DYstitchWeight
+keep puWeight
+keep trigSF
+# keep trigSF.*
+keep L1PreFiringWeight_Nom
+drop L1PreFiringWeight_(Up|Down)
+keep PUjetID_SF
+keep idAndIsoAndFakeSF
+drop idAndIsoAndFakeSF_.*
+keep bTagweightReshape_smeared
+drop bTagweightReshape_smeared_.*
+keep fatjet_pNet_LP_SF
+keep pdfWeight
+keep scaleWeight

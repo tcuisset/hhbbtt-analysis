@@ -40,4 +40,4 @@ BtagReshapeExtrapFactorRDF:
         year: self.config.year
         isMC: self.dataset.process.isMC
         runPeriod: self.config.runPeriod
-        isSignal: self.dataset.process.isSignal
+        btag_extrap_type: self.dataset.process.get_aux("btag_extrap_type")

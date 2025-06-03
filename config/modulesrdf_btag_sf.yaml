@@ -1,5 +1,6 @@
 
-
+# for skims made for computation of btag extrap factors
+# precomputes useful weights so they don't have to be run at preplot
 
 
 dystitching:
