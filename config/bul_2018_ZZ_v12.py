@@ -119,15 +119,15 @@ class Config_bul_2018_ZZ_v12(base_config_ZZ):
             ###################################### DNN training private samples ###########################
             ###############################################################################################
             Dataset("zz_bbtt_dnnTraining", # ZZ->bbtautau private sample for DNN training
-                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/ZZbbtt_v1_inclusive/",
-                process=self.processes.get("zz_sl_signal"),# genfilter_denominator_weights=True which is not needed. Normally no need to apply genfilter but should not do anything. Would need a new process to disable
-                xs=self.cross_section_dict["zz_sl_signal"], 
-                tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault"]),
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2018/ZZbbtt_v1_inclusive/",
+                process=self.processes.get("zz_sl_signal_dnnTraining"),
+                xs=self.cross_section_dict["zz_sl_signal"], # xs to be verified (lepton cuts are different in private samples)
+                tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault", "dnnTraining"]),
             Dataset("zz_bbtt_vptFilter_dnnTraining", # ZZ->bbtautau private sample for DNN training
-                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/ZZbbtt_v1_VptGt200/",
-                process=self.processes.get("zz_sl_signal"),# genfilter_denominator_weights=True which is not needed. Normally no need to apply genfilter but should not do anything. Would need a new process to disable
-                xs=self.cross_section_dict["zz_sl_signal"], # TODO the xs should be fixed
-                tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault"]),
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2018/ZZbbtt_v1_VptGt200/",
+                process=self.processes.get("zz_sl_signal_dnnTraining"),
+                xs=self.cross_section_dict["zz_bbtt_vptFilter"], # the xs should be checked
+                tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault", "dnnTraining"]),
         ])
             
         return datasets

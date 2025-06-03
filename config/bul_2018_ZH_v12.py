@@ -158,6 +158,34 @@ def get_datasets_ZH_2018(self):
         
         for mass in resonant_masses_ZH
         ),
+
+        ###################################### DNN training private samples ###########################
+        ###############################################################################################
+        Dataset("zh_zbb_htt_dnnTraining", 
+            folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2018/ZbbHtt_v2",
+            process=self.processes.get("zh_zbb_htt_dnnTraining"),
+            xs=self.cross_section_dict["zh_zbb_htt_signal"], # xs to be verified 
+            categorization_merging={'': 1},
+            tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault", "dnnTraining"]),
+        Dataset("zh_zbb_htt_vptFilter_dnnTraining", # ZZ->bbtautau private sample for DNN training
+            folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2018/ZbbHtt_v1_VpTGt200",
+            process=self.processes.get("zh_zbb_htt_dnnTraining"),
+            xs=self.cross_section_dict["zh_zbb_htt_signal"], # xs should be checked
+            categorization_merging={'': 1},
+            tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault", "dnnTraining"]),
+
+        Dataset("zh_ztt_hbb_dnnTraining", 
+            folder=["/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2018/ZttHbb_v1", "/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2018/ZttHbb_v2"],
+            process=self.processes.get("zh_ztt_hbb_dnnTraining"),
+            xs=self.cross_section_dict["zh_ztt_hbb_signal"], # xs to be verified 
+            categorization_merging={'': 1},
+            tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault", "dnnTraining"]),
+        Dataset("zh_ztt_hbb_vptFilter_dnnTraining", # ZZ->bbtautau private sample for DNN training
+            folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2018/ZttHbb_v1_VpTGt200",
+            process=self.processes.get("zh_ztt_hbb_dnnTraining"),
+            xs=self.cross_section_dict["zh_ztt_hbb_vptFilter"], # xs should be checked
+            categorization_merging={'': 1},
+            tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault", "dnnTraining"]),
     ])
 
     return datasets

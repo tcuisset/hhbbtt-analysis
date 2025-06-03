@@ -113,8 +113,21 @@ class Config_bul_2016_ZZ_v12(base_config_ZZ):
                 tags=["ul", "nanoV10", "bul", "res", "signal", "resSignal"] + (["resExtra"] if mass not in [200, 1000, 2000, 3000, 4000, 5000] else ["resLimited"]))
             
             for mass in res_mass_ZZ
-            )
+            ),
 
+
+            ###################################### DNN training private samples ###########################
+            ###############################################################################################
+            Dataset("zz_bbtt_dnnTraining", # ZZ->bbtautau private sample for DNN training
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2016/ZZbbtt_v1_inclusive/",
+                process=self.processes.get("zz_sl_signal_dnnTraining"),# genfilter_denominator_weights=True which is not needed. Normally no need to apply genfilter but should not do anything. Would need a new process to disable
+                xs=self.cross_section_dict["zz_sl_signal"], # xs to be verified (lepton cuts are different in private samples)
+                tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault", "dnnTraining"]),
+            Dataset("zz_bbtt_vptFilter_dnnTraining", # ZZ->bbtautau private sample for DNN training
+                folder="/grid_mnt/data__data.polcms/cms/cuisset/ZHbbtautau/DNNTrainingSamples/2016/ZZbbtt_v1_VptGt200/",
+                process=self.processes.get("zz_sl_signal_dnnTraining"),# genfilter_denominator_weights=True which is not needed. Normally no need to apply genfilter but should not do anything. Would need a new process to disable
+                xs=self.cross_section_dict["zz_bbtt_vptFilter"], # TODO the xs should be fixed
+                tags=["ul", "nanoV10", "bul", "nonResOnly", "nonDefault", "dnnTraining"]),
         ])
             
         return datasets
