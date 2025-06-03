@@ -1275,7 +1275,7 @@ class BaseConfig(cmt_config):
                 central="jer", systematics=self.jme_systs + self.btag_systs_nojec), # techincally btag does not depend on JER but the branch in JER varied ntuples is called btagweightReshape_smeared_up/down ....
             Feature("bTagweightReshapeExtrapFactor", "bTagweightReshapeExtrapFactor", binning=(30, 0.5, 1.5),
                 x_title=Label("b-tag extrapolation factor for reshaping weight"), tags=["weights"], noData=True,
-                systematics=self.btag_systs_nojec),
+                ), # systematics=self.btag_systs_nojec
             Feature("bTagweightReshapeCorr", "{{bTagweightReshape}}*{{bTagweightReshapeExtrapFactor}}", binning=(30, 0, 2),
                 x_title=Label("b-tag reshaping weight (with r-factor)"), tags=["weights"], noData=True,
                 systematics=self.jec_systs + self.btag_systs_nojec),
