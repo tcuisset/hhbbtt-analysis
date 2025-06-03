@@ -112,7 +112,7 @@ class Config(BaseConfig):
                     pre_selection=f"({cat_reqs[tau_category]})",
                     selection=f"({elliptical_cut_90}) && (jetCategory == {jet_category_idx}) && ({cat_reqs[tau_category]})", # ({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]})
                     jet_category=jet_category,#"boosted" if jet_category == "boosted_bb" else "resolved"
-                    dnn_rebinning_target_bin_count=5 if (jet_category=="boosted_bb" and tau_category=="HPSTau") else 4 if (jet_category=="boosted_bb" and tau_category=="boostedTau") else 10
+                    tau_category=tau_category,
                 ))
             #all_categories_selections.append(f"({cat_reqs.jet_cat_Res2b_Boosted_Res1b_noPNetFail[jet_category]}) && ({cat_reqs[tau_category]})")
         
@@ -153,6 +153,27 @@ class Config(BaseConfig):
         )
 
         return categories
+    
+    #@override
+    def get_rebinning_target_bin_count(self, feature, category, region):
+        """ Target bin count for FeatureHistogramRebin """
+        dnn_rebinning_target_bin_count = 10
+        jet_category = category.get_aux("jet_category")
+        tau_category = category.get_aux("tau_category")
+        region_name = region.name if region else ""
+
+        if jet_category == "boosted_bb":
+            if tau_category=="HPSTau":
+                dnn_rebinning_target_bin_count = 3 # here the template fluctuations are particularly bad
+            elif tau_category=="boostedTau":
+                if "tautau" in region_name: dnn_rebinning_target_bin_count = 3
+                else: dnn_rebinning_target_bin_count = 4
+        elif jet_category == "resolved_2b":
+            if "tautau" in region_name: dnn_rebinning_target_bin_count = 5
+        elif jet_category == "resolved_1b":
+            if "tautau" in region_name: dnn_rebinning_target_bin_count = 7
+        
+        return dnn_rebinning_target_bin_count
     
     #@override
     def add_features(self):

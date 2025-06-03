@@ -117,7 +117,8 @@ class ConfigZbbHtt(BaseConfig):
                         f"{orthogonality_name}90 {jet_category} {tau_category}",
                         pre_selection=f"({cat_reqs[tau_category]})",
                         selection=f"({elliptical_cut_90}) && ({orthogonality_cut}) && (jetCategory == {jet_category_idx}) && ({cat_reqs[tau_category]})",
-                        jet_category=jet_category
+                        jet_category=jet_category,
+                        tau_category=tau_category,
                     ))
             
             categories.append(
@@ -133,8 +134,52 @@ class ConfigZbbHtt(BaseConfig):
                     op="and")
                     )
             )
+        
+        categories.append(
+        Category("ZbbHtt_EC90_DNNtraining", "DNN training region", # for DNN training increasing training statistics
+                pre_selection=jrs([
+                    "pairType>=0",
+                    f"pairType != 2 || (isBoostedTau ? dau1_rawIdDeepTauVSjet >= 0.4 : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Loose})", # loosening dau1 iso in tautau a bit
+                    f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}"
+                ],
+                op="and"), 
+                selection=jrs([
+                    elliptical_cut_90,
+                    jrs([
+                        f"{cat_reqs['HPSTau']} && (jetCategory >= 0 || (jetCategory==-2 && fatjet_pnet>=0.))", # HPSTaus: recover some boosted_bb events failing PNet  
+                        f"{cat_reqs['boostedTau']} && (jetCategory == 2 || (jetCategory==-2 && fatjet_pnet>=0.))" # boostedTaus : boosted_bb only
+                    ], op="or"),
+                    "isOS",
+                    "pairType>=0",
+                    f"pairType != 2 || (isBoostedTau ? dau1_rawIdDeepTauVSjet >= 0.4 : dau1_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.Loose})", # loosening dau1 iso in tautau a bit
+                    f"isBoostedTau ? dau2_rawIdDeepTauVSjet >= {self.deepboostedtau.vsjet.VLooseQCD} : dau2_idDeepTau2017v2p1VSjet >= {self.deeptau.vsjet.VVVLoose}"
+                ],
+                op="and")
+                )
+        )
 
         return categories
+    
+    #@override
+    def get_rebinning_target_bin_count(self, feature, category, region):
+        """ Target bin count for FeatureHistogramRebin """
+        dnn_rebinning_target_bin_count = 10
+        jet_category = category.get_aux("jet_category")
+        tau_category = category.get_aux("tau_category")
+        region_name = region.name if region else ""
+
+        if jet_category == "boosted_bb":
+            if tau_category=="HPSTau":
+                dnn_rebinning_target_bin_count = 3 # here the template fluctuations are particularly bad
+            elif tau_category=="boostedTau":
+                if "tautau" in region_name: dnn_rebinning_target_bin_count = 3
+                else: dnn_rebinning_target_bin_count = 4
+        elif jet_category == "resolved_2b":
+            if "tautau" in region_name: dnn_rebinning_target_bin_count = 5
+        elif jet_category == "resolved_1b":
+            if "tautau" in region_name: dnn_rebinning_target_bin_count = 7
+        
+        return dnn_rebinning_target_bin_count
     
     #@override
     def add_features(self):
