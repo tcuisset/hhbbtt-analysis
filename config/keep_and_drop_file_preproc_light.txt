@@ -47,6 +47,7 @@ keep HLT_PFMETNoMu120_PFMHTNoMu120_IDTight
 keep HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight
 keep HLT_PFMET120_PFMHT120_IDTight
 
+drop (n|)PPSLocalTrack.*
 drop L1.*
 keep L1PreFiringWeight.*
 drop HTXS.*
@@ -94,8 +95,7 @@ drop GenIsolatedPhoton.*
 drop nGenIsolatedPhoton
 drop GenProton.*
 drop nGenProton
-drop Proton.*
-drop nProton
+drop (n|)Proton.*
 drop BeamSpot.*
 drop CaloMET.*
 drop ChsMET.*
