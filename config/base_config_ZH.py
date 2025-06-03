@@ -57,7 +57,7 @@ def get_ZH_common_features(self):
 
         # ZH KinFit
         Feature("ZHKinFit_mass", "ZHKinFit_mass", binning=(50, 150, 1150),
-            x_title=Label("ZH mass (Kin. Fit)"),
+            get_x_title=lambda category, **kwargs: Label("ZH mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZH mass"),
             units="GeV", tags=["cat"],
             systematics=self.all_systs),
         Feature("ZHKinFit_highmass", "ZHKinFit_mass",
@@ -67,15 +67,15 @@ def get_ZH_common_features(self):
             #old binning=(175, 150, 3550),
             #binning=np.concatenate([np.arange(160, 1000, 20), np.arange(1000, 1500, 50), np.arange(1500, 2000, 100), np.arange(2000, 3500+1, 500)]),
             #binning=np.concatenate([np.arange(160, 1000, 20), np.arange(1000, 1500, 50), np.arange(1500, 2000, 100), np.arange(2000, 3500+1, 500)]),
-            x_title=Label("ZH mass (Kin. Fit)"), 
+            get_x_title=lambda category, **kwargs: Label("ZH mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZH mass"),
             units="GeV", tags=["cat"],
             systematics=self.all_systs),
         Feature("ZHKinFit_mass_res", "ZHKinFit_mass", binning=(50, 150, 1150),
-            x_title=Label("ZH mass (Kin. Fit)"),
+            get_x_title=lambda category, **kwargs: Label("ZH mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZH mass"),
             units="GeV", tags=["cat"],
             systematics=self.all_systs),
         Feature("ZHKinFit_highmass_res", "ZHKinFit_mass", binning=(175, 150, 3650),
-            x_title=Label("ZH mass (Kin. Fit)"),
+            get_x_title=lambda category, **kwargs: Label("ZH mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZH mass"),
             units="GeV", tags=["cat"],
             systematics=self.all_systs),
         Feature("ZHKinFit_chi2", "ZHKinFit_chi2", binning=(30, 0, 50),
@@ -87,21 +87,26 @@ def get_ZH_common_features(self):
                 systematics=self.all_systs)
             for nbins in [10, 30, 100, 500]],
         *[Feature(f"dnn_ZHbbtt_{nbins}bv", "dnn_ZHbbtt_kl_1", binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(1./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(2/10*nbins), endpoint=False), np.linspace(0.9, 0.97, int(3/10*nbins), endpoint=False), np.linspace(0.97, 1.+sys.float_info.epsilon, int(3/10*nbins)+1, endpoint=True)]),
-                x_title=Label("DNN ZH"), tags=["dnn", "blind", "dnn_nonres"], no_save_bin_yields=True,
+                x_title=Label("DNN ZH"), tags=["dnn", "blind", "dnn_nonres", f"dnn_nonres_{nbins}bv"], no_save_bin_yields=True,
                 systematics=self.all_systs)
             for nbins in [500]], # variable-binning non-res DNN (for boostedTaus category)
         
-        *[Feature(f"dnn_ZHbbtt_kl_1_{mass}", f"dnn_ZHbbtt_kl_1_{mass}", binning=(10, 0, 1+sys.float_info.epsilon),
-                x_title=Label(f"DNN ZH resonant {mass}"), tags=["dnn", "blind"],
+        # *[Feature(f"dnn_ZHbbtt_kl_1_{mass}", f"dnn_ZHbbtt_kl_1_{mass}", binning=(10, 0, 1+sys.float_info.epsilon),
+        #         x_title=Label(f"DNN ZH resonant {mass}"), tags=["dnn", "blind"],
+        #         systematics=self.all_systs)
+        # for mass in resonant_masses_ZH],
+
+        *[Feature(f"dnn_ZHbbtt_{nbins}b_M{mass}", f"dnn_ZHbbtt_kl_1_{mass}", binning=(nbins, 0, 1+sys.float_info.epsilon), tags=["dnn_extra", "dnn_res", "blind", f"dnn_res_M{mass}", f"dnn_res_{nbins}b"] + (["dnn_limited"] if mass in reduced_resonant_masses_ZH else []),
+                x_title=Label(f"PNN ZH {mass} GeV" if mass < 1000 else f"PNN ZH {mass/1000:g} TeV"), no_save_bin_yields=True,
                 systematics=self.all_systs)
-        for mass in resonant_masses_ZH],
+            for mass in resonant_masses_ZH for nbins in [100]],
 
         *[Feature(f"dnn_ZHbbtt_{nbins}bv_M{mass}", f"dnn_ZHbbtt_kl_1_{mass}", # variable binning version for auto-rebin algorithm
                 # [0, 0.5, 0.8, 0.9, 0.97, 1]
                 # [  50  50   100  150  150 ]
                 # in case high DNN score gets rounded to 1 we want to include it, thus the highest bin includes 1. Also add one bin to the last interval as we need nbins+1 edges
                 binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(1./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(2/10*nbins), endpoint=False), np.linspace(0.9, 0.97, int(3/10*nbins), endpoint=False), np.linspace(0.97, 1.+sys.float_info.epsilon, int(3/10*nbins)+1, endpoint=True)]),
-                x_title=Label(f"PNN ZH {mass} GeV" if mass < 1000 else f"PNN ZH {mass/1000:g} TeV"),  tags=["dnn", "dnn_res", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in reduced_resonant_masses_ZH else []),
+                x_title=Label(f"PNN ZH {mass} GeV" if mass < 1000 else f"PNN ZH {mass/1000:g} TeV"),  tags=["dnn", "dnn_res", "blind", f"dnn_res_M{mass}", f"dnn_res_{nbins}bv"] + (["dnn_limited"] if mass in reduced_resonant_masses_ZH else []),
                 systematics=self.all_systs, no_save_bin_yields=True)
             for mass in resonant_masses_ZH for nbins in [500]],
     ])

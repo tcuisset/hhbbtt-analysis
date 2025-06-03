@@ -1096,6 +1096,17 @@ class BaseConfig(cmt_config):
                 x_title=Label("Has AK8 candidate (no PNet cut)"), tags=["pairTypes"]),
             Feature("isBoostedTau", "isBoostedTau", binning=(2, 0, 2), 
                 x_title=Label("is boostedTau"), tags=["pairTypes"]),
+            
+            Feature("dR_dau1_bjet1", "deltaR(dau1_eta, dau1_phi, bjet1_eta, bjet1_phi)", binning=(50, 0, 6),
+                x_title=Label("#Delta R (#tau_{1}, b_{1})"), tags=["angular"]), # TODO change this to base ?
+            Feature("dR_dau1_bjet2", "deltaR(dau1_eta, dau1_phi, bjet2_eta, bjet2_phi)", binning=(50, 0, 6),
+                x_title=Label("#Delta R (#tau_{1}, b_{2})"), tags=["angular"]),
+            Feature("dR_dau2_bjet1", "deltaR(dau2_eta, dau2_phi, bjet1_eta, bjet1_phi)", binning=(50, 0, 6),
+                x_title=Label("#Delta R (#tau_{2}, b_{1})"), tags=["angular"]),
+            Feature("dR_dau2_bjet2", "deltaR(dau2_eta, dau2_phi, bjet2_eta, bjet2_phi)", binning=(50, 0, 6),
+                x_title=Label("#Delta R (#tau_{2}, b_{2})"), tags=["angular"]),
+            Feature("min_dR_dau_bjet", "std::min({deltaR(dau1_eta, dau1_phi, bjet1_eta, bjet1_phi), deltaR(dau1_eta, dau1_phi, bjet2_eta, bjet2_phi), deltaR(dau2_eta, dau2_phi, bjet1_eta, bjet1_phi), deltaR(dau2_eta, dau2_phi, bjet2_eta, bjet2_phi)})",
+                binning=(50, 0, 6), x_title=Label("Minimum #Delta R (any #tau, any b)"), tags=["angular"]),
 
             # The H/Z dependent features have been moved to base_config_ZZ/ZH/ZbbHtt/ZttHbb 
 

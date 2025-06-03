@@ -162,9 +162,9 @@ class Config(BaseConfig):
                 x_title=Label("Z(b#bar{b}) mass"),
                 units="GeV", tags=["cat"],
                 **self.jet_systs_params),
-            Feature("Zbb_mass_ellipse", "Zbb_mass", binning=(50, 0, 500),
+            Feature("Zbb_mass_ellipse", "Zbb_mass", binning=(100, 0, 400),
                 x_title=Label("Z(b#bar{b}) mass"),
-                units="GeV", tags=["cat"],
+                units="GeV", tags=["extra"],
                 **self.jet_systs_params),
 
             # Ztt
@@ -224,10 +224,14 @@ class Config(BaseConfig):
                 x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), tags=["cat"],
                 units="GeV",
                 systematics=self.all_systs),
-            Feature("Ztt_svfit_mass_ellipse", "Xtt_svfit_mass", binning=(35, 0, 350),
-                x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), tags=["cat"],
+            Feature("Ztt_svfit_mass_ellipse", "Xtt_svfit_mass", binning=(100, 0, 400),
+                x_title=Label("Z(#tau^{+}#tau^{-}) mass (SVFit)"), tags=["extra"],
                 units="GeV",
                 systematics=self.all_systs),
+            
+            # angular stuff
+            Feature("dR_tautau_bb", "deltaR(Ztt_svfit_eta, Ztt_svfit_phi, Zbb_eta, Zbb_phi)", binning=(50, 0, 6),
+                x_title=Label("#Delta R (#tau#tau, bb)"), tags=["angular"]), # TODO change this to base
 
             # ZZ
             Feature("ZZ_pt", "ZZ_pt", binning=(30, 0, 300),
@@ -295,27 +299,27 @@ class Config(BaseConfig):
 
             # ZZ KinFit
             Feature("ZZKinFit_mass", "ZZKinFit_mass", binning=(50, 150, 1150),
-                x_title=Label("ZZ mass (Kin. Fit)"),
+                get_x_title=lambda category, **kwargs: Label("ZZ mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZZ mass"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
             Feature("ZZKinFit_mass_fit_1", "ZZKinFit_mass", binning=(20, 180, 780),
-                x_title=Label("ZZ mass (Kin. Fit)"),
+                get_x_title=lambda category, **kwargs: Label("ZZ mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZZ mass"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
             Feature("ZZKinFit_mass_fit_2", "ZZKinFit_mass", binning=(24, 180, 780),
-                x_title=Label("ZZ mass (Kin. Fit)"),
+                get_x_title=lambda category, **kwargs: Label("ZZ mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZZ mass"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
             Feature("ZZKinFit_mass_res", "ZZKinFit_mass", binning=(50, 150, 1650),
-                x_title=Label("ZZ mass (Kin. Fit)"),
+                get_x_title=lambda category, **kwargs: Label("ZZ mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZZ mass"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
             Feature("ZZKinFit_mass_res_low", "ZZKinFit_mass", binning=(37, 150, 1260),
-                x_title=Label("ZZ mass (Kin. Fit)"),
+                get_x_title=lambda category, **kwargs: Label("ZZ mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZZ mass"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
             Feature("ZZKinFit_mass_res_high", "ZZKinFit_mass", binning=(100, 150, 5150),
-                x_title=Label("ZZ mass (Kin. Fit)"),
+                get_x_title=lambda category, **kwargs: Label("ZZ mass (Kin. Fit)") if "resolved" in category.get_aux("jet_category", "") else Label("ZZ mass"),
                 units="GeV", tags=["cat"],
                 systematics=self.all_systs),
             Feature("ZZKinFit_chi2", "ZZKinFit_chi2", binning=(30, 0, 50),
@@ -327,11 +331,11 @@ class Config(BaseConfig):
                 systematics=self.all_systs)
             for nbins in [10, 30, 100, 500]],
             *[Feature(f"dnn_ZZbbtt_{nbins}bv", "dnn_ZZbbtt_kl_1", binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(1./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(2/10*nbins), endpoint=False), np.linspace(0.9, 0.97, int(3/10*nbins), endpoint=False), np.linspace(0.97, 1.+sys.float_info.epsilon, int(3/10*nbins)+1, endpoint=True)]),
-                x_title=Label("DNN ZZ"), tags=["dnn", "blind", "dnn_nonres", "dnn_limited"], no_save_bin_yields=True,
+                x_title=Label("DNN ZZ"), tags=["dnn", "blind", "dnn_nonres", "dnn_limited", f"dnn_nonres_{nbins}bv"], no_save_bin_yields=True,
                 systematics=self.all_systs)
             for nbins in [500]], # variable-binning non-res DNN (for boostedTaus category)
             
-            *[Feature(f"dnn_ZZbbtt_{nbins}b_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(nbins, 0, 1+sys.float_info.epsilon), tags=["dnn_extra", "dnn_res", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
+            *[Feature(f"dnn_ZZbbtt_{nbins}b_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", binning=(nbins, 0, 1+sys.float_info.epsilon), tags=["dnn_extra", "dnn_res", "blind", f"dnn_res_M{mass}", f"dnn_res_{nbins}b"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
                 x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"), no_save_bin_yields=True,
                 systematics=self.all_systs)
             for mass in res_mass_ZZ for nbins in [10, 100]],
@@ -339,7 +343,7 @@ class Config(BaseConfig):
             *[Feature(f"dnn_ZZbbtt_{nbins}bv_M{mass}", f"dnn_ZZbbtt_kl_1_{mass}", # variable binning version for auto-rebin algorithm
                 # in case high DNN score gets rounded to 1 we want to include it, thus the highest bin includes 1. Also add one bin to the last interval as we need nbins+1 edges
                 binning=np.concatenate([np.linspace(0., 0.5, int(nbins/10), endpoint=False), np.linspace(0.5, 0.8, int(1./10.*nbins), endpoint=False), np.linspace(0.8, 0.9, int(2/10*nbins), endpoint=False), np.linspace(0.9, 0.97, int(3/10*nbins), endpoint=False), np.linspace(0.97, 1.+sys.float_info.epsilon, int(3/10*nbins)+1, endpoint=True)]),
-                x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),  tags=["dnn", "dnn_res", "blind", f"dnn_res_M{mass}"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
+                x_title=Label(f"PNN ZZ {mass} GeV" if mass < 1000 else f"PNN ZZ {mass/1000:g} TeV"),  tags=["dnn", "dnn_res", "blind", f"dnn_res_M{mass}", f"dnn_res_{nbins}bv"] + (["dnn_limited"] if mass in res_mass_ZZ_limited else []),
                 systematics=self.all_systs, no_save_bin_yields=True)
             for mass in res_mass_ZZ for nbins in [500]],
 
