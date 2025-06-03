@@ -41,6 +41,9 @@ cross_section_dict = {
     # not including the ZH & Z/gamma continuum contribution, NEEDS TO be normalized applying genfilter on denominator
     "zz_sl_signal":     0.172,                    # = 16.91 * 0.1512 * 0.033696 * 2 || (sigma(pp->ZZ) from theory) * BR(Z->bb) * BR(Z->tt) * 2 https://arxiv.org/pdf/1405.2219
     
+    # zz->bbtautau with LHE filter Zpt>200 : filter efficiency=(937.823) / (53064.4) = 1.767e-02 +- 6.259e-04, xs=4.658e-03 +- 1.653e-04 pb
+    "zz_bbtt_vptFilter": 4.658e-03, # to be cross-checked
+
     # includes ZZ on shell to not-bbtautau, ZZ/gamma continuum to anything (bbtt or otherwise). Does NOT include ZH (that is included by ZH samples)
     "zz_sl" : 3.676,
     #"zz_sl_background": 3.676, # from XSDB, NO RUN of filter on denominator
@@ -81,6 +84,7 @@ cross_section_dict = {
 
     "zh_ztt_hbb_signal":        0.0161,           # = 0.9 * 0.033696 * 0.53 || (sigma(pp->ZH) from theory) * BR(Z->tt) * BR(H->bb) https://e-publishing.cern.ch/index.php/CYRM/issue/view/32
     "zh_ztt_hbb_background":    0.0321,           # = 0.0482 - 0.0161
+    "zh_ztt_hbb_vptFilter":    2296/15000*0.0161, # very very approximate estimation : 15k evts requested from Powheg, 2296 arrived at Pythia (this is ignoring any matching inefficiency !!!)
 
     # ggZH_HToBB_ZToLL : ggZH_HToBB_ZToLL_M-125_TuneCP5_13TeV-powheg-pythia8 (Powheg ggZH, Z->inclusive leptons, H undecayed.   Pythia decay H->bb)
     # XSDB : 0.006954 -> 26 expected events in 2018 boosted_bb_boostedTau (more than data)
@@ -126,6 +130,8 @@ cross_section_dict = {
     "wjets_ht7":        1.152 * 61526.7 / 53870,  # LO * NNLO(incl)/LO(incl) : NNLO inclusive xs=61526.7 , LO inclusive xs=53870 (XSDB) , kfactor LO->NNLO = 61526.7 / 53870 = 1.14
     "wjets_ht8":        0.02646 * 61526.7 / 53870,# LO * NNLO(incl)/LO(incl) : NNLO inclusive xs=61526.7 , LO inclusive xs=53870 (XSDB) , kfactor LO->NNLO = 61526.7 / 53870 = 1.14
 
+    # https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV (from https://indico.cern.ch/event/841566/contributions/3565385/attachments/1914850/3185933/Drell-Yan_jets_crosssection_September2019_update.pdf)
+    # has theory computation Z->mumu + jets 2025.74 pb ±2% (scale) ie 6077.22 pb (Z->ll)
     "dy":               6424.0,                   # XSDB : TODO use value from https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV maybe ?
     "dy_ptz1":          1485.0,                   # XSDB
     "dy_ptz2":          397.4,                    # XSDB
@@ -142,6 +148,7 @@ cross_section_dict = {
     "ewk_wminus":       32.05,                    # XSDB LO
 
     # XSDB from genxsec shows way higher xs but then there is weird Pythia filter to remove ttZ/gamma overlap
+    # taken from https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO ?
     "tt_dl":            88.29,                    # XSDB NNLO (from theory) +4.8%-6.1%
     "tt_sl":            365.34,                   # XSDB NNLO (from theory) +4.8%-6.1%
     "tt_fh":            377.96,                   # XSDB NNLO (from theory) +4.8%-6.1%	
@@ -253,8 +260,12 @@ cross_section_dict = {
 
     "ggH_ZZ":           28.87,                    # XSDB NLO
 
-    "ggf_sm":           0.01313,                  # XSDB LO
-    # "ggf_sm":         0.002268,                 # KLUB
+    # Theory : xs(gg->HH)=30.77fb (=0.0308pb)
+    # BR(HH->bbtautau) = 0.073
+    # total 0.0022484
+    # XSDB : 0.01313 but does not include bbtautau BR ->0.000949299
+    #"ggf_sm":           0.01313,                  # XSDB LO wrong because does not include bbtautau BR
+    "ggf_sm":         0.002268,                 # KLUB
 
     # "vbf_sm":         0.001726,
 
