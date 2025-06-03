@@ -24,6 +24,8 @@ pdf_scale_weights:
         year: self.config.year
         isMC: self.dataset.process.isMC
         force_pdf_to_one: self.dataset.get_aux("force_pdf_to_one", False)
+        dataset_name: self.dataset.name
+        scale_weights_mode: enveloppe
 
 boosted_tau_sf:
     name: boostedTauSFRDF

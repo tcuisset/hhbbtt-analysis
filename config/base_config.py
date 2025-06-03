@@ -643,12 +643,14 @@ class BaseConfig(cmt_config):
         base_goodBoostedTaus = "boostedTau_pt>=30 && boostedTau_eta<=2.5 && (boostedTau_decayMode == 0 || boostedTau_decayMode == 1 || boostedTau_decayMode == 10 || boostedTau_decayMode == 11)"
         base_boostedTau_emutau = (
             f"ROOT::VecOps::Any({base_goodBoostedTaus}) && (ROOT::VecOps::Any("
-            "Muon_eta<=2.4 && Muon_dxy<=0.045&&Muon_dz<=0.2&&Muon_looseId"
+            "Muon_pt > 10 && Muon_eta<=2.4 && Muon_dxy<=0.045&&Muon_dz<=0.2&&Muon_looseId"
             ") || ROOT::VecOps::Any("
             "Electron_pt>=25 && Electron_dxy<=0.045 && Electron_dz<=0.2 && Electron_eta<=2.5"
             "))"
         )
-        base_boostedTaus = f"MET_pt>=150&&(({base_boostedTau_emutau}) || (boostedTau_pt[{base_goodBoostedTaus}].size()>=2))"
+        # cut on MET depends on whether we use MET or METNoMu
+        # MET_pt>=150&&
+        base_boostedTaus = f"(({base_boostedTau_emutau}) || (boostedTau_pt[{base_goodBoostedTaus}].size()>=2))"
 
         categories = [
             Category("base", "base", selection=""),
@@ -1076,6 +1078,16 @@ class BaseConfig(cmt_config):
             ])
             
         features += [
+            Feature("metNoMu_pt_raw", "METNoMu_pt", x_title=Label("METNoMu p_{T} (no corrections)"),
+                binning=(30, 150, 800), units="GeV", tags=["met"]),
+            Feature("metNoMu_pt_corr", "METNoMu_tes_electron_xycorr_pt", expression_data="METNoMu_xycorr_pt", x_title=Label("METNoMu p_{T} (TES, XY-corr)"),
+                binning=(30, 150, 800), units="GeV", tags=["met"]),
+
+            # Feature("metNoMu_KLUB_pt_raw", "METNoMu_KLUB_pt", x_title=Label("METNoMu p_{T} (no corrections)"),
+            #     binning=(30, 150, 800), units="GeV", tags=["met"]),
+            Feature("metNoMu_KLUB_pt_corr", "METNoMu_KLUB_tes_electron_xycorr_pt", expression_data="METNoMu_KLUB_xycorr_pt", x_title=Label("METNoMu p_{T} (TES, XY-corr)"),
+                binning=(30, 150, 800), units="GeV", tags=["met"]),
+
             Feature("met_phi_raw", "MET_phi", binning=phi_binning,
                 x_title=Label("MET #phi (no smearing, no XY)"),
                 units="GeV", tags=["base"],
@@ -1242,6 +1254,9 @@ class BaseConfig(cmt_config):
             Feature("trigSF", "trigSF", binning=(30, 0.5, 1.5),
                 x_title=Label("trigSF"), tags=["base", "weights"], noData=True,
                 systematics=["trigSFele", "trigSFmu", "trigSFDM0", "trigSFDM1", "trigSFDM10", "trigSFDM11", "trigSFmet"]), 
+            Feature("trigSF_KLUB_MET", "trigSF_KLUB_MET", binning=(30, 0.5, 1.5), # hack to fix the MET trig SF
+                x_title=Label("trigSF MET"), tags=["base", "weights"], noData=True,
+                systematics=["trigSFmet"]), 
             Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(30, 0.5, 1.5),
                 x_title=Label("L1PreFiringWeight"), tags=["weights"], noData=True,
                 central="prefiring_central",
@@ -1272,7 +1287,7 @@ class BaseConfig(cmt_config):
                 systematics=["pdf"]),
             Feature("scaleWeight", "scaleWeight", binning=(30, 0.5, 1.5),
                 x_title=Label("QCD renomrlization scale weight"), tags=["weights"], noData=True,
-                systematics=["qcd_scale"]),
+                systematics=["qcd_scale_multi"]),
             Feature("totalSFWeight", "puWeight*trigSF*idAndIsoAndFakeSF*L1PreFiringWeight_Nom*PUjetID_SF*pdfWeight*scaleWeight", binning=(30, 0.2, 1.8),
                 x_title=Label("Total SFs (PU,ID-ISO,L1Pref,PU,PUJetID,PDF,Scale)"), tags=["weights"], noData=True),
             #  add boostedTau SF systematics
@@ -1564,8 +1579,11 @@ class BaseConfig(cmt_config):
             Systematic("fatjet_pnet", "", datacard_label=f"CMS_ZZbbtt_fatjet_bb_tagging_eff_{self.year}"), # FatJet ParticleNet XbbVsQCD scale factors 
 
             Systematic("pdf", "", ), # pdf uncertainties
-            Systematic("qcd_scale", "", datacard_label="QCDscale", # see https://cms-analysis.docs.cern.ch/guidelines/systematics/systematics/systematics_master.yml
-                datacard_label_perProcess=(lambda p: "QCDscale_"+("ggH" if p.startswith("ggXZZbbtt") else {"wjets":"V", "dy":"V", "ewk":"WWewk", "tt":"ttbar", "tw":"t", "singlet":"t", "vv":"VV", "vvv":"VVV", "ttx":"ttH", "wh":"VH", "ttH":"ttH", "ggH_ZZ":"ggH", "ggf_sm":"ggH", "zz_sl_signal":"VV", "zh":"VH", "qcd":"", 
+            Systematic("qcd_scale_multi", "", directions={str(i) : f"_{i}" for i in range(6)}, take_envelope=True, envelope_syst_name="qcd_scale", # we take the envelope of all 6 variations
+            ),
+            Systematic("qcd_scale", "", up="_envelope_up", down="_envelope_down",
+                datacard_label="QCDscale", # see https://cms-analysis.docs.cern.ch/guidelines/systematics/systematics/systematics_master.yml
+                datacard_label_perProcess=(lambda p: "QCDscale_"+("ggH" if p.startswith("ggXZZbbtt") else "BSMsignal" if p.startswith("Zprime_") else {"wjets":"V", "dy":"V", "ewk":"WWewk", "tt":"ttbar_accept", "tw":"t", "singlet":"t", "vv":"VV", "vvv":"VVV", "ttx":"ttH", "wh":"VH", "ttH":"ttH", "ggH_ZZ":"ggH", "ggf_sm":"ggH", "zz_sl_signal":"VV", "zh":"VH", "qcd":"", 
                     "zh_zbb_htt_signal":"VH", "zh_ztt_hbb_signal":"VH", 
                     "others":"others", "vv_v":"VV_V", "higgs":"higgs", "zz_bbtt":"VV_V"}[p]))) # this line is systs that don't have an official naming
         ]
