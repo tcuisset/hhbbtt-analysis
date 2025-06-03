@@ -489,10 +489,14 @@ action() {
         cat <<"EOF" >python
 #!/bin/bash
 # https://stackoverflow.com/a/246128
+# fork bomb protection
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+if [ -z ${CMT_BASE+x} ]; then
 cd "$SCRIPT_DIR/../.."
 source setup.sh
 cd - >/dev/null
+fi
 
 exec "$SCRIPT_DIR/python3_symlink" "$@"
 EOF
