@@ -14,9 +14,11 @@ import math
 import numpy as np
 
 def get_common_processes():
+    # fatjet_bb_type : determines which kind of bkg SFs for ParticleNet is used
+    # btag_extrap_type : determines which of the b-tag reshaping extrapolation factors are used (dy, ttbar, wjets, others, res_signal)
     processes = [
         # W. Process type is DY-like (not sure why, but doing same as HH resonant analysis)
-        Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="all_background", llr_name="WJets", fatjet_bb_type="DYlike"),
+        Process("wjets", Label("Wjets"), color=(244, 44, 4), parent_process="all_background", llr_name="WJets", fatjet_bb_type="DYlike", btag_extrap_type="wjets"),
 
         Process("wjets_ht1", Label("Wjets HT1"), color=(5, 87, 92), 
                 parent_process="wjets"),
@@ -55,7 +57,7 @@ def get_common_processes():
                 parent_process="wjets"),
 
         # DY
-        Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DY", isDY=True, fatjet_bb_type="DYlike"),
+        Process("dy", Label("DY"), color=(255, 149, 5), parent_process="all_background", llr_name="DY", isDY=True, fatjet_bb_type="DYlike", btag_extrap_type="dy"),
 
         Process("dy_incl", Label("DY Incl"), color=(0, 165, 80), 
                 parent_process="dy", isDY=True),
@@ -88,7 +90,7 @@ def get_common_processes():
         Process("tt_dl", Label("t#bar{t} DL"), color=(40, 194, 255), parent_process="tt"),
         Process("tt_sl", Label("t#bar{t} SL"), color=(40, 194, 255), parent_process="tt"),
         Process("tt_fh", Label("t#bar{t} FH"), color=(40, 194, 255), parent_process="tt"),
-        Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="all_background", llr_name="TT", fatjet_bb_type="TTlike"),
+        Process("tt", Label("t#bar{t}"), color=(40, 194, 255), parent_process="all_background", llr_name="TT", fatjet_bb_type="TTlike", btag_extrap_type="tt"),
         # TW
         Process("tw", Label("t+W"), color=(255, 230, 0), parent_process="others", llr_name="TW", fatjet_bb_type="TTlike"),
         # singleT
@@ -136,7 +138,7 @@ def get_common_processes():
         Process("higgs", Label("Higgs"), color=(130, 39, 197), parent_process="all_background", llr_name="Higgs"),
 
         Process("others", Label("Others"), color=(255, 230, 0),
-            parent_process="all_background", llr_name="Others"),
+            parent_process="all_background", llr_name="Others", btag_extrap_type="others"),
         
         Process("tt_ht", Label("t#bar{t} HT-binned"), color=(40, 194, 255)), # no parent process to not include in general plots
         Process("tt_ht600", Label("t#bar{t} 600<HT<800"), color=(40, 194, 255), parent_process="tt_ht"), 
@@ -183,7 +185,7 @@ def get_common_processes():
         Process("vbf_1_2_1", Label("HH_{VBF}^{(1,2,1)}"),
             color=(255, 102, 102), isSignal=False, parent_process="vbf"),
 
-        Process("all_background", Label("Background"), color=(0, 0, 255), parent_process="all_processes"),
+        Process("all_background", Label("Background"), color=(0, 0, 255), parent_process="all_processes", btag_extrap_type="others"), # btag_extrap_type will be set to something else on some child processes and will take precedence
         Process("all_signals", Label("All signals (not really meaningful to plot)"), color=(0, 0, 255), parent_process="all_processes"),
         Process("all_processes", Label("All processes (meaningless to plot)"), color=(0, 0, 255)),
     ]
@@ -282,6 +284,15 @@ class BaseConfig(cmt_config):
                 upper_process = self.processes.get(upper_process.parent_process)
             if fatjet_bb_type is not None:
                 process.aux["fatjet_bb_type"] = fatjet_bb_type
+        # same for btag_extrap_type
+        for process in self.processes:
+            upper_process = process
+            btag_extrap_type = None
+            while btag_extrap_type is None and upper_process.parent_process is not None:
+                btag_extrap_type = upper_process.get_aux("btag_extrap_type")
+                upper_process = self.processes.get(upper_process.parent_process)
+            if btag_extrap_type is not None:
+                process.aux["btag_extrap_type"] = btag_extrap_type
 
     def join_selection_channels(self, selection):
         """ Takes a dict channel -> [selection], where the list of selections is first and-ed (with parentheses) 

@@ -357,7 +357,9 @@ class Config(BaseConfig):
             # zz_sl_signal : removes everything not decaying to bbtautau, removes ZH contribution (ZH is included with ZHToTauTau dataset)
             # (includes : Z->bb,Z->tautau / Z->bb,Z/gamma->tautau). Normalized using theory
             Process("zz_sl_signal", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True,  isSignal=True, genfilter_denominator_weights=True, llr_name="ZZbbtt", fatjet_bb_type="HHlike", parent_process="all_signals"),
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True,  isSignal=True, genfilter_denominator_weights=True, llr_name="ZZbbtt", fatjet_bb_type="HHlike", btag_extrap_type="zz_sl_signal", parent_process="all_signals"),
+            Process("zz_sl_signal_dnnTraining", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), # same as zz_sl_signal but with different name and no parent_process just to make sure it does not get included in datacards. Also disable gen filter
+                    isSignal=True, genfilter_denominator_weights=False, llr_name="ZZbbtt", fatjet_bb_type="HHlike", btag_extrap_type="zz_sl_signal"),
             # zz_sl_background : ZZ / ZZ/gamma / ZH decaying to 2L2Q except bbtautau. Normalized using XS from XSDB
             Process("zz_sl_background", Label("ZZ SL BKG"), color=(20, 60, 255), parent_process="zz", 
                     removeZH=True, isBkgBBTT=True, genfilter_denominator_weights=False, ProcType="Zbb_Ztautau"),
@@ -370,14 +372,14 @@ class Config(BaseConfig):
 
             # ZZ resonant
             *[Process(f"ggXZZbbtt_M{mass}", Label(f"ggX {mass} GeV" if mass < 1000 else f"ggX {mass/1000:g} TeV"), color=next(colors_res), 
-                    isSignal=True, isBSMSignal=True, llr_name="ggXZZbbtt", fatjet_bb_type="HHlike", parent_process="all_signals")
+                    isSignal=True, isBSMSignal=True, llr_name="ggXZZbbtt", fatjet_bb_type="HHlike", btag_extrap_type=f"ggXZZbbtt_M{mass}", parent_process="all_signals")
             for mass in [ 200, 210, 220, 230, 240, 250, 260, 270, 280, 300, 320, 350, 360, 400, 450, 500, 550,
                 600, 650, 700, 750, 800, 850, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700,
                 1800, 1900, 2000, 2200, 2400, 2500, 2600, 2800, 3000, 3500, 4000, 4500, 5000]],
             
             # zz_sl_signal but seen as background for resonant analysis 
             Process("zz_bbtt", Label("ZZ_{bb#tau#tau}"), color=(0, 165, 80), 
-                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True, genfilter_denominator_weights=True, llr_name="ZZbbtt", fatjet_bb_type="HHlike", parent_process="all_background"),
+                    isSigBBTT=True, ProcType="Zbb_Ztautau", removeZH=True, genfilter_denominator_weights=True, llr_name="ZZbbtt", fatjet_bb_type="HHlike", btag_extrap_type="zz_sl_signal", parent_process="all_background"),
             
         ])
 

@@ -133,13 +133,15 @@ def get_ZH_common_processes():
         # ONLY TO BE USED FOR NON-RESONANT (use dataset selection)
         # normalization is from theory
         Process("zh_zbb_htt_signal", Label("Z_{bb}H_{#tau#tau}"),
-                ProcType="Zbb_Htautau", isSigBBTT=True, genfilter_denominator_weights=True, isSignal=True, color=(0, 165, 80), llr_name="ZbbHtt", fatjet_bb_type="HHlike", parent_process="all_signals"),
+                ProcType="Zbb_Htautau", isSigBBTT=True, genfilter_denominator_weights=True, isSignal=True, color=(0, 165, 80), llr_name="ZbbHtt", fatjet_bb_type="HHlike", btag_extrap_type="zh_zbb_htt_signal", parent_process="all_signals"),
+        Process("zh_zbb_htt_dnnTraining", Label("Z_{bb}H_{#tau#tau}"), # same as zh_zbb_htt_signal but with different name and no parent_process just to make sure it does not get included in datacards. ## Warning : gen filter is needed to exclude events with Z->anything,H->tautau + 2*b-jets
+                ProcType="Zbb_Htautau", isSigBBTT=True, genfilter_denominator_weights=True, isSignal=True, color=(0, 165, 80), llr_name="ZbbHtt", fatjet_bb_type="HHlike", btag_extrap_type="zh_zbb_htt_signal"),
         # same as above but with reversed genfilter (ZH, Z->anything except bb, H->tautau)
         Process("zh_zbb_htt_background", Label("ZH (H#rightarrow#tau#tau) bkg"), parent_process='zh',
                 ProcType="Zbb_Htautau", isBkgBBTT=True, genfilter_denominator_weights=True, color=(224, 190, 79)),
         # resonant
         *[Process(f"Zprime_Zh_Zbbhtautau_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res), 
-                ProcType="Zbb_Htautau", isSignal=True, isBSMSignal=True, llr_name="ZprimeZbbHtt", fatjet_bb_type="HHlike", parent_process="all_signals") # isSigBBTT=True, 
+                ProcType="Zbb_Htautau", isSignal=True, isBSMSignal=True, llr_name="ZprimeZbbHtt", fatjet_bb_type="HHlike", btag_extrap_type=f"Zprime_Zh_Zbbhtautau_M{mass}", parent_process="all_signals") # isSigBBTT=True, 
             for mass in resonant_masses_ZH],
         
         # background for resonant analysis (zh_zbb_htt_signal with isSignal=False, dataset is the exact same)
@@ -150,13 +152,15 @@ def get_ZH_common_processes():
         ######### ZttHbb
         # ZH_Hbb_Zll dataset with genfilter Z->tautau,H->bb
         Process("zh_ztt_hbb_signal", Label("Z_{#tau#tau}H_{bb}"),
-                ProcType="Ztautau_Hbb", isSigBBTT=True, genfilter_denominator_weights=True, isSignal=True,  color=(0, 165, 80), llr_name="ZttHbb", fatjet_bb_type="HHlike", parent_process="all_signals"),
+                ProcType="Ztautau_Hbb", isSigBBTT=True, genfilter_denominator_weights=True, isSignal=True,  color=(0, 165, 80), llr_name="ZttHbb", fatjet_bb_type="HHlike", btag_extrap_type="zh_ztt_hbb_signal", parent_process="all_signals"),
+        Process("zh_ztt_hbb_dnnTraining", Label("Z_{#tau#tau}H_{bb}"), # same as zh_ztt_hbb_signal but with different name and no parent_process just to make sure it does not get included in datacards. Also disable gen filter
+                genfilter_denominator_weights=False, isSignal=True, color=(0, 165, 80), llr_name="ZttHbb", fatjet_bb_type="HHlike", btag_extrap_type="zh_ztt_hbb_signal"),
         # same as above but with reversed genfilter (Z->ll except tautau, H->bb)
         Process("zh_ztt_hbb_background", Label("ZH (Z#rightarrow ll, H#rightarrow bb) bkg"), parent_process='zh',
                 ProcType="Ztautau_Hbb", isBkgBBTT=True, genfilter_denominator_weights=True, color=(224, 190, 79)),
         # resonant
         *[Process(f"Zprime_Zh_Ztautauhbb_M{mass}", Label(f"Z' {mass} GeV" if mass < 1000 else f"Z' {mass/1000:g} TeV"), color=next(colors_res),
-                    ProcType="Ztautau_Hbb", isSignal=True, isBSMSignal=True, llr_name="ZprimeZttHbb", fatjet_bb_type="HHlike", parent_process="all_signals") # isSigBBTT=True, 
+                    ProcType="Ztautau_Hbb", isSignal=True, isBSMSignal=True, llr_name="ZprimeZttHbb", fatjet_bb_type="HHlike", btag_extrap_type=f"Zprime_Zh_Ztautauhbb_M{mass}", parent_process="all_signals") # isSigBBTT=True, 
             for mass in resonant_masses_ZH],
 
         # background for resonant analysis (zh_ztt_hbb_signal with isSignal=False, dataset is the exact same)
