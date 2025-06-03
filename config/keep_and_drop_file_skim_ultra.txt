@@ -1,0 +1,102 @@
+# Keep & drop for super skim of preprocess
+drop HLT_.*
+
+
+drop L1.*
+keep L1PreFiringWeight.*
+drop HTXS.*
+drop Flag.*
+drop nTrigObj
+drop TrigObj.*
+drop LowPtElectron.*
+drop nLowPtElectron.*
+drop .*Photon.*
+drop Photon.*
+drop IsoTrack.*
+drop nIsoTrack.*
+
+
+drop (n|)Jet.*
+drop (n|)FatJet.*
+drop (n|)Tau.*
+drop (n|)Electron.*
+drop (n|)Muon.*
+drop (n|)boostedTau.*
+
+drop (n|)GenPart_.*
+drop GenMET_.*
+
+# careful not to match LHEPdfWeight
+drop ^LHE_.*
+keep LHE_HTIncoming
+keep LHE_HT
+keep LHE_Vpt
+keep LHE_NpNLO
+drop (n|)LHEPart.*
+
+drop (n|)LHEReweightingWeight
+drop (n|)PSWeight
+keep (n|)LHEPdfWeight
+keep (n|)LHEScaleWeight
+
+drop jet_pt_resolution
+drop jet_smear_factor(_up|_down|)
+drop fatjet_pt_resolution
+drop fatjet_smear_factor(_up|_down|)
+
+drop VBFjet(1|2)_JetIdx
+drop VBFjj_.*
+drop ctjet_indexes
+
+drop (n|)GenJetAK8.*
+drop (n|)GenVisTau.*
+
+drop MET_MetUnclustEnUpDelta(X|Y)
+drop MET_fiducial.*
+drop MET_sum.*
+
+
+
+# TODO keep this
+# drop bjet(1|2)_hadronFlavour
+# drop fatjet_hadronFlavour
+
+
+# needed for btag extrap factors
+keep nJet
+
+drop elesf_.*
+drop musf_tight_.*
+drop tes_factor
+
+drop hem_(jets|dau1|dau2)_in_veto
+
+drop fwjet_indexes
+drop isTauTauJetTrigger
+drop isVBFtrigger
+drop jets_hem_preselection
+
+drop L1PreFiringWeight_(ECAL|Muon)_(Stat|Syst|)(Up|Dn|Nom)
+
+# no need to keep the indexes if we don't have the collection
+drop dau(1|2).*_index
+# however the bjet1_JetIdx are used to determine jet category so we keep them
+drop fatjet_subJetIdx(1|2)
+drop fatjet_subJet(1|2)_.*
+drop bjet(1|2)_btagDeepFlavQG
+
+drop fatjet_tau(1|2)
+drop fatjet_particleNet_massCorr
+
+drop genAk8_(Z|H)bb_matches
+drop fatjet_pNet_(HP|MP)_SF.*
+
+drop pairType_preliminary
+drop pairType_boostedTaus
+drop pairType_HPSTaus
+drop pass_offline_met
+drop passSingle
+drop passCross
+
+# keep only xycorr met
+drop MET_tes_electron_(pt|phi).*

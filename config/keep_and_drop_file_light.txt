@@ -32,3 +32,35 @@ drop bjet(1|2)_hadronFlavour
 drop fatjet_hadronFlavour
 
 drop (n|)GenPart_.*
+
+
+drop Electron_cutBased
+drop Electron_mvaIso
+drop Electron_mvaNoIso
+drop Electron_pfRelIso.*
+drop Electron_vidNestedWPBitmap
+drop GenVisTau_genPartIdxMother
+
+drop Muon_genPartIdx
+drop Muon_highPtId
+drop Muon_looseId
+drop Muon_tightId
+
+drop boostedTau_Leading(Electron|Muon)(Eta|M|Phi|Pt|ea|rho)
+drop boostedTau_genPartIdx
+drop boostedTau_jetIdx
+
+drop fatjet_pNet_(HP|MP)_SF.*
+drop fatjet_subJetIdx(1|2)
+
+drop fwjet_indexes
+drop hem_(jets|dau1|dau2)_in_veto
+drop isTauTauJetTrigger
+drop jets_hem_preselection
+
+drop HLT_(DoubleL2|L2|)Mu50
+drop HLT_Ele(115|50).*
+drop HLT_PFHT(1050|500).*
+drop HLT_TkMu100
+drop L1PreFiringWeight_(ECAL|Muon)_(Stat|Syst|)(Up|Dn|Nom)
+
