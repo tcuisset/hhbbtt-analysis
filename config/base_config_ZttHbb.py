@@ -1,5 +1,6 @@
 # Config for ZttHbb analysis common for all years
 import itertools
+import numpy as np
 from analysis_tools import ObjectCollection, Category, Process, Dataset, Feature, Systematic
 from analysis_tools.utils import DotDict, join_root_selection as jrs
 from plotting_tools import Label
