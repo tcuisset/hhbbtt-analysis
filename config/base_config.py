@@ -1391,6 +1391,11 @@ class BaseConfig(cmt_config):
         ]
         return ObjectCollection(features)
     
+    def get_rebinning_target_bin_count(self, feature, category, region):
+        """ Target bin count for FeatureHistogramRebin """
+        print("### get_rebinning_target_bin_count not implemented")
+        return 10
+    
     def add_weights(self):
         from copy import copy
         weights = DotDict()
