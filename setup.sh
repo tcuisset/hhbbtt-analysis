@@ -147,11 +147,14 @@ action() {
           export CMT_STORE_EOS_MERGECATEGORIZATION="/aissd1/$CMT_LLR_USER/cmt"
          fi
          mkdir -p "$CMT_STORE_EOS_MERGECATEGORIZATION"
-       else
+       elif [ -z "$CMT_TMP_DIR" ]; then
         export TMPDIR=$CMT_TMP_DIR
        fi
        mkdir -p "$TMPDIR"
     fi 
+    if [ "$CMT_ON_HTCONDOR" = "1" ]; then
+        export TMPDIR=$_CONDOR_SCRATCH_DIR
+    fi
 
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"
