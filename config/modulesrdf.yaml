@@ -296,6 +296,14 @@ hhjets_filter:
         isMC: self.dataset.process.isMC
         enable: not self.dataset.process.isSignal
 
+jet_resolution_data: # compute jet_pt_resolution for data (needed for KinFit)
+    name: jetResolutionRDF
+    path: Corrections.JME.smearing
+    parameters:
+        year: self.config.year
+        runPeriod: self.config.runPeriod
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
 
 bjet1var:
     name: HHJetsVarRDF
@@ -306,6 +314,7 @@ bjet1var:
         variables_withSyst: [pt, mass]
         variables_withoutSyst: [eta, phi, btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
         variables_MConly: [hadronFlavour]
+        add_jet_resolution: True # needed by HHKinFit
         index: bjet1_JetIdx
         input_prefix: Jet
         output_prefix: bjet1
@@ -318,6 +327,7 @@ bjet2var:
         variables_withSyst: [pt, mass]
         variables_withoutSyst: [eta, phi, btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
         variables_MConly: [hadronFlavour]
+        add_jet_resolution: True # needed by HHKinFit
         index: bjet2_JetIdx
         input_prefix: Jet
         output_prefix: bjet2
