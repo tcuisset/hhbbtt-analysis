@@ -152,6 +152,10 @@ def get_common_processes():
         Process("qcd_mc_ht1500", Label("QCD (MC) 1500<HT<2000"), color=(255, 143, 171), parent_process="qcd_mc"),
         Process("qcd_mc_ht2000", Label("QCD (MC) HT>2000"), color=(251, 111, 146), parent_process="qcd_mc"),
 
+        Process("ggHH_bbVV", Label("ggHH#to bbVV(4q)"), color=(40, 194, 150)),
+        Process("wminush_hbb_wlnu", Label("W^-H (l#nu bb)"), color=(200, 194, 150)),
+        Process("wminush_hbb_wqq", Label("W^-H (qq bb)"), color=(200, 50, 150)),
+
         # Data
         Process("data", Label("Data"), color=(0, 0, 0), isData=True),
         Process("data_tau", Label("Data"), color=(0, 0, 0), parent_process="data", isData=True),
