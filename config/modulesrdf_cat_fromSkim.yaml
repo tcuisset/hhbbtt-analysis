@@ -2,6 +2,8 @@
 # It is not analysis related (managed by AnalysisType) 
 # It computes the output of the DNN and all the systematic uncertainties
 
+## same as modulesrdf_cat_light, but to be used from already skimmed fully flat ntuples (so no hhjetsvar needs to be run)
+
 hhjetsCategory:
     name: JetCategoryRDF
     path: Tools.Tools.HHJets
@@ -66,40 +68,40 @@ zzdnninputs:
 #         year: self.config.year
 #         AnalysisType: self.config.get_aux('AnalysisType', False)
 
-# extracts variables from Jet & FatJet collections to be able to remove them at Categorization and keep only flat variables
-bjet1var:
-    name: HHJetsVarRDF
-    path: Tools.Tools.HHJets
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        variables_withSyst: []
-        variables_withoutSyst: [btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
-        index: bjet1_JetIdx
-        input_prefix: Jet
-        output_prefix: bjet1
-bjet2var:
-    name: HHJetsVarRDF
-    path: Tools.Tools.HHJets
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        variables_withSyst: []
-        variables_withoutSyst: [btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
-        index: bjet2_JetIdx
-        input_prefix: Jet
-        output_prefix: bjet2
-fatjetvar:
-    name: HHJetsVarRDF
-    path: Tools.Tools.HHJets
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        variables_withSyst: []
-        variables_withoutSyst: [particleNetLegacy_Xbb, particleNetLegacy_QCD, msoftdrop] # , tau1, tau2, pnet massCorr not available
-        index: fatjet_JetIdx
-        input_prefix: FatJet
-        output_prefix: fatjet
+# # extracts variables from Jet & FatJet collections to be able to remove them at Categorization and keep only flat variables
+# bjet1var:
+#     name: HHJetsVarRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         variables_withSyst: []
+#         variables_withoutSyst: [btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
+#         index: bjet1_JetIdx
+#         input_prefix: Jet
+#         output_prefix: bjet1
+# bjet2var:
+#     name: HHJetsVarRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         variables_withSyst: []
+#         variables_withoutSyst: [btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
+#         index: bjet2_JetIdx
+#         input_prefix: Jet
+#         output_prefix: bjet2
+# fatjetvar:
+#     name: HHJetsVarRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         variables_withSyst: []
+#         variables_withoutSyst: [particleNetLegacy_Xbb, particleNetLegacy_QCD, msoftdrop] # , tau1, tau2, pnet massCorr not available
+#         index: fatjet_JetIdx
+#         input_prefix: FatJet
+#         output_prefix: fatjet
 
 ######################################################################
 # Tau Energy Scale (tes): HHKinFitRDF + HHVarRDF + ZZDNNRDF

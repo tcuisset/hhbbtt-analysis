@@ -1,5 +1,5 @@
-# This configuration is used for PreProcess step
-# It is common to all analyses: ZZ, ZH x 2
+# This configuration is used for PreProcess step but combines also computation of variables done at Categorization
+# done for studies only !! 
 
 lumifilter:
     name: lumiFilterRDF
@@ -298,14 +298,6 @@ hhjets_filter:
         isMC: self.dataset.process.isMC
         enable: not self.dataset.process.isSignal
 
-jet_resolution_data: # compute jet_pt_resolution for data (needed for KinFit)
-    name: jetResolutionRDF
-    path: Corrections.JME.smearing
-    parameters:
-        year: self.config.year
-        runPeriod: self.config.runPeriod
-        isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
 
 bjet1var:
     name: HHJetsVarRDF
@@ -316,7 +308,6 @@ bjet1var:
         variables_withSyst: [pt, mass]
         variables_withoutSyst: [eta, phi, btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
         variables_MConly: [hadronFlavour]
-        add_jet_resolution: True # needed by HHKinFit
         index: bjet1_JetIdx
         input_prefix: Jet
         output_prefix: bjet1
@@ -329,7 +320,6 @@ bjet2var:
         variables_withSyst: [pt, mass]
         variables_withoutSyst: [eta, phi, btagDeepFlavB, btagDeepFlavCvL, btagDeepFlavCvB, btagDeepFlavQG, HHbtag]
         variables_MConly: [hadronFlavour]
-        add_jet_resolution: True # needed by HHKinFit
         index: bjet2_JetIdx
         input_prefix: Jet
         output_prefix: bjet2
@@ -535,3 +525,58 @@ svfit_ZZ:
         met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
         algo: FastMTT
         
+
+
+#####################################" CATEGORIZATION"
+hhjetsCategory:
+    name: JetCategoryRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        btag_wp: self.config.btag_algo_wps.medium
+        fatjet_bbtag_wp: self.config.boosted_bb_tagging_wp
+
+# filter jet category to avoid running kinfit & all for events that will fail categorization selection anyway
+# only relevant for categories that have only one jet category in them (ie not for DNN training for example)
+# JetCategoryFilter:
+#     name: JetCategoryFilterRDF
+#     path: Tools.Tools.HHJets
+#     parameters:
+#         year: self.config.year
+#         isMC: self.dataset.process.isMC
+#         jet_category: self.category.get_aux("jet_category")
+
+zz:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+zzvar:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        met_smear_tag: tes_electron_xycorr
+        met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+        AnalysisType: self.config.get_aux('AnalysisType', False)
+
+# zzdnninputs:
+#     name: HHDNNInputRDF
+#     path: Tools.Tools.HHDNN
+#     parameters:
+#         isMC: self.dataset.process.isMC
+#         year: self.config.year
+#         AnalysisType: self.config.get_aux('AnalysisType', False)
+#         btag_wps: self.config.btag_algo_wps
+#         cvl_wps: self.config.ctag_algo_wps.CvL
+#         cvb_wps: self.config.ctag_algo_wps.CvB
+#         met_smear_tag: tes_electron_xycorr
+#         met_smear_tag_data: "_xycorr" # on data only XY corrections are applied to MET, there is no TES or electron S&S
+#         feature_file: src/cms_runII_dnn_models/models/arc_checks/zz_bbtt/2024-11-16/all_features.txt
