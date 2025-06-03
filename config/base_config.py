@@ -1466,6 +1466,8 @@ class BaseConfig(cmt_config):
                 #cats_jet_systs.append(category.name)
 
         systematics = [
+            Systematic("central", "", directions={"central":""}),
+
             # Tau energy scale
             # should decorrelate between real taus and electrons faking tau
             Systematic("tes", "_corr", label="TES", datacard_label=f"CMS_scale_t_{self.year_period}", module_syst_type=["tau_syst", "met_syst"], affected_categories=cats_lepton_systs),
