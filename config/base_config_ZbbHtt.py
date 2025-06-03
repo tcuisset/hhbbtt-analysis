@@ -321,6 +321,6 @@ class ConfigZbbHtt(BaseConfig):
         "zh_sig_vs_bkg": [
             "all_background",
             "zh_zbb_htt_signal",
-        ],
+        ]
         })
         return processes, process_group_names, process_training_names

@@ -681,6 +681,7 @@ class Config(BaseConfig):
         "ggXZZbbtt": [
             *[f"ggXZZbbtt_M{mass}" for mass in res_mass_ZZ],
         ],
+        "all_signals" : [f"ggXZZbbtt_M{mass}" for mass in res_mass_ZZ] + ["zz_sl_signal"],
         "zz_total": [
             "zz_sl_signal",
             "dy",

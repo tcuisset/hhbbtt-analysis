@@ -282,7 +282,10 @@ def get_ZH_common_processes():
             'zz',
             'zzz',
             'data'
-        ]
+        ],
+        "all_signals": ["zh_zbb_htt_signal", "zh_ztt_hbb_signal"] + [f"Zprime_Zh_Zbbhtautau_M{mass}" for mass in resonant_masses_ZH]+[f"Zprime_Zh_Ztautauhbb_M{mass}" for mass in resonant_masses_ZH],
+        "zh_zbb_htt_signal": ["zh_zbb_htt_signal"],
+        "zh_ztt_hbb_signal" : ["zh_ztt_hbb_signal"],
     }
 
     process_training_names = {}
