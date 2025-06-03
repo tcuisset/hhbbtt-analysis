@@ -111,8 +111,10 @@ action() {
     [ -z "$CMT_JOB_DIR" ] && export CMT_JOB_DIR="$CMT_DATA/jobs"
     [ -z "$CMT_TMP_DIR" ] && export CMT_TMP_DIR="$CMT_DATA/tmp"
     [ -z "$CMT_CMSSW_BASE" ] && export CMT_CMSSW_BASE="$CMT_DATA/cmssw"
-    [ -z "$CMT_SCRAM_ARCH" ] && export CMT_SCRAM_ARCH="slc7_amd64_gcc10"
-    [ -z "$CMT_CMSSW_VERSION" ] && export CMT_CMSSW_VERSION="CMSSW_12_3_0_pre6"
+    # [ -z "$CMT_SCRAM_ARCH" ] && export CMT_SCRAM_ARCH="slc7_amd64_gcc10"
+    # [ -z "$CMT_CMSSW_VERSION" ] && export CMT_CMSSW_VERSION="CMSSW_12_3_0_pre6"
+    [ -z "$CMT_SCRAM_ARCH" ] && export CMT_SCRAM_ARCH="el9_amd64_gcc12"
+    [ -z "$CMT_CMSSW_VERSION" ] && export CMT_CMSSW_VERSION="CMSSW_15_0_3"
     [ -z "$CMT_PYTHON_VERSION" ] && export CMT_PYTHON_VERSION="3"
 
     # specific eos dirs
@@ -298,17 +300,17 @@ action() {
         if [ ! -d "$HHBTAG_PATH" ]; then
           git clone https://github.com/hh-italian-group/HHbtag.git HHTools/HHbtag
           #git clone https://github.com/jaimeleonh/InferenceTools.git Tools/Tools
-          git clone https://github.com/elenavernazza/InferenceTools.git Tools/Tools
+          git clone https://github.com/tcuisset/InferenceTools.git Tools/Tools
           git clone https://gitlab.cern.ch/hh/bbtautau/MulticlassInference
           #git clone https://github.com/GilesStrong/cms_hh_proc_interface.git
-          git clone https://github.com/elenavernazza/cms_hh_proc_interface.git
-          cd cms_hh_proc_interface
-          git checkout tags/V4.0
-          cd -
-          git clone https://github.com/GilesStrong/cms_hh_tf_inference.git
-          cd cms_hh_tf_inference/inference
-          echo '<use name="boost_filesystem"/>' | cat - BuildFile.xml > temp && mv temp BuildFile.xml
-          cd -
+          #git clone https://github.com/elenavernazza/cms_hh_proc_interface.git # not used anymore with ONNX inference
+            #   cd cms_hh_proc_interface
+            #   git checkout tags/V4.0
+            #   cd -
+        #   git clone https://github.com/GilesStrong/cms_hh_tf_inference.git
+        #   cd cms_hh_tf_inference/inference
+        #   echo '<use name="boost_filesystem"/>' | cat - BuildFile.xml > temp && mv temp BuildFile.xml
+        #   cd -
           #git clone https://github.com/GilesStrong/cms_runII_dnn_models.git
           git clone https://github.com/elenavernazza/cms_runII_dnn_models.git
           cd cms_runII_dnn_models/models/test/
@@ -392,15 +394,15 @@ action() {
             cmt_pip_install luigi==2.8.13
             cmt_pip_install tabulate
             #cmt_pip_install git+https://gitlab.cern.ch/cms-phys-ciemat/analysis_tools.git
-            cmt_pip_install git+https://gitlab.cern.ch/evernazz/analysis_tools.git
+            cmt_pip_install git+https://gitlab.cern.ch/tcuisset/analysis_tools.git
             #cmt_pip_install git+https://gitlab.cern.ch/cms-phys-ciemat/plotting_tools.git
             cmt_pip_install git+https://gitlab.cern.ch/evernazz/plotting_tools.git
             cmt_pip_install --no-deps git+https://github.com/riga/law
             cmt_pip_install --no-deps git+https://github.com/riga/plotlib
             cmt_pip_install --no-deps gast==0.2.2  # https://github.com/tensorflow/autograph/issues/1
-            cmt_pip_install sphinx==5.2.2
-            cmt_pip_install sphinx_rtd_theme
-            cmt_pip_install sphinx_design
+            # cmt_pip_install sphinx==5.2.2 # for documentation only 
+            # cmt_pip_install sphinx_rtd_theme
+            # cmt_pip_install sphinx_design
             cmt_pip_install envyaml
         fi
 
@@ -409,27 +411,28 @@ action() {
         cmt_add_py "$CMT_GFAL_DIR/lib/python3/site-packages"
         cmt_add_lib "$CMT_GFAL_DIR/lib"
 
-        if [ ! -d "$CMT_GFAL_DIR" ]; then
-            local lcg_base="/cvmfs/grid.cern.ch/centos7-ui-4.0.3-1_umd4v3/usr"
-            if [ ! -d "$lcg_base" ]; then
-                2>&1 echo "LCG software directory $lcg_base not existing"
-                return "1"
-            fi
+        # if [ ! -d "$CMT_GFAL_DIR" ]; then
+        #     no clue what this is supposed to do
+        #     local lcg_base="/cvmfs/grid.cern.ch/centos7-ui-4.0.3-1_umd4v3/usr"
+        #     if [ ! -d "$lcg_base" ]; then
+        #         2>&1 echo "LCG software directory $lcg_base not existing"
+        #         return "1"
+        #     fi
 
-            mkdir -p "$CMT_GFAL_DIR"
-            (
-                cd "$CMT_GFAL_DIR"
-                mkdir -p include bin lib/gfal2-plugins lib/python3/site-packages
-                ln -s "$lcg_base"/include/gfal2* include
-                ln -s "$lcg_base"/bin/gfal-* bin
-                ln -s "$lcg_base"/lib64/libgfal* lib
-                ln -s "$lcg_base"/lib64/gfal2-plugins/libgfal* lib/gfal2-plugins
-                ln -s "$lcg_base"/lib64/python3/site-packages/gfal* lib/python3/site-packages
-                cd lib/gfal2-plugins
-                rm libgfal_plugin_http.so libgfal_plugin_xrootd.so
-                curl https://cernbox.cern.ch/index.php/s/qgrogVY4bwcuCXt/download > libgfal_plugin_xrootd.so
-            )
-        fi
+        #     mkdir -p "$CMT_GFAL_DIR"
+        #     (
+        #         cd "$CMT_GFAL_DIR"
+        #         mkdir -p include bin lib/gfal2-plugins lib/python3/site-packages
+        #         ln -s "$lcg_base"/include/gfal2* include
+        #         ln -s "$lcg_base"/bin/gfal-* bin
+        #         ln -s "$lcg_base"/lib64/libgfal* lib
+        #         ln -s "$lcg_base"/lib64/gfal2-plugins/libgfal* lib/gfal2-plugins
+        #         ln -s "$lcg_base"/lib64/python3/site-packages/gfal* lib/python3/site-packages
+        #         cd lib/gfal2-plugins
+        #         rm libgfal_plugin_http.so libgfal_plugin_xrootd.so
+        #         curl https://cernbox.cern.ch/index.php/s/qgrogVY4bwcuCXt/download > libgfal_plugin_xrootd.so
+        #     )
+        # fi
     }
     export -f cmt_setup_software
 
